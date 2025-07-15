@@ -1,68 +1,51 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Globe, 
-  Smartphone, 
-  Zap, 
-  MapPin, 
-  Bot, 
-  ArrowRight,
-  Code2,
-  Palette,
-  Settings
-} from "lucide-react";
-
+import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings } from "lucide-react";
 const Services = () => {
-  const services = [
-    {
-      icon: Globe,
-      title: "Sites Web Professionnels",
-      description: "Création de sites performants sur Wix, WordPress, Shopify et Framer avec design moderne et optimisation SEO.",
-      features: ["Design responsive", "Optimisation SEO", "Performance optimale", "Interface intuitive"],
-      color: "text-primary",
-      delay: "0s"
-    },
-    {
-      icon: Smartphone,
-      title: "Applications Sur-Mesure",
-      description: "Développement d'applications web et mobile personnalisées qui répondent exactement à vos besoins métier.",
-      features: ["Architecture scalable", "API robustes", "UX/UI soignée", "Maintenance incluse"],
-      color: "text-accent",
-      delay: "0.2s"
-    },
-    {
-      icon: Zap,
-      title: "Automatisations Intelligentes",
-      description: "Optimisez vos processus avec Make, Zapier, N8N. Connectez vos outils et gagnez un temps précieux.",
-      features: ["Workflows personnalisés", "Intégrations multiples", "Monitoring avancé", "ROI mesurable"],
-      color: "text-primary",
-      delay: "0.4s"
-    },
-    {
-      icon: MapPin,
-      title: "Génération de Leads",
-      description: "Exploitez l'API Google Maps pour identifier et cibler vos prospects potentiels avec précision.",
-      features: ["Ciblage géographique", "Données qualifiées", "Export automatique", "CRM intégré"],
-      color: "text-accent",
-      delay: "0.6s"
-    },
-    {
-      icon: Bot,
-      title: "IA & Agents Personnalisés",
-      description: "Créez des GPT sur-mesure et des agents IA qui automatisent vos tâches et améliorent votre productivité.",
-      features: ["GPT personnalisés", "Chatbots intelligents", "Analyse automatisée", "Formation incluse"],
-      color: "text-primary",
-      delay: "0.8s"
-    }
-  ];
-
-  return (
-    <section id="services" className="py-20 relative overflow-hidden">
+  const services = [{
+    icon: Globe,
+    title: "Sites Web Professionnels",
+    description: "Création de sites performants sur Wix, WordPress, Shopify et Framer avec design moderne et optimisation SEO.",
+    features: ["Design responsive", "Optimisation SEO", "Performance optimale", "Interface intuitive"],
+    color: "text-primary",
+    delay: "0s"
+  }, {
+    icon: Smartphone,
+    title: "Applications Sur-Mesure",
+    description: "Développement d'applications web et mobile personnalisées qui répondent exactement à vos besoins métier.",
+    features: ["Architecture scalable", "API robustes", "UX/UI soignée", "Maintenance incluse"],
+    color: "text-accent",
+    delay: "0.2s"
+  }, {
+    icon: Zap,
+    title: "Automatisations Intelligentes",
+    description: "Optimisez vos processus avec Make, Zapier, N8N. Connectez vos outils et gagnez un temps précieux.",
+    features: ["Workflows personnalisés", "Intégrations multiples", "Monitoring avancé", "ROI mesurable"],
+    color: "text-primary",
+    delay: "0.4s"
+  }, {
+    icon: MapPin,
+    title: "Génération de Leads",
+    description: "Exploitez l'API Google Maps pour identifier et cibler vos prospects potentiels avec précision.",
+    features: ["Ciblage géographique", "Données qualifiées", "Export automatique", "CRM intégré"],
+    color: "text-accent",
+    delay: "0.6s"
+  }, {
+    icon: Bot,
+    title: "IA & Agents Personnalisés",
+    description: "Créez des GPT sur-mesure et des agents IA qui automatisent vos tâches et améliorent votre productivité.",
+    features: ["GPT personnalisés", "Chatbots intelligents", "Analyse automatisée", "Formation incluse"],
+    color: "text-primary",
+    delay: "0.8s"
+  }];
+  return <section id="services" className="py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute top-10 right-10 animate-float opacity-10">
         <Code2 className="h-32 w-32 text-primary" />
       </div>
-      <div className="absolute bottom-10 left-10 animate-float opacity-10" style={{ animationDelay: '2s' }}>
+      <div className="absolute bottom-10 left-10 animate-float opacity-10" style={{
+      animationDelay: '2s'
+    }}>
         <Settings className="h-24 w-24 text-accent" />
       </div>
 
@@ -76,7 +59,7 @@ const Services = () => {
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Des solutions complètes pour{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
+            <span className="gradient-hero bg-clip-text text-slate-50">
               votre transformation digitale
             </span>
           </h2>
@@ -90,13 +73,10 @@ const Services = () => {
         {/* Grille de services */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <Card 
-                key={service.title}
-                className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up"
-                style={{ animationDelay: service.delay }}
-              >
+          const IconComponent = service.icon;
+          return <Card key={service.title} className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up" style={{
+            animationDelay: service.delay
+          }}>
                 <CardHeader className="pb-4">
                   <div className={`w-12 h-12 rounded-lg glass-effect flex items-center justify-center mb-4 ${service.color} group-hover:glow-primary transition-smooth`}>
                     <IconComponent className="h-6 w-6" />
@@ -111,25 +91,19 @@ const Services = () => {
                 
                 <CardContent className="pt-0">
                   <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-muted-foreground">
+                    {service.features.map((feature, idx) => <li key={idx} className="flex items-center text-sm text-muted-foreground">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
                         {feature}
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                   
-                  <Button 
-                    variant="ghost" 
-                    className="w-full group/btn hover:bg-primary/10 transition-smooth"
-                  >
+                  <Button variant="ghost" className="w-full group/btn hover:bg-primary/10 transition-smooth">
                     En savoir plus
                     <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>
-              </Card>
-            );
-          })}
+              </Card>;
+        })}
         </div>
 
         {/* CTA final */}
@@ -148,8 +122,6 @@ const Services = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Services;
