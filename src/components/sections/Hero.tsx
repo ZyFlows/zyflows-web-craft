@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Zap, Code2 } from "lucide-react";
 import heroTech from "@/assets/hero-tech.jpg";
@@ -39,11 +40,7 @@ const Hero = () => {
 
           {/* Titre principal */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Transformons vos{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
-              idées digitales
-            </span>{" "}
-            en réalité
+            Transformons vos idées digitales en réalité
           </h1>
 
           {/* Sous-titre */}
