@@ -1,8 +1,7 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
-  Code2, 
-  Zap, 
   Mail, 
   Phone, 
   MapPin, 
@@ -87,13 +86,11 @@ const Footer = () => {
             {/* Brand section */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-2 mb-6">
-                <div className="relative">
-                  <Code2 className="h-8 w-8 text-primary" />
-                  <Zap className="h-4 w-4 text-accent absolute -top-1 -right-1" />
-                </div>
-                <span className="text-xl font-bold gradient-hero bg-clip-text text-transparent">
-                  zyFlows
-                </span>
+                <img 
+                  src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
+                  alt="zyFlows" 
+                  className="h-8 w-auto"
+                />
               </div>
               
               <p className="text-muted-foreground mb-6 leading-relaxed">

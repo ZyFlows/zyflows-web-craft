@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -63,10 +64,7 @@ const About = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            L'expertise tech au service de{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
-              vos ambitions
-            </span>
+            L'expertise tech au service de vos ambitions
           </h2>
         </div>
 
