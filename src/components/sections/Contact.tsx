@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+
 const Contact = () => {
   const {
     t
@@ -99,7 +100,7 @@ const Contact = () => {
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium">+972 58 422 9255</div>
+                    <div className="font-medium">+972 58-422-9255</div>
                     <div className="text-sm text-muted-foreground">hello@zyflows.com</div>
                   </div>
                 </div>
@@ -108,7 +109,7 @@ const Contact = () => {
                   <Phone className="h-5 w-5 text-accent" />
                   <div>
                     <div className="font-medium text-center">{t('contact.phone')}</div>
-                    <div className="text-sm text-muted-foreground">+972 58 123 4567</div>
+                    <div className="text-sm text-muted-foreground">+972 58-422-9255</div>
                   </div>
                 </div>
                 
@@ -284,4 +285,5 @@ const Contact = () => {
       </div>
     </section>;
 };
+
 export default Contact;
