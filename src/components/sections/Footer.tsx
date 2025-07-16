@@ -12,8 +12,11 @@ import {
   ArrowRight,
   Send
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   const footerLinks = {
     services: [
       "Sites Web (Wix, WordPress, Shopify)",
@@ -55,27 +58,26 @@ const Footer = () => {
         <div className="py-16 border-b border-border/50">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-semibold mb-4">
-              Restez à la pointe de l'innovation
+              {t('footer.newsletter_title')}
             </h3>
             <p className="text-muted-foreground mb-8">
-              Recevez nos insights tech, études de cas et conseils pour optimiser 
-              votre transformation digitale. Newsletter mensuelle, 0 spam.
+              {t('footer.newsletter_desc')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Input 
                 type="email" 
-                placeholder="votre@email.com"
+                placeholder={t('footer.newsletter_placeholder')}
                 className="glass-effect border-border/50 flex-1"
               />
               <Button className="glow-primary shrink-0">
-                S'abonner
+                {t('footer.newsletter_button')}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
             </div>
             
             <p className="text-xs text-muted-foreground mt-4">
-              En vous abonnant, vous acceptez notre politique de confidentialité.
+              {t('footer.newsletter_disclaimer')}
             </p>
           </div>
         </div>
@@ -94,8 +96,7 @@ const Footer = () => {
               </div>
               
               <p className="text-muted-foreground mb-6 leading-relaxed">
-                Solutions digitales innovantes depuis Israël. Nous transformons vos idées 
-                en applications performantes, sites web exceptionnels et automatisations intelligentes.
+                {t('footer.company_desc')}
               </p>
               
               <div className="space-y-3 mb-6">
@@ -132,7 +133,7 @@ const Footer = () => {
 
             {/* Services */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Services</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t('footer.services_title')}</h4>
               <ul className="space-y-3">
                 {footerLinks.services.map((link, index) => (
                   <li key={index}>
@@ -149,7 +150,7 @@ const Footer = () => {
 
             {/* Company */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Entreprise</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t('footer.company_title')}</h4>
               <ul className="space-y-3">
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
@@ -166,7 +167,7 @@ const Footer = () => {
 
             {/* Resources */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Ressources</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t('footer.resources_title')}</h4>
               <ul className="space-y-3">
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
@@ -183,7 +184,7 @@ const Footer = () => {
 
             {/* Legal */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Légal</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t('footer.legal_title')}</h4>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link, index) => (
                   <li key={index}>
@@ -204,10 +205,10 @@ const Footer = () => {
         <div className="py-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <span>© 2024 zyFlows. Tous droits réservés.</span>
+              <span>{t('footer.copyright')}</span>
               <span className="hidden md:inline">•</span>
               <span className="flex items-center gap-2">
-                Made with <span className="text-red-500">♥</span> in Israel
+                {t('footer.made_with_love')}
               </span>
             </div>
             
@@ -217,7 +218,7 @@ const Footer = () => {
                 size="sm"
                 className="hover:bg-primary/10 group"
               >
-                Démarrer un projet
+                {t('footer.start_project')}
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </div>

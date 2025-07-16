@@ -1,10 +1,14 @@
+
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, ArrowRight, MessageSquare } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Testimonials = () => {
+  const { t } = useLanguage();
+
   const testimonials = [
     {
       name: "Sarah Chen",
@@ -100,16 +104,15 @@ const Testimonials = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
             <MessageSquare className="h-4 w-4 text-accent mr-2" />
-            <span className="text-sm font-medium">Témoignages Clients</span>
+            <span className="text-sm font-medium">{t('testimonials.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ce que disent nos clients satisfaits
+            {t('testimonials.title')}
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Plus de 50 projets réalisés, des résultats concrets et mesurables. 
-            Découvrez comment zyFlows a transformé leurs entreprises.
+            {t('testimonials.subtitle')}
           </p>
         </div>
 
@@ -180,10 +183,10 @@ const Testimonials = () => {
         {/* Stats globaux */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {[
-            { number: "50+", label: "Projets réalisés" },
-            { number: "99%", label: "Clients satisfaits" },
-            { number: "4.9/5", label: "Note moyenne" },
-            { number: "100%", label: "Projets livrés à temps" }
+            { number: "50+", label: t('testimonials.stat1') },
+            { number: "99%", label: t('testimonials.stat2') },
+            { number: "4.9/5", label: t('testimonials.stat3') },
+            { number: "100%", label: t('testimonials.stat4') }
           ].map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">
@@ -200,14 +203,13 @@ const Testimonials = () => {
         <div className="text-center">
           <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4">
-              Rejoignez nos clients satisfaits
+              {t('testimonials.cta_title')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Votre success story pourrait être la prochaine. Parlons de votre projet 
-              et découvrons ensemble comment transformer vos défis en opportunités.
+              {t('testimonials.cta_desc')}
             </p>
             <Button size="lg" className="glow-primary">
-              Démarrer votre projet
+              {t('testimonials.cta_button')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

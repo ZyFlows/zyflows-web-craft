@@ -45,10 +45,17 @@ const About = () => {
   ];
 
   const achievements = [
-    { number: "50+", label: "Projets réalisés", icon: Award },
+    { number: "50+", label: t('testimonials.stat1'), icon: Award },
     { number: "15+", label: "Pays touchés", icon: Globe },
-    { number: "99%", label: "Taux de satisfaction", icon: Heart },
+    { number: "99%", label: t('testimonials.stat2'), icon: Heart },
     { number: "5", label: "Années d'expertise", icon: Target }
+  ];
+
+  const features = [
+    "Solutions 100% personnalisées",
+    "Support technique réactif 24/7",
+    "Méthodologie agile et transparente",
+    "Formation et accompagnement inclus"
   ];
 
   return (
@@ -83,12 +90,7 @@ const About = () => {
             </p>
             
             <div className="space-y-4 mb-8">
-              {[
-                "Solutions 100% personnalisées",
-                "Support technique réactif 24/7",
-                "Méthodologie agile et transparente",
-                "Formation et accompagnement inclus"
-              ].map((item, index) => (
+              {features.map((item, index) => (
                 <div key={index} className="flex items-center">
                   <CheckCircle className="h-5 w-5 text-primary mr-3" />
                   <span className="text-muted-foreground">{item}</span>

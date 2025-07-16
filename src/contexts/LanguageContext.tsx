@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 export type Language = 'fr' | 'en' | 'he';
 
@@ -25,6 +25,15 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('fr');
+
+  // Effet pour détecter la langue du navigateur au premier chargement
+  useEffect(() => {
+    const browserLang = navigator.language.slice(0, 2) as Language;
+    const supportedLangs: Language[] = ['fr', 'en', 'he'];
+    if (supportedLangs.includes(browserLang)) {
+      setLanguage(browserLang);
+    }
+  }, []);
 
   const translations = {
     fr: {
@@ -127,6 +136,33 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.cta_desc': 'Que vous soyez une startup ambitieuse ou une entreprise établie, nous avons les compétences et la passion pour propulser votre projet vers le succès.',
       'about.cta_button1': 'Discuter de votre projet',
       'about.cta_button2': 'Voir nos témoignages',
+
+      // Testimonials Section
+      'testimonials.badge': 'Témoignages Clients',
+      'testimonials.title': 'Ce que disent nos clients satisfaits',
+      'testimonials.subtitle': 'Plus de 50 projets réalisés, des résultats concrets et mesurables. Découvrez comment zyFlows a transformé leurs entreprises.',
+      'testimonials.cta_title': 'Rejoignez nos clients satisfaits',
+      'testimonials.cta_desc': 'Votre success story pourrait être la prochaine. Parlons de votre projet et découvrons ensemble comment transformer vos défis en opportunités.',
+      'testimonials.cta_button': 'Démarrer votre projet',
+      'testimonials.stat1': 'Projets réalisés',
+      'testimonials.stat2': 'Clients satisfaits',
+      'testimonials.stat3': 'Note moyenne',
+      'testimonials.stat4': 'Projets livrés à temps',
+
+      // Footer Section
+      'footer.newsletter_title': 'Restez à la pointe de l\'innovation',
+      'footer.newsletter_desc': 'Recevez nos insights tech, études de cas et conseils pour optimiser votre transformation digitale. Newsletter mensuelle, 0 spam.',
+      'footer.newsletter_placeholder': 'votre@email.com',
+      'footer.newsletter_button': 'S\'abonner',
+      'footer.newsletter_disclaimer': 'En vous abonnant, vous acceptez notre politique de confidentialité.',
+      'footer.company_desc': 'Solutions digitales innovantes depuis Israël. Nous transformons vos idées en applications performantes, sites web exceptionnels et automatisations intelligentes.',
+      'footer.services_title': 'Services',
+      'footer.company_title': 'Entreprise',
+      'footer.resources_title': 'Ressources',
+      'footer.legal_title': 'Légal',
+      'footer.copyright': '© 2024 zyFlows. Tous droits réservés.',
+      'footer.made_with_love': 'Made with ♥ in Israel',
+      'footer.start_project': 'Démarrer un projet',
       
       // Language Selector
       'language.translate': 'Traduire',
@@ -143,21 +179,21 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'nav.about': 'About',
       'nav.testimonials': 'Testimonials',
       'nav.contact': 'Contact',
-      'nav.start_project': 'Start a project',
+      'nav.start_project': 'Start a Project',
       
       // Hero Section
-      'hero.badge': 'Innovative digital solutions from Israel',
-      'hero.title': 'Transform your digital ideas into reality',
+      'hero.badge': 'Innovative Digital Solutions from Israel',
+      'hero.title': 'Transform Your Digital Ideas into Reality',
       'hero.subtitle': 'zyFlows designs high-performing websites, custom applications and intelligent automations that propel your business toward the future.',
-      'hero.cta_services': 'Discover our services',
-      'hero.cta_projects': 'View our projects',
-      'hero.stat1': 'Projects completed',
-      'hero.stat2': 'Satisfied clients',
-      'hero.stat3': 'Responsive support',
+      'hero.cta_services': 'Discover Our Services',
+      'hero.cta_projects': 'View Our Projects',
+      'hero.stat1': 'Projects Completed',
+      'hero.stat2': 'Satisfied Clients',
+      'hero.stat3': 'Responsive Support',
       
       // Services Section
       'services.badge': 'Our Services',
-      'services.title': 'Complete solutions for your digital transformation',
+      'services.title': 'Complete Solutions for Your Digital Transformation',
       'services.subtitle': 'From website design to AI automations, we master the entire digital value chain to propel your business toward technological excellence.',
       'services.web_title': 'Professional Websites',
       'services.web_desc': 'Creating high-performing websites on Wix, WordPress, Shopify and Framer with modern design and SEO optimization.',
@@ -169,40 +205,40 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'services.leads_desc': 'Leverage Google Maps API to identify and target your potential prospects with precision.',
       'services.ai_title': 'AI & Custom Agents',
       'services.ai_desc': 'Create custom GPTs and AI agents that automate your tasks and improve your productivity.',
-      'services.feature1': 'Responsive design',
-      'services.feature2': 'SEO optimization',
-      'services.feature3': 'Optimal performance',
-      'services.feature4': 'Intuitive interface',
-      'services.feature5': 'Scalable architecture',
+      'services.feature1': 'Responsive Design',
+      'services.feature2': 'SEO Optimization',
+      'services.feature3': 'Optimal Performance',
+      'services.feature4': 'Intuitive Interface',
+      'services.feature5': 'Scalable Architecture',
       'services.feature6': 'Robust APIs',
       'services.feature7': 'Polished UX/UI',
-      'services.feature8': 'Maintenance included',
-      'services.feature9': 'Custom workflows',
-      'services.feature10': 'Multiple integrations',
-      'services.feature11': 'Advanced monitoring',
+      'services.feature8': 'Maintenance Included',
+      'services.feature9': 'Custom Workflows',
+      'services.feature10': 'Multiple Integrations',
+      'services.feature11': 'Advanced Monitoring',
       'services.feature12': 'Measurable ROI',
-      'services.feature13': 'Geographic targeting',
-      'services.feature14': 'Qualified data',
-      'services.feature15': 'Automatic export',
+      'services.feature13': 'Geographic Targeting',
+      'services.feature14': 'Qualified Data',
+      'services.feature15': 'Automatic Export',
       'services.feature16': 'Integrated CRM',
       'services.feature17': 'Custom GPTs',
-      'services.feature18': 'Intelligent chatbots',
-      'services.feature19': 'Automated analysis',
-      'services.feature20': 'Training included',
-      'services.learn_more': 'Learn more',
-      'services.cta_title': 'Ready to transform your vision into reality?',
+      'services.feature18': 'Intelligent Chatbots',
+      'services.feature19': 'Automated Analysis',
+      'services.feature20': 'Training Included',
+      'services.learn_more': 'Learn More',
+      'services.cta_title': 'Ready to Transform Your Vision into Reality?',
       'services.cta_desc': 'Let\'s discuss your project and discover together the perfect solutions for your business.',
-      'services.cta_button': 'Schedule a free call',
+      'services.cta_button': 'Schedule a Free Call',
 
       // Projects Section
       'projects.badge': 'Our Achievements',
-      'projects.title': 'Projects that transform businesses',
+      'projects.title': 'Projects That Transform Businesses',
       'projects.subtitle': 'Discover how we helped our clients achieve their goals through innovative and high-performing digital solutions.',
       'projects.project1_title': 'E-commerce Fashion Forward',
       'projects.project1_desc': 'Shopify online store with advanced customization system and complete marketing automations.',
       'projects.project2_title': 'SaaS Analytics Dashboard',
       'projects.project2_desc': 'Complete web application for data analysis with multiple API integrations and real-time visualizations.',
-      'projects.project3_title': 'Lead Gen Automation',
+      'projects.project3_title': 'Lead Generation Automation',
       'projects.project3_desc': 'Complete lead acquisition system via Google Maps API with integrated CRM and automated workflows.',
       'projects.project4_title': 'AI Customer Support Chatbot',
       'projects.project4_desc': 'Intelligent conversational agent with custom GPT for 24/7 customer support of a fintech company.',
@@ -210,14 +246,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'projects.project5_desc': 'Framer showcase site with smooth animations and interactive gallery for a renowned architecture firm.',
       'projects.project6_title': 'Automated HR Workflow',
       'projects.project6_desc': 'HR management system with Zapier automations for onboarding, training and employee evaluation.',
-      'projects.view_project': 'View project',
-      'projects.cta_title': 'Your project could be next',
+      'projects.view_project': 'View Project',
+      'projects.cta_title': 'Your Project Could Be Next',
       'projects.cta_desc': 'Every project is unique. Let\'s discuss your challenges and objectives to create a perfectly adapted solution.',
-      'projects.cta_button': 'Start your project',
+      'projects.cta_button': 'Start Your Project',
 
       // About Section
       'about.badge': 'About zyFlows',
-      'about.title': 'Tech expertise at the service of your ambitions',
+      'about.title': 'Tech Expertise at the Service of Your Ambitions',
       'about.mission_title': 'Our Mission',
       'about.mission_text1': 'At zyFlows, we believe technology should serve humans, not the other way around. Based in Israel, our team combines cutting-edge technological innovation with a deeply human and accessible approach.',
       'about.mission_text2': 'We transform complex challenges into elegant solutions, whether through high-performing websites, intelligent automations, or custom AI agents.',
@@ -230,15 +266,42 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.value3_desc': 'AI, automation and new technologies hold no secrets for us. We stay at the cutting edge.',
       'about.value4_title': 'Global Vision',
       'about.value4_desc': 'Based in Israel, we work with clients worldwide and master international challenges.',
-      'about.team_button': 'Discover our team',
-      'about.cta_title': 'Ready to join the adventure?',
+      'about.team_button': 'Discover Our Team',
+      'about.cta_title': 'Ready to Join the Adventure?',
       'about.cta_desc': 'Whether you\'re an ambitious startup or an established company, we have the skills and passion to propel your project to success.',
-      'about.cta_button1': 'Discuss your project',
-      'about.cta_button2': 'View our testimonials',
+      'about.cta_button1': 'Discuss Your Project',
+      'about.cta_button2': 'View Our Testimonials',
+
+      // Testimonials Section
+      'testimonials.badge': 'Client Testimonials',
+      'testimonials.title': 'What Our Satisfied Clients Say',
+      'testimonials.subtitle': 'Over 50 completed projects, concrete and measurable results. Discover how zyFlows transformed their businesses.',
+      'testimonials.cta_title': 'Join Our Satisfied Clients',
+      'testimonials.cta_desc': 'Your success story could be next. Let\'s talk about your project and discover together how to turn your challenges into opportunities.',
+      'testimonials.cta_button': 'Start Your Project',
+      'testimonials.stat1': 'Projects Completed',
+      'testimonials.stat2': 'Satisfied Clients',
+      'testimonials.stat3': 'Average Rating',
+      'testimonials.stat4': 'Projects Delivered on Time',
+
+      // Footer Section
+      'footer.newsletter_title': 'Stay at the Forefront of Innovation',
+      'footer.newsletter_desc': 'Receive our tech insights, case studies and tips to optimize your digital transformation. Monthly newsletter, 0 spam.',
+      'footer.newsletter_placeholder': 'your@email.com',
+      'footer.newsletter_button': 'Subscribe',
+      'footer.newsletter_disclaimer': 'By subscribing, you accept our privacy policy.',
+      'footer.company_desc': 'Innovative digital solutions from Israel. We transform your ideas into high-performing applications, exceptional websites and intelligent automations.',
+      'footer.services_title': 'Services',
+      'footer.company_title': 'Company',
+      'footer.resources_title': 'Resources',
+      'footer.legal_title': 'Legal',
+      'footer.copyright': '© 2024 zyFlows. All rights reserved.',
+      'footer.made_with_love': 'Made with ♥ in Israel',
+      'footer.start_project': 'Start a Project',
       
       // Language Selector
       'language.translate': 'Translate',
-      'language.select': 'Choose language',
+      'language.select': 'Choose Language',
       'language.french': 'Français',
       'language.english': 'English',
       'language.hebrew': 'עברית'
@@ -255,8 +318,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       
       // Hero Section
       'hero.badge': 'פתרונות דיגיטליים חדשניים מישראל',
-      'hero.title': 'הופכים את הרעיונות הדיגיטליים שלכם למציאות',
-      'hero.subtitle': 'zyFlows מעצבת אתרי אינטרנט מתקדמים, אפליקציות מותאמות אישית ואוטומציות חכמות שמניעות את העסק שלכם קדימה.',
+      'hero.title': 'הופכים רעיונות דיגיטליים למציאות',
+      'hero.subtitle': 'zyFlows מעצבת אתרי אינטרנט מתקדמים, יישומים מותאמים אישית ואוטומציות חכמות שמניעות את העסק שלכם קדימה.',
       'hero.cta_services': 'גלו את השירותים שלנו',
       'hero.cta_projects': 'צפו בפרויקטים שלנו',
       'hero.stat1': 'פרויקטים שהושלמו',
@@ -266,17 +329,17 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       // Services Section
       'services.badge': 'השירותים שלנו',
       'services.title': 'פתרונות מלאים לטרנספורמציה דיגיטלית',
-      'services.subtitle': 'מעיצוב אתרים ועד אוטומציות AI, אנחנו שולטים בכל שרשרת הערך הדיגיטלית כדי להוביל את העסק שלכם למצוינות טכנולוגית.',
+      'services.subtitle': 'מעיצוב אתרים ועד אוטומציות בינה מלאכותית, אנחנו שולטים בכל שרשרת הערך הדיגיטלית כדי להוביל את העסק שלכם למצוינות טכנולוגית.',
       'services.web_title': 'אתרי אינטרנט מקצועיים',
       'services.web_desc': 'יצירת אתרים מתקדמים ב-Wix, WordPress, Shopify ו-Framer עם עיצוב מודרני ואופטימיזציה לקידום באינטרנט.',
-      'services.app_title': 'אפליקציות מותאמות אישית',
-      'services.app_desc': 'פיתוח אפליקציות אינטרנט וניידות מותאמות אישית שמותאמות בדיוק לצרכים העסקיים שלכם.',
+      'services.app_title': 'יישומים מותאמים אישית',
+      'services.app_desc': 'פיתוח יישומי אינטרנט וניידות מותאמים אישית שמותאמים בדיוק לצרכים העסקיים שלכם.',
       'services.automation_title': 'אוטומציות חכמות',
-      'services.automation_desc': 'בצעו אופטימיזציה לתהליכים שלכם עם Make, Zapier, N8N. חברו את הכלים שלכם וחסכו זמן יקר.',
+      'services.automation_desc': 'ייעלו את התהליכים שלכם עם Make, Zapier, N8N. חברו את הכלים שלכם וחסכו זמן יקר.',
       'services.leads_title': 'יצירת לידים',
       'services.leads_desc': 'נצלו את ה-API של Google Maps כדי לזהות ולמקד את הלקוחות הפוטנציאליים שלכם בדיוק.',
       'services.ai_title': 'בינה מלאכותית וסוכנים מותאמים',
-      'services.ai_desc': 'צרו GPT מותאמים אישית וסוכני AI שמבצעים אוטומציה למשימות שלכם ומשפרים את הפרודקטיביות.',
+      'services.ai_desc': 'צרו GPT מותאמים אישית וסוכני בינה מלאכותית שמבצעים אוטומציה למשימות שלכם ומשפרים את הפרודקטיביות.',
       'services.feature1': 'עיצוב רספונסיבי',
       'services.feature2': 'אופטימיזציה לקידום באינטרנט',
       'services.feature3': 'ביצועים אופטימליים',
@@ -288,7 +351,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'services.feature9': 'זרימות עבודה מותאמות',
       'services.feature10': 'אינטגרציות מרובות',
       'services.feature11': 'ניטור מתקדם',
-      'services.feature12': 'ROI ניתן למדידה',
+      'services.feature12': 'החזר השקעה ניתן למדידה',
       'services.feature13': 'מיקוד גיאוגרפי',
       'services.feature14': 'נתונים מוסמכים',
       'services.feature15': 'ייצוא אוטומטי',
@@ -309,10 +372,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'projects.project1_title': 'מסחר אלקטרוני Fashion Forward',
       'projects.project1_desc': 'חנות אונליין ב-Shopify עם מערכת התאמה אישית מתקדמת ואוטומציות שיווק מלאות.',
       'projects.project2_title': 'לוח בקרת אנליטיקה SaaS',
-      'projects.project2_desc': 'אפליקציית אינטרנט מלאה לניתוח נתונים עם אינטגרציות API מרובות והדמיות בזמן אמת.',
+      'projects.project2_desc': 'יישום אינטרנט מלא לניתוח נתונים עם אינטגרציות API מרובות והדמיות בזמן אמת.',
       'projects.project3_title': 'אוטומציית יצירת לידים',
       'projects.project3_desc': 'מערכת מלאה לרכישת לידים דרך Google Maps API עם CRM משולב וזרימות עבודה אוטומטיות.',
-      'projects.project4_title': 'צ\'אטבוט AI לתמיכת לקוחות',
+      'projects.project4_title': 'צ\'אטבוט בינה מלאכותית לתמיכת לקוחות',
       'projects.project4_desc': 'סוכן שיחה חכם עם GPT מותאם אישית לתמיכת לקוחות 24/7 של חברת פינטק.',
       'projects.project5_title': 'תיק עבודות אדריכל',
       'projects.project5_desc': 'אתר תצוגה ב-Framer עם אנימציות חלקות וגלריה אינטראקטיבית למשרד אדריכלות נודע.',
@@ -328,7 +391,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.title': 'מומחיות טכנולוגית בשירות השאיפות שלכם',
       'about.mission_title': 'המשימה שלנו',
       'about.mission_text1': 'ב-zyFlows, אנחנו מאמינים שהטכנולוגיה צריכה לשרת את האדם, לא להיפך. הצוות שלנו, הממוקם בישראל, משלב חדשנות טכנולוגית מתקדמת עם גישה אנושית ונגישה.',
-      'about.mission_text2': 'אנחנו הופכים אתגרים מורכבים לפתרונות אלגנטיים, בין אם דרך אתרי אינטרנט מתקדמים, אוטומציות חכמות או סוכני AI מותאמים אישית.',
+      'about.mission_text2': 'אנחנו הופכים אתגרים מורכבים לפתרונות אלגנטיים, בין אם דרך אתרי אינטרנט מתקדמים, אוטומציות חכמות או סוכני בינה מלאכותית מותאמים אישית.',
       'about.values_title': 'הערכים הבסיסיים שלנו',
       'about.value1_title': 'מצוינות טכנית',
       'about.value1_desc': 'אנחנו דוחפים את הגבולות של מה שאפשר עם הטכנולוגיות האחרונות ושיטות העבודה הטובות ביותר בפיתוח.',
@@ -343,6 +406,33 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.cta_desc': 'בין אם אתם סטארט-אפ שאפתני או חברה מבוססת, יש לנו את הכישורים והתשוקה להוביל את הפרויקט שלכם להצלחה.',
       'about.cta_button1': 'דונו בפרויקט שלכם',
       'about.cta_button2': 'צפו בהמלצות שלנו',
+
+      // Testimonials Section
+      'testimonials.badge': 'המלצות לקוחות',
+      'testimonials.title': 'מה אומרים הלקוחות המרוצים שלנו',
+      'testimonials.subtitle': 'יותר מ-50 פרויקטים שהושלמו, תוצאות קונקרטיות וניתנות למדידה. גלו איך zyFlows שינתה את העסקים שלהם.',
+      'testimonials.cta_title': 'הצטרפו ללקוחות המרוצים שלנו',
+      'testimonials.cta_desc': 'סיפור ההצלחה שלכם יכול להיות הבא. בואו נדבר על הפרויקט שלכם ונגלה יחד איך להפוך את האתגרים שלכם להזדמנויות.',
+      'testimonials.cta_button': 'התחילו את הפרויקט שלכם',
+      'testimonials.stat1': 'פרויקטים שהושלמו',
+      'testimonials.stat2': 'לקוחות מרוצים',
+      'testimonials.stat3': 'ציון ממוצע',
+      'testimonials.stat4': 'פרויקטים שנמסרו בזמן',
+
+      // Footer Section
+      'footer.newsletter_title': 'הישארו בחזית החדשנות',
+      'footer.newsletter_desc': 'קבלו את התובנות הטכנולוגיות שלנו, מקרי בוחן וטיפים לייעול הטרנספורמציה הדיגיטלית שלכם. ניוזלטר חודשי, 0 ספאם.',
+      'footer.newsletter_placeholder': 'האימייל@שלכם.com',
+      'footer.newsletter_button': 'הרשמה',
+      'footer.newsletter_disclaimer': 'על ידי ההרשמה, אתם מסכימים למדיניות הפרטיות שלנו.',
+      'footer.company_desc': 'פתרונות דיגיטליים חדשניים מישראל. אנחנו הופכים את הרעיונות שלכם ליישומים מתקדמים, אתרי אינטרנט יוצאי דופן ואוטומציות חכמות.',
+      'footer.services_title': 'שירותים',
+      'footer.company_title': 'החברה',
+      'footer.resources_title': 'משאבים',
+      'footer.legal_title': 'משפטי',
+      'footer.copyright': '© 2024 zyFlows. כל הזכויות שמורות.',
+      'footer.made_with_love': 'נוצר עם ♥ בישראל',
+      'footer.start_project': 'התחל פרויקט',
       
       // Language Selector
       'language.translate': 'תרגם',
