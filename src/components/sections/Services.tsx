@@ -106,7 +106,7 @@ const Services = () => {
                         {language === 'he' ? (
                           <>
                             <span className="text-right">{feature}</span>
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary ml-8 flex-shrink-0" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-8 flex-shrink-0" />
                           </>
                         ) : (
                           <>
