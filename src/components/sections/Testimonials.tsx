@@ -121,7 +121,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={testimonial.name}
-              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up"
+              className={`gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up ${language === 'he' ? 'testimonial-card' : ''}`}
               style={{ animationDelay: testimonial.delay }}
             >
               <CardHeader className="pb-4">
@@ -134,22 +134,17 @@ const Testimonials = () => {
                 </div>
 
                 {/* Témoignage */}
-                <CardDescription className="text-base italic mb-6 text-foreground">
+                <CardDescription className={`text-base italic mb-6 text-foreground ${language === 'he' ? 'text-right' : ''}`}>
                   "{testimonial.content}"
                 </CardDescription>
 
                 {/* Tags projet */}
-                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                   {testimonial.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
                     </Badge>
                   ))}
-                </div>
-
-                {/* Projet */}
-                <div className="text-sm text-muted-foreground mb-4">
-                  <span className="font-medium">{t('testimonials.project_label')} :</span> {testimonial.project}
                 </div>
               </CardHeader>
               
@@ -163,7 +158,7 @@ const Testimonials = () => {
                     </AvatarFallback>
                   </Avatar>
                   
-                  <div className="flex-1">
+                  <div className={`flex-1 ${language === 'he' ? 'text-right' : ''}`}>
                     <div className="font-semibold text-foreground">
                       {testimonial.name}
                     </div>
@@ -181,7 +176,7 @@ const Testimonials = () => {
         </div>
 
         {/* Stats globaux */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 ${language === 'he' ? 'stats-container' : ''}`}>
           {[
             { number: "50+", label: t('testimonials.stat1') },
             { number: "99%", label: t('testimonials.stat2') },
