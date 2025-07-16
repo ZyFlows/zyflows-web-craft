@@ -25,7 +25,72 @@
   margin-right: 0.5rem;
 }
 
+.rtl .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+.rtl .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
 .rtl .space-x-8 > * + * {
   margin-left: 0;
   margin-right: 2rem;
+}
+
+.rtl .space-x-4 > * + * {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .justify-between {
+  flex-direction: row-reverse;
+}
+
+.rtl .items-center {
+  align-items: center;
+}
+
+.rtl .gap-2 {
+  gap: 0.5rem;
+}
+
+.rtl .gap-4 {
+  gap: 1rem;
+}
+
+.rtl .px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.rtl .py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Navigation RTL adjustments */
+.rtl .hidden.md\\:flex {
+  flex-direction: row-reverse;
+}
+
+.rtl .sm\\:flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .flex-col.sm\\:flex-row {
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .rtl .flex-col.sm\\:flex-row {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Mobile menu RTL */
+.rtl .md\\:hidden .space-y-1 > * {
+  text-align: right;
 }

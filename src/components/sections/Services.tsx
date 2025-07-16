@@ -5,7 +5,7 @@ import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settin
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Services = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const services = [
     {
@@ -51,12 +51,12 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20 relative overflow-hidden">
+    <section id="services" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
-      <div className="absolute top-10 right-10 animate-float opacity-10">
+      <div className={`absolute top-10 ${language === 'he' ? 'left-10' : 'right-10'} animate-float opacity-10`}>
         <Code2 className="h-32 w-32 text-primary" />
       </div>
-      <div className="absolute bottom-10 left-10 animate-float opacity-10" style={{ animationDelay: '2s' }}>
+      <div className={`absolute bottom-10 ${language === 'he' ? 'right-10' : 'left-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
         <Settings className="h-24 w-24 text-accent" />
       </div>
 
@@ -64,7 +64,7 @@ const Services = () => {
         {/* En-tête de section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-            <Palette className="h-4 w-4 text-primary mr-2" />
+            <Palette className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('services.badge')}</span>
           </div>
           
@@ -102,8 +102,8 @@ const Services = () => {
                 <CardContent className="pt-0">
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
+                      <li key={idx} className={`flex items-center text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                        <div className={`w-1.5 h-1.5 rounded-full bg-primary ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
                         {feature}
                       </li>
                     ))}
@@ -111,7 +111,7 @@ const Services = () => {
                   
                   <Button variant="ghost" className="w-full group/btn hover:bg-primary/10 transition-smooth">
                     {t('services.learn_more')}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
                 </CardContent>
               </Card>
@@ -130,7 +130,7 @@ const Services = () => {
             </p>
             <Button size="lg" className="glow-primary">
               {t('services.cta_button')}
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
         </div>

@@ -5,10 +5,10 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import heroTech from "@/assets/hero-tech.jpg";
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
-    <section id="home" className="min-h-screen flex items-center relative overflow-hidden">
+    <section id="home" className={`min-h-screen flex items-center relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background image */}
       <div 
         className="absolute inset-0 z-0 opacity-20"
@@ -23,13 +23,13 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
       
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 animate-float">
+      <div className={`absolute top-20 ${language === 'he' ? 'right-10' : 'left-10'} animate-float`}>
         <Code2 className="h-8 w-8 text-primary/30" />
       </div>
-      <div className="absolute top-40 right-20 animate-float" style={{ animationDelay: '1s' }}>
+      <div className={`absolute top-40 ${language === 'he' ? 'left-20' : 'right-20'} animate-float`} style={{ animationDelay: '1s' }}>
         <Zap className="h-6 w-6 text-accent/40" />
       </div>
-      <div className="absolute bottom-40 left-20 animate-float" style={{ animationDelay: '2s' }}>
+      <div className={`absolute bottom-40 ${language === 'he' ? 'right-20' : 'left-20'} animate-float`} style={{ animationDelay: '2s' }}>
         <Sparkles className="h-10 w-10 text-primary/20" />
       </div>
 
@@ -37,7 +37,7 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
-            <Sparkles className="h-4 w-4 text-primary mr-2" />
+            <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
 
@@ -52,13 +52,13 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up ${language === 'he' ? 'sm:flex-row-reverse' : ''}`} style={{ animationDelay: '0.6s' }}>
             <Button 
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
             >
               {t('hero.cta_services')}
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} h-5 w-5 transition-transform`} />
             </Button>
             
             <Button 
