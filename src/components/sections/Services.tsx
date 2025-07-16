@@ -10,41 +10,41 @@ const Services = () => {
   const services = [
     {
       icon: Globe,
-      title: "Sites Web Professionnels",
-      description: "Création de sites performants sur Wix, WordPress, Shopify et Framer avec design moderne et optimisation SEO.",
-      features: ["Design responsive", "Optimisation SEO", "Performance optimale", "Interface intuitive"],
+      title: t('services.web_title'),
+      description: t('services.web_desc'),
+      features: [t('services.feature1'), t('services.feature2'), t('services.feature3'), t('services.feature4')],
       color: "text-primary",
       delay: "0s"
     },
     {
       icon: Smartphone,
-      title: "Applications Sur-Mesure",
-      description: "Développement d'applications web et mobile personnalisées qui répondent exactement à vos besoins métier.",
-      features: ["Architecture scalable", "API robustes", "UX/UI soignée", "Maintenance incluse"],
+      title: t('services.app_title'),
+      description: t('services.app_desc'),
+      features: [t('services.feature5'), t('services.feature6'), t('services.feature7'), t('services.feature8')],
       color: "text-accent",
       delay: "0.2s"
     },
     {
       icon: Zap,
-      title: "Automatisations Intelligentes",
-      description: "Optimisez vos processus avec Make, Zapier, N8N. Connectez vos outils et gagnez un temps précieux.",
-      features: ["Workflows personnalisés", "Intégrations multiples", "Monitoring avancé", "ROI mesurable"],
+      title: t('services.automation_title'),
+      description: t('services.automation_desc'),
+      features: [t('services.feature9'), t('services.feature10'), t('services.feature11'), t('services.feature12')],
       color: "text-primary",
       delay: "0.4s"
     },
     {
       icon: MapPin,
-      title: "Génération de Leads",
-      description: "Exploitez l'API Google Maps pour identifier et cibler vos prospects potentiels avec précision.",
-      features: ["Ciblage géographique", "Données qualifiées", "Export automatique", "CRM intégré"],
+      title: t('services.leads_title'),
+      description: t('services.leads_desc'),
+      features: [t('services.feature13'), t('services.feature14'), t('services.feature15'), t('services.feature16')],
       color: "text-accent",
       delay: "0.6s"
     },
     {
       icon: Bot,
-      title: "IA & Agents Personnalisés",
-      description: "Créez des GPT sur-mesure et des agents IA qui automatisent vos tâches et améliorent votre productivité.",
-      features: ["GPT personnalisés", "Chatbots intelligents", "Analyse automatisée", "Formation incluse"],
+      title: t('services.ai_title'),
+      description: t('services.ai_desc'),
+      features: [t('services.feature17'), t('services.feature18'), t('services.feature19'), t('services.feature20')],
       color: "text-primary",
       delay: "0.8s"
     }
@@ -110,7 +110,7 @@ const Services = () => {
                   </ul>
                   
                   <Button variant="ghost" className="w-full group/btn hover:bg-primary/10 transition-smooth">
-                    En savoir plus
+                    {t('services.learn_more')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>
@@ -123,13 +123,13 @@ const Services = () => {
         <div className="text-center">
           <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4">
-              Prêt à transformer votre vision en réalité ?
+              {t('services.cta_title')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Discutons de votre projet et découvrons ensemble les solutions parfaites pour votre entreprise.
+              {t('services.cta_desc')}
             </p>
             <Button size="lg" className="glow-primary">
-              Planifier un appel gratuit
+              {t('services.cta_button')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

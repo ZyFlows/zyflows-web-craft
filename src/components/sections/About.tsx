@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,26 +20,26 @@ const About = () => {
   const values = [
     {
       icon: Target,
-      title: "Excellence Technique",
-      description: "Nous repoussons les limites du possible avec les dernières technologies et les meilleures pratiques du développement.",
+      title: t('about.value1_title'),
+      description: t('about.value1_desc'),
       color: "text-primary"
     },
     {
       icon: Heart,
-      title: "Approche Humaine",
-      description: "Chaque projet est unique. Nous écoutons, comprenons et créons des solutions qui reflètent vraiment vos besoins.",
+      title: t('about.value2_title'),
+      description: t('about.value2_desc'),
       color: "text-accent"
     },
     {
       icon: Zap,
-      title: "Innovation Continue",
-      description: "L'IA, l'automatisation et les nouvelles technologies n'ont plus de secrets pour nous. Nous restons à la pointe.",
+      title: t('about.value3_title'),
+      description: t('about.value3_desc'),
       color: "text-primary"
     },
     {
       icon: Globe,
-      title: "Vision Globale",
-      description: "Basés en Israël, nous travaillons avec des clients du monde entier et maîtrisons les enjeux internationaux.",
+      title: t('about.value4_title'),
+      description: t('about.value4_desc'),
       color: "text-accent"
     }
   ];
@@ -96,7 +97,7 @@ const About = () => {
             </div>
 
             <Button size="lg" className="glow-primary">
-              Découvrir notre équipe
+              {t('about.team_button')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -140,7 +141,7 @@ const About = () => {
         {/* Valeurs */}
         <div className="mb-16">
           <h3 className="text-3xl font-semibold text-center mb-12">
-            Nos Valeurs Fondamentales
+            {t('about.values_title')}
           </h3>
           
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -175,19 +176,18 @@ const About = () => {
         <div className="text-center">
           <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4">
-              Prêt à rejoindre l'aventure ?
+              {t('about.cta_title')}
             </h3>
             <p className="text-muted-foreground mb-6">
-              Que vous soyez une startup ambitieuse ou une entreprise établie, nous avons les compétences 
-              et la passion pour propulser votre projet vers le succès.
+              {t('about.cta_desc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="glow-primary">
-                Discuter de votre projet
+                {t('about.cta_button1')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button size="lg" variant="outline" className="glass-effect border-primary/30">
-                Voir nos témoignages
+                {t('about.cta_button2')}
               </Button>
             </div>
           </div>
