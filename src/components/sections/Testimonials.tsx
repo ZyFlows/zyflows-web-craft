@@ -15,10 +15,10 @@ const Testimonials = () => {
       role: "CEO", 
       company: "TechFlow Solutions",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b190?w=150&h=150&fit=crop&crop=face",
-      content: "zyFlows a transformé notre présence digitale. Leur automatisation des leads via Google Maps nous a permis d'augmenter nos ventes de 200% en 6 mois. Une équipe exceptionnelle !",
+      content: t('testimonials.testimonial1'),
       rating: 5,
       tags: ["E-commerce", "Automatisation"],
-      project: "Système de génération de leads",
+      project: t('testimonials.project1'),
       delay: "0s"
     },
     {
@@ -26,10 +26,10 @@ const Testimonials = () => {
       role: "Directeur Marketing",
       company: "Innovate Digital", 
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
-      content: "Le chatbot IA développé par zyFlows gère maintenant 90% de nos demandes support. Notre équipe peut enfin se concentrer sur les tâches à haute valeur ajoutée. Résultat : productivité x3 !",
+      content: t('testimonials.testimonial2'),
       rating: 5,
       tags: ["IA", "Chatbot", "Support"],
-      project: "Agent IA conversationnel",
+      project: t('testimonials.project2'),
       delay: "0.2s"
     },
     {
@@ -37,10 +37,10 @@ const Testimonials = () => {
       role: "Fondatrice",
       company: "Creative Studio",
       avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-      content: "Notre site Framer est une œuvre d'art fonctionnelle. Les animations fluides et l'UX impeccable nous ont valu 3 prix design. zyFlows comprend vraiment l'esthétique ET la performance.",
+      content: t('testimonials.testimonial3'),
       rating: 5,
       tags: ["Design", "Framer", "Animation"],
-      project: "Site vitrine portfolio",
+      project: t('testimonials.project3'),
       delay: "0.4s"
     },
     {
@@ -48,10 +48,10 @@ const Testimonials = () => {
       role: "CTO",
       company: "FinTech Pro",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-      content: "L'application web développée par zyFlows gère plus de 10K utilisateurs daily sans broncher. Architecture robuste, code propre et support technique au top. Je recommande vivement !",
+      content: t('testimonials.testimonial4'),
       rating: 5,
       tags: ["SaaS", "Scalabilité", "Performance"],
-      project: "Dashboard analytics temps réel",
+      project: t('testimonials.project4'),
       delay: "0.6s"
     },
     {
@@ -59,10 +59,10 @@ const Testimonials = () => {
       role: "Responsable E-commerce",
       company: "Fashion Forward",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-      content: "Notre boutique Shopify conçue par zyFlows convertit 3x mieux qu'avant. Les automatisations marketing et l'UX optimisée ont révolutionné notre business. ROI exceptionnel !",
+      content: t('testimonials.testimonial5'),
       rating: 5,
       tags: ["Shopify", "E-commerce", "Conversion"],
-      project: "Boutique en ligne complète",
+      project: t('testimonials.project5'),
       delay: "0.8s"
     },
     {
@@ -70,10 +70,10 @@ const Testimonials = () => {
       role: "Directeur Général",
       company: "AutoFlow Systems",
       avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
-      content: "Les workflows Make.com mis en place nous font économiser 25h/semaine. Tout est automatisé, de la qualification des leads au suivi client. L'efficacité à l'état pur !",
+      content: t('testimonials.testimonial6'),
       rating: 5,
       tags: ["Make.com", "Workflow", "Productivité"],
-      project: "Automatisation processus métier",
+      project: t('testimonials.project6'),
       delay: "1s"
     }
   ];

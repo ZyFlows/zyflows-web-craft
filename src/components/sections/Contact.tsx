@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   Send, 
   Phone, 
@@ -19,6 +21,7 @@ import {
 } from "lucide-react";
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,31 +37,31 @@ const Contact = () => {
   const { toast } = useToast();
 
   const services = [
-    "Site Web (Wix/WordPress/Shopify/Framer)",
-    "Application Sur-Mesure", 
-    "Automatisation (Make/Zapier/N8N)",
-    "Génération de Leads (Google Maps)",
-    "IA & GPT Personnalisés",
-    "Audit & Conseil",
-    "Support & Maintenance",
-    "Autre"
+    t('contact.service1'),
+    t('contact.service2'),
+    t('contact.service3'),
+    t('contact.service4'),
+    t('contact.service5'),
+    t('contact.service6'),
+    t('contact.service7'),
+    t('contact.service8')
   ];
 
   const budgetRanges = [
-    "< 5K€",
-    "5K€ - 15K€",
-    "15K€ - 50K€",
-    "50K€ - 100K€",
-    "> 100K€",
-    "À discuter"
+    t('contact.budget1'),
+    t('contact.budget2'),
+    t('contact.budget3'),
+    t('contact.budget4'),
+    t('contact.budget5'),
+    t('contact.budget6')
   ];
 
   const timelines = [
-    "Urgent (< 1 mois)",
-    "Rapide (1-3 mois)",
-    "Standard (3-6 mois)",
-    "Flexible (> 6 mois)",
-    "À planifier"
+    t('contact.timeline1'),
+    t('contact.timeline2'),
+    t('contact.timeline3'),
+    t('contact.timeline4'),
+    t('contact.timeline5')
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -68,8 +71,8 @@ const Contact = () => {
     // Simulation d'envoi
     setTimeout(() => {
       toast({
-        title: "Message envoyé avec succès !",
-        description: "Nous vous répondrons dans les 24h. Merci pour votre confiance.",
+        title: t('contact.success_title'),
+        description: t('contact.success_desc'),
       });
       setIsSubmitting(false);
       setFormData({
@@ -102,16 +105,15 @@ const Contact = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
             <MessageCircle className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium">Contactez-nous</span>
+            <span className="text-sm font-medium">{t('contact.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Transformons votre vision en réalité digitale
+            {t('contact.title')}
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Prêt à révolutionner votre présence digitale ? Discutons de votre projet 
-            et découvrons ensemble les solutions parfaites pour votre entreprise.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -122,10 +124,10 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Phone className="h-5 w-5 text-primary" />
-                  Parlons de votre projet
+                  {t('contact.phone_title')}
                 </CardTitle>
                 <CardDescription>
-                  Contactez-nous pour un appel découverte gratuit de 30 minutes.
+                  {t('contact.phone_desc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -140,7 +142,7 @@ const Contact = () => {
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium">Téléphone</div>
+                    <div className="font-medium">{t('contact.phone')}</div>
                     <div className="text-sm text-muted-foreground">+972 58 123 4567</div>
                   </div>
                 </div>
@@ -148,16 +150,14 @@ const Contact = () => {
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium">Localisation</div>
-                    <div className="text-sm text-muted-foreground">Tel Aviv, Israël</div>
+                    <div className="font-medium">Tel Aviv, Israël</div>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-3">
                   <Clock className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium">Disponibilité</div>
-                    <div className="text-sm text-muted-foreground">Lun-Ven 9h-18h CET</div>
+                    <div className="font-medium">{t('contact.availability')}</div>
                   </div>
                 </div>
               </CardContent>
@@ -166,10 +166,10 @@ const Contact = () => {
             {/* Avantages */}
             <div className="space-y-4">
               {[
-                "Réponse garantie sous 24h",
-                "Appel découverte gratuit",
-                "Devis personnalisé offert",
-                "Support technique inclus"
+                t('contact.benefit1'),
+                t('contact.benefit2'),
+                t('contact.benefit3'),
+                t('contact.benefit4')
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <CheckCircle className="h-5 w-5 text-primary" />
@@ -183,10 +183,9 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-2xl">Démarrons votre projet</CardTitle>
+                <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
                 <CardDescription>
-                  Plus vous nous en dites, mieux nous pourrons vous conseiller. 
-                  Tous les champs marqués * sont obligatoires.
+                  {t('contact.form_subtitle')}
                 </CardDescription>
               </CardHeader>
               
@@ -196,25 +195,25 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Nom complet *
+                        {t('contact.name')} *
                       </label>
                       <Input
                         value={formData.name}
                         onChange={(e) => handleInputChange("name", e.target.value)}
-                        placeholder="Votre nom et prénom"
+                        placeholder={t('contact.name_placeholder')}
                         required
                         className="glass-effect border-border/50"
                       />
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Email professionnel *
+                        {t('contact.email')} *
                       </label>
                       <Input
                         type="email"
                         value={formData.email}
                         onChange={(e) => handleInputChange("email", e.target.value)}
-                        placeholder="votre@email.com"
+                        placeholder={t('contact.email_placeholder')}
                         required
                         className="glass-effect border-border/50"
                       />
@@ -224,23 +223,23 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Entreprise
+                        {t('contact.company')}
                       </label>
                       <Input
                         value={formData.company}
                         onChange={(e) => handleInputChange("company", e.target.value)}
-                        placeholder="Nom de votre entreprise"
+                        placeholder={t('contact.company_placeholder')}
                         className="glass-effect border-border/50"
                       />
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Téléphone
+                        {t('contact.phone')}
                       </label>
                       <Input
                         value={formData.phone}
                         onChange={(e) => handleInputChange("phone", e.target.value)}
-                        placeholder="+33 6 12 34 56 78"
+                        placeholder={t('contact.phone_placeholder')}
                         className="glass-effect border-border/50"
                       />
                     </div>
@@ -249,7 +248,7 @@ const Contact = () => {
                   {/* Détails du projet */}
                   <div>
                     <label className="text-sm font-medium mb-2 block">
-                      Service souhaité *
+                      {t('contact.service')} *
                     </label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {services.map((service) => (
@@ -268,7 +267,7 @@ const Contact = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Budget estimé
+                        {t('contact.budget')}
                       </label>
                       <div className="grid grid-cols-2 gap-2">
                         {budgetRanges.map((budget) => (
@@ -286,7 +285,7 @@ const Contact = () => {
                     
                     <div>
                       <label className="text-sm font-medium mb-2 block">
-                        Timeline souhaitée
+                        {t('contact.timeline')}
                       </label>
                       <div className="grid grid-cols-1 gap-2">
                         {timelines.map((timeline) => (
@@ -305,12 +304,12 @@ const Contact = () => {
 
                   <div>
                     <label className="text-sm font-medium mb-2 block">
-                      Décrivez votre projet *
+                      {t('contact.message')} *
                     </label>
                     <Textarea
                       value={formData.message}
                       onChange={(e) => handleInputChange("message", e.target.value)}
-                      placeholder="Décrivez vos objectifs, vos défis actuels, et ce que vous aimeriez accomplir avec ce projet..."
+                      placeholder={t('contact.message_placeholder')}
                       className="min-h-32 glass-effect border-border/50"
                       required
                     />
@@ -326,19 +325,18 @@ const Contact = () => {
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground mr-2" />
-                        Envoi en cours...
+                        {t('contact.submitting')}
                       </>
                     ) : (
                       <>
-                        Envoyer ma demande
+                        {t('contact.submit')}
                         <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
                   </Button>
 
                   <p className="text-sm text-muted-foreground text-center">
-                    En soumettant ce formulaire, vous acceptez que nous vous contactions 
-                    concernant votre projet. Vos données sont protégées et ne seront jamais partagées.
+                    {t('contact.disclaimer')}
                   </p>
                 </form>
               </CardContent>
@@ -350,36 +348,36 @@ const Contact = () => {
         <div className="grid md:grid-cols-3 gap-6 mt-16">
           <Card className="gradient-card border-border/50 text-center p-6 hover:scale-105 transition-smooth">
             <Calendar className="h-8 w-8 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Planifier un appel</h3>
+            <h3 className="font-semibold mb-2">{t('contact.alt1_title')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Réservez directement un créneau pour discuter de votre projet
+              {t('contact.alt1_desc')}
             </p>
             <Button variant="outline" size="sm" className="glass-effect">
-              Calendly
+              {t('contact.alt1_button')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Card>
           
           <Card className="gradient-card border-border/50 text-center p-6 hover:scale-105 transition-smooth">
             <MessageCircle className="h-8 w-8 text-accent mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Chat en direct</h3>
+            <h3 className="font-semibold mb-2">{t('contact.alt2_title')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Posez vos questions via notre chat support
+              {t('contact.alt2_desc')}
             </p>
             <Button variant="outline" size="sm" className="glass-effect">
-              WhatsApp
+              {t('contact.alt2_button')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Card>
           
           <Card className="gradient-card border-border/50 text-center p-6 hover:scale-105 transition-smooth">
             <Globe className="h-8 w-8 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Audit gratuit</h3>
+            <h3 className="font-semibold mb-2">{t('contact.alt3_title')}</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Recevez une analyse de votre situation actuelle
+              {t('contact.alt3_desc')}
             </p>
             <Button variant="outline" size="sm" className="glass-effect">
-              Demander
+              {t('contact.alt3_button')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Card>

@@ -19,32 +19,32 @@ const Footer = () => {
 
   const footerLinks = {
     services: [
-      "Sites Web (Wix, WordPress, Shopify)",
-      "Applications Sur-Mesure",
-      "Automatisations (Make, Zapier, N8N)",
-      "Génération de Leads Google Maps",
-      "IA & GPT Personnalisés"
+      t('footer.service1'),
+      t('footer.service2'),
+      t('footer.service3'),
+      t('footer.service4'),
+      t('footer.service5')
     ],
     company: [
-      "À propos de zyFlows",
-      "Notre équipe",
-      "Nos valeurs",
-      "Carrières",
-      "Partenaires"
+      t('footer.company1'),
+      t('footer.company2'),
+      t('footer.company3'),
+      t('footer.company4'),
+      t('footer.company5')
     ],
     resources: [
-      "Blog & Actualités",
-      "Guides & Tutorials",
-      "Études de cas",
-      "Documentation API",
-      "Support technique"
+      t('footer.resource1'),
+      t('footer.resource2'),
+      t('footer.resource3'),
+      t('footer.resource4'),
+      t('footer.resource5')
     ],
     legal: [
-      "Mentions légales",
-      "Politique de confidentialité",
-      "Conditions d'utilisation",
-      "RGPD",
-      "Cookies"
+      t('footer.legal1'),
+      t('footer.legal2'),
+      t('footer.legal3'),
+      t('footer.legal4'),
+      t('footer.legal5')
     ]
   };
 

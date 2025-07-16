@@ -45,17 +45,17 @@ const About = () => {
   ];
 
   const achievements = [
-    { number: "50+", label: t('testimonials.stat1'), icon: Award },
-    { number: "15+", label: "Pays touchés", icon: Globe },
-    { number: "99%", label: t('testimonials.stat2'), icon: Heart },
-    { number: "5", label: "Années d'expertise", icon: Target }
+    { number: "50+", label: t('about.achievements1'), icon: Award },
+    { number: "15+", label: t('about.achievements2'), icon: Globe },
+    { number: "99%", label: t('about.achievements3'), icon: Heart },
+    { number: "5", label: t('about.achievements4'), icon: Target }
   ];
 
   const features = [
-    "Solutions 100% personnalisées",
-    "Support technique réactif 24/7",
-    "Méthodologie agile et transparente",
-    "Formation et accompagnement inclus"
+    t('about.features1'),
+    t('about.features2'),
+    t('about.features3'),
+    t('about.features4')
   ];
 
   return (
