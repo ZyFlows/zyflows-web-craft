@@ -1,0 +1,31 @@
+
+.rtl {
+  direction: rtl;
+}
+
+.rtl .flex {
+  flex-direction: row-reverse;
+}
+
+.rtl .text-left {
+  text-align: right;
+}
+
+.rtl .text-right {
+  text-align: left;
+}
+
+.rtl .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.rtl .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .space-x-8 > * + * {
+  margin-left: 0;
+  margin-right: 2rem;
+}

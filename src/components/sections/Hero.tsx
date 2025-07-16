@@ -1,9 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Zap, Code2 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import heroTech from "@/assets/hero-tech.jpg";
 
 const Hero = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden">
       {/* Background image */}
@@ -35,17 +38,17 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
             <Sparkles className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium">Solutions digitales innovantes depuis Israël</span>
+            <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
 
           {/* Titre principal */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Transformons vos idées digitales en réalité
+            {t('hero.title')}
           </h1>
 
           {/* Sous-titre */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            zyFlows conçoit des sites web performants, des applications sur-mesure et des automatisations intelligentes qui propulsent votre entreprise vers le futur.
+            {t('hero.subtitle')}
           </p>
 
           {/* CTA Buttons */}
@@ -54,7 +57,7 @@ const Hero = () => {
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
             >
-              Découvrir nos services
+              {t('hero.cta_services')}
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             
@@ -63,7 +66,7 @@ const Hero = () => {
               size="lg" 
               className="text-lg px-8 py-6 glass-effect border-primary/30 hover:border-primary transition-smooth hover:scale-105"
             >
-              Voir nos projets
+              {t('hero.cta_projects')}
             </Button>
           </div>
 
@@ -71,15 +74,15 @@ const Hero = () => {
           <div className="grid grid-cols-3 gap-8 mt-16 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">50+</div>
-              <div className="text-sm text-muted-foreground">Projets réalisés</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-accent mb-2">99%</div>
-              <div className="text-sm text-muted-foreground">Clients satisfaits</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat2')}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">24h</div>
-              <div className="text-sm text-muted-foreground">Support réactif</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat3')}</div>
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,8 +11,11 @@ import {
   ArrowRight,
   CheckCircle
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
+
   const values = [
     {
       icon: Target,
@@ -60,26 +62,23 @@ const About = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
             <Users className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium">À Propos de zyFlows</span>
+            <span className="text-sm font-medium">{t('about.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            L'expertise tech au service de vos ambitions
+            {t('about.title')}
           </h2>
         </div>
 
         {/* Histoire et mission */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="order-2 lg:order-1">
-            <h3 className="text-2xl font-semibold mb-6">Notre Mission</h3>
+            <h3 className="text-2xl font-semibold mb-6">{t('about.mission_title')}</h3>
             <p className="text-lg text-muted-foreground mb-6">
-              Chez zyFlows, nous croyons que la technologie doit servir l'humain, pas l'inverse. 
-              Basée en Israël, notre équipe combine l'innovation technologique de pointe avec une 
-              approche profondément humaine et accessible.
+              {t('about.mission_text1')}
             </p>
             <p className="text-lg text-muted-foreground mb-8">
-              Nous transformons les défis complexes en solutions élégantes, que ce soit à travers 
-              des sites web performants, des automatisations intelligentes ou des agents IA sur-mesure.
+              {t('about.mission_text2')}
             </p>
             
             <div className="space-y-4 mb-8">

@@ -2,8 +2,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Services = () => {
+  const { t } = useLanguage();
+
   const services = [
     {
       icon: Globe,
@@ -62,16 +65,15 @@ const Services = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
             <Palette className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium">Nos Services</span>
+            <span className="text-sm font-medium">{t('services.badge')}</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Des solutions complètes pour votre transformation digitale
+            {t('services.title')}
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            De la conception de sites web aux automatisations IA, nous maîtrisons toute la chaîne de valeur digitale 
-            pour propulser votre entreprise vers l'excellence technologique.
+            {t('services.subtitle')}
           </p>
         </div>
 
