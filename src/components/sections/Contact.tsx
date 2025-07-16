@@ -35,7 +35,7 @@ const Contact = () => {
 
   const services = [
     "Site Web (Wix/WordPress/Shopify/Framer)",
-    "Application Sur-Mesure",
+    "Application Sur-Mesure", 
     "Automatisation (Make/Zapier/N8N)",
     "Génération de Leads (Google Maps)",
     "IA & GPT Personnalisés",
@@ -46,7 +46,7 @@ const Contact = () => {
 
   const budgetRanges = [
     "< 5K€",
-    "5K€ - 15K€", 
+    "5K€ - 15K€",
     "15K€ - 50K€",
     "50K€ - 100K€",
     "> 100K€",
@@ -106,10 +106,7 @@ const Contact = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Transformons votre vision en{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
-              réalité digitale
-            </span>
+            Transformons votre vision en réalité digitale
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

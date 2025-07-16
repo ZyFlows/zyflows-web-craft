@@ -8,7 +8,7 @@ const Testimonials = () => {
   const testimonials = [
     {
       name: "Sarah Chen",
-      role: "CEO",
+      role: "CEO", 
       company: "TechFlow Solutions",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b190?w=150&h=150&fit=crop&crop=face",
       content: "zyFlows a transformé notre présence digitale. Leur automatisation des leads via Google Maps nous a permis d'augmenter nos ventes de 200% en 6 mois. Une équipe exceptionnelle !",
@@ -20,7 +20,7 @@ const Testimonials = () => {
     {
       name: "Marc Dubois",
       role: "Directeur Marketing",
-      company: "Innovate Digital",
+      company: "Innovate Digital", 
       avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       content: "Le chatbot IA développé par zyFlows gère maintenant 90% de nos demandes support. Notre équipe peut enfin se concentrer sur les tâches à haute valeur ajoutée. Résultat : productivité x3 !",
       rating: 5,
@@ -104,10 +104,7 @@ const Testimonials = () => {
           </div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ce que disent nos{" "}
-            <span className="gradient-hero bg-clip-text text-transparent">
-              clients satisfaits
-            </span>
+            Ce que disent nos clients satisfaits
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
