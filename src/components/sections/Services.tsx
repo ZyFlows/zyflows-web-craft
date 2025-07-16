@@ -103,8 +103,17 @@ const Services = () => {
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className={`flex items-center text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                        <div className={`w-1.5 h-1.5 rounded-full bg-primary ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
-                        {feature}
+                        {language === 'he' ? (
+                          <>
+                            <span>{feature}</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary ml-6" />
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
+                            <span>{feature}</span>
+                          </>
+                        )}
                       </li>
                     ))}
                   </ul>
