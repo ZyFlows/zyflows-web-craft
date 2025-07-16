@@ -106,27 +106,27 @@ const Projects = () => {
                 </div>
               </div>
 
-              <CardHeader className="pb-4">
-                <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+              <CardHeader className={`pb-4 ${language === 'he' ? 'text-right' : ''}`}>
+                <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                   {project.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
                     </Badge>
                   ))}
                 </div>
-                <CardTitle className="text-xl font-semibold group-hover:text-primary transition-smooth">
+                <CardTitle className={`text-xl font-semibold group-hover:text-primary transition-smooth ${language === 'he' ? 'text-right' : ''}`}>
                   {project.title}
                 </CardTitle>
-                <CardDescription className="text-muted-foreground">
+                <CardDescription className={`text-muted-foreground ${language === 'he' ? 'text-right' : ''}`}>
                   {project.description}
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="pt-0">
+              <CardContent className={`pt-0 ${language === 'he' ? 'text-right' : ''}`}>
                 {/* Métriques */}
                 <div className="space-y-2 mb-6">
                   {project.metrics.map((metric, idx) => (
-                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                       <div className={`w-1.5 h-1.5 rounded-full bg-accent ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
                       <span className="text-muted-foreground">{metric}</span>
                     </div>
