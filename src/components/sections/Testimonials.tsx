@@ -150,7 +150,7 @@ const Testimonials = () => {
               
               <CardContent className="pt-0 border-t border-border/50">
                 {/* Profil client */}
-                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse text-right' : 'text-left'}`}>
+                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Avatar className="h-12 w-12 border-2 border-primary/20">
                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                     <AvatarFallback className="bg-primary/10">
@@ -158,7 +158,7 @@ const Testimonials = () => {
                     </AvatarFallback>
                   </Avatar>
                   
-                  <div className="flex-1">
+                  <div className={`flex-1 ${language === 'he' ? 'text-right' : 'text-left'}`}>
                     <div className="font-semibold text-foreground">
                       {testimonial.name}
                     </div>
