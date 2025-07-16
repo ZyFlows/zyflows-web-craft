@@ -13,8 +13,8 @@ const Projects = () => {
       title: t('projects.project1_title'),
       description: t('projects.project1_desc'),
       image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&h=400&fit=crop",
-      tags: ["Shopify", "E-commerce", "Automatisation", "Design"],
-      metrics: ["+150% conversions", "2s temps de chargement", "99.9% uptime"],
+      tags: ["Shopify", "E-commerce", t('projects.tag_automation'), t('projects.tag_design')],
+      metrics: [t('projects.metric1_1'), t('projects.metric1_2'), t('projects.metric1_3')],
       delay: "0s"
     },
     {
@@ -22,39 +22,39 @@ const Projects = () => {
       description: t('projects.project2_desc'),
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
       tags: ["React", "Dashboard", "API", "Analytics"],
-      metrics: ["10K+ utilisateurs", "Real-time data", "Cloud scalable"],
+      metrics: [t('projects.metric2_1'), t('projects.metric2_2'), t('projects.metric2_3')],
       delay: "0.2s"
     },
     {
       title: t('projects.project3_title'),
       description: t('projects.project3_desc'),
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-      tags: ["Make.com", "Google Maps", "CRM", "Automatisation"],
-      metrics: ["500+ leads/mois", "80% qualification", "3h économisées/jour"],
+      tags: ["Make.com", "Google Maps", "CRM", t('projects.tag_automation')],
+      metrics: [t('projects.metric3_1'), t('projects.metric3_2'), t('projects.metric3_3')],
       delay: "0.4s"
     },
     {
       title: t('projects.project4_title'),
       description: t('projects.project4_desc'),
       image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
-      tags: ["GPT", "IA", "Chatbot", "Support"],
-      metrics: ["90% résolution auto", "24/7 disponible", "-60% tickets"],
+      tags: ["GPT", "IA", "Chatbot", t('projects.tag_support')],
+      metrics: [t('projects.metric4_1'), t('projects.metric4_2'), t('projects.metric4_3')],
       delay: "0.6s"
     },
     {
       title: t('projects.project5_title'),
       description: t('projects.project5_desc'),
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
-      tags: ["Framer", "Animation", "Portfolio", "Architecture"],
-      metrics: ["95 PageSpeed", "Design Award", "+200% trafic"],
+      tags: ["Framer", t('projects.tag_animation'), "Portfolio", t('projects.tag_architecture')],
+      metrics: [t('projects.metric5_1'), t('projects.metric5_2'), t('projects.metric5_3')],
       delay: "0.8s"
     },
     {
       title: t('projects.project6_title'),
       description: t('projects.project6_desc'),
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
-      tags: ["Zapier", "RH", "Workflow", "Productivité"],
-      metrics: ["5h économisées/semaine", "100% automatisé", "0 erreur manuelle"],
+      tags: ["Zapier", "RH", "Workflow", t('projects.tag_productivity')],
+      metrics: [t('projects.metric6_1'), t('projects.metric6_2'), t('projects.metric6_3')],
       delay: "1s"
     }
   ];
