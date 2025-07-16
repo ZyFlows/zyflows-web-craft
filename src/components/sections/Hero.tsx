@@ -23,13 +23,13 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
       
       {/* Floating elements */}
-      <div className={`absolute top-20 ${language === 'he' ? 'right-10' : 'left-10'} animate-float`}>
+      <div className={`absolute top-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}>
         <Code2 className="h-8 w-8 text-primary/30" />
       </div>
-      <div className={`absolute top-40 ${language === 'he' ? 'left-20' : 'right-20'} animate-float`} style={{ animationDelay: '1s' }}>
+      <div className={`absolute top-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} style={{ animationDelay: '1s' }}>
         <Zap className="h-6 w-6 text-accent/40" />
       </div>
-      <div className={`absolute bottom-40 ${language === 'he' ? 'right-20' : 'left-20'} animate-float`} style={{ animationDelay: '2s' }}>
+      <div className={`absolute bottom-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} style={{ animationDelay: '2s' }}>
         <Sparkles className="h-10 w-10 text-primary/20" />
       </div>
 
@@ -41,24 +41,28 @@ const Hero = () => {
             <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
 
-          {/* Titre principal */}
+          {/* Main title */}
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {t('hero.title')}
           </h1>
 
-          {/* Sous-titre */}
+          {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             {t('hero.subtitle')}
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up ${language === 'he' ? 'sm:flex-row-reverse' : ''}`} style={{ animationDelay: '0.6s' }}>
+          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
             <Button 
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
             >
               {t('hero.cta_services')}
-              <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} h-5 w-5 transition-transform`} />
+              <ArrowRight className={`h-5 w-5 transition-transform ${
+                language === 'he' 
+                  ? 'mr-2 group-hover:-translate-x-1' 
+                  : 'ml-2 group-hover:translate-x-1'
+              }`} />
             </Button>
             
             <Button 
@@ -71,7 +75,7 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-16 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">50+</div>
               <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>

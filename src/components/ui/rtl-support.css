@@ -16,31 +16,52 @@
   text-align: center;
 }
 
-/* Flex direction adjustments */
-.rtl .flex {
+/* Flex direction adjustments - Fixed */
+.rtl .flex:not(.flex-col) {
   flex-direction: row-reverse;
+}
+
+.rtl .flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .flex-row-reverse {
+  flex-direction: row;
 }
 
 .rtl .flex-col {
   flex-direction: column;
 }
 
-.rtl .sm\\:flex-row {
+/* Responsive flex fixes */
+.rtl .sm\:flex-row {
   flex-direction: row-reverse;
 }
 
-.rtl .flex-col.sm\\:flex-row {
-  flex-direction: column;
+.rtl .md\:flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .lg\:flex-row {
+  flex-direction: row-reverse;
 }
 
 @media (min-width: 640px) {
-  .rtl .flex-col.sm\\:flex-row {
+  .rtl .flex-col.sm\:flex-row {
     flex-direction: row-reverse;
   }
 }
 
-.rtl .flex-row-reverse {
-  flex-direction: row;
+@media (min-width: 768px) {
+  .rtl .flex-col.md\:flex-row {
+    flex-direction: row-reverse;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rtl .flex-col.lg\:flex-row {
+    flex-direction: row-reverse;
+  }
 }
 
 .rtl .justify-between {
@@ -52,39 +73,19 @@
 }
 
 /* Grid adjustments for RTL */
-.rtl .grid-cols-1 {
+.rtl .grid {
   direction: rtl;
 }
 
-.rtl .grid-cols-2 {
-  direction: rtl;
-}
-
-.rtl .grid-cols-3 {
-  direction: rtl;
-}
-
-.rtl .grid-cols-4 {
-  direction: rtl;
-}
-
-.rtl .md\\:grid-cols-2 {
-  direction: rtl;
-}
-
-.rtl .md\\:grid-cols-3 {
-  direction: rtl;
-}
-
-.rtl .lg\\:grid-cols-2 {
-  direction: rtl;
-}
-
-.rtl .lg\\:grid-cols-3 {
-  direction: rtl;
-}
-
-.rtl .lg\\:grid-cols-4 {
+.rtl .grid-cols-1,
+.rtl .grid-cols-2,
+.rtl .grid-cols-3,
+.rtl .grid-cols-4,
+.rtl .md\:grid-cols-2,
+.rtl .md\:grid-cols-3,
+.rtl .lg\:grid-cols-2,
+.rtl .lg\:grid-cols-3,
+.rtl .lg\:grid-cols-4 {
   direction: rtl;
 }
 
@@ -236,11 +237,7 @@
   margin-right: 0;
 }
 
-/* Grid and layout */
-.rtl .grid {
-  direction: rtl;
-}
-
+/* Gap utilities */
 .rtl .gap-2 {
   gap: 0.5rem;
 }
@@ -299,28 +296,28 @@
 }
 
 /* Navigation specific */
-.rtl .hidden.md\\:flex {
+.rtl .hidden.md\:flex {
   flex-direction: row-reverse;
 }
 
-.rtl .md\\:hidden .space-y-1 > * {
+.rtl .md\:hidden .space-y-1 > * {
   text-align: right;
 }
 
 /* Transform adjustments for icons */
-.rtl .group-hover\\:translate-x-1 {
+.rtl .group-hover\:translate-x-1 {
   transform: translateX(-0.25rem);
 }
 
-.rtl .group-hover\\:-translate-x-1 {
+.rtl .group-hover\:-translate-x-1 {
   transform: translateX(0.25rem);
 }
 
-.rtl .group-hover\\/btn\\:translate-x-1 {
+.rtl .group-hover\/btn\:translate-x-1 {
   transform: translateX(-0.25rem);
 }
 
-.rtl .group-hover\\/btn\\:-translate-x-1 {
+.rtl .group-hover\/btn\:-translate-x-1 {
   transform: translateX(0.25rem);
 }
 
@@ -335,7 +332,7 @@
   direction: rtl;
 }
 
-.rtl .placeholder\\:text-right::placeholder {
+.rtl .placeholder\:text-right::placeholder {
   text-align: right;
 }
 
@@ -475,15 +472,15 @@
 }
 
 /* Specific responsive adjustments */
-.rtl .md\\:text-left {
+.rtl .md\:text-left {
   text-align: right;
 }
 
-.rtl .lg\\:text-left {
+.rtl .lg\:text-left {
   text-align: right;
 }
 
-.rtl .xl\\:text-left {
+.rtl .xl\:text-left {
   text-align: right;
 }
 
@@ -533,7 +530,56 @@
   justify-content: center;
 }
 
+/* Button content alignment in RTL */
+.rtl button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rtl button svg {
+  flex-shrink: 0;
+}
+
 /* Ensure proper font rendering for Hebrew */
 .rtl {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Hebrew", "Hebrew UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Fix for Hero section floating elements positioning in RTL */
+.rtl .hero-floating-left {
+  left: auto;
+  right: 2.5rem;
+}
+
+.rtl .hero-floating-right {
+  right: auto;
+  left: 5rem;
+}
+
+/* Ensure grid items align properly in RTL */
+.rtl .grid > * {
+  text-align: right;
+}
+
+.rtl .grid .text-center {
+  text-align: center;
+}
+
+/* Fix navigation menu positioning */
+.rtl .nav-menu {
+  direction: rtl;
+}
+
+.rtl .nav-menu .flex {
+  flex-direction: row-reverse;
+}
+
+/* Fix stats and metrics alignment */
+.rtl .stats-container {
+  direction: rtl;
+}
+
+.rtl .stats-container .text-center {
+  text-align: center;
 }
