@@ -48,9 +48,9 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo - 140px de hauteur */}
-          <div className={`flex items-center ${language === 'he' ? 'logo-container' : ''}`}>
+        <div className={`flex items-center justify-between h-16 md:h-20 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+          {/* Logo */}
+          <div className="flex items-center">
             <img 
               src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
               alt="zyFlows" 
@@ -62,7 +62,7 @@ const Navigation = () => {
           {/* Navigation desktop */}
           <div className={`hidden md:flex items-center ${
             language === 'he' 
-              ? 'space-x-reverse space-x-6 lg:space-x-8 nav-items' 
+              ? 'space-x-reverse space-x-6 lg:space-x-8' 
               : 'space-x-6 lg:space-x-8'
           }`}>
             {navItems.map(item => (
@@ -80,13 +80,15 @@ const Navigation = () => {
             </Button>
           </div>
 
-          {/* Menu mobile */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          {/* Menu mobile - Only show on small screens */}
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
 
-        {/* Menu mobile ouvert */}
+        {/* Menu mobile ouvert - Only show when menu is open on mobile */}
         {isOpen && (
           <div className="md:hidden glass-effect border-t border-border">
             <div className={`px-2 pt-2 pb-3 space-y-1 ${language === 'he' ? 'text-right' : ''}`}>
@@ -102,9 +104,9 @@ const Navigation = () => {
               ))}
               <div className={`px-3 py-2 flex ${
                 language === 'he' 
-                  ? 'flex-row-reverse' 
-                  : 'flex-row'
-              } justify-between items-center gap-4`}>
+                  ? 'flex-row-reverse justify-start' 
+                  : 'flex-row justify-between'
+              } items-center gap-4`}>
                 <LanguageSelector />
                 <Button variant="default" className="glow-primary flex-shrink-0 text-sm">
                   {t('nav.start_project')}

@@ -16,17 +16,30 @@
   text-align: center;
 }
 
-/* Flex direction adjustments - Fixed */
-.rtl .flex:not(.flex-col) {
+/* Navigation specific fixes */
+.rtl .flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.rtl .justify-between {
+  justify-content: space-between;
+}
+
+.rtl .justify-start {
+  justify-content: flex-start;
+}
+
+.rtl .items-center {
+  align-items: center;
+}
+
+/* Flex direction adjustments */
+.rtl .flex:not(.flex-col):not(.flex-row-reverse) {
   flex-direction: row-reverse;
 }
 
 .rtl .flex-row {
   flex-direction: row-reverse;
-}
-
-.rtl .flex-row-reverse {
-  flex-direction: row;
 }
 
 .rtl .flex-col {
@@ -62,14 +75,6 @@
   .rtl .flex-col.lg\:flex-row {
     flex-direction: row-reverse;
   }
-}
-
-.rtl .justify-between {
-  justify-content: space-between;
-}
-
-.rtl .items-center {
-  align-items: center;
 }
 
 /* Grid adjustments for RTL */
@@ -295,7 +300,7 @@
   left: 5rem;
 }
 
-/* Navigation specific */
+/* Navigation specific RTL fixes */
 .rtl .hidden.md\:flex {
   flex-direction: row-reverse;
 }
@@ -462,15 +467,6 @@
   text-align: right;
 }
 
-/* Logo adjustments for RTL */
-.rtl .logo-container {
-  order: 1;
-}
-
-.rtl .nav-items {
-  order: 0;
-}
-
 /* Specific responsive adjustments */
 .rtl .md\:text-left {
   text-align: right;
@@ -582,4 +578,25 @@
 
 .rtl .stats-container .text-center {
   text-align: center;
+}
+
+/* Navigation specific burger menu fixes */
+.rtl .md\:hidden {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .rtl .md\:hidden {
+    display: block;
+  }
+}
+
+/* Fix mobile menu in RTL */
+.rtl .mobile-menu {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .mobile-menu .flex-row-reverse {
+  flex-direction: row-reverse;
 }
