@@ -48,20 +48,20 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo - Fixed size with responsive design */}
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo - Optimized integration with transparency */}
           <div className={`flex items-center ${language === 'he' ? 'logo-container' : ''}`}>
             <img 
               src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
               alt="zyFlows" 
               className={`${
                 scrolled 
-                  ? 'w-40 h-24' 
-                  : 'w-48 md:w-52 h-28 md:h-36'
-              } object-contain transition-all duration-300 ease-in-out`}
+                  ? 'h-8 sm:h-10 md:h-12' 
+                  : 'h-10 sm:h-12 md:h-14 lg:h-16'
+              } w-auto object-contain transition-all duration-300 ease-in-out mix-blend-multiply`}
               style={{
-                width: scrolled ? '160px' : '200px',
-                height: scrolled ? '96px' : '150px'
+                filter: 'brightness(1.1) contrast(1.1)',
+                background: 'transparent'
               }}
             />
           </div>
@@ -69,27 +69,27 @@ const Navigation = () => {
           {/* Navigation desktop */}
           <div className={`hidden md:flex items-center ${
             language === 'he' 
-              ? 'space-x-reverse space-x-8 nav-items' 
-              : 'space-x-8'
+              ? 'space-x-reverse space-x-6 lg:space-x-8 nav-items' 
+              : 'space-x-6 lg:space-x-8'
           }`}>
             {navItems.map(item => (
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap"
+                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-sm lg:text-base"
               >
                 {item.label}
               </a>
             ))}
             <LanguageSelector />
-            <Button variant="default" className="glow-primary whitespace-nowrap">
+            <Button variant="default" className="glow-primary whitespace-nowrap text-sm lg:text-base px-4 lg:px-6">
               {t('nav.start_project')}
             </Button>
           </div>
 
           {/* Menu mobile */}
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
 
@@ -113,7 +113,7 @@ const Navigation = () => {
                   : 'flex-row'
               } justify-between items-center gap-4`}>
                 <LanguageSelector />
-                <Button variant="default" className="glow-primary flex-shrink-0">
+                <Button variant="default" className="glow-primary flex-shrink-0 text-sm">
                   {t('nav.start_project')}
                 </Button>
               </div>
