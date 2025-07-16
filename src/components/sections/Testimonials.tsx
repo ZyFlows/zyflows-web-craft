@@ -121,7 +121,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={testimonial.name}
-              className={`gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up ${language === 'he' ? 'testimonial-card' : ''}`}
+              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up"
               style={{ animationDelay: testimonial.delay }}
             >
               <CardHeader className="pb-4">
@@ -134,12 +134,12 @@ const Testimonials = () => {
                 </div>
 
                 {/* Témoignage */}
-                <CardDescription className={`text-base italic mb-6 text-foreground ${language === 'he' ? 'text-right' : ''}`}>
+                <CardDescription className={`text-base italic mb-6 text-foreground ${language === 'he' ? 'text-right' : 'text-left'}`}>
                   "{testimonial.content}"
                 </CardDescription>
 
                 {/* Tags projet */}
-                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
+                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'justify-end' : 'justify-start'}`}>
                   {testimonial.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
@@ -150,7 +150,7 @@ const Testimonials = () => {
               
               <CardContent className="pt-0 border-t border-border/50">
                 {/* Profil client */}
-                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse text-right' : 'text-left'}`}>
                   <Avatar className="h-12 w-12 border-2 border-primary/20">
                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                     <AvatarFallback className="bg-primary/10">
@@ -158,7 +158,7 @@ const Testimonials = () => {
                     </AvatarFallback>
                   </Avatar>
                   
-                  <div className={`flex-1 ${language === 'he' ? 'text-right' : ''}`}>
+                  <div className="flex-1">
                     <div className="font-semibold text-foreground">
                       {testimonial.name}
                     </div>
@@ -176,7 +176,7 @@ const Testimonials = () => {
         </div>
 
         {/* Stats globaux */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 mb-16 ${language === 'he' ? 'stats-container' : ''}`}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
           {[
             { number: "50+", label: t('testimonials.stat1') },
             { number: "99%", label: t('testimonials.stat2') },
