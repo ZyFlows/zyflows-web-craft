@@ -130,11 +130,11 @@ const Projects = () => {
                       {language === 'he' ? (
                         <>
                           <span className="text-muted-foreground">{metric}</span>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-3" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-4" />
                         </>
                       ) : (
                         <>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-3" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4" />
                           <span className="text-muted-foreground">{metric}</span>
                         </>
                       )}
