@@ -100,7 +100,7 @@ const Contact = () => {
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-accent" />
                   <div>
-                    <div className="font-medium">Mail</div>
+                    <div className="font-medium text-center">Mail</div>
                     <div className="text-sm text-muted-foreground">zyflow.web@gmail.com</div>
                   </div>
                 </div>
