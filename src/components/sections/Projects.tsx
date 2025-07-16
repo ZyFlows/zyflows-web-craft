@@ -126,15 +126,15 @@ const Projects = () => {
                 {/* Métriques */}
                 <div className="space-y-2 mb-6">
                   {project.metrics.map((metric, idx) => (
-                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'justify-end' : ''}`}>
+                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                       {language === 'he' ? (
                         <>
-                          <span className="text-muted-foreground">{metric}</span>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-6" />
+                          <span className="text-muted-foreground text-right">{metric}</span>
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0" />
                         </>
                       ) : (
                         <>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0" />
                           <span className="text-muted-foreground">{metric}</span>
                         </>
                       )}

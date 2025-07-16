@@ -102,15 +102,15 @@ const Services = () => {
                 <CardContent className="pt-0">
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, idx) => (
-                      <li key={idx} className={`flex items-center text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                      <li key={idx} className={`flex items-center text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                         {language === 'he' ? (
                           <>
-                            <span>{feature}</span>
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary ml-6" />
+                            <span className="text-right">{feature}</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary ml-8 flex-shrink-0" />
                           </>
                         ) : (
                           <>
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3" />
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-4 flex-shrink-0" />
                             <span>{feature}</span>
                           </>
                         )}
