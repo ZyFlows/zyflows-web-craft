@@ -51,6 +51,43 @@
   align-items: center;
 }
 
+/* Grid adjustments for RTL */
+.rtl .grid-cols-1 {
+  direction: rtl;
+}
+
+.rtl .grid-cols-2 {
+  direction: rtl;
+}
+
+.rtl .grid-cols-3 {
+  direction: rtl;
+}
+
+.rtl .grid-cols-4 {
+  direction: rtl;
+}
+
+.rtl .md\\:grid-cols-2 {
+  direction: rtl;
+}
+
+.rtl .md\\:grid-cols-3 {
+  direction: rtl;
+}
+
+.rtl .lg\\:grid-cols-2 {
+  direction: rtl;
+}
+
+.rtl .lg\\:grid-cols-3 {
+  direction: rtl;
+}
+
+.rtl .lg\\:grid-cols-4 {
+  direction: rtl;
+}
+
 /* Margin adjustments */
 .rtl .mr-2 {
   margin-right: 0;
@@ -102,6 +139,16 @@
   margin-right: 2rem;
 }
 
+.rtl .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rtl .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
 /* Padding adjustments */
 .rtl .pr-2 {
   padding-right: 0;
@@ -133,6 +180,16 @@
   padding-right: 1rem;
 }
 
+.rtl .pr-6 {
+  padding-right: 0;
+  padding-left: 1.5rem;
+}
+
+.rtl .pl-6 {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
 .rtl .pr-8 {
   padding-right: 0;
   padding-left: 2rem;
@@ -141,6 +198,16 @@
 .rtl .pl-8 {
   padding-left: 0;
   padding-right: 2rem;
+}
+
+.rtl .pr-12 {
+  padding-right: 0;
+  padding-left: 3rem;
+}
+
+.rtl .pl-12 {
+  padding-left: 0;
+  padding-right: 3rem;
 }
 
 /* Space between adjustments */
@@ -261,17 +328,117 @@
 .rtl input[type="text"],
 .rtl input[type="email"],
 .rtl input[type="tel"],
-.rtl textarea {
+.rtl input[type="password"],
+.rtl textarea,
+.rtl select {
   text-align: right;
+  direction: rtl;
 }
 
 .rtl .placeholder\\:text-right::placeholder {
   text-align: right;
 }
 
+/* Buttons in RTL */
+.rtl button {
+  direction: rtl;
+}
+
 /* Dropdowns */
 .rtl [data-radix-popper-content-wrapper] {
   direction: rtl;
+}
+
+.rtl [role="menu"] {
+  direction: rtl;
+}
+
+.rtl [role="menuitem"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Cards and containers */
+.rtl .card {
+  direction: rtl;
+}
+
+.rtl .glass-effect {
+  direction: rtl;
+}
+
+/* Badge and pills */
+.rtl .badge {
+  direction: rtl;
+}
+
+/* Stats and metrics */
+.rtl .stat-item {
+  direction: rtl;
+  text-align: center;
+}
+
+/* Services grid specific */
+.rtl .service-card {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .service-card .text-center {
+  text-align: center;
+}
+
+/* Projects grid specific */
+.rtl .project-card {
+  direction: rtl;
+  text-align: right;
+}
+
+/* About section specific */
+.rtl .value-card {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .achievement-item {
+  direction: rtl;
+  text-align: center;
+}
+
+/* Testimonials specific */
+.rtl .testimonial-card {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Contact form specific */
+.rtl .contact-form {
+  direction: rtl;
+}
+
+.rtl .contact-form label {
+  text-align: right;
+}
+
+.rtl .contact-form input,
+.rtl .contact-form textarea,
+.rtl .contact-form select {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Footer specific */
+.rtl .footer-section {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .footer-links {
+  text-align: right;
+}
+
+.rtl .footer-links a {
+  text-align: right;
 }
 
 /* Animations */
@@ -298,15 +465,6 @@
   text-align: right;
 }
 
-/* Cards and containers */
-.rtl .card {
-  direction: rtl;
-}
-
-.rtl .glass-effect {
-  direction: rtl;
-}
-
 /* Logo adjustments for RTL */
 .rtl .logo-container {
   order: 1;
@@ -314,4 +472,68 @@
 
 .rtl .nav-items {
   order: 0;
+}
+
+/* Specific responsive adjustments */
+.rtl .md\\:text-left {
+  text-align: right;
+}
+
+.rtl .lg\\:text-left {
+  text-align: right;
+}
+
+.rtl .xl\\:text-left {
+  text-align: right;
+}
+
+/* Container and layout fixes */
+.rtl .container {
+  direction: rtl;
+}
+
+.rtl .max-w-4xl,
+.rtl .max-w-6xl,
+.rtl .max-w-7xl {
+  direction: rtl;
+}
+
+/* Additional fixes for complex layouts */
+.rtl .relative {
+  direction: rtl;
+}
+
+.rtl .absolute {
+  direction: rtl;
+}
+
+/* Ensure all text inputs work properly in RTL */
+.rtl input::placeholder {
+  text-align: right;
+}
+
+.rtl textarea::placeholder {
+  text-align: right;
+}
+
+/* Fix for select dropdowns */
+.rtl select option {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Hero section specific */
+.rtl .hero-content {
+  direction: rtl;
+  text-align: center;
+}
+
+.rtl .hero-buttons {
+  direction: rtl;
+  justify-content: center;
+}
+
+/* Ensure proper font rendering for Hebrew */
+.rtl {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Hebrew", "Hebrew UI", Roboto, Helvetica, Arial, sans-serif;
 }
