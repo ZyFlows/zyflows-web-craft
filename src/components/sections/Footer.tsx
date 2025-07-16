@@ -15,7 +15,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const footerLinks = {
     services: [
@@ -49,7 +49,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/50">
+    <footer className={`relative overflow-hidden border-t border-border/50 ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
       
@@ -64,15 +64,16 @@ const Footer = () => {
               {t('footer.newsletter_desc')}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <div className={`flex flex-col sm:flex-row gap-4 max-w-md mx-auto ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
               <Input 
                 type="email" 
                 placeholder={t('footer.newsletter_placeholder')}
                 className="glass-effect border-border/50 flex-1"
+                style={{ direction: language === 'he' ? 'rtl' : 'ltr' }}
               />
               <Button className="glow-primary shrink-0">
                 {t('footer.newsletter_button')}
-                <Send className="ml-2 h-4 w-4" />
+                <Send className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-4 w-4`} />
               </Button>
             </div>
             
@@ -87,7 +88,7 @@ const Footer = () => {
           <div className="grid lg:grid-cols-6 gap-8">
             {/* Brand section */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-6">
+              <div className={`flex items-center space-x-2 mb-6 ${language === 'he' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                 <img 
                   src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
                   alt="zyFlows" 
@@ -100,22 +101,22 @@ const Footer = () => {
               </p>
               
               <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 text-sm">
+                <div className={`flex items-center gap-3 text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Mail className="h-4 w-4 text-accent" />
                   <span>hello@zyflows.com</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm">
+                <div className={`flex items-center gap-3 text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Phone className="h-4 w-4 text-accent" />
                   <span>+972 58 123 4567</span>
                 </div>
-                <div className="flex items-center gap-3 text-sm">
+                <div className={`flex items-center gap-3 text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <MapPin className="h-4 w-4 text-accent" />
-                  <span>Tel Aviv, Israël</span>
+                  <span>{t('footer.location')}</span>
                 </div>
               </div>
               
               {/* Social links */}
-              <div className="flex gap-3">
+              <div className={`flex gap-3 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                 <Button variant="ghost" size="icon" className="hover:bg-primary/10">
                   <Linkedin className="h-5 w-5" />
                 </Button>
@@ -203,11 +204,11 @@ const Footer = () => {
 
         {/* Bottom section */}
         <div className="py-8 border-t border-border/50">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+          <div className={`flex flex-col md:flex-row items-center justify-between gap-4 ${language === 'he' ? 'md:flex-row-reverse' : ''}`}>
+            <div className={`flex items-center gap-6 text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse' : ''}`}>
               <span>{t('footer.copyright')}</span>
               <span className="hidden md:inline">•</span>
-              <span className="flex items-center gap-2">
+              <span className={`flex items-center gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                 {t('footer.made_with_love')}
               </span>
             </div>
@@ -219,7 +220,7 @@ const Footer = () => {
                 className="hover:bg-primary/10 group"
               >
                 {t('footer.start_project')}
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} h-4 w-4 transition-transform`} />
               </Button>
             </div>
           </div>

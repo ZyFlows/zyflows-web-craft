@@ -7,7 +7,7 @@ import { Star, Quote, ArrowRight, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Testimonials = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const testimonials = [
     {
@@ -90,12 +90,12 @@ const Testimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-20 relative overflow-hidden">
+    <section id="testimonials" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
-      <div className="absolute top-10 left-10 animate-float opacity-10">
+      <div className={`absolute top-10 ${language === 'he' ? 'right-10' : 'left-10'} animate-float opacity-10`}>
         <MessageSquare className="h-28 w-28 text-accent" />
       </div>
-      <div className="absolute bottom-20 right-10 animate-float opacity-10" style={{ animationDelay: '2s' }}>
+      <div className={`absolute bottom-20 ${language === 'he' ? 'left-10' : 'right-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
         <Quote className="h-32 w-32 text-primary" />
       </div>
 
@@ -103,7 +103,7 @@ const Testimonials = () => {
         {/* En-tête de section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-            <MessageSquare className="h-4 w-4 text-accent mr-2" />
+            <MessageSquare className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('testimonials.badge')}</span>
           </div>
           
@@ -126,8 +126,8 @@ const Testimonials = () => {
             >
               <CardHeader className="pb-4">
                 {/* Rating et tags */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1">
+                <div className={`flex items-center justify-between mb-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-1 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                     {renderStars(testimonial.rating)}
                   </div>
                   <Quote className="h-5 w-5 text-primary/50" />
@@ -139,7 +139,7 @@ const Testimonials = () => {
                 </CardDescription>
 
                 {/* Tags projet */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   {testimonial.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
@@ -149,13 +149,13 @@ const Testimonials = () => {
 
                 {/* Projet */}
                 <div className="text-sm text-muted-foreground mb-4">
-                  <span className="font-medium">Projet :</span> {testimonial.project}
+                  <span className="font-medium">{t('testimonials.project_label')} :</span> {testimonial.project}
                 </div>
               </CardHeader>
               
               <CardContent className="pt-0 border-t border-border/50">
                 {/* Profil client */}
-                <div className="flex items-center gap-4">
+                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Avatar className="h-12 w-12 border-2 border-primary/20">
                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                     <AvatarFallback className="bg-primary/10">
@@ -210,7 +210,7 @@ const Testimonials = () => {
             </p>
             <Button size="lg" className="glow-primary">
               {t('testimonials.cta_button')}
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
         </div>

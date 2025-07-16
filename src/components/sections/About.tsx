@@ -15,7 +15,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const values = [
     {
@@ -59,9 +59,9 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
+    <section id="about" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
-      <div className="absolute top-10 right-20 animate-float opacity-10">
+      <div className={`absolute top-10 ${language === 'he' ? 'left-20' : 'right-20'} animate-float opacity-10`}>
         <Users className="h-32 w-32 text-primary" />
       </div>
 
@@ -69,7 +69,7 @@ const About = () => {
         {/* En-tête de section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-            <Users className="h-4 w-4 text-primary mr-2" />
+            <Users className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('about.badge')}</span>
           </div>
           
@@ -80,7 +80,7 @@ const About = () => {
 
         {/* Histoire et mission */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="order-2 lg:order-1">
+          <div className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
             <h3 className="text-2xl font-semibold mb-6">{t('about.mission_title')}</h3>
             <p className="text-lg text-muted-foreground mb-6">
               {t('about.mission_text1')}
@@ -91,8 +91,8 @@ const About = () => {
             
             <div className="space-y-4 mb-8">
               {features.map((item, index) => (
-                <div key={index} className="flex items-center">
-                  <CheckCircle className="h-5 w-5 text-primary mr-3" />
+                <div key={index} className={`flex items-center ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                  <CheckCircle className={`h-5 w-5 text-primary ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
                   <span className="text-muted-foreground">{item}</span>
                 </div>
               ))}
@@ -100,11 +100,11 @@ const About = () => {
 
             <Button size="lg" className="glow-primary">
               {t('about.team_button')}
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
 
-          <div className="order-1 lg:order-2">
+          <div className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
             <div className="relative">
               <div className="glass-effect rounded-2xl p-8">
                 <div className="grid grid-cols-2 gap-6">
@@ -126,12 +126,12 @@ const About = () => {
               </div>
               
               {/* Badges flottants */}
-              <div className="absolute -top-4 -right-4">
+              <div className={`absolute -top-4 ${language === 'he' ? '-left-4' : '-right-4'}`}>
                 <Badge className="bg-primary text-primary-foreground">
                   Made in Israel 🇮🇱
                 </Badge>
               </div>
-              <div className="absolute -bottom-4 -left-4">
+              <div className={`absolute -bottom-4 ${language === 'he' ? '-right-4' : '-left-4'}`}>
                 <Badge variant="secondary">
                   Tech Innovators
                 </Badge>
@@ -183,10 +183,10 @@ const About = () => {
             <p className="text-muted-foreground mb-6">
               {t('about.cta_desc')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
               <Button size="lg" className="glow-primary">
                 {t('about.cta_button1')}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
               </Button>
               <Button size="lg" variant="outline" className="glass-effect border-primary/30">
                 {t('about.cta_button2')}

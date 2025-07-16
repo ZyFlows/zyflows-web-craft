@@ -3,10 +3,7 @@
   direction: rtl;
 }
 
-.rtl .flex {
-  flex-direction: row-reverse;
-}
-
+/* Text alignment */
 .rtl .text-left {
   text-align: right;
 }
@@ -15,6 +12,46 @@
   text-align: left;
 }
 
+.rtl .text-center {
+  text-align: center;
+}
+
+/* Flex direction adjustments */
+.rtl .flex {
+  flex-direction: row-reverse;
+}
+
+.rtl .flex-col {
+  flex-direction: column;
+}
+
+.rtl .sm\\:flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .flex-col.sm\\:flex-row {
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .rtl .flex-col.sm\\:flex-row {
+    flex-direction: row-reverse;
+  }
+}
+
+.rtl .flex-row-reverse {
+  flex-direction: row;
+}
+
+.rtl .justify-between {
+  justify-content: space-between;
+}
+
+.rtl .items-center {
+  align-items: center;
+}
+
+/* Margin adjustments */
 .rtl .mr-2 {
   margin-right: 0;
   margin-left: 0.5rem;
@@ -35,9 +72,81 @@
   margin-right: 0.75rem;
 }
 
-.rtl .space-x-8 > * + * {
+.rtl .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+.rtl .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .mr-6 {
+  margin-right: 0;
+  margin-left: 1.5rem;
+}
+
+.rtl .ml-6 {
+  margin-left: 0;
+  margin-right: 1.5rem;
+}
+
+.rtl .mr-8 {
+  margin-right: 0;
+  margin-left: 2rem;
+}
+
+.rtl .ml-8 {
   margin-left: 0;
   margin-right: 2rem;
+}
+
+/* Padding adjustments */
+.rtl .pr-2 {
+  padding-right: 0;
+  padding-left: 0.5rem;
+}
+
+.rtl .pl-2 {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+.rtl .pr-3 {
+  padding-right: 0;
+  padding-left: 0.75rem;
+}
+
+.rtl .pl-3 {
+  padding-left: 0;
+  padding-right: 0.75rem;
+}
+
+.rtl .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+.rtl .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.rtl .pr-8 {
+  padding-right: 0;
+  padding-left: 2rem;
+}
+
+.rtl .pl-8 {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+/* Space between adjustments */
+.rtl .space-x-2 > * + * {
+  margin-left: 0;
+  margin-right: 0.5rem;
 }
 
 .rtl .space-x-4 > * + * {
@@ -45,12 +154,24 @@
   margin-right: 1rem;
 }
 
-.rtl .justify-between {
-  flex-direction: row-reverse;
+.rtl .space-x-6 > * + * {
+  margin-left: 0;
+  margin-right: 1.5rem;
 }
 
-.rtl .items-center {
-  align-items: center;
+.rtl .space-x-8 > * + * {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+.rtl .space-x-reverse > * + * {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Grid and layout */
+.rtl .grid {
+  direction: rtl;
 }
 
 .rtl .gap-2 {
@@ -61,36 +182,136 @@
   gap: 1rem;
 }
 
-.rtl .px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+.rtl .gap-6 {
+  gap: 1.5rem;
 }
 
-.rtl .py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+.rtl .gap-8 {
+  gap: 2rem;
 }
 
-/* Navigation RTL adjustments */
+/* Positioning */
+.rtl .left-0 {
+  left: auto;
+  right: 0;
+}
+
+.rtl .right-0 {
+  right: auto;
+  left: 0;
+}
+
+.rtl .left-4 {
+  left: auto;
+  right: 1rem;
+}
+
+.rtl .right-4 {
+  right: auto;
+  left: 1rem;
+}
+
+.rtl .left-10 {
+  left: auto;
+  right: 2.5rem;
+}
+
+.rtl .right-10 {
+  right: auto;
+  left: 2.5rem;
+}
+
+.rtl .left-20 {
+  left: auto;
+  right: 5rem;
+}
+
+.rtl .right-20 {
+  right: auto;
+  left: 5rem;
+}
+
+/* Navigation specific */
 .rtl .hidden.md\\:flex {
   flex-direction: row-reverse;
 }
 
-.rtl .sm\\:flex-row {
-  flex-direction: row-reverse;
+.rtl .md\\:hidden .space-y-1 > * {
+  text-align: right;
 }
 
-.rtl .flex-col.sm\\:flex-row {
-  flex-direction: column;
+/* Transform adjustments for icons */
+.rtl .group-hover\\:translate-x-1 {
+  transform: translateX(-0.25rem);
 }
 
-@media (min-width: 640px) {
-  .rtl .flex-col.sm\\:flex-row {
-    flex-direction: row-reverse;
+.rtl .group-hover\\:-translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+.rtl .group-hover\\/btn\\:translate-x-1 {
+  transform: translateX(-0.25rem);
+}
+
+.rtl .group-hover\\/btn\\:-translate-x-1 {
+  transform: translateX(0.25rem);
+}
+
+/* Forms */
+.rtl input[type="text"],
+.rtl input[type="email"],
+.rtl input[type="tel"],
+.rtl textarea {
+  text-align: right;
+}
+
+.rtl .placeholder\\:text-right::placeholder {
+  text-align: right;
+}
+
+/* Dropdowns */
+.rtl [data-radix-popper-content-wrapper] {
+  direction: rtl;
+}
+
+/* Animations */
+.rtl .animate-float {
+  animation: float-rtl 6s ease-in-out infinite;
+}
+
+@keyframes float-rtl {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(5px);
   }
 }
 
-/* Mobile menu RTL */
-.rtl .md\\:hidden .space-y-1 > * {
+/* List items */
+.rtl ul,
+.rtl ol {
+  direction: rtl;
+}
+
+.rtl li {
   text-align: right;
+}
+
+/* Cards and containers */
+.rtl .card {
+  direction: rtl;
+}
+
+.rtl .glass-effect {
+  direction: rtl;
+}
+
+/* Logo adjustments for RTL */
+.rtl .logo-container {
+  order: 1;
+}
+
+.rtl .nav-items {
+  order: 0;
 }

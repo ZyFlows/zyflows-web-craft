@@ -48,29 +48,37 @@ const Navigation = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo - Agrandi */}
-          <div className="flex items-center">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo - Enhanced size with responsive design */}
+          <div className={`flex items-center ${language === 'he' ? 'logo-container' : ''}`}>
             <img 
               src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
               alt="zyFlows" 
-              className="h-12 w-auto object-contain" 
+              className={`${
+                scrolled 
+                  ? 'h-12 md:h-14' 
+                  : 'h-16 md:h-18'
+              } w-auto object-contain transition-all duration-300 ease-in-out`}
             />
           </div>
 
           {/* Navigation desktop */}
-          <div className={`hidden md:flex items-center ${language === 'he' ? 'space-x-reverse space-x-8' : 'space-x-8'}`}>
+          <div className={`hidden md:flex items-center ${
+            language === 'he' 
+              ? 'space-x-reverse space-x-8 nav-items' 
+              : 'space-x-8'
+          }`}>
             {navItems.map(item => (
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105"
+                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap"
               >
                 {item.label}
               </a>
             ))}
             <LanguageSelector />
-            <Button variant="default" className="glow-primary">
+            <Button variant="default" className="glow-primary whitespace-nowrap">
               {t('nav.start_project')}
             </Button>
           </div>
@@ -95,9 +103,13 @@ const Navigation = () => {
                   {item.label}
                 </a>
               ))}
-              <div className={`px-3 py-2 flex ${language === 'he' ? 'flex-row-reverse' : ''} justify-between items-center`}>
+              <div className={`px-3 py-2 flex ${
+                language === 'he' 
+                  ? 'flex-row-reverse' 
+                  : 'flex-row'
+              } justify-between items-center gap-4`}>
                 <LanguageSelector />
-                <Button variant="default" className="glow-primary">
+                <Button variant="default" className="glow-primary flex-shrink-0">
                   {t('nav.start_project')}
                 </Button>
               </div>
