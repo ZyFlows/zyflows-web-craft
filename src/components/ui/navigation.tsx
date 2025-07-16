@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -49,12 +48,12 @@ const Navigation = () => {
     <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo - 70px de hauteur */}
+          {/* Logo - 100px de hauteur */}
           <div className={`flex items-center ${language === 'he' ? 'logo-container' : ''}`}>
             <img 
               src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
               alt="zyFlows" 
-              style={{ height: '70px', width: 'auto' }}
+              style={{ height: '100px', width: 'auto' }}
               className="object-contain transition-all duration-300 ease-in-out"
             />
           </div>
