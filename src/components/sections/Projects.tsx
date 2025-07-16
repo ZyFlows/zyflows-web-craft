@@ -6,7 +6,7 @@ import { ExternalLink, Github, ArrowRight, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Projects = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const projects = [
     {
@@ -60,9 +60,9 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section id="projects" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
-      <div className="absolute top-20 left-10 animate-float opacity-10">
+      <div className={`absolute top-20 ${language === 'he' ? 'right-10' : 'left-10'} animate-float opacity-10`}>
         <Lightbulb className="h-28 w-28 text-accent" />
       </div>
 
@@ -70,7 +70,7 @@ const Projects = () => {
         {/* En-tête de section */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-            <Lightbulb className="h-4 w-4 text-accent mr-2" />
+            <Lightbulb className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('projects.badge')}</span>
           </div>
           
@@ -88,7 +88,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <Card 
               key={project.title} 
-              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group overflow-hidden animate-fade-in-up" 
+              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group overflow-hidden animate-fade-in-up project-card" 
               style={{ animationDelay: project.delay }}
             >
               {/* Image du projet */}
@@ -99,7 +99,7 @@ const Projects = () => {
                   className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
                   <Button size="sm" variant="secondary" className="rounded-full">
                     <ExternalLink className="h-4 w-4" />
                   </Button>
@@ -107,7 +107,7 @@ const Projects = () => {
               </div>
 
               <CardHeader className="pb-4">
-                <div className="flex flex-wrap gap-2 mb-3">
+                <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   {project.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="text-xs">
                       {tag}
@@ -126,17 +126,17 @@ const Projects = () => {
                 {/* Métriques */}
                 <div className="space-y-2 mb-6">
                   {project.metrics.map((metric, idx) => (
-                    <div key={idx} className="flex items-center text-sm">
-                      <div className="w-1.5 h-1.5 rounded-full bg-accent mr-3" />
+                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`w-1.5 h-1.5 rounded-full bg-accent ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
                       <span className="text-muted-foreground">{metric}</span>
                     </div>
                   ))}
                 </div>
                 
-                <div className="flex gap-2">
+                <div className={`flex gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Button variant="ghost" size="sm" className="flex-1 group/btn hover:bg-primary/10 transition-smooth">
                     {t('projects.view_project')}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
                   <Button variant="ghost" size="sm" className="px-3">
                     <Github className="h-4 w-4" />
@@ -158,7 +158,7 @@ const Projects = () => {
             </p>
             <Button size="lg" className="glow-primary">
               {t('projects.cta_button')}
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
         </div>
