@@ -101,7 +101,7 @@ const Contact = () => {
                   <Mail className="h-5 w-5 text-accent" />
                   <div>
                     <div className="font-medium">+972 58-422-9255</div>
-                    <div className="text-sm text-muted-foreground">hello@zyflows.com</div>
+                    <div className="text-sm text-muted-foreground">zyflow.web@gmail.com</div>
                   </div>
                 </div>
                 
