@@ -49,20 +49,16 @@ const Navigation = () => {
     <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo - Optimized integration with transparency */}
+          {/* Logo - New logo without background */}
           <div className={`flex items-center ${language === 'he' ? 'logo-container' : ''}`}>
             <img 
-              src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
+              src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
               alt="zyFlows" 
               className={`${
                 scrolled 
                   ? 'h-8 sm:h-10 md:h-12' 
                   : 'h-10 sm:h-12 md:h-14 lg:h-16'
-              } w-auto object-contain transition-all duration-300 ease-in-out mix-blend-multiply`}
-              style={{
-                filter: 'brightness(1.1) contrast(1.1)',
-                background: 'transparent'
-              }}
+              } w-auto object-contain transition-all duration-300 ease-in-out`}
             />
           </div>
 
