@@ -107,7 +107,7 @@ const Footer = () => {
                 </div>
                 <div className={`flex items-center gap-3 text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <Phone className="h-4 w-4 text-accent" />
-                  <span>+972 58 123 4567</span>
+                  <span>+972 58-422-9255</span>
                 </div>
                 <div className={`flex items-center gap-3 text-sm ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                   <MapPin className="h-4 w-4 text-accent" />
