@@ -30,6 +30,7 @@ const Contact = () => {
   const services = [t('contact.service1'), t('contact.service2'), t('contact.service3'), t('contact.service4'), t('contact.service5'), t('contact.service6'), t('contact.service7'), t('contact.service8')];
   const budgetRanges = [t('contact.budget1'), t('contact.budget2'), t('contact.budget3'), t('contact.budget4'), t('contact.budget5'), t('contact.budget6')];
   const timelines = [t('contact.timeline1'), t('contact.timeline2'), t('contact.timeline3'), t('contact.timeline4'), t('contact.timeline5')];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -54,12 +55,14 @@ const Contact = () => {
       });
     }, 2000);
   };
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
   };
+
   return <section id="contact" className="py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute top-20 right-10 animate-float opacity-10">
@@ -109,7 +112,7 @@ const Contact = () => {
                   <Phone className="h-5 w-5 text-accent" />
                   <div>
                     <div className="font-medium text-center">{t('contact.phone')}</div>
-                    <div className="text-sm text-muted-foreground">+972 58-422-9255</div>
+                    <div className="text-sm text-muted-foreground" dir="ltr">+972 58-422-9255</div>
                   </div>
                 </div>
                 
