@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle, Zap } from "lucide-react";
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -22,6 +22,7 @@ const Contact = () => {
     message: "",
     timeline: ""
   });
+  const [webhookUrl, setWebhookUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -57,25 +58,72 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulation d'envoi
-    setTimeout(() => {
-      toast({
-        title: t('contact.success_title'),
-        description: t('contact.success_desc'),
-      });
-      setIsSubmitting(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        service: "",
-        project: "",
-        budget: "",
-        message: "",
-        timeline: ""
-      });
-    }, 2000);
+    // Si une URL Zapier est fournie, on l'utilise
+    if (webhookUrl) {
+      try {
+        console.log("Envoi vers Zapier webhook:", webhookUrl);
+        console.log("Données du formulaire:", formData);
+
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "no-cors",
+          body: JSON.stringify({
+            ...formData,
+            timestamp: new Date().toISOString(),
+            source: "Zyflow Contact Form"
+          }),
+        });
+
+        toast({
+          title: "Message envoyé !",
+          description: "Votre demande a été transmise via Zapier. Nous vous répondrons rapidement.",
+        });
+        
+        // Réinitialiser le formulaire
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          service: "",
+          project: "",
+          budget: "",
+          message: "",
+          timeline: ""
+        });
+      } catch (error) {
+        console.error("Erreur lors de l'envoi vers Zapier:", error);
+        toast({
+          title: "Erreur d'envoi",
+          description: "Impossible d'envoyer via Zapier. Vérifiez l'URL webhook.",
+          variant: "destructive",
+        });
+      }
+    } else {
+      // Simulation d'envoi comme avant
+      setTimeout(() => {
+        toast({
+          title: t('contact.success_title'),
+          description: t('contact.success_desc'),
+        });
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          service: "",
+          project: "",
+          budget: "",
+          message: "",
+          timeline: ""
+        });
+      }, 2000);
+    }
+    
+    setIsSubmitting(false);
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -213,6 +261,23 @@ const Contact = () => {
               </CardHeader>
               
               <CardContent>
+                {/* Configuration Zapier */}
+                <div className="mb-6 p-4 glass-effect rounded-lg border border-border/50">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Zap className="h-5 w-5 text-accent" />
+                    <h3 className="font-semibold">Configuration Zapier (optionnel)</h3>
+                  </div>
+                  <Input
+                    value={webhookUrl}
+                    onChange={(e) => setWebhookUrl(e.target.value)}
+                    placeholder="https://hooks.zapier.com/hooks/catch/..."
+                    className="glass-effect border-border/50"
+                  />
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Ajoutez votre URL webhook Zapier pour connecter ce formulaire à vos outils préférés
+                  </p>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Informations personnelles */}
                   <div className="grid md:grid-cols-2 gap-4">
@@ -348,18 +413,21 @@ const Contact = () => {
                     {isSubmitting ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground mr-2" />
-                        {t('contact.submitting')}
+                        {webhookUrl ? "Envoi via Zapier..." : t('contact.submitting')}
                       </>
                     ) : (
                       <>
-                        {t('contact.submit')}
+                        {webhookUrl ? "Envoyer via Zapier" : t('contact.submit')}
                         <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
                   </Button>
 
                   <p className="text-sm text-muted-foreground text-center">
-                    {t('contact.disclaimer')}
+                    {webhookUrl ? 
+                      "Les données seront envoyées à votre webhook Zapier configuré" : 
+                      t('contact.disclaimer')
+                    }
                   </p>
                 </form>
               </CardContent>
