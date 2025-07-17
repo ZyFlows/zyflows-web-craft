@@ -3,9 +3,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Services = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleLearnMore = (serviceTitle: string) => {
+    toast({
+      title: "En savoir plus",
+      description: `Plus d'informations sur : ${serviceTitle}`,
+    });
+  };
 
   const services = [
     {
@@ -118,7 +134,11 @@ const Services = () => {
                     ))}
                   </ul>
                   
-                  <Button variant="ghost" className="w-full group/btn hover:bg-primary/10 transition-smooth">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full group/btn hover:bg-primary/10 transition-smooth"
+                    onClick={() => handleLearnMore(service.title)}
+                  >
                     {t('services.learn_more')}
                     <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
@@ -137,7 +157,11 @@ const Services = () => {
             <p className="text-muted-foreground mb-6">
               {t('services.cta_desc')}
             </p>
-            <Button size="lg" className="glow-primary">
+            <Button 
+              size="lg" 
+              className="glow-primary"
+              onClick={() => scrollToSection('contact')}
+            >
               {t('services.cta_button')}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
