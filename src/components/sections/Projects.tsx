@@ -8,6 +8,23 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const Projects = () => {
   const { t, language } = useLanguage();
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleProjectView = (projectTitle: string) => {
+    console.log(`Viewing project: ${projectTitle}`);
+    // Ici vous pouvez ajouter la logique pour ouvrir le projet
+  };
+
+  const handleGithubView = (projectTitle: string) => {
+    console.log(`Viewing GitHub for project: ${projectTitle}`);
+    // Ici vous pouvez ajouter la logique pour ouvrir GitHub
+  };
+
   const projects = [
     {
       title: t('projects.project1_title'),
@@ -100,7 +117,12 @@ const Projects = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
-                  <Button size="sm" variant="secondary" className="rounded-full">
+                  <Button 
+                    size="sm" 
+                    variant="secondary" 
+                    className="rounded-full"
+                    onClick={() => handleProjectView(project.title)}
+                  >
                     <ExternalLink className="h-4 w-4" />
                   </Button>
                 </div>
@@ -130,7 +152,7 @@ const Projects = () => {
                       {language === 'he' ? (
                         <>
                           <span className="text-muted-foreground text-right">{metric}</span>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-8 flex-shrink-0" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0" />
                         </>
                       ) : (
                         <>
@@ -143,11 +165,21 @@ const Projects = () => {
                 </div>
                 
                 <div className={`flex gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                  <Button variant="ghost" size="sm" className="flex-1 group/btn hover:bg-primary/10 transition-smooth">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="flex-1 group/btn hover:bg-primary/10 transition-smooth"
+                    onClick={() => handleProjectView(project.title)}
+                  >
                     {t('projects.view_project')}
                     <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
-                  <Button variant="ghost" size="sm" className="px-3">
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="px-3"
+                    onClick={() => handleGithubView(project.title)}
+                  >
                     <Github className="h-4 w-4" />
                   </Button>
                 </div>
@@ -165,7 +197,11 @@ const Projects = () => {
             <p className="text-muted-foreground mb-6">
               {t('projects.cta_desc')}
             </p>
-            <Button size="lg" className="glow-primary">
+            <Button 
+              size="lg" 
+              className="glow-primary"
+              onClick={() => scrollToSection('contact')}
+            >
               {t('projects.cta_button')}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>

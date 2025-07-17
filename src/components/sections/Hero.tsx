@@ -7,6 +7,13 @@ import heroTech from "@/assets/hero-tech.jpg";
 const Hero = () => {
   const { t, language } = useLanguage();
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className={`min-h-screen flex items-center relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background image */}
@@ -56,6 +63,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
+              onClick={() => scrollToSection('services')}
             >
               {t('hero.cta_services')}
               <ArrowRight className={`h-5 w-5 transition-transform ${
@@ -69,6 +77,7 @@ const Hero = () => {
               variant="outline" 
               size="lg" 
               className="text-lg px-8 py-6 glass-effect border-primary/30 hover:border-primary transition-smooth hover:scale-105"
+              onClick={() => scrollToSection('projects')}
             >
               {t('hero.cta_projects')}
             </Button>

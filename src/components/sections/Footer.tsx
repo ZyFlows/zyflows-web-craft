@@ -13,9 +13,39 @@ import {
   Send
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const Footer = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      toast({
+        title: "Inscription réussie !",
+        description: "Vous recevrez nos dernières actualités.",
+      });
+      setEmail("");
+    }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    console.log(`Opening ${platform}...`);
+    toast({
+      title: `${platform}`,
+      description: "Redirection vers le réseau social...",
+    });
+  };
 
   const footerLinks = {
     services: [
@@ -64,18 +94,24 @@ const Footer = () => {
               {t('footer.newsletter_desc')}
             </p>
             
-            <div className={`flex flex-col sm:flex-row gap-4 max-w-md mx-auto ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
+            <form 
+              onSubmit={handleNewsletterSubmit}
+              className={`flex flex-col sm:flex-row gap-4 max-w-md mx-auto ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}
+            >
               <Input 
                 type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder={t('footer.newsletter_placeholder')}
                 className="glass-effect border-border/50 flex-1"
                 style={{ direction: language === 'he' ? 'rtl' : 'ltr' }}
+                required
               />
-              <Button className="glow-primary shrink-0">
+              <Button type="submit" className="glow-primary shrink-0">
                 {t('footer.newsletter_button')}
                 <Send className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-4 w-4`} />
               </Button>
-            </div>
+            </form>
             
             <p className="text-xs text-muted-foreground mt-4">
               {t('footer.newsletter_disclaimer')}
@@ -90,7 +126,7 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className={`flex items-center space-x-2 mb-6 ${language === 'he' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                 <img 
-                  src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
+                  src="/lovable-uploads/da2b99fe-7ae0-4b64-8a8d-0029ea41d97f.png" 
                   alt="zyFlows" 
                   className="h-8 w-auto"
                 />
@@ -117,16 +153,36 @@ const Footer = () => {
               
               {/* Social links */}
               <div className={`flex gap-3 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="hover:bg-primary/10"
+                  onClick={() => handleSocialClick('LinkedIn')}
+                >
                   <Linkedin className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="hover:bg-primary/10"
+                  onClick={() => handleSocialClick('Twitter')}
+                >
                   <Twitter className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="hover:bg-primary/10"
+                  onClick={() => handleSocialClick('GitHub')}
+                >
                   <Github className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="hover:bg-primary/10"
+                  onClick={() => handleSocialClick('Website')}
+                >
                   <Globe className="h-5 w-5" />
                 </Button>
               </div>
@@ -138,12 +194,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.services.map((link, index) => (
                   <li key={index}>
-                    <a 
-                      href="#services" 
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    <button 
+                      onClick={() => scrollToSection('services')}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -155,12 +211,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
-                    <a 
-                      href="#about" 
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    <button 
+                      onClick={() => scrollToSection('about')}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -172,12 +228,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
-                    <a 
-                      href="#" 
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    <button 
+                      onClick={() => console.log(`Clicking on ${link}`)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -189,12 +245,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {footerLinks.legal.map((link, index) => (
                   <li key={index}>
-                    <a 
-                      href="#" 
-                      className="text-sm text-muted-foreground hover:text-primary transition-smooth"
+                    <button 
+                      onClick={() => console.log(`Clicking on ${link}`)}
+                      className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -218,6 +274,7 @@ const Footer = () => {
                 variant="ghost" 
                 size="sm"
                 className="hover:bg-primary/10 group"
+                onClick={() => scrollToSection('contact')}
               >
                 {t('footer.start_project')}
                 <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} h-4 w-4 transition-transform`} />
