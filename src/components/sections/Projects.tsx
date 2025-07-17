@@ -1,12 +1,13 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, ArrowRight, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Projects = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -17,12 +18,18 @@ const Projects = () => {
 
   const handleProjectView = (projectTitle: string) => {
     console.log(`Viewing project: ${projectTitle}`);
-    // Ici vous pouvez ajouter la logique pour ouvrir le projet
+    toast({
+      title: "Projet sélectionné",
+      description: `Ouverture du projet: ${projectTitle}`,
+    });
   };
 
   const handleGithubView = (projectTitle: string) => {
     console.log(`Viewing GitHub for project: ${projectTitle}`);
-    // Ici vous pouvez ajouter la logique pour ouvrir GitHub
+    toast({
+      title: "GitHub",
+      description: `Code source du projet: ${projectTitle}`,
+    });
   };
 
   const projects = [

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -85,13 +86,22 @@ const Contact = () => {
     console.log("Scheduling call...");
     toast({
       title: "Planification d'appel",
-      description: "Redirection vers le calendrier...",
+      description: "Ouverture du calendrier de réservation...",
     });
+    // Simulation d'ouverture d'un calendrier externe
+    window.open("https://calendly.com", "_blank");
   };
 
   const handleWhatsAppChat = () => {
     console.log("Opening WhatsApp...");
-    window.open("https://wa.me/972584229255", "_blank");
+    const phoneNumber = "972584229255";
+    const message = encodeURIComponent("Bonjour, je souhaite discuter d'un projet web avec vous.");
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, "_blank");
+    toast({
+      title: "WhatsApp",
+      description: "Ouverture de WhatsApp...",
+    });
   };
 
   const handlePortfolioView = () => {
@@ -100,6 +110,10 @@ const Contact = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    toast({
+      title: "Portfolio",
+      description: "Navigation vers nos projets...",
+    });
   };
 
   return (

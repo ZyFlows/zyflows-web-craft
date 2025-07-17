@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -41,10 +40,43 @@ const Footer = () => {
 
   const handleSocialClick = (platform: string) => {
     console.log(`Opening ${platform}...`);
+    let url = "";
+    switch(platform) {
+      case 'LinkedIn':
+        url = "https://linkedin.com";
+        break;
+      case 'Twitter':
+        url = "https://twitter.com";
+        break;
+      case 'GitHub':
+        url = "https://github.com";
+        break;
+      case 'Website':
+        scrollToSection('home');
+        return;
+      default:
+        break;
+    }
+    
+    if (url) {
+      window.open(url, '_blank');
+    }
+    
     toast({
       title: `${platform}`,
       description: "Redirection vers le réseau social...",
     });
+  };
+
+  const handleLinkClick = (linkName: string, sectionId?: string) => {
+    if (sectionId) {
+      scrollToSection(sectionId);
+    } else {
+      toast({
+        title: linkName,
+        description: "Fonctionnalité en cours de développement...",
+      });
+    }
   };
 
   const footerLinks = {
@@ -195,7 +227,7 @@ const Footer = () => {
                 {footerLinks.services.map((link, index) => (
                   <li key={index}>
                     <button 
-                      onClick={() => scrollToSection('services')}
+                      onClick={() => handleLinkClick(link, 'services')}
                       className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
@@ -212,7 +244,7 @@ const Footer = () => {
                 {footerLinks.company.map((link, index) => (
                   <li key={index}>
                     <button 
-                      onClick={() => scrollToSection('about')}
+                      onClick={() => handleLinkClick(link, 'about')}
                       className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
@@ -229,7 +261,7 @@ const Footer = () => {
                 {footerLinks.resources.map((link, index) => (
                   <li key={index}>
                     <button 
-                      onClick={() => console.log(`Clicking on ${link}`)}
+                      onClick={() => handleLinkClick(link, 'projects')}
                       className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
@@ -246,7 +278,7 @@ const Footer = () => {
                 {footerLinks.legal.map((link, index) => (
                   <li key={index}>
                     <button 
-                      onClick={() => console.log(`Clicking on ${link}`)}
+                      onClick={() => handleLinkClick(link)}
                       className="text-sm text-muted-foreground hover:text-primary transition-smooth text-left"
                     >
                       {link}
