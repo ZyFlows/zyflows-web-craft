@@ -1,8 +1,7 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Zap, Code2 } from "lucide-react";
+import { ArrowRight, Zap, Code2, Smartphone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroTech from "@/assets/hero-tech.jpg";
 
 const Hero = () => {
   const { t, language } = useLanguage();
@@ -15,89 +14,82 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className={`min-h-screen flex items-center relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: `url(${heroTech})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
-      
-      {/* Floating elements */}
-      <div className={`absolute top-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}>
-        <Code2 className="h-8 w-8 text-primary/30" />
+    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 ${language === 'he' ? 'rtl' : ''}`}>
+      {/* Background elements */}
+      <div className={`absolute top-20 ${language === 'he' ? 'left-4 md:left-10' : 'right-4 md:right-10'} animate-float opacity-10`}>
+        <Code2 className="h-16 w-16 md:h-24 md:w-24 text-primary" />
       </div>
-      <div className={`absolute top-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} style={{ animationDelay: '1s' }}>
-        <Zap className="h-6 w-6 text-accent/40" />
+      <div className={`absolute bottom-20 ${language === 'he' ? 'right-4 md:right-10' : 'left-4 md:left-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
+        <Smartphone className="h-12 w-12 md:h-20 md:w-20 text-accent" />
       </div>
-      <div className={`absolute bottom-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} style={{ animationDelay: '2s' }}>
-        <Sparkles className="h-10 w-10 text-primary/20" />
+      <div className={`absolute top-1/2 ${language === 'he' ? 'right-1/4' : 'left-1/4'} animate-float opacity-5`} style={{ animationDelay: '4s' }}>
+        <Zap className="h-20 w-20 md:h-32 md:w-32 text-primary" />
       </div>
 
-      <div className="container mx-auto px-4 z-20 relative">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Contenu principal */}
+      <div className="container mx-auto px-4 py-12 md:py-20 text-center relative z-10">
+        <div className="max-w-4xl mx-auto">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
-            <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6 md:mb-8">
+            <Zap className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
 
-          {/* Main title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            {t('hero.title')}
+          {/* Titre principal */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 leading-tight">
+            <span className="text-foreground">{t('hero.title_part1')}</span>
+            <br />
+            <span className="gradient-text">{t('hero.title_part2')}</span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          {/* Sous-titre */}
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 md:mb-12 max-w-3xl mx-auto leading-relaxed px-2">
             {t('hero.subtitle')}
           </p>
 
-          {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
+          {/* Boutons d'action - Stack verticalement sur mobile */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 md:mb-16">
             <Button 
               size="lg" 
-              className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
+              className="w-full sm:w-auto glow-primary px-6 md:px-8 py-3 md:py-4 text-sm md:text-base"
               onClick={() => scrollToSection('services')}
             >
-              {t('hero.cta_services')}
-              <ArrowRight className={`h-5 w-5 transition-transform ${
-                language === 'he' 
-                  ? 'mr-2 group-hover:-translate-x-1' 
-                  : 'ml-2 group-hover:translate-x-1'
-              }`} />
+              {t('hero.cta_primary')}
+              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-4 w-4 md:h-5 md:w-5`} />
             </Button>
             
             <Button 
               variant="outline" 
               size="lg" 
-              className="text-lg px-8 py-6 glass-effect border-primary/30 hover:border-primary transition-smooth hover:scale-105"
+              className="w-full sm:w-auto border-primary/20 hover:border-primary/50 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base"
               onClick={() => scrollToSection('projects')}
             >
-              {t('hero.cta_projects')}
+              {t('hero.cta_secondary')}
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
+          {/* Statistiques */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">50+</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2">50+</div>
+              <div className="text-sm md:text-base text-muted-foreground">{t('hero.stat1')}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">99%</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat2')}</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent mb-2">99%</div>
+              <div className="text-sm md:text-base text-muted-foreground">{t('hero.stat2')}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">24h</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat3')}</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2">24/7</div>
+              <div className="text-sm md:text-base text-muted-foreground">{t('hero.stat3')}</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Indicateur de défilement */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>
