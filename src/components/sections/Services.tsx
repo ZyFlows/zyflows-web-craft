@@ -3,24 +3,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
 
 const Services = () => {
   const { t, language } = useLanguage();
-  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleLearnMore = (serviceTitle: string) => {
-    toast({
-      title: "En savoir plus",
-      description: `Plus d'informations sur : ${serviceTitle}`,
-    });
   };
 
   const services = [
@@ -67,34 +58,34 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
+    <section id="services" className={`py-12 md:py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
-      <div className={`absolute top-10 ${language === 'he' ? 'left-10' : 'right-10'} animate-float opacity-10`}>
-        <Code2 className="h-32 w-32 text-primary" />
+      <div className={`absolute top-10 ${language === 'he' ? 'left-4 md:left-10' : 'right-4 md:right-10'} animate-float opacity-10`}>
+        <Code2 className="h-16 w-16 md:h-32 md:w-32 text-primary" />
       </div>
-      <div className={`absolute bottom-10 ${language === 'he' ? 'right-10' : 'left-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
-        <Settings className="h-24 w-24 text-accent" />
+      <div className={`absolute bottom-10 ${language === 'he' ? 'right-4 md:right-10' : 'left-4 md:left-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
+        <Settings className="h-12 w-12 md:h-24 md:w-24 text-accent" />
       </div>
 
       <div className="container mx-auto px-4">
         {/* En-tête de section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
             <Palette className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-sm font-medium">{t('services.badge')}</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 px-2">
             {t('services.title')}
           </h2>
           
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             {t('services.subtitle')}
           </p>
         </div>
 
         {/* Grille de services */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
@@ -107,10 +98,10 @@ const Services = () => {
                   <div className={`w-12 h-12 rounded-lg glass-effect flex items-center justify-center mb-4 ${service.color} group-hover:glow-primary transition-smooth`}>
                     <IconComponent className="h-6 w-6" />
                   </div>
-                  <CardTitle className="text-xl font-semibold group-hover:text-primary transition-smooth">
+                  <CardTitle className="text-lg md:text-xl font-semibold group-hover:text-primary transition-smooth">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-muted-foreground">
+                  <CardDescription className="text-muted-foreground text-sm md:text-base">
                     {service.description}
                   </CardDescription>
                 </CardHeader>
@@ -121,13 +112,13 @@ const Services = () => {
                       <li key={idx} className={`flex items-center text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
                         {language === 'he' ? (
                           <>
-                            <span className="text-right">{feature}</span>
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-8 flex-shrink-0" />
+                            <span className="text-right text-xs md:text-sm">{feature}</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-4 md:mr-8 flex-shrink-0" />
                           </>
                         ) : (
                           <>
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-4 flex-shrink-0" />
-                            <span>{feature}</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mr-3 md:mr-4 flex-shrink-0" />
+                            <span className="text-xs md:text-sm">{feature}</span>
                           </>
                         )}
                       </li>
@@ -136,8 +127,8 @@ const Services = () => {
                   
                   <Button 
                     variant="ghost" 
-                    className="w-full group/btn hover:bg-primary/10 transition-smooth"
-                    onClick={() => handleLearnMore(service.title)}
+                    className="w-full group/btn hover:bg-primary/10 transition-smooth text-sm md:text-base"
+                    onClick={() => scrollToSection('contact')}
                   >
                     {t('services.learn_more')}
                     <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
@@ -150,16 +141,16 @@ const Services = () => {
 
         {/* CTA final */}
         <div className="text-center">
-          <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4">
+          <div className="glass-effect rounded-2xl p-6 md:p-8 max-w-2xl mx-auto">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4">
               {t('services.cta_title')}
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-muted-foreground mb-6 text-sm md:text-base px-2">
               {t('services.cta_desc')}
             </p>
             <Button 
               size="lg" 
-              className="glow-primary"
+              className="glow-primary w-full sm:w-auto"
               onClick={() => scrollToSection('contact')}
             >
               {t('services.cta_button')}
