@@ -19,9 +19,17 @@ import { ProjectModal } from "@/components/ui/project-modal";
 
 // Import des mockups générés
 import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
+import mockupEcommerceProduct from "@/assets/mockup-ecommerce-product.jpg";
+import mockupEcommerceCheckout from "@/assets/mockup-ecommerce-checkout.jpg";
 import mockupSaas from "@/assets/mockup-saas.jpg";
+import mockupSaasPricing from "@/assets/mockup-saas-pricing.jpg";
+import mockupSaasDashboard from "@/assets/mockup-saas-dashboard.jpg";
 import mockupProfessional from "@/assets/mockup-professional.jpg";
+import mockupProfessionalContact from "@/assets/mockup-professional-contact.jpg";
+import mockupProfessionalServices from "@/assets/mockup-professional-services.jpg";
 import mockupBakery from "@/assets/mockup-bakery.jpg";
+import mockupBakeryMenu from "@/assets/mockup-bakery-menu.jpg";
+import mockupBakeryAbout from "@/assets/mockup-bakery-about.jpg";
 import mockupPortfolio from "@/assets/mockup-portfolio.jpg";
 import mockupAgency from "@/assets/mockup-agency.jpg";
 import mockupBlog from "@/assets/mockup-blog.jpg";
@@ -88,7 +96,7 @@ const Projects = () => {
       description: language === 'he' ? 'פלטפורמת מכירות אלגנטה עם עיצוב מינימליסטי ותחושה חמה' : language === 'en' ? 'Elegant sales platform with minimalist design and warm feel' : 'Plateforme de vente élégante avec design minimaliste et ambiance chaleureuse',
       detailedDescription: language === 'he' ? 'פיתחנו חנות אופנה מקוונת מתוחכמת העוצבה במיוחד לקהל צעיר ועכשווי. החנות כוללת מערכת ניהול מלאי מתקדמת, מערכת תשלומים מאובטחת ויישום נייד נלווה. העיצוב מדגיש את המוצרים תוך שמירה על נוחות גלישה ורכישה.' : language === 'en' ? 'We developed a sophisticated online fashion store designed specifically for a young, contemporary audience. The store features an advanced inventory management system, secure payment system, and companion mobile app. The design emphasizes products while maintaining browsing and purchase comfort.' : 'Nous avons développé une boutique de mode en ligne sophistiquée conçue spécifiquement pour un public jeune et contemporain. La boutique dispose d\'un système de gestion des stocks avancé, d\'un système de paiement sécurisé et d\'une application mobile complémentaire. Le design met l\'accent sur les produits tout en maintenant le confort de navigation et d\'achat.',
       image: mockupEcommerce,
-      gallery: [mockupEcommerce, mockupEcommerce, mockupEcommerce, mockupEcommerce],
+      gallery: [mockupEcommerce, mockupEcommerceProduct, mockupEcommerceCheckout],
       tags: ["WordPress", "WooCommerce", "UI/UX", language === 'he' ? 'עיצוב רספונסיבי' : language === 'en' ? 'Responsive Design' : 'Design Responsive'],
       metrics: [
         language === 'he' ? 'עלייה של 40% במכירות' : language === 'en' ? '+40% increase in sales' : '+40% d\'augmentation des ventes',
@@ -111,7 +119,7 @@ const Projects = () => {
       description: language === 'he' ? 'דף נחיתה מודרני לשירות טכנולוגי עם ממשק אינטואיטיבי' : language === 'en' ? 'Modern landing page for tech service with intuitive interface' : 'Page d\'atterrissage moderne pour service tech avec interface intuitive',
       detailedDescription: language === 'he' ? 'יצרנו דף נחיתה מתוחכם לפלטפורמת SaaS טכנולוגית עם דגש על המרת מבקרים ללקוחות. הדף כולל אנימציות חלקות, מחשבונים אינטראקטיביים ומערכת בדיקות A/B מתקדמת. העיצוב מושתת על טרנדים חדשניים בתחום הטכנולוגיה.' : language === 'en' ? 'We created a sophisticated landing page for a technological SaaS platform with emphasis on converting visitors to customers. The page includes smooth animations, interactive calculators, and an advanced A/B testing system. The design is based on innovative trends in technology.' : 'Nous avons créé une page d\'atterrissage sophistiquée pour une plateforme SaaS technologique en mettant l\'accent sur la conversion des visiteurs en clients. La page comprend des animations fluides, des calculateurs interactifs et un système de tests A/B avancé. Le design est basé sur les tendances innovantes en technologie.',
       image: mockupSaas,
-      gallery: [mockupSaas, mockupSaas, mockupSaas],
+      gallery: [mockupSaas, mockupSaasPricing, mockupSaasDashboard],
       tags: ["Landing Page", "Conversion", "Tech", language === 'he' ? 'גרדיאנטים' : language === 'en' ? 'Gradients' : 'Gradients'],
       metrics: [
         language === 'he' ? 'שיעור המרה של 25%' : language === 'en' ? '25% conversion rate' : 'Taux de conversion 25%',
@@ -134,7 +142,7 @@ const Projects = () => {
       description: language === 'he' ? 'אתר מקצועי עם אמינות גבוהה וגישה אישית לקוחות' : language === 'en' ? 'Professional website with high credibility and personal client approach' : 'Site professionnel avec haute crédibilité et approche client personnelle',
       detailedDescription: language === 'he' ? 'פיתחנו אתר מקצועי למשרד עורכי דין המתמחה בדיני חברות ומקרקעין. האתר בונה אמינות מיידית באמצעות עיצוב קלאסי ואלגנטי, תוכן משפטי מקצועי ומערכת הזמנת פגישות מתקדמת. כל רכיב תוכנן להשרות ביטחון ומקצועיות.' : language === 'en' ? 'We developed a professional website for a law firm specializing in corporate and real estate law. The site builds immediate credibility through classic and elegant design, professional legal content, and an advanced appointment booking system. Every component was designed to instill confidence and professionalism.' : 'Nous avons développé un site web professionnel pour un cabinet d\'avocats spécialisé en droit des sociétés et immobilier. Le site établit une crédibilité immédiate grâce à un design classique et élégant, un contenu juridique professionnel et un système de prise de rendez-vous avancé. Chaque composant a été conçu pour inspirer confiance et professionnalisme.',
       image: mockupProfessional,
-      gallery: [mockupProfessional, mockupProfessional, mockupProfessional],
+      gallery: [mockupProfessional, mockupProfessionalContact, mockupProfessionalServices],
       tags: ["Services", language === 'he' ? 'מקצועי' : language === 'en' ? 'Professional' : 'Professionnel', "Trust", language === 'he' ? 'אלגנטי' : language === 'en' ? 'Elegant' : 'Élégant'],
       metrics: [
         language === 'he' ? 'עלייה של 60% בפניות' : language === 'en' ? '+60% increase in inquiries' : '+60% d\'augmentation des demandes',
@@ -157,7 +165,7 @@ const Projects = () => {
       description: language === 'he' ? 'אתר ויטרינה עם אווירה חמה ותחושת בית לעסק מקומי' : language === 'en' ? 'Showcase website with warm atmosphere and homey feel for local business' : 'Site vitrine avec atmosphère chaleureuse et ambiance maison pour commerce local',
       detailedDescription: language === 'he' ? 'יצרנו אתר ויטרינה חם ומזמין למאפייה מקומית עם דגש על אווירה ביתית ואותנטית. האתר כולל גלריית תמונות מפתה, מערכת הזמנות מקוונת ופרטי מוצרים מפורטים. כל האלמנטים תוכננו ליצור חיבור רגשי עם הלקוחות.' : language === 'en' ? 'We created a warm and inviting showcase website for a local bakery with emphasis on homey and authentic atmosphere. The site includes a tempting photo gallery, online ordering system, and detailed product information. All elements were designed to create an emotional connection with customers.' : 'Nous avons créé un site vitrine chaleureux et accueillant pour une boulangerie locale en mettant l\'accent sur une atmosphère familiale et authentique. Le site comprend une galerie de photos alléchantes, un système de commande en ligne et des informations détaillées sur les produits. Tous les éléments ont été conçus pour créer une connexion émotionnelle avec les clients.',
       image: mockupBakery,
-      gallery: [mockupBakery, mockupBakery, mockupBakery, mockupBakery, mockupBakery],
+      gallery: [mockupBakery, mockupBakeryMenu, mockupBakeryAbout],
       tags: [language === 'he' ? 'עסק מקומי' : language === 'en' ? 'Local Business' : 'Commerce Local', language === 'he' ? 'חם' : language === 'en' ? 'Warm' : 'Chaleureux', language === 'he' ? 'ויטרינה' : language === 'en' ? 'Showcase' : 'Vitrine', language === 'he' ? 'אותנטי' : language === 'en' ? 'Authentic' : 'Authentique'],
       metrics: [
         language === 'he' ? 'עלייה של 80% בהזמנות' : language === 'en' ? '+80% increase in orders' : '+80% d\'augmentation des commandes',
