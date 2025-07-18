@@ -34,7 +34,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className={`min-h-screen flex items-center relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
+    <section id="home" className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background image */}
       <div 
         className="absolute inset-0 z-0 opacity-20"
