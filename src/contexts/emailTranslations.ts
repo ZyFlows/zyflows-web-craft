@@ -46,6 +46,7 @@ export const emailTranslations = {
     'email.send_email_desc': 'Contactez-nous directement par email avec un template pré-rempli pour votre projet.',
     'email.ready_to_start': 'Prêt à démarrer votre projet ?',
     'email.click_below': 'Cliquez sur le bouton ci-dessous pour ouvrir votre client email avec un template pré-rempli contenant toutes les informations nécessaires pour votre projet.',
+    'whatsapp.message': 'Bonjour ! Je suis intéressé par vos services de développement web et d\'automatisation. Pouvons-nous discuter d\'un projet ?',
   },
   en: {
     // Email Templates
@@ -94,6 +95,7 @@ export const emailTranslations = {
     'email.send_email_desc': 'Contact us directly by email with a pre-filled template for your project.',
     'email.ready_to_start': 'Ready to start your project?',
     'email.click_below': 'Click the button below to open your email client with a pre-filled template containing all the necessary information for your project.',
+    'whatsapp.message': 'Hello! I am interested in your web development and automation services. Can we discuss a project?',
   },
   he: {
     // Email Templates
@@ -142,5 +144,6 @@ export const emailTranslations = {
     'email.send_email_desc': 'צרו איתנו קשר ישירות באימייל עם תבנית מוכנה מראש לפרויקט שלכם.',
     'email.ready_to_start': 'מוכנים להתחיל את הפרויקט שלכם?',
     'email.click_below': 'לחצו על הכפתור למטה כדי לפתוח את לקוח האימייל שלכם עם תבנית מוכנה מראש המכילה את כל המידע הדרוש לפרויקט שלכם.',
+    'whatsapp.message': 'שלום! אני מעוניין בשירותי פיתוח אתרים ואוטומציה שלכם. האם נוכל לדון על פרויקט?',
   }
 };

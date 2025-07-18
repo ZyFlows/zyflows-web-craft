@@ -10,6 +10,13 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const { t, language } = useLanguage();
 
+  const handleWhatsAppClick = () => {
+    const phoneNumber = "+972584229255";
+    const message = t('whatsapp.message');
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -75,7 +82,11 @@ const Navigation = () => {
               </a>
             ))}
             <LanguageSelector />
-            <Button variant="default" className="glow-primary whitespace-nowrap text-sm lg:text-base px-4 lg:px-6">
+            <Button 
+              variant="default" 
+              className="glow-primary whitespace-nowrap text-sm lg:text-base px-4 lg:px-6"
+              onClick={handleWhatsAppClick}
+            >
               {t('nav.start_project')}
             </Button>
           </div>
@@ -108,7 +119,11 @@ const Navigation = () => {
                   : 'flex-row justify-between'
               } items-center gap-4`}>
                 <LanguageSelector />
-                <Button variant="default" className="glow-primary flex-shrink-0 text-sm">
+                <Button 
+                  variant="default" 
+                  className="glow-primary flex-shrink-0 text-sm"
+                  onClick={handleWhatsAppClick}
+                >
                   {t('nav.start_project')}
                 </Button>
               </div>
