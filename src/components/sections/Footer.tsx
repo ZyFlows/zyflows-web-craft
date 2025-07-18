@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
+import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
+import { emailTranslations } from '@/contexts/emailTranslations';
 import { useState } from "react";
 
 const Footer = () => {
@@ -77,6 +79,21 @@ const Footer = () => {
         description: "Fonctionnalité en cours de développement...",
       });
     }
+  };
+
+  const handleEmailContact = () => {
+    const { subject, body } = generateEmailTemplate({ 
+      language, 
+      t, 
+      type: 'contact' 
+    });
+    
+    openEmailClient(subject, body);
+    
+    toast({
+      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
+      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
+    });
   };
 
   const footerLinks = {
@@ -158,9 +175,9 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className={`flex items-center space-x-2 mb-6 ${language === 'he' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                 <img 
-                  src="/lovable-uploads/da2b99fe-7ae0-4b64-8a8d-0029ea41d97f.png" 
+                  src="/lovable-uploads/da2b99fe-7ae0-4b4d-8a8d-0029ea41d97f.png" 
                   alt="zyFlows" 
-                  className="h-8 w-auto"
+                  className="h-8 w-auto filter brightness-0 invert"
                 />
               </div>
               
@@ -306,9 +323,10 @@ const Footer = () => {
                 variant="ghost" 
                 size="sm"
                 className="hover:bg-primary/10 group"
-                onClick={() => scrollToSection('contact')}
+                onClick={handleEmailContact}
               >
-                {t('footer.start_project')}
+                <Mail className={`${language === 'he' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
+                {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
                 <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover:-translate-x-1' : 'ml-2 group-hover:translate-x-1'} h-4 w-4 transition-transform`} />
               </Button>
             </div>

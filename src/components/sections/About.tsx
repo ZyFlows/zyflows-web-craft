@@ -10,12 +10,32 @@ import {
   Globe, 
   Award,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Mail
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
+import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
+import { emailTranslations } from '@/contexts/emailTranslations';
 
 const About = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
+
+  const handleEmailContact = () => {
+    const { subject, body } = generateEmailTemplate({ 
+      language, 
+      t, 
+      type: 'contact' 
+    });
+    
+    openEmailClient(subject, body);
+    
+    toast({
+      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
+      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
+    });
+  };
 
   const values = [
     {
@@ -98,8 +118,9 @@ const About = () => {
               ))}
             </div>
 
-            <Button size="lg" className="glow-primary">
-              {t('about.team_button')}
+            <Button size="lg" className="glow-primary" onClick={handleEmailContact}>
+              <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
@@ -184,11 +205,12 @@ const About = () => {
               {t('about.cta_desc')}
             </p>
             <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
-              <Button size="lg" className="glow-primary">
-                {t('about.cta_button1')}
+              <Button size="lg" className="glow-primary" onClick={handleEmailContact}>
+                <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
                 <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
               </Button>
-              <Button size="lg" variant="outline" className="glass-effect border-primary/30">
+              <Button size="lg" variant="outline" className="glass-effect border-primary/30" onClick={() => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })}>
                 {t('about.cta_button2')}
               </Button>
             </div>

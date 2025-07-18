@@ -1,17 +1,36 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Zap, Code2 } from "lucide-react";
+import { ArrowRight, Sparkles, Zap, Code2, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
+import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
+import { emailTranslations } from '@/contexts/emailTranslations';
 import heroTech from "@/assets/hero-tech.jpg";
 
 const Hero = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleEmailContact = () => {
+    const { subject, body } = generateEmailTemplate({ 
+      language, 
+      t, 
+      type: 'contact' 
+    });
+    
+    openEmailClient(subject, body);
+    
+    toast({
+      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
+      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
+    });
   };
 
   return (
@@ -63,9 +82,10 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
-              onClick={() => scrollToSection('services')}
+              onClick={handleEmailContact}
             >
-              {t('hero.cta_services')}
+              <Mail className={`h-5 w-5 ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
               <ArrowRight className={`h-5 w-5 transition-transform ${
                 language === 'he' 
                   ? 'mr-2 group-hover:-translate-x-1' 

@@ -192,19 +192,11 @@ const Projects = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="flex-1 group/btn hover:bg-primary/10 transition-smooth"
-                    onClick={() => handleProjectView(project.title)}
-                  >
-                    {t('projects.view_project')}
-                    <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="px-3"
+                    className="flex-1"
                     onClick={() => handleGithubView(project.title)}
                   >
                     <Github className="h-4 w-4" />
+                    {language === 'he' ? 'קוד מקור' : language === 'en' ? 'Source Code' : 'Code source'}
                   </Button>
                 </div>
               </CardContent>

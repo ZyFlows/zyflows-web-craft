@@ -1,17 +1,36 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings } from "lucide-react";
+import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
+import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
+import { emailTranslations } from '@/contexts/emailTranslations';
 
 const Services = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleEmailContact = () => {
+    const { subject, body } = generateEmailTemplate({ 
+      language, 
+      t, 
+      type: 'contact' 
+    });
+    
+    openEmailClient(subject, body);
+    
+    toast({
+      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
+      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
+    });
   };
 
   const services = [
@@ -128,9 +147,10 @@ const Services = () => {
                   <Button 
                     variant="ghost" 
                     className="w-full group/btn hover:bg-primary/10 transition-smooth text-sm md:text-base"
-                    onClick={() => scrollToSection('contact')}
+                    onClick={handleEmailContact}
                   >
-                    {t('services.learn_more')}
+                    <Mail className={`${language === 'he' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
+                    {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
                     <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
                 </CardContent>
@@ -151,9 +171,10 @@ const Services = () => {
             <Button 
               size="lg" 
               className="glow-primary w-full sm:w-auto"
-              onClick={() => scrollToSection('contact')}
+              onClick={handleEmailContact}
             >
-              {t('services.cta_button')}
+              <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
