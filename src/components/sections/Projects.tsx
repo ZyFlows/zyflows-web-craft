@@ -7,6 +7,16 @@ import { useToast } from "@/hooks/use-toast";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
 
+// Import des mockups générés
+import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
+import mockupSaas from "@/assets/mockup-saas.jpg";
+import mockupProfessional from "@/assets/mockup-professional.jpg";
+import mockupBakery from "@/assets/mockup-bakery.jpg";
+import mockupPortfolio from "@/assets/mockup-portfolio.jpg";
+import mockupAgency from "@/assets/mockup-agency.jpg";
+import mockupBlog from "@/assets/mockup-blog.jpg";
+import mockupRealEstate from "@/assets/mockup-realestate.jpg";
+
 const Projects = () => {
   const { t, language } = useLanguage();
   const { toast } = useToast();
@@ -51,52 +61,100 @@ const Projects = () => {
 
   const projects = [
     {
-      title: t('projects.project1_title'),
-      description: t('projects.project1_desc'),
-      image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=600&h=400&fit=crop",
-      tags: ["Shopify", "E-commerce", t('projects.tag_automation'), t('projects.tag_design')],
-      metrics: [t('projects.metric1_1'), t('projects.metric1_2'), t('projects.metric1_3')],
+      title: language === 'he' ? 'חנות אופנה אונליין' : language === 'en' ? 'Fashion E-commerce Store' : 'Boutique E-commerce Mode',
+      description: language === 'he' ? 'פלטפורמת מכירות אלגנטה עם עיצוב מינימליסטי ותחושה חמה' : language === 'en' ? 'Elegant sales platform with minimalist design and warm feel' : 'Plateforme de vente élégante avec design minimaliste et ambiance chaleureuse',
+      image: mockupEcommerce,
+      tags: ["WordPress", "WooCommerce", "UI/UX", language === 'he' ? 'עיצוב רספונסיבי' : language === 'en' ? 'Responsive Design' : 'Design Responsive'],
+      metrics: [
+        language === 'he' ? 'עלייה של 40% במכירות' : language === 'en' ? '+40% increase in sales' : '+40% d\'augmentation des ventes',
+        language === 'he' ? 'זמן טעינה מתחת ל-2 שניות' : language === 'en' ? 'Loading time under 2s' : 'Temps de chargement < 2s',
+        language === 'he' ? 'חוויית משתמש אופטימלית' : language === 'en' ? 'Optimal user experience' : 'Expérience utilisateur optimale'
+      ],
       delay: "0s"
     },
     {
-      title: t('projects.project2_title'),
-      description: t('projects.project2_desc'),
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
-      tags: ["React", "Dashboard", "API", "Analytics"],
-      metrics: [t('projects.metric2_1'), t('projects.metric2_2'), t('projects.metric2_3')],
+      title: language === 'he' ? 'פלטפורמת SaaS טכנולוגית' : language === 'en' ? 'Tech SaaS Platform' : 'Plateforme SaaS Technologique',
+      description: language === 'he' ? 'דף נחיתה מודרני לשירות טכנולוגי עם ממשק אינטואיטיבי' : language === 'en' ? 'Modern landing page for tech service with intuitive interface' : 'Page d\'atterrissage moderne pour service tech avec interface intuitive',
+      image: mockupSaas,
+      tags: ["Landing Page", "Conversion", "Tech", language === 'he' ? 'גרדיאנטים' : language === 'en' ? 'Gradients' : 'Gradients'],
+      metrics: [
+        language === 'he' ? 'שיעור המרה של 25%' : language === 'en' ? '25% conversion rate' : 'Taux de conversion 25%',
+        language === 'he' ? 'ממשק משתמש מודרני' : language === 'en' ? 'Modern user interface' : 'Interface utilisateur moderne',
+        language === 'he' ? 'אופטימיזציה למובייל' : language === 'en' ? 'Mobile optimization' : 'Optimisation mobile'
+      ],
       delay: "0.2s"
     },
     {
-      title: t('projects.project3_title'),
-      description: t('projects.project3_desc'),
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-      tags: ["Make.com", "Google Maps", "CRM", t('projects.tag_automation')],
-      metrics: [t('projects.metric3_1'), t('projects.metric3_2'), t('projects.metric3_3')],
+      title: language === 'he' ? 'משרד עורכי דין מקצועי' : language === 'en' ? 'Professional Law Firm' : 'Cabinet d\'Avocat Professionnel',
+      description: language === 'he' ? 'אתר מקצועי עם אמינות גבוהה וגישה אישית לקוחות' : language === 'en' ? 'Professional website with high credibility and personal client approach' : 'Site professionnel avec haute crédibilité et approche client personnelle',
+      image: mockupProfessional,
+      tags: ["Services", language === 'he' ? 'מקצועי' : language === 'en' ? 'Professional' : 'Professionnel', "Trust", language === 'he' ? 'אלגנטי' : language === 'en' ? 'Elegant' : 'Élégant'],
+      metrics: [
+        language === 'he' ? 'עלייה של 60% בפניות' : language === 'en' ? '+60% increase in inquiries' : '+60% d\'augmentation des demandes',
+        language === 'he' ? 'חוויה מקצועית' : language === 'en' ? 'Professional experience' : 'Expérience professionnelle',
+        language === 'he' ? 'בניית אמון ומהימנות' : language === 'en' ? 'Trust and credibility building' : 'Construction de confiance'
+      ],
       delay: "0.4s"
     },
     {
-      title: t('projects.project4_title'),
-      description: t('projects.project4_desc'),
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
-      tags: ["GPT", "IA", "Chatbot", t('projects.tag_support')],
-      metrics: [t('projects.metric4_1'), t('projects.metric4_2'), t('projects.metric4_3')],
+      title: language === 'he' ? 'מאפייה מקומית חמה' : language === 'en' ? 'Cozy Local Bakery' : 'Boulangerie Locale Chaleureuse',
+      description: language === 'he' ? 'אתר ויטרינה עם אווירה חמה ותחושת בית לעסק מקומי' : language === 'en' ? 'Showcase website with warm atmosphere and homey feel for local business' : 'Site vitrine avec atmosphère chaleureuse et ambiance maison pour commerce local',
+      image: mockupBakery,
+      tags: [language === 'he' ? 'עסק מקומי' : language === 'en' ? 'Local Business' : 'Commerce Local', language === 'he' ? 'חם' : language === 'en' ? 'Warm' : 'Chaleureux', language === 'he' ? 'ויטרינה' : language === 'en' ? 'Showcase' : 'Vitrine', language === 'he' ? 'אותנטי' : language === 'en' ? 'Authentic' : 'Authentique'],
+      metrics: [
+        language === 'he' ? 'עלייה של 80% בהזמנות' : language === 'en' ? '+80% increase in orders' : '+80% d\'augmentation des commandes',
+        language === 'he' ? 'חיבור רגשי לקהל המטרה' : language === 'en' ? 'Emotional connection with target audience' : 'Connexion émotionnelle avec la cible',
+        language === 'he' ? 'זיהוי מותג חזק' : language === 'en' ? 'Strong brand recognition' : 'Reconnaissance de marque forte'
+      ],
       delay: "0.6s"
     },
     {
-      title: t('projects.project5_title'),
-      description: t('projects.project5_desc'),
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
-      tags: ["Framer", t('projects.tag_animation'), "Portfolio", t('projects.tag_architecture')],
-      metrics: [t('projects.metric5_1'), t('projects.metric5_2'), t('projects.metric5_3')],
+      title: language === 'he' ? 'פורטפוליו יוצר תוכן' : language === 'en' ? 'Creative Portfolio' : 'Portfolio Créatif',
+      description: language === 'he' ? 'פורטפוליו אמנותי לצלם עם גלריה אלגנטיה ועיצוב מתוחכם' : language === 'en' ? 'Artistic portfolio for photographer with elegant gallery and sophisticated design' : 'Portfolio artistique pour photographe avec galerie élégante et design sophistiqué',
+      image: mockupPortfolio,
+      tags: ["Portfolio", language === 'he' ? 'אמנותי' : language === 'en' ? 'Artistic' : 'Artistique', language === 'he' ? 'גלריה' : language === 'en' ? 'Gallery' : 'Galerie', language === 'he' ? 'מינימליסטי' : language === 'en' ? 'Minimalist' : 'Minimaliste'],
+      metrics: [
+        language === 'he' ? 'עלייה של 120% בפניות לקוחות' : language === 'en' ? '+120% increase in client inquiries' : '+120% d\'augmentation des demandes clients',
+        language === 'he' ? 'חוויה ויזואלית מושלמת' : language === 'en' ? 'Perfect visual experience' : 'Expérience visuelle parfaite',
+        language === 'he' ? 'תצוגה אופטימלית לעבודות' : language === 'en' ? 'Optimal work showcase' : 'Présentation optimale des travaux'
+      ],
       delay: "0.8s"
     },
     {
-      title: t('projects.project6_title'),
-      description: t('projects.project6_desc'),
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
-      tags: ["Zapier", "RH", "Workflow", t('projects.tag_productivity')],
-      metrics: [t('projects.metric6_1'), t('projects.metric6_2'), t('projects.metric6_3')],
+      title: language === 'he' ? 'סטארט-אפ חדשני' : language === 'en' ? 'Innovative Startup' : 'Startup Innovant',
+      description: language === 'he' ? 'אתר סוכנות דינמי עם אנרגיה צעירה ומראה מודרני' : language === 'en' ? 'Dynamic agency website with youthful energy and modern look' : 'Site d\'agence dynamique avec énergie jeune et look moderne',
+      image: mockupAgency,
+      tags: ["Startup", language === 'he' ? 'חדשנות' : language === 'en' ? 'Innovation' : 'Innovation', language === 'he' ? 'דינמי' : language === 'en' ? 'Dynamic' : 'Dynamique', language === 'he' ? 'מודרני' : language === 'en' ? 'Modern' : 'Moderne'],
+      metrics: [
+        language === 'he' ? 'משיכת 200+ לקוחות בחודש' : language === 'en' ? 'Attracted 200+ clients per month' : 'Attraction de 200+ clients par mois',
+        language === 'he' ? 'זיהוי מותג בולט' : language === 'en' ? 'Outstanding brand recognition' : 'Reconnaissance de marque remarquable',
+        language === 'he' ? 'חוויה אינטראקטיבית' : language === 'en' ? 'Interactive experience' : 'Expérience interactive'
+      ],
       delay: "1s"
+    },
+    {
+      title: language === 'he' ? 'בלוג אורח חיים' : language === 'en' ? 'Lifestyle Blog' : 'Blog Lifestyle',
+      description: language === 'he' ? 'פלטפורמת תוכן עם עיצוב מגזיני ואסתטיקה נשית עדינה' : language === 'en' ? 'Content platform with magazine design and delicate feminine aesthetic' : 'Plateforme de contenu avec design magazine et esthétique féminine délicate',
+      image: mockupBlog,
+      tags: ["Blog", language === 'he' ? 'תוכן' : language === 'en' ? 'Content' : 'Contenu', language === 'he' ? 'מגזין' : language === 'en' ? 'Magazine' : 'Magazine', language === 'he' ? 'אלגנטי' : language === 'en' ? 'Elegant' : 'Élégant'],
+      metrics: [
+        language === 'he' ? '50K+ צפיות חודשיות' : language === 'en' ? '50K+ monthly views' : '50K+ vues mensuelles',
+        language === 'he' ? 'קהילה מעורבת' : language === 'en' ? 'Engaged community' : 'Communauté engagée',
+        language === 'he' ? 'חוויית קריאה מהנה' : language === 'en' ? 'Enjoyable reading experience' : 'Expérience de lecture agréable'
+      ],
+      delay: "1.2s"
+    },
+    {
+      title: language === 'he' ? 'סוכנות נדל"ן יוקרתית' : language === 'en' ? 'Luxury Real Estate Agency' : 'Agence Immobilière de Luxe',
+      description: language === 'he' ? 'פלטפורמה מתוחכמת לנכסי יוקרה עם מראה מקצועי ואמין' : language === 'en' ? 'Sophisticated platform for luxury properties with professional and trustworthy look' : 'Plateforme sophistiquée pour propriétés de luxe avec look professionnel et fiable',
+      image: mockupRealEstate,
+      tags: [language === 'he' ? 'נדל"ן' : language === 'en' ? 'Real Estate' : 'Immobilier', language === 'he' ? 'יוקרה' : language === 'en' ? 'Luxury' : 'Luxe', language === 'he' ? 'מקצועי' : language === 'en' ? 'Professional' : 'Professionnel', language === 'he' ? 'אמין' : language === 'en' ? 'Trustworthy' : 'Fiable'],
+      metrics: [
+        language === 'he' ? 'עלייה של 90% במכירות' : language === 'en' ? '+90% increase in sales' : '+90% d\'augmentation des ventes',
+        language === 'he' ? 'לקוחות VIP מרוצים' : language === 'en' ? 'Satisfied VIP clients' : 'Clients VIP satisfaits',
+        language === 'he' ? 'מותג יוקרה מוכר' : language === 'en' ? 'Recognized luxury brand' : 'Marque de luxe reconnue'
+      ],
+      delay: "1.4s"
     }
   ];
 
