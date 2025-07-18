@@ -6,6 +6,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
 // Import des mockups générés
 import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
@@ -182,88 +189,107 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Grille de projets */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
-          {projects.map((project, index) => (
-            <Card 
-              key={project.title} 
-              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group overflow-hidden animate-fade-in-up project-card" 
-              style={{ animationDelay: project.delay }}
-            >
-              {/* Image du projet */}
-              <div className="relative overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
-                  <Button 
-                    size="sm" 
-                    variant="secondary" 
-                    className="rounded-full"
-                    onClick={() => handleProjectView(project.title)}
+        {/* Carousel de projets */}
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {projects.map((project, index) => (
+                <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                  <Card 
+                    className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group overflow-hidden h-full" 
                   >
-                    <ExternalLink className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
-              <CardHeader className={`pb-4 ${language === 'he' ? 'text-right' : ''}`}>
-                <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-                <CardTitle className={`text-xl font-semibold group-hover:text-primary transition-smooth ${language === 'he' ? 'text-right' : ''}`}>
-                  {project.title}
-                </CardTitle>
-                <CardDescription className={`text-muted-foreground ${language === 'he' ? 'text-right' : ''}`}>
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-              
-              <CardContent className={`pt-0 ${language === 'he' ? 'text-right' : ''}`}>
-                {/* Métriques */}
-                <div className="space-y-2 mb-6">
-                  {project.metrics.map((metric, idx) => (
-                    <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
-                      {language === 'he' ? (
-                        <>
-                          <span className="text-muted-foreground text-right">{metric}</span>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0" />
-                        </>
-                      ) : (
-                        <>
-                          <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0" />
-                          <span className="text-muted-foreground">{metric}</span>
-                        </>
-                      )}
+                    {/* Image du projet */}
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                        <Button 
+                          size="sm" 
+                          variant="secondary" 
+                          className="rounded-full"
+                          onClick={() => handleProjectView(project.title)}
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                
-                <div className={`flex gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="flex-1"
-                    onClick={() => handleGithubView(project.title)}
-                  >
-                    <Github className="h-4 w-4" />
-                    {language === 'he' ? 'קוד מקור' : language === 'en' ? 'Source Code' : 'Code source'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+
+                    <CardHeader className={`pb-4 ${language === 'he' ? 'text-right' : ''}`}>
+                      <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
+                        {project.tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      <CardTitle className={`text-xl font-semibold group-hover:text-primary transition-smooth ${language === 'he' ? 'text-right' : ''}`}>
+                        {project.title}
+                      </CardTitle>
+                      <CardDescription className={`text-muted-foreground ${language === 'he' ? 'text-right' : ''}`}>
+                        {project.description}
+                      </CardDescription>
+                    </CardHeader>
+                    
+                    <CardContent className={`pt-0 ${language === 'he' ? 'text-right' : ''}`}>
+                      {/* Métriques */}
+                      <div className="space-y-2 mb-6">
+                        {project.metrics.map((metric, idx) => (
+                          <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
+                            {language === 'he' ? (
+                              <>
+                                <span className="text-muted-foreground text-right">{metric}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0" />
+                              </>
+                            ) : (
+                              <>
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0" />
+                                <span className="text-muted-foreground">{metric}</span>
+                              </>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <div className={`flex gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={() => handleGithubView(project.title)}
+                        >
+                          <Github className="h-4 w-4" />
+                          {language === 'he' ? 'קוד מקור' : language === 'en' ? 'Source Code' : 'Code source'}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            {/* Navigation du carousel */}
+            <CarouselPrevious className={`${language === 'he' ? 'right-12 left-auto' : 'left-12'} glass-effect hover:glass-effect-hover`} />
+            <CarouselNext className={`${language === 'he' ? 'left-12 right-auto' : 'right-12'} glass-effect hover:glass-effect-hover`} />
+          </Carousel>
+          
+          {/* Indicateur de défilement */}
+          <div className="text-center mt-8 text-sm text-muted-foreground">
+            {language === 'he' ? 'החליקו לראות פרויקטים נוספים' : language === 'en' ? 'Swipe to see more projects' : 'Faites glisser pour voir plus de projets'}
+          </div>
         </div>
 
         {/* CTA final */}
-        <div className="text-center">
+        <div className="text-center mt-16">
           <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold mb-4">
               {t('projects.cta_title')}
