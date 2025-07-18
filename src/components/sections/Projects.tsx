@@ -13,6 +13,8 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { useRef, useEffect } from "react";
 
 // Import des mockups générés
 import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
@@ -27,6 +29,10 @@ import mockupRealEstate from "@/assets/mockup-realestate.jpg";
 const Projects = () => {
   const { t, language } = useLanguage();
   const { toast } = useToast();
+  
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -190,37 +196,47 @@ const Projects = () => {
         </div>
 
         {/* Carousel de projets */}
-        <div className="relative">
+        <div className="relative group">
           <Carousel
+            plugins={[autoplayPlugin.current]}
             opts={{
               align: "start",
               loop: true,
             }}
             className="w-full"
+            onMouseEnter={() => autoplayPlugin.current.stop()}
+            onMouseLeave={() => autoplayPlugin.current.play()}
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {projects.map((project, index) => (
                 <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
                   <Card 
-                    className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group overflow-hidden h-full" 
+                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-700 hover:scale-110 hover:rotate-1 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000 before:ease-out hover:shadow-2xl hover:shadow-primary/20" 
                   >
                     {/* Image du projet */}
                     <div className="relative overflow-hidden">
                       <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" 
+                        className="w-full h-48 object-cover group-hover:scale-125 group-hover:rotate-2 transition-all duration-700 ease-out" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
+                      <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110 group-hover:rotate-12`}>
                         <Button 
                           size="sm" 
                           variant="secondary" 
-                          className="rounded-full"
+                          className="rounded-full backdrop-blur-md bg-background/50 border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                           onClick={() => handleProjectView(project.title)}
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          <ExternalLink className="h-4 w-4 animate-pulse" />
                         </Button>
+                      </div>
+                      {/* Particules flottantes */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="absolute top-6 left-6 w-2 h-2 bg-primary rounded-full animate-ping"></div>
+                        <div className="absolute bottom-8 right-8 w-1 h-1 bg-accent rounded-full animate-pulse delay-300"></div>
+                        <div className="absolute top-1/2 left-1/4 w-1.5 h-1.5 bg-primary/60 rounded-full animate-bounce delay-500"></div>
                       </div>
                     </div>
 
@@ -232,28 +248,28 @@ const Projects = () => {
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className={`text-xl font-semibold group-hover:text-primary transition-smooth ${language === 'he' ? 'text-right' : ''}`}>
+                      <CardTitle className={`text-xl font-semibold group-hover:text-primary group-hover:scale-105 transition-all duration-500 ${language === 'he' ? 'text-right' : ''}`}>
                         {project.title}
                       </CardTitle>
-                      <CardDescription className={`text-muted-foreground ${language === 'he' ? 'text-right' : ''}`}>
+                      <CardDescription className={`text-muted-foreground group-hover:text-foreground transition-colors duration-300 ${language === 'he' ? 'text-right' : ''}`}>
                         {project.description}
                       </CardDescription>
                     </CardHeader>
                     
                     <CardContent className={`pt-0 ${language === 'he' ? 'text-right' : ''}`}>
                       {/* Métriques */}
-                      <div className="space-y-2 mb-6">
+                       <div className="space-y-2 mb-6">
                         {project.metrics.map((metric, idx) => (
-                          <div key={idx} className={`flex items-center text-sm ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
+                          <div key={idx} className={`flex items-center text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`} style={{ transitionDelay: `${idx * 100}ms` }}>
                             {language === 'he' ? (
                               <>
-                                <span className="text-muted-foreground text-right">{metric}</span>
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0" />
+                                <span className="text-muted-foreground text-right group-hover:text-foreground transition-colors duration-300">{metric}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0 group-hover:bg-primary group-hover:animate-pulse transition-colors duration-300" />
                               </>
                             ) : (
                               <>
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0" />
-                                <span className="text-muted-foreground">{metric}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0 group-hover:bg-primary group-hover:animate-pulse transition-colors duration-300" />
+                                <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">{metric}</span>
                               </>
                             )}
                           </div>
@@ -264,10 +280,10 @@ const Projects = () => {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          className="flex-1"
+                          className="flex-1 group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:scale-105 transition-all duration-300"
                           onClick={() => handleGithubView(project.title)}
                         >
-                          <Github className="h-4 w-4" />
+                          <Github className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
                           {language === 'he' ? 'קוד מקור' : language === 'en' ? 'Source Code' : 'Code source'}
                         </Button>
                       </div>
@@ -277,14 +293,23 @@ const Projects = () => {
               ))}
             </CarouselContent>
             
-            {/* Navigation du carousel */}
-            <CarouselPrevious className={`${language === 'he' ? 'right-12 left-auto' : 'left-12'} glass-effect hover:glass-effect-hover`} />
-            <CarouselNext className={`${language === 'he' ? 'left-12 right-auto' : 'right-12'} glass-effect hover:glass-effect-hover`} />
+            {/* Navigation du carousel avec animations */}
+            <CarouselPrevious className={`${language === 'he' ? 'right-12 left-auto' : 'left-12'} glass-effect hover:glass-effect-hover hover:scale-110 hover:rotate-12 transition-all duration-300 opacity-0 group-hover:opacity-100`} />
+            <CarouselNext className={`${language === 'he' ? 'left-12 right-auto' : 'right-12'} glass-effect hover:glass-effect-hover hover:scale-110 hover:-rotate-12 transition-all duration-300 opacity-0 group-hover:opacity-100`} />
           </Carousel>
           
-          {/* Indicateur de défilement */}
-          <div className="text-center mt-8 text-sm text-muted-foreground">
-            {language === 'he' ? 'החליקו לראות פרויקטים נוספים' : language === 'en' ? 'Swipe to see more projects' : 'Faites glisser pour voir plus de projets'}
+          {/* Indicateur de défilement avec animation */}
+          <div className="text-center mt-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-effect">
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                <div className="w-2 h-2 rounded-full bg-primary/60 animate-pulse delay-200"></div>
+                <div className="w-2 h-2 rounded-full bg-primary/30 animate-pulse delay-500"></div>
+              </div>
+              <span className="text-sm text-muted-foreground">
+                {language === 'he' ? 'החליקו לראות פרויקטים נוספים' : language === 'en' ? 'Swipe to see more projects' : 'Défilement automatique • Survolez pour arrêter'}
+              </span>
+            </div>
           </div>
         </div>
 
