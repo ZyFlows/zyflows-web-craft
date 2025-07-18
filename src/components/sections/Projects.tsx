@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, ArrowRight, Lightbulb } from "lucide-react";
+import { ExternalLink, Github, ArrowRight, Lightbulb, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 
@@ -29,6 +29,63 @@ const Projects = () => {
     toast({
       title: "GitHub",
       description: `Code source du projet: ${projectTitle}`,
+    });
+  };
+
+  const handleEmailProject = () => {
+    const subject = encodeURIComponent("Demande de projet - zyFlows");
+    const body = encodeURIComponent(`Bonjour,
+
+Après avoir consulté votre portfolio, j'aimerais discuter d'un projet similaire avec votre équipe.
+
+**Informations sur le projet :**
+- Nom : [Votre nom]
+- Entreprise : [Nom de votre entreprise]
+- Email : [Votre email]
+- Téléphone : [Votre numéro]
+
+**Type de service souhaité :**
+[ ] Site Web (Wix/WordPress/Shopify/Framer)
+[ ] Application personnalisée
+[ ] Automatisation (Make/Zapier/N8N)
+[ ] Génération de leads (Google Maps)
+[ ] IA & GPT personnalisés
+[ ] Audit & conseil
+[ ] Support & maintenance
+[ ] Autre : [Précisez]
+
+**Projet qui m'intéresse dans votre portfolio :**
+[Mentionnez le projet qui vous inspire]
+
+**Budget estimé :**
+[ ] < 5K$
+[ ] 5K$ - 15K$
+[ ] 15K$ - 50K$
+[ ] 50K$ - 100K$
+[ ] > 100K$
+[ ] À discuter
+
+**Délai souhaité :**
+[ ] Urgent (< 1 mois)
+[ ] Rapide (1-3 mois)
+[ ] Standard (3-6 mois)
+[ ] Flexible (> 6 mois)
+[ ] À planifier
+
+**Description du projet :**
+[Décrivez votre projet, vos objectifs et vos attentes]
+
+Merci pour votre temps !
+
+Cordialement,
+[Votre nom]`);
+    
+    const mailtoUrl = `mailto:zyflow.web@gmail.com?subject=${subject}&body=${body}`;
+    window.open(mailtoUrl, '_self');
+    
+    toast({
+      title: "Email",
+      description: "Ouverture de votre client email...",
     });
   };
 
@@ -207,9 +264,10 @@ const Projects = () => {
             <Button 
               size="lg" 
               className="glow-primary"
-              onClick={() => scrollToSection('contact')}
+              onClick={handleEmailProject}
             >
-              {t('projects.cta_button')}
+              <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+              Envoyer un email
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>

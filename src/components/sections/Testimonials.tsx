@@ -3,11 +3,70 @@ import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, Quote, ArrowRight, MessageSquare } from "lucide-react";
+import { Star, Quote, ArrowRight, MessageSquare, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/hooks/use-toast";
 
 const Testimonials = () => {
   const { t, language } = useLanguage();
+  const { toast } = useToast();
+
+  const handleEmailProject = () => {
+    const subject = encodeURIComponent("Demande de projet - zyFlows");
+    const body = encodeURIComponent(`Bonjour,
+
+Après avoir lu les témoignages de vos clients satisfaits, j'aimerais rejoindre cette liste et discuter d'un projet avec votre équipe.
+
+**Informations sur le projet :**
+- Nom : [Votre nom]
+- Entreprise : [Nom de votre entreprise]
+- Email : [Votre email]
+- Téléphone : [Votre numéro]
+
+**Type de service souhaité :**
+[ ] Site Web (Wix/WordPress/Shopify/Framer)
+[ ] Application personnalisée
+[ ] Automatisation (Make/Zapier/N8N)
+[ ] Génération de leads (Google Maps)
+[ ] IA & GPT personnalisés
+[ ] Audit & conseil
+[ ] Support & maintenance
+[ ] Autre : [Précisez]
+
+**Budget estimé :**
+[ ] < 5K$
+[ ] 5K$ - 15K$
+[ ] 15K$ - 50K$
+[ ] 50K$ - 100K$
+[ ] > 100K$
+[ ] À discuter
+
+**Délai souhaité :**
+[ ] Urgent (< 1 mois)
+[ ] Rapide (1-3 mois)
+[ ] Standard (3-6 mois)
+[ ] Flexible (> 6 mois)
+[ ] À planifier
+
+**Description du projet :**
+[Décrivez votre projet, vos objectifs et vos attentes]
+
+**Résultat souhaité :**
+[Mentionnez quel type de résultat vous espérez, en vous inspirant des témoignages]
+
+Merci pour votre temps !
+
+Cordialement,
+[Votre nom]`);
+    
+    const mailtoUrl = `mailto:zyflow.web@gmail.com?subject=${subject}&body=${body}`;
+    window.open(mailtoUrl, '_self');
+    
+    toast({
+      title: "Email",
+      description: "Ouverture de votre client email...",
+    });
+  };
 
   const testimonials = [
     {
@@ -203,8 +262,9 @@ const Testimonials = () => {
             <p className="text-muted-foreground mb-6">
               {t('testimonials.cta_desc')}
             </p>
-            <Button size="lg" className="glow-primary">
-              {t('testimonials.cta_button')}
+            <Button size="lg" className="glow-primary" onClick={handleEmailProject}>
+              <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+              Envoyer un email
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>

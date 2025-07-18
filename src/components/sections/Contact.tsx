@@ -117,6 +117,60 @@ const Contact = () => {
     });
   };
 
+  const handleEmailProject = () => {
+    const subject = encodeURIComponent("Demande de projet - zyFlows");
+    const body = encodeURIComponent(`Bonjour,
+
+J'aimerais discuter d'un projet avec votre équipe. Voici les détails :
+
+**Informations sur le projet :**
+- Nom : [Votre nom]
+- Entreprise : [Nom de votre entreprise]
+- Email : [Votre email]
+- Téléphone : [Votre numéro]
+
+**Type de service souhaité :**
+[ ] Site Web (Wix/WordPress/Shopify/Framer)
+[ ] Application personnalisée
+[ ] Automatisation (Make/Zapier/N8N)
+[ ] Génération de leads (Google Maps)
+[ ] IA & GPT personnalisés
+[ ] Audit & conseil
+[ ] Support & maintenance
+[ ] Autre : [Précisez]
+
+**Budget estimé :**
+[ ] < 5K$
+[ ] 5K$ - 15K$
+[ ] 15K$ - 50K$
+[ ] 50K$ - 100K$
+[ ] > 100K$
+[ ] À discuter
+
+**Délai souhaité :**
+[ ] Urgent (< 1 mois)
+[ ] Rapide (1-3 mois)
+[ ] Standard (3-6 mois)
+[ ] Flexible (> 6 mois)
+[ ] À planifier
+
+**Description du projet :**
+[Décrivez votre projet, vos objectifs et vos attentes]
+
+Merci pour votre temps !
+
+Cordialement,
+[Votre nom]`);
+    
+    const mailtoUrl = `mailto:zyflow.web@gmail.com?subject=${subject}&body=${body}`;
+    window.open(mailtoUrl, '_self');
+    
+    toast({
+      title: "Email",
+      description: "Ouverture de votre client email...",
+    });
+  };
+
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
       {/* Background elements */}
@@ -207,162 +261,32 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
+                <CardTitle className="text-2xl">Envoyer un email</CardTitle>
                 <CardDescription className="text-right">
-                  {t('contact.form_subtitle')}
+                  Contactez-nous directement par email avec un template pré-rempli pour votre projet.
                 </CardDescription>
               </CardHeader>
               
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Informations personnelles */}
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.name')} *
-                      </label>
-                      <Input
-                        value={formData.name}
-                        onChange={(e) => handleInputChange("name", e.target.value)}
-                        placeholder={t('contact.name_placeholder')}
-                        required
-                        className="glass-effect border-border/50"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.email')} *
-                      </label>
-                      <Input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        placeholder={t('contact.email_placeholder')}
-                        required
-                        className="glass-effect border-border/50"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.company')}
-                      </label>
-                      <Input
-                        value={formData.company}
-                        onChange={(e) => handleInputChange("company", e.target.value)}
-                        placeholder={t('contact.company_placeholder')}
-                        className="glass-effect border-border/50"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.phone')}
-                      </label>
-                      <Input
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                        placeholder={t('contact.phone_placeholder')}
-                        className="glass-effect border-border/50"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Détails du projet */}
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {t('contact.service')} *
-                    </label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                      {services.map((service) => (
-                        <Badge
-                          key={service}
-                          variant={formData.service === service ? "default" : "outline"}
-                          className="cursor-pointer justify-center py-2 transition-smooth hover:scale-105"
-                          onClick={() => handleInputChange("service", service)}
-                        >
-                          {service}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.budget')}
-                      </label>
-                      <div className="grid grid-cols-2 gap-2">
-                        {budgetRanges.map((budget) => (
-                          <Badge
-                            key={budget}
-                            variant={formData.budget === budget ? "default" : "outline"}
-                            className="cursor-pointer justify-center py-2 transition-smooth hover:scale-105"
-                            onClick={() => handleInputChange("budget", budget)}
-                          >
-                            {budget}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">
-                        {t('contact.timeline')}
-                      </label>
-                      <div className="grid grid-cols-1 gap-2">
-                        {timelines.map((timeline) => (
-                          <Badge
-                            key={timeline}
-                            variant={formData.timeline === timeline ? "default" : "outline"}
-                            className="cursor-pointer justify-center py-2 transition-smooth hover:scale-105"
-                            onClick={() => handleInputChange("timeline", timeline)}
-                          >
-                            {timeline}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      {t('contact.message')} *
-                    </label>
-                    <Textarea
-                      value={formData.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                      placeholder={t('contact.message_placeholder')}
-                      className="min-h-32 glass-effect border-border/50"
-                      required
-                    />
-                  </div>
-
-                  {/* Bouton d'envoi */}
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full glow-primary group"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-foreground mr-2" />
-                        {t('contact.submitting')}
-                      </>
-                    ) : (
-                      <>
-                        {t('contact.submit')}
-                        <Send className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </Button>
-
-                  <p className="text-sm text-muted-foreground text-center">
-                    {t('contact.disclaimer')}
-                  </p>
-                </form>
+              <CardContent className="text-center py-12">
+                <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
+                <h3 className="text-xl font-semibold mb-4">
+                  Prêt à démarrer votre projet ?
+                </h3>
+                <p className="text-muted-foreground mb-8 max-w-md mx-auto">
+                  Cliquez sur le bouton ci-dessous pour ouvrir votre client email avec un template pré-rempli contenant toutes les informations nécessaires pour votre projet.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="glow-primary"
+                  onClick={handleEmailProject}
+                >
+                  <Mail className="mr-2 h-5 w-5" />
+                  Envoyer un email
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Email : zyflow.web@gmail.com
+                </p>
               </CardContent>
             </Card>
           </div>
