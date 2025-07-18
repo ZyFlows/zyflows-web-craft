@@ -45,10 +45,16 @@ const Projects = () => {
   };
 
   const handleProjectView = (projectTitle: string) => {
+    console.log('handleProjectView called with:', projectTitle);
+    console.log('detailedProjects:', detailedProjects);
     const project = detailedProjects.find(p => p.title === projectTitle);
+    console.log('Found project:', project);
     if (project) {
+      console.log('Setting selectedProject and opening modal');
       setSelectedProject(project);
       setIsModalOpen(true);
+    } else {
+      console.log('Project not found!');
     }
   };
 
