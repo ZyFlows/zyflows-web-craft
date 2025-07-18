@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
+import { emailTranslations } from '@/contexts/emailTranslations';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -118,56 +120,18 @@ const Contact = () => {
   };
 
   const handleEmailProject = () => {
-    const subject = encodeURIComponent("Demande de projet - zyFlows");
-    const body = encodeURIComponent(`Bonjour,
-
-J'aimerais discuter d'un projet avec votre équipe. Voici les détails :
-
-**Informations sur le projet :**
-- Nom : [Votre nom]
-- Entreprise : [Nom de votre entreprise]
-- Email : [Votre email]
-- Téléphone : [Votre numéro]
-
-**Type de service souhaité :**
-[ ] Site Web (Wix/WordPress/Shopify/Framer)
-[ ] Application personnalisée
-[ ] Automatisation (Make/Zapier/N8N)
-[ ] Génération de leads (Google Maps)
-[ ] IA & GPT personnalisés
-[ ] Audit & conseil
-[ ] Support & maintenance
-[ ] Autre : [Précisez]
-
-**Budget estimé :**
-[ ] < 5K$
-[ ] 5K$ - 15K$
-[ ] 15K$ - 50K$
-[ ] 50K$ - 100K$
-[ ] > 100K$
-[ ] À discuter
-
-**Délai souhaité :**
-[ ] Urgent (< 1 mois)
-[ ] Rapide (1-3 mois)
-[ ] Standard (3-6 mois)
-[ ] Flexible (> 6 mois)
-[ ] À planifier
-
-**Description du projet :**
-[Décrivez votre projet, vos objectifs et vos attentes]
-
-Merci pour votre temps !
-
-Cordialement,
-[Votre nom]`);
+    const { subject, body } = generateEmailTemplate({ 
+      language, 
+      t, 
+      type: 'contact' 
+    });
     
-    const mailtoUrl = `mailto:zyflow.web@gmail.com?subject=${subject}&body=${body}`;
-    window.open(mailtoUrl, '_self');
+    openEmailClient(subject, body);
     
+    const eT = (key: string) => emailTranslations[language]?.[key] || t(key) || key;
     toast({
-      title: "Email",
-      description: "Ouverture de votre client email...",
+      title: eT('email.send_email'),
+      description: eT('email.click_below'),
     });
   };
 
@@ -261,28 +225,28 @@ Cordialement,
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-2xl">Envoyer un email</CardTitle>
-                <CardDescription className="text-right">
-                  Contactez-nous directement par email avec un template pré-rempli pour votre projet.
+                <CardTitle className="text-2xl">{emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}</CardTitle>
+                <CardDescription className={language === 'he' ? 'text-left' : 'text-right'}>
+                  {emailTranslations[language]?.['email.send_email_desc'] || 'Contactez-nous directement par email avec un template pré-rempli pour votre projet.'}
                 </CardDescription>
               </CardHeader>
               
               <CardContent className="text-center py-12">
                 <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
                 <h3 className="text-xl font-semibold mb-4">
-                  Prêt à démarrer votre projet ?
+                  {emailTranslations[language]?.['email.ready_to_start'] || 'Prêt à démarrer votre projet ?'}
                 </h3>
                 <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                  Cliquez sur le bouton ci-dessous pour ouvrir votre client email avec un template pré-rempli contenant toutes les informations nécessaires pour votre projet.
+                  {emailTranslations[language]?.['email.click_below'] || 'Cliquez sur le bouton ci-dessous pour ouvrir votre client email avec un template pré-rempli contenant toutes les informations nécessaires pour votre projet.'}
                 </p>
                 <Button 
                   size="lg" 
                   className="glow-primary"
                   onClick={handleEmailProject}
                 >
-                  <Mail className="mr-2 h-5 w-5" />
-                  Envoyer un email
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                  {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+                  <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
                 </Button>
                 <p className="text-sm text-muted-foreground mt-4">
                   Email : zyflow.web@gmail.com
