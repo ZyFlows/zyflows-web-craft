@@ -209,9 +209,9 @@ const Projects = () => {
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {projects.map((project, index) => (
-                <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 px-2">
                   <Card 
-                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-700 hover:scale-110 hover:rotate-1 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000 before:ease-out hover:shadow-2xl hover:shadow-primary/20" 
+                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-700 hover:scale-105 hover:rotate-1 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-1000 before:ease-out hover:shadow-2xl hover:shadow-primary/20" 
                   >
                     {/* Image du projet */}
                     <div className="relative overflow-hidden">
@@ -276,17 +276,6 @@ const Projects = () => {
                         ))}
                       </div>
                       
-                      <div className={`flex gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          className="flex-1 group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:scale-105 transition-all duration-300"
-                          onClick={() => handleGithubView(project.title)}
-                        >
-                          <Github className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
-                          {language === 'he' ? 'קוד מקור' : language === 'en' ? 'Source Code' : 'Code source'}
-                        </Button>
-                      </div>
                     </CardContent>
                   </Card>
                 </CarouselItem>
