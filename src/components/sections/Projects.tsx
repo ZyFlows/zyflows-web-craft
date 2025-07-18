@@ -309,7 +309,8 @@ const Projects = () => {
               {detailedProjects.map((project, index) => (
                 <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 px-2">
                   <Card 
-                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-102 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 before:ease-out hover:shadow-xl hover:shadow-primary/10" 
+                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-102 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 before:ease-out hover:shadow-xl hover:shadow-primary/10 cursor-pointer" 
+                    onClick={() => handleProjectView(project.title)}
                   >
                     {/* Image du projet */}
                     <div className="relative overflow-hidden">
