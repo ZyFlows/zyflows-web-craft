@@ -75,68 +75,47 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     console.log('Found project:', project);
     console.log('Combined text for detection:', combinedText);
     
-    // Legal/Law firm detection - Enhanced
-    if (combinedText.includes('avocat') || combinedText.includes('legal') || combinedText.includes('lawyer') || 
-        combinedText.includes('cabinet') || combinedText.includes('droit') || combinedText.includes('law') ||
-        combinedText.includes('עורך דין') || combinedText.includes('משפטי') || combinedText.includes('juridique') ||
-        combinedText.includes('attorney') || combinedText.includes('counsel') || combinedText.includes('litigation')) {
-      console.log('Detected: Legal demo');
-      return '/demo/legal';
-    }
-    
-    // E-commerce detection - Enhanced
-    if (combinedText.includes('ecommerce') || combinedText.includes('e-commerce') || combinedText.includes('fashion') || 
-        combinedText.includes('boutique') || combinedText.includes('store') || combinedText.includes('shop') ||
-        combinedText.includes('חנות') || combinedText.includes('magasin') || combinedText.includes('commerce') ||
-        combinedText.includes('retail') || combinedText.includes('vente') || combinedText.includes('produit')) {
-      console.log('Detected: E-commerce demo');
+    // Fashion E-commerce (specific to the mockup)
+    if (combinedText.includes('fashion') || combinedText.includes('ecommerce') || combinedText.includes('boutique') || 
+        combinedText.includes('mode') || combinedText.includes('חנות') || combinedText.includes('store')) {
+      console.log('Detected: Fashion E-commerce demo');
       return '/demo/ecommerce';
     }
     
-    // SaaS/Analytics detection - Enhanced
-    if (combinedText.includes('saas') || combinedText.includes('dashboard') || combinedText.includes('analytics') || 
-        combinedText.includes('data') || combinedText.includes('metrics') || combinedText.includes('tableau') ||
-        combinedText.includes('טכנולוגית') || combinedText.includes('données') || combinedText.includes('startup') ||
-        combinedText.includes('tech') || combinedText.includes('software') || combinedText.includes('app')) {
+    // SaaS/Tech Platform (specific to the mockup)
+    if (combinedText.includes('saas') || combinedText.includes('technologique') || combinedText.includes('tech') ||
+        combinedText.includes('platform') || combinedText.includes('landing') || combinedText.includes('טכנולוגית')) {
       console.log('Detected: SaaS demo');
       return '/demo/saas';
     }
     
-    // Automation detection - Enhanced
-    if (combinedText.includes('automation') || combinedText.includes('workflow') || combinedText.includes('process') ||
-        combinedText.includes('אוטומציה') || combinedText.includes('automatisation') || combinedText.includes('robot') ||
-        combinedText.includes('ai') || combinedText.includes('intelligence') || combinedText.includes('auto')) {
-      console.log('Detected: Automation demo');
-      return '/demo/automation';
+    // Professional Law Firm (specific to the mockup)
+    if (combinedText.includes('avocat') || combinedText.includes('law') || combinedText.includes('professional') ||
+        combinedText.includes('legal') || combinedText.includes('משפטי') || combinedText.includes('עורך דין') ||
+        combinedText.includes('cabinet') || combinedText.includes('professionnel')) {
+      console.log('Detected: Legal demo');
+      return '/demo/legal';
     }
     
-    // Restaurant/Bakery detection
-    if (combinedText.includes('restaurant') || combinedText.includes('bakery') || combinedText.includes('food') ||
-        combinedText.includes('menu') || combinedText.includes('cuisine') || combinedText.includes('boulangerie') ||
-        combinedText.includes('café') || combinedText.includes('bistro')) {
+    // Bakery (specific to the mockup)
+    if (combinedText.includes('bakery') || combinedText.includes('boulangerie') || combinedText.includes('מאפייה') ||
+        combinedText.includes('local') || combinedText.includes('chaleureuse') || combinedText.includes('cozy')) {
       console.log('Detected: Restaurant demo');
       return '/demo/restaurant';
     }
     
-    // Portfolio/Agency detection
-    if (combinedText.includes('portfolio') || combinedText.includes('agency') || combinedText.includes('creative') ||
-        combinedText.includes('design') || combinedText.includes('agence') || combinedText.includes('digital')) {
+    // Creative Portfolio/Agency (specific to the mockup)
+    if (combinedText.includes('portfolio') || combinedText.includes('creative') || combinedText.includes('agency') ||
+        combinedText.includes('agence') || combinedText.includes('יוצר') || combinedText.includes('צלם') ||
+        combinedText.includes('photographe') || combinedText.includes('innovative') || combinedText.includes('startup')) {
       console.log('Detected: Agency demo');
       return '/demo/agency';
     }
     
-    // Real Estate detection
-    if (combinedText.includes('immobilier') || combinedText.includes('real estate') || combinedText.includes('property') ||
-        combinedText.includes('realty') || combinedText.includes('homes') || combinedText.includes('properties')) {
-      console.log('Detected: Real Estate demo (using ecommerce)');
-      return '/demo/ecommerce';
-    }
-    
-    // Professional services detection
-    if (combinedText.includes('professional') || combinedText.includes('services') || combinedText.includes('consulting') ||
-        combinedText.includes('conseil') || combinedText.includes('expertise')) {
-      console.log('Detected: Professional services demo (using saas)');
-      return '/demo/saas';
+    // Automation
+    if (combinedText.includes('automation') || combinedText.includes('workflow') || combinedText.includes('אוטומציה')) {
+      console.log('Detected: Automation demo');
+      return '/demo/automation';
     }
     
     // Default fallback
