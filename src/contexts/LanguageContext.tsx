@@ -27,10 +27,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   // Effet pour détecter la langue du navigateur au premier chargement
   useEffect(() => {
-    const browserLang = navigator.language.slice(0, 2) as Language;
+    // Vérifier d'abord s'il y a une préférence sauvegardée
+    const savedLang = localStorage.getItem('preferred-language') as Language;
     const supportedLangs: Language[] = ['fr', 'en', 'he'];
-    if (supportedLangs.includes(browserLang)) {
-      setLanguage(browserLang);
+    
+    if (savedLang && supportedLangs.includes(savedLang)) {
+      setLanguage(savedLang);
+    } else {
+      // Sinon détecter la langue du navigateur
+      const browserLang = navigator.language.slice(0, 2) as Language;
+      if (supportedLangs.includes(browserLang)) {
+        setLanguage(browserLang);
+      }
     }
   }, []);
 

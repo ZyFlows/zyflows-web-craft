@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import EcommerceDemo from "./pages/demos/EcommerceDemo";
@@ -27,6 +28,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <LanguageProvider>
+        <DynamicMetaTags />
         <Toaster />
         <Sonner />
         <BrowserRouter>
