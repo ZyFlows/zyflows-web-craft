@@ -124,9 +124,10 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
       return '/demo/lifestyle-blog';
     }
     
-    // Luxury Real Estate
-    if (combinedText.includes('luxury real estate') || combinedText.includes('immobilier luxe') || 
-        combinedText.includes('נדלן יוקרה') || combinedText.includes('luxury') && combinedText.includes('real estate')) {
+    // Luxury Real Estate Agency
+    if (combinedText.includes('luxury real estate') || combinedText.includes('agence immobilière') || 
+        combinedText.includes('סוכנות נדל"ן') || combinedText.includes('real estate agency') ||
+        combinedText.includes('immobilière de luxe') || combinedText.includes('luxury') && combinedText.includes('properties')) {
       console.log('Detected: Real estate demo');
       return '/demo/real-estate';
     }
