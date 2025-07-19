@@ -34,6 +34,12 @@ import mockupPortfolio from "@/assets/mockup-portfolio.jpg";
 import mockupAgency from "@/assets/mockup-agency.jpg";
 import mockupBlog from "@/assets/mockup-blog.jpg";
 import mockupRealEstate from "@/assets/mockup-realestate.jpg";
+import mockupAutomation from "@/assets/mockup-automation.jpg";
+import mockupAutomationWorkflow from "@/assets/mockup-automation-workflow.jpg";
+import mockupAutomationAnalytics from "@/assets/mockup-automation-analytics.jpg";
+import mockupCustomGpt from "@/assets/mockup-custom-gpt.jpg";
+import mockupGptTraining from "@/assets/mockup-gpt-training.jpg";
+import mockupGptDeployment from "@/assets/mockup-gpt-deployment.jpg";
 
 const Projects = () => {
   const { t, language } = useLanguage();
@@ -188,7 +194,7 @@ const Projects = () => {
       description: language === 'he' ? 'פורטפוליו אמנותי לצלם עם גלריה אלגנטיה ועיצוב מתוחכם' : language === 'en' ? 'Artistic portfolio for photographer with elegant gallery and sophisticated design' : 'Portfolio artistique pour photographe avec galerie élégante et design sophistiqué',
       detailedDescription: language === 'he' ? 'בנינו פורטפוליו דיגיטלי מתוחכם לצלם מקצועי עם דגש על תצוגה ויזואלית מושלמת. הפורטפוליו כולל גלריות מסווגות, מערכת צפייה במסך מלא ומנגנון אחסון ענן מתקדם. כל תמונה מוצגת באיכות הגבוהה ביותר.' : language === 'en' ? 'We built a sophisticated digital portfolio for a professional photographer with emphasis on perfect visual display. The portfolio includes categorized galleries, full-screen viewing system, and advanced cloud storage mechanism. Every image is displayed in the highest quality.' : 'Nous avons construit un portfolio numérique sophistiqué pour un photographe professionnel en mettant l\'accent sur un affichage visuel parfait. Le portfolio comprend des galeries catégorisées, un système de visualisation plein écran et un mécanisme de stockage cloud avancé. Chaque image est affichée dans la plus haute qualité.',
       image: mockupPortfolio,
-      gallery: [mockupPortfolio, mockupPortfolio, mockupPortfolio, mockupPortfolio],
+      gallery: [mockupPortfolio, mockupAgency, mockupBlog],
       tags: ["Portfolio", language === 'he' ? 'אמנותי' : language === 'en' ? 'Artistic' : 'Artistique', language === 'he' ? 'גלריה' : language === 'en' ? 'Gallery' : 'Galerie', language === 'he' ? 'מינימליסטי' : language === 'en' ? 'Minimalist' : 'Minimaliste'],
       metrics: [
         language === 'he' ? 'עלייה של 120% בפניות לקוחות' : language === 'en' ? '+120% increase in client inquiries' : '+120% d\'augmentation des demandes clients',
@@ -211,7 +217,7 @@ const Projects = () => {
       description: language === 'he' ? 'אתר סוכנות דינמי עם אנרגיה צעירה ומראה מודרני' : language === 'en' ? 'Dynamic agency website with youthful energy and modern look' : 'Site d\'agence dynamique avec énergie jeune et look moderne',
       detailedDescription: language === 'he' ? 'פיתחנו אתר דינמי וחדשני לסטארט-אפ טכנולוגי עם דגש על חדשנות ואנרגיה צעירה. האתר כולל אנימציות אינטראקטיביות, מקטעי וידאו משובצים ומערכת ניהול תוכן גמישה. העיצוב משקף את הרוח החדשנית של החברה.' : language === 'en' ? 'We developed a dynamic and innovative website for a tech startup with emphasis on innovation and youthful energy. The site includes interactive animations, embedded video sections, and a flexible content management system. The design reflects the innovative spirit of the company.' : 'Nous avons développé un site web dynamique et innovant pour une startup technologique en mettant l\'accent sur l\'innovation et l\'énergie jeune. Le site comprend des animations interactives, des sections vidéo intégrées et un système de gestion de contenu flexible. Le design reflète l\'esprit innovant de l\'entreprise.',
       image: mockupAgency,
-      gallery: [mockupAgency, mockupAgency, mockupAgency],
+      gallery: [mockupAgency, mockupSaas, mockupPortfolio],
       tags: ["Startup", language === 'he' ? 'חדשנות' : language === 'en' ? 'Innovation' : 'Innovation', language === 'he' ? 'דינמי' : language === 'en' ? 'Dynamic' : 'Dynamique', language === 'he' ? 'מודרני' : language === 'en' ? 'Modern' : 'Moderne'],
       metrics: [
         language === 'he' ? 'משיכת 200+ לקוחות בחודש' : language === 'en' ? 'Attracted 200+ clients per month' : 'Attraction de 200+ clients par mois',
@@ -234,7 +240,7 @@ const Projects = () => {
       description: language === 'he' ? 'פלטפורמת תוכן עם עיצוב מגזיני ואסתטיקה נשית עדינה' : language === 'en' ? 'Content platform with magazine design and delicate feminine aesthetic' : 'Plateforme de contenu avec design magazine et esthétique féminine délicate',
       detailedDescription: language === 'he' ? 'יצרנו פלטפורמת תוכן אלגנטית לבלוג אורח חיים עם עיצוב מגזיני מתוחכם. הפלטפורמה כוללת מערכת ניהול תוכן מתקדמת, כלי שיתוף חברתי ומנגנון הזנות RSS. העיצוב משלב אסתטיקה נשית עדינה עם פונקציונליות מודרנית.' : language === 'en' ? 'We created an elegant content platform for a lifestyle blog with sophisticated magazine design. The platform includes an advanced content management system, social sharing tools, and RSS feed mechanism. The design combines delicate feminine aesthetic with modern functionality.' : 'Nous avons créé une plateforme de contenu élégante pour un blog lifestyle avec un design de magazine sophistiqué. La plateforme comprend un système de gestion de contenu avancé, des outils de partage social et un mécanisme de flux RSS. Le design combine une esthétique féminine délicate avec une fonctionnalité moderne.',
       image: mockupBlog,
-      gallery: [mockupBlog, mockupBlog, mockupBlog, mockupBlog],
+      gallery: [mockupBlog, mockupPortfolio, mockupAgency],
       tags: ["Blog", language === 'he' ? 'תוכן' : language === 'en' ? 'Content' : 'Contenu', language === 'he' ? 'מגזין' : language === 'en' ? 'Magazine' : 'Magazine', language === 'he' ? 'אלגנטי' : language === 'en' ? 'Elegant' : 'Élégant'],
       metrics: [
         language === 'he' ? '50K+ צפיות חודשיות' : language === 'en' ? '50K+ monthly views' : '50K+ vues mensuelles',
@@ -257,7 +263,7 @@ const Projects = () => {
       description: language === 'he' ? 'פלטפורמה מתוחכמת לנכסי יוקרה עם מראה מקצועי ואמין' : language === 'en' ? 'Sophisticated platform for luxury properties with professional and trustworthy look' : 'Plateforme sophistiquée pour propriétés de luxe avec look professionnel et fiable',
       detailedDescription: language === 'he' ? 'פיתחנו פלטפורמה מתוחכמת לסוכנות נדל"ן יוקרתית עם דגש על מקצועיות ואמינות. הפלטפורמה כוללת מנוע חיפוש מתקדם, טיולים וירטואליים בנכסים ומערכת CRM משולבת. כל נכס מוצג בצורה יוקרתית ומפורטת.' : language === 'en' ? 'We developed a sophisticated platform for a luxury real estate agency with emphasis on professionalism and reliability. The platform includes an advanced search engine, virtual property tours, and integrated CRM system. Every property is presented in a luxurious and detailed manner.' : 'Nous avons développé une plateforme sophistiquée pour une agence immobilière de luxe en mettant l\'accent sur le professionnalisme et la fiabilité. La plateforme comprend un moteur de recherche avancé, des visites virtuelles de propriétés et un système CRM intégré. Chaque propriété est présentée de manière luxueuse et détaillée.',
       image: mockupRealEstate,
-      gallery: [mockupRealEstate, mockupRealEstate, mockupRealEstate, mockupRealEstate],
+      gallery: [mockupRealEstate, mockupProfessional, mockupSaas],
       tags: [language === 'he' ? 'נדל"ן' : language === 'en' ? 'Real Estate' : 'Immobilier', language === 'he' ? 'יוקרה' : language === 'en' ? 'Luxury' : 'Luxe', language === 'he' ? 'מקצועי' : language === 'en' ? 'Professional' : 'Professionnel', language === 'he' ? 'אמין' : language === 'en' ? 'Trustworthy' : 'Fiable'],
       metrics: [
         language === 'he' ? 'עלייה של 90% במכירות' : language === 'en' ? '+90% increase in sales' : '+90% d\'augmentation des ventes',
@@ -274,6 +280,52 @@ const Projects = () => {
       team: language === 'he' ? '5 מפתחים, מעצב UX/UI' : language === 'en' ? '5 developers, UX/UI designer' : '5 développeurs, designer UX/UI',
       objective: language === 'he' ? 'יצירת פלטפורמה יוקרתית שתמשוך לקוחות VIP ותגדיל מכירות נדל"ן יוקרה' : language === 'en' ? 'Create a luxury platform that will attract VIP clients and increase luxury real estate sales' : 'Créer une plateforme de luxe qui attirera des clients VIP et augmentera les ventes immobilières de luxe',
       delay: "1.4s"
+    },
+    {
+      title: language === 'he' ? 'מערכת אוטומציה חכמה' : language === 'en' ? 'Smart Automation System' : 'Système d\'Automatisation Intelligent',
+      description: language === 'he' ? 'פלטפורמה מתקדמת לאוטומציה של תהליכים עסקיים מורכבים' : language === 'en' ? 'Advanced platform for automating complex business processes' : 'Plateforme avancée pour automatiser des processus métier complexes',
+      detailedDescription: language === 'he' ? 'פיתחנו מערכת אוטומציה מתוחכמת המחברת בין כלים שונים בחברה ומאפשרת אוטומציה מלאה של תהליכים עסקיים. המערכת כוללת ממשק ויזואלי לבניית זרימות עבודה, מנוע כללי חכם ומערכת ניטור מתקדמת. החיסכון בזמן והשיפור ביעילות מדהימים.' : language === 'en' ? 'We developed a sophisticated automation system that connects different company tools and enables full automation of business processes. The system includes a visual interface for building workflows, smart rules engine, and advanced monitoring system. The time savings and efficiency improvements are remarkable.' : 'Nous avons développé un système d\'automatisation sophistiqué qui connecte différents outils d\'entreprise et permet l\'automatisation complète des processus métier. Le système comprend une interface visuelle pour construire des workflows, un moteur de règles intelligent et un système de surveillance avancé. Les économies de temps et les améliorations d\'efficacité sont remarquables.',
+      image: mockupAutomation,
+      gallery: [mockupAutomation, mockupAutomationWorkflow, mockupAutomationAnalytics],
+      tags: [language === 'he' ? 'אוטומציה' : language === 'en' ? 'Automation' : 'Automatisation', "Make.com", "Zapier", language === 'he' ? 'זרימות עבודה' : language === 'en' ? 'Workflows' : 'Workflows'],
+      metrics: [
+        language === 'he' ? 'חיסכון של 40 שעות שבועיות' : language === 'en' ? '40 hours saved weekly' : '40 heures économisées par semaine',
+        language === 'he' ? '95% הפחתת שגיאות' : language === 'en' ? '95% error reduction' : '95% de réduction d\'erreurs',
+        language === 'he' ? 'ROI של 300%' : language === 'en' ? '300% ROI' : 'ROI de 300%'
+      ],
+      features: [
+        language === 'he' ? 'ממשק ויזואלי לבניית זרימות' : language === 'en' ? 'Visual workflow builder' : 'Constructeur visuel de workflows',
+        language === 'he' ? 'חיבור לכלים קיימים' : language === 'en' ? 'Integration with existing tools' : 'Intégration avec outils existants',
+        language === 'he' ? 'ניטור וריפורטים מתקדמים' : language === 'en' ? 'Advanced monitoring and reports' : 'Surveillance et rapports avancés',
+        language === 'he' ? 'מנוע כללים חכם' : language === 'en' ? 'Smart rules engine' : 'Moteur de règles intelligent'
+      ],
+      duration: language === 'he' ? '8 שבועות' : language === 'en' ? '8 weeks' : '8 semaines',
+      team: language === 'he' ? '3 מפתחים, אנליסט תהליכים' : language === 'en' ? '3 developers, process analyst' : '3 développeurs, analyste de processus',
+      objective: language === 'he' ? 'חיסכון זמן ועלויות משמעותיים תוך שיפור דיוק ויעילות התהליכים העסקיים' : language === 'en' ? 'Significant time and cost savings while improving accuracy and efficiency of business processes' : 'Économies significatives de temps et de coûts tout en améliorant la précision et l\'efficacité des processus métier',
+      delay: "1.6s"
+    },
+    {
+      title: language === 'he' ? 'GPT מותאם אישית למשפטים' : language === 'en' ? 'Custom Legal GPT Assistant' : 'Assistant GPT Légal Personnalisé',
+      description: language === 'he' ? 'בינה מלאכותית מותאמת לתחום המשפטי עם מיומנות מקצועית' : language === 'en' ? 'Artificial intelligence tailored for legal domain with professional expertise' : 'Intelligence artificielle adaptée au domaine juridique avec expertise professionnelle',
+      detailedDescription: language === 'he' ? 'יצרנו GPT מותאם אישית למשרד עורכי דין הכולל אימון על מאגר המידע המשפטי של המשרד, פסיקות מקומיות וחקיקה עדכנית. הבוט מסוגל לספק ייעוץ משפטי ראשוני, לנתח חוזים ולעזור בכתיבת מסמכים משפטיים. התוצאה: יעילות משופרת ושירות לקוחות מעולה.' : language === 'en' ? 'We created a custom GPT for a law firm that includes training on the firm\'s legal database, local precedents, and current legislation. The bot can provide initial legal advice, analyze contracts, and assist in writing legal documents. The result: improved efficiency and excellent client service.' : 'Nous avons créé un GPT personnalisé pour un cabinet d\'avocats qui inclut un entraînement sur la base de données juridiques du cabinet, les précédents locaux et la législation actuelle. Le bot peut fournir des conseils juridiques initiaux, analyser des contrats et aider à rédiger des documents juridiques. Le résultat : efficacité améliorée et excellent service client.',
+      image: mockupCustomGpt,
+      gallery: [mockupCustomGpt, mockupGptTraining, mockupGptDeployment],
+      tags: [language === 'he' ? 'בינה מלאכותית' : language === 'en' ? 'AI' : 'IA', "GPT", language === 'he' ? 'משפטים' : language === 'en' ? 'Legal' : 'Juridique', language === 'he' ? 'אוטומציה' : language === 'en' ? 'Automation' : 'Automatisation'],
+      metrics: [
+        language === 'he' ? '70% הפחתת זמן מחקר' : language === 'en' ? '70% research time reduction' : '70% de réduction du temps de recherche',
+        language === 'he' ? '24/7 זמינות לקוחות' : language === 'en' ? '24/7 client availability' : 'Disponibilité client 24/7',
+        language === 'he' ? '90% דיוק בניתוח חוזים' : language === 'en' ? '90% accuracy in contract analysis' : '90% de précision dans l\'analyse de contrats'
+      ],
+      features: [
+        language === 'he' ? 'אימון על מידע משפטי מקצועי' : language === 'en' ? 'Training on professional legal data' : 'Entraînement sur données juridiques professionnelles',
+        language === 'he' ? 'ניתוח חוזים אוטומטי' : language === 'en' ? 'Automated contract analysis' : 'Analyse automatisée de contrats',
+        language === 'he' ? 'יצירת מסמכים משפטיים' : language === 'en' ? 'Legal document generation' : 'Génération de documents juridiques',
+        language === 'he' ? 'ממשק בטוח ומוגן' : language === 'en' ? 'Secure and protected interface' : 'Interface sécurisée et protégée'
+      ],
+      duration: language === 'he' ? '6 שבועות' : language === 'en' ? '6 weeks' : '6 semaines',
+      team: language === 'he' ? '2 מפתחי AI, יועץ משפטי' : language === 'en' ? '2 AI developers, legal consultant' : '2 développeurs IA, consultant juridique',
+      objective: language === 'he' ? 'יצירת עוזר IA חכם שימשיך את יכולות המשרד ויספק שירות מקצועי ומדויק' : language === 'en' ? 'Create a smart AI assistant that extends the firm\'s capabilities and provides professional and accurate service' : 'Créer un assistant IA intelligent qui étend les capacités du cabinet et fournit un service professionnel et précis',
+      delay: "1.8s"
     }
   ];
 

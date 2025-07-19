@@ -294,7 +294,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'language.select': 'Choisir la langue',
       'language.french': 'Français',
       'language.english': 'English',
-      'language.hebrew': 'עברית'
+      'language.hebrew': 'עברית',
+      
+      // WhatsApp message
+      'whatsapp.message': 'Bonjour 👋 Je suis intéressé(e) par vos services digitaux (site web, automation, IA). Pouvez-vous m\'en dire plus ?'
     },
     en: {
       // Navigation
@@ -603,6 +606,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'email.send_email_desc': 'Contact us directly by email with a pre-filled template for your project.',
       'email.ready_to_start': 'Ready to start your project?',
       'email.click_below': 'Click the button below to open your email client with a pre-filled template containing all the necessary information for your project.',
+      
+      // WhatsApp message  
+      'whatsapp.message': 'Hello 👋 I am interested in your digital services (website, automation, AI). Can you tell me more?'
     },
     he: {
       // Navigation
@@ -911,6 +917,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'email.send_email_desc': 'צרו איתנו קשר ישירות באימייל עם תבנית מוכנה מראש לפרויקט שלכם.',
       'email.ready_to_start': 'מוכנים להתחיל את הפרויקט שלכם?',
       'email.click_below': 'לחצו על הכפתור למטה כדי לפתוח את לקוח האימייל שלכם עם תבנית מוכנה מראש המכילה את כל המידע הדרוש לפרויקט שלכם.',
+      
+      // WhatsApp message
+      'whatsapp.message': 'שלום 👋 אני מעוניין/ת בשירותים הדיגיטליים שלכם (אתר אינטרנט, אוטומציה, בינה מלאכותית). אתם יכולים לספר לי יותר?'
     }
   };
 

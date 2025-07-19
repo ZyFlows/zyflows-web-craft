@@ -185,3 +185,27 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
+
+/* RTL support */
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+/* Hebrew RTL bullet point spacing fix */
+.rtl .flex.items-center.gap-3 > .w-1\.5.h-1\.5,
+.rtl .flex.items-center.gap-3 > .w-1.h-1,
+.rtl .flex.items-center.gap-3 > .w-2.h-2 {
+  margin-left: 0.75rem;
+  margin-right: 0;
+}
+
+.ltr .flex.items-center.gap-3 > .w-1\.5.h-1\.5,
+.ltr .flex.items-center.gap-3 > .w-1.h-1,
+.ltr .flex.items-center.gap-3 > .w-2.h-2 {
+  margin-right: 0.75rem;
+  margin-left: 0;
+}
