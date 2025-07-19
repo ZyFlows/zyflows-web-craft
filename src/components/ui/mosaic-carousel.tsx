@@ -30,7 +30,7 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
           align: "start",
           loop: true,
         }}
-        className="w-full"
+        className="w-full rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 p-6"
       >
         <CarouselContent className="-ml-2 md:-ml-4">
           {images.map((image, index) => (
