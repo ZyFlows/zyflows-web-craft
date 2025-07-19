@@ -125,9 +125,10 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     }
     
     // Luxury Real Estate Agency
-    if (combinedText.includes('luxury real estate') || combinedText.includes('agence immobilière') || 
-        combinedText.includes('סוכנות נדל"ן') || combinedText.includes('real estate agency') ||
-        combinedText.includes('immobilière de luxe') || combinedText.includes('luxury') && combinedText.includes('properties')) {
+    if (combinedText.includes('agence immobilière de luxe') || combinedText.includes('luxury real estate agency') || 
+        combinedText.includes('סוכנות נדל"ן יוקרתית') || combinedText.includes('sophisticated platform for luxury properties') ||
+        (combinedText.includes('immobilière') && combinedText.includes('luxe')) || 
+        (combinedText.includes('luxury') && combinedText.includes('real estate') && combinedText.includes('agency'))) {
       console.log('Detected: Real estate demo');
       return '/demo/real-estate';
     }
