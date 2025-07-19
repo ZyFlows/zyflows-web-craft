@@ -75,85 +75,74 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     console.log('Found project:', project);
     console.log('Combined text for detection:', combinedText);
     
-    // Legal GPT (plus spécifique en premier)
-    if (combinedText.includes('gpt') || combinedText.includes('assistant') && combinedText.includes('legal')) {
-      console.log('Detected: Legal GPT demo');
-      return '/demo/legal-gpt';
+    // Fashion E-commerce Store
+    if (combinedText.includes('fashion e-commerce') || combinedText.includes('boutique e-commerce') || 
+        combinedText.includes('חנות אופנה') || combinedText.includes('fashion') && combinedText.includes('store')) {
+      console.log('Detected: Fashion demo');
+      return '/demo/fashion';
     }
     
-    // Tech SaaS Platform (très spécifique)
-    if ((combinedText.includes('saas') && combinedText.includes('tech')) || 
-        (combinedText.includes('plateforme') && combinedText.includes('technologique')) ||
-        combinedText.includes('tech-saas')) {
+    // Tech SaaS Platform
+    if (combinedText.includes('tech saas') || combinedText.includes('saas technologique') || 
+        combinedText.includes('פלטפורמת saas טכנולוגית') || combinedText.includes('tech') && combinedText.includes('platform')) {
       console.log('Detected: Tech SaaS demo');
       return '/demo/tech-saas';
     }
     
-    // SaaS générique
-    if (combinedText.includes('saas') || combinedText.includes('software as a service')) {
-      console.log('Detected: SaaS demo');
-      return '/demo/saas';
-    }
-    
     // Professional Law Firm
-    if ((combinedText.includes('avocat') || combinedText.includes('law') || combinedText.includes('legal')) && 
-        !combinedText.includes('gpt') && !combinedText.includes('assistant')) {
+    if (combinedText.includes('professional law') || combinedText.includes('cabinet d\'avocat') || 
+        combinedText.includes('משרד עורכי דין') || combinedText.includes('law firm')) {
       console.log('Detected: Legal firm demo');
       return '/demo/legal-firm';
     }
     
-    // Lifestyle Blog
-    if (combinedText.includes('blog') || combinedText.includes('lifestyle') || combinedText.includes('article')) {
-      console.log('Detected: Lifestyle blog demo');
-      return '/demo/lifestyle-blog';
-    }
-    
-    // Real Estate / Luxury
-    if (combinedText.includes('real estate') || combinedText.includes('immobilier') || 
-        combinedText.includes('luxury') || combinedText.includes('property') || combinedText.includes('נדלן')) {
-      console.log('Detected: Real estate demo');
-      return '/demo/real-estate';
-    }
-    
-    // Automation
-    if (combinedText.includes('automation') || combinedText.includes('workflow') || 
-        combinedText.includes('automatisation') || combinedText.includes('אוטומציה')) {
-      console.log('Detected: Automation demo');
-      return '/demo/automation';
-    }
-    
-    // Innovative Startup / Agency
-    if (combinedText.includes('innovative') || combinedText.includes('startup') || 
-        combinedText.includes('agency') || combinedText.includes('agence')) {
-      console.log('Detected: Agency demo');
-      return '/demo/agency';
-    }
-    
-    // Bakery / Restaurant
-    if (combinedText.includes('bakery') || combinedText.includes('boulangerie') || 
-        combinedText.includes('restaurant') || combinedText.includes('מאפייה')) {
+    // Cozy Local Bakery
+    if (combinedText.includes('cozy local bakery') || combinedText.includes('boulangerie locale') || 
+        combinedText.includes('מאפייה מקומית') || combinedText.includes('bakery')) {
       console.log('Detected: Restaurant demo');
       return '/demo/restaurant';
     }
     
     // Creative Portfolio
-    if (combinedText.includes('portfolio') || combinedText.includes('creative') || 
-        combinedText.includes('photographe') || combinedText.includes('artist')) {
+    if (combinedText.includes('creative portfolio') || combinedText.includes('portfolio créatif') || 
+        combinedText.includes('פורטפוליו יוצר') || combinedText.includes('portfolio')) {
       console.log('Detected: Portfolio demo');
       return '/demo/portfolio';
     }
     
-    // Fashion E-commerce
-    if (combinedText.includes('fashion') || combinedText.includes('ecommerce') || 
-        combinedText.includes('boutique') || combinedText.includes('mode') || combinedText.includes('store')) {
-      console.log('Detected: Fashion demo');
-      return '/demo/fashion';
+    // Innovative Startup Agency
+    if (combinedText.includes('innovative startup') || combinedText.includes('startup innovante') || 
+        combinedText.includes('סטארטאפ חדשני') || combinedText.includes('agency') || combinedText.includes('agence')) {
+      console.log('Detected: Agency demo');
+      return '/demo/agency';
     }
     
-    // E-commerce générique
-    if (combinedText.includes('ecommerce') || combinedText.includes('e-commerce') || combinedText.includes('shop')) {
-      console.log('Detected: E-commerce demo');
-      return '/demo/ecommerce';
+    // Lifestyle Blog
+    if (combinedText.includes('lifestyle blog') || combinedText.includes('blog lifestyle') || 
+        combinedText.includes('בלוג לייף סטייל') || combinedText.includes('blog')) {
+      console.log('Detected: Lifestyle blog demo');
+      return '/demo/lifestyle-blog';
+    }
+    
+    // Luxury Real Estate
+    if (combinedText.includes('luxury real estate') || combinedText.includes('immobilier luxe') || 
+        combinedText.includes('נדלן יוקרה') || combinedText.includes('luxury') && combinedText.includes('real estate')) {
+      console.log('Detected: Real estate demo');
+      return '/demo/real-estate';
+    }
+    
+    // Automation System
+    if (combinedText.includes('automation system') || combinedText.includes('système d\'automatisation') || 
+        combinedText.includes('מערכת אוטומציה') || combinedText.includes('automation')) {
+      console.log('Detected: Automation demo');
+      return '/demo/automation';
+    }
+    
+    // Legal GPT Assistant
+    if (combinedText.includes('legal gpt') || combinedText.includes('gpt juridique') || 
+        combinedText.includes('gpt משפטי') || combinedText.includes('gpt') && combinedText.includes('assistant')) {
+      console.log('Detected: Legal GPT demo');
+      return '/demo/legal-gpt';
     }
     
     // Default fallback
