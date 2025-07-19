@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface MosaicCarouselProps {
@@ -28,18 +26,6 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
 
   const itemsPerPage = 6;
   const totalPages = Math.ceil(images.length / itemsPerPage);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalPages);
-    // Reprendre l'auto-play après 5 secondes d'inactivité
-    setTimeout(() => setIsAutoPlaying(true), 5000);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
-    // Reprendre l'auto-play après 5 secondes d'inactivité
-    setTimeout(() => setIsAutoPlaying(true), 5000);
-  };
 
   const getCurrentImages = () => {
     const start = currentIndex * itemsPerPage;
@@ -94,51 +80,6 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
           })}
         </div>
       </div>
-
-      {/* Navigation Arrows */}
-      {totalPages > 1 && (
-        <>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 hover:bg-white shadow-lg z-10"
-            onClick={prevSlide}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/90 hover:bg-white shadow-lg z-10"
-            onClick={nextSlide}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </>
-      )}
-
-      {/* Pagination Dots */}
-      {totalPages > 1 && (
-        <div className="flex justify-center space-x-2 mt-4">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              className={cn(
-                "w-2 h-2 rounded-full transition-colors duration-200",
-                index === currentIndex
-                  ? "bg-primary"
-                  : "bg-gray-300 hover:bg-gray-400"
-              )}
-              onClick={() => {
-                setCurrentIndex(index);
-                setIsAutoPlaying(false);
-                // Reprendre l'auto-play après 5 secondes d'inactivité
-                setTimeout(() => setIsAutoPlaying(true), 5000);
-              }}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 };
