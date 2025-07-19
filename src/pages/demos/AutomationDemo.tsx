@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ArrowLeft, Play, Pause, Settings, Zap, CheckCircle, AlertCircle, Clock, GitBranch } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, Play, Pause, Settings, Zap, CheckCircle, AlertCircle, Clock, GitBranch, Activity, TrendingUp, Database, Cpu, MemoryStick, HardDrive, Wifi } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +8,28 @@ import { useNavigate } from 'react-router-dom';
 const AutomationDemo = () => {
   const navigate = useNavigate();
   const [runningWorkflows, setRunningWorkflows] = useState<number[]>([1, 3]);
+  const [systemMetrics, setSystemMetrics] = useState({
+    cpu: 23,
+    memory: 45,
+    queue: 12,
+    uptime: '99.9%'
+  });
+  const [liveExecutions, setLiveExecutions] = useState(4821);
+  const [activeWorkflows, setActiveWorkflows] = useState(12);
+
+  // Simulation temps réel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSystemMetrics(prev => ({
+        cpu: Math.max(5, Math.min(80, prev.cpu + (Math.random() - 0.5) * 10)),
+        memory: Math.max(20, Math.min(85, prev.memory + (Math.random() - 0.5) * 8)),
+        queue: Math.max(0, Math.min(50, prev.queue + Math.floor(Math.random() * 6) - 3)),
+        uptime: prev.uptime
+      }));
+      setLiveExecutions(prev => prev + Math.floor(Math.random() * 5));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const workflows = [
     {
@@ -133,52 +155,152 @@ const AutomationDemo = () => {
           <p className="text-gray-600">Gérez et surveillez vos workflows automatisés</p>
         </div>
 
-        {/* Quick Stats */}
+        {/* Quick Stats - Enhanced */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-purple-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Workflows actifs</p>
-                  <p className="text-2xl font-bold text-gray-900">12</p>
+                  <p className="text-2xl font-bold text-gray-900">{activeWorkflows}</p>
+                  <div className="flex items-center mt-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                    <span className="text-xs text-green-600 font-medium">En ligne</span>
+                  </div>
                 </div>
-                <Zap className="h-8 w-8 text-purple-600" />
+                <div className="bg-purple-100 p-3 rounded-full">
+                  <Zap className="h-8 w-8 text-purple-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-green-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Exécutions/jour</p>
-                  <p className="text-2xl font-bold text-gray-900">4,821</p>
+                  <p className="text-2xl font-bold text-gray-900">{liveExecutions.toLocaleString()}</p>
+                  <div className="flex items-center mt-2">
+                    <TrendingUp className="h-3 w-3 text-green-600 mr-1" />
+                    <span className="text-xs text-green-600 font-medium">+12% aujourd'hui</span>
+                  </div>
                 </div>
-                <GitBranch className="h-8 w-8 text-green-600" />
+                <div className="bg-green-100 p-3 rounded-full">
+                  <GitBranch className="h-8 w-8 text-green-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-blue-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Taux de réussite</p>
                   <p className="text-2xl font-bold text-gray-900">97.3%</p>
+                  <div className="flex items-center mt-2">
+                    <CheckCircle className="h-3 w-3 text-blue-600 mr-1" />
+                    <span className="text-xs text-blue-600 font-medium">Excellent</span>
+                  </div>
                 </div>
-                <CheckCircle className="h-8 w-8 text-blue-600" />
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <CheckCircle className="h-8 w-8 text-blue-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="hover:shadow-lg transition-all duration-300 border-l-4 border-l-orange-500">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Temps économisé</p>
                   <p className="text-2xl font-bold text-gray-900">248h</p>
+                  <div className="flex items-center mt-2">
+                    <Clock className="h-3 w-3 text-orange-600 mr-1" />
+                    <span className="text-xs text-orange-600 font-medium">Ce mois</span>
+                  </div>
                 </div>
-                <Clock className="h-8 w-8 text-orange-600" />
+                <div className="bg-orange-100 p-3 rounded-full">
+                  <Clock className="h-8 w-8 text-orange-600" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* System Health Overview */}
+        <div className="mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Activity className="h-5 w-5 text-purple-600" />
+                <span>État du système</span>
+                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                  Opérationnel
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="relative w-16 h-16 mx-auto mb-3">
+                    <div className="absolute inset-0 bg-purple-100 rounded-full"></div>
+                    <div className="absolute inset-2 bg-purple-500 rounded-full flex items-center justify-center">
+                      <Cpu className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-gray-600">CPU</p>
+                  <p className="text-2xl font-bold text-gray-900">{systemMetrics.cpu.toFixed(0)}%</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-purple-600 h-2 rounded-full transition-all duration-1000" 
+                      style={{ width: `${systemMetrics.cpu}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="relative w-16 h-16 mx-auto mb-3">
+                    <div className="absolute inset-0 bg-blue-100 rounded-full"></div>
+                    <div className="absolute inset-2 bg-blue-500 rounded-full flex items-center justify-center">
+                      <MemoryStick className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-gray-600">Mémoire</p>
+                  <p className="text-2xl font-bold text-gray-900">{systemMetrics.memory.toFixed(0)}%</p>
+                  <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                    <div 
+                      className="bg-blue-600 h-2 rounded-full transition-all duration-1000" 
+                      style={{ width: `${systemMetrics.memory}%` }}
+                    ></div>
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="relative w-16 h-16 mx-auto mb-3">
+                    <div className="absolute inset-0 bg-green-100 rounded-full"></div>
+                    <div className="absolute inset-2 bg-green-500 rounded-full flex items-center justify-center">
+                      <Database className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-gray-600">Queue</p>
+                  <p className="text-2xl font-bold text-gray-900">{systemMetrics.queue}</p>
+                  <p className="text-xs text-gray-500 mt-1">tâches en attente</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="relative w-16 h-16 mx-auto mb-3">
+                    <div className="absolute inset-0 bg-orange-100 rounded-full"></div>
+                    <div className="absolute inset-2 bg-orange-500 rounded-full flex items-center justify-center">
+                      <Wifi className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <p className="text-sm font-medium text-gray-600">Uptime</p>
+                  <p className="text-2xl font-bold text-gray-900">{systemMetrics.uptime}</p>
+                  <p className="text-xs text-gray-500 mt-1">30 derniers jours</p>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -277,38 +399,55 @@ const AutomationDemo = () => {
 
             <Card className="mt-6">
               <CardHeader>
-                <CardTitle>Performance du système</CardTitle>
+                <CardTitle className="flex items-center justify-between">
+                  <span>Analytics en temps réel</span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-green-600">Live</span>
+                  </div>
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">CPU</span>
-                      <span className="text-sm text-gray-500">23%</span>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-purple-900">Workflows lancés</p>
+                          <p className="text-2xl font-bold text-purple-600">1,247</p>
+                        </div>
+                        <Play className="h-8 w-8 text-purple-600" />
+                      </div>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-green-600 h-2 rounded-full" style={{ width: '23%' }}></div>
+                    
+                    <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-green-900">Terminés</p>
+                          <p className="text-2xl font-bold text-green-600">1,213</p>
+                        </div>
+                        <CheckCircle className="h-8 w-8 text-green-600" />
+                      </div>
                     </div>
                   </div>
                   
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Mémoire</span>
-                      <span className="text-sm text-gray-500">45%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-blue-600 h-2 rounded-full" style={{ width: '45%' }}></div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Queue</span>
-                      <span className="text-sm text-gray-500">12 tâches</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-purple-600 h-2 rounded-full" style={{ width: '15%' }}></div>
-                    </div>
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-gray-900">Top workflows aujourd'hui</h4>
+                    {[
+                      { name: 'Traitement commandes', count: 342, trend: '+15%' },
+                      { name: 'Support IA', count: 289, trend: '+8%' },
+                      { name: 'Génération leads', count: 156, trend: '+23%' }
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                          <p className="font-medium text-gray-900">{item.name}</p>
+                          <p className="text-sm text-gray-500">{item.count} exécutions</p>
+                        </div>
+                        <Badge variant="outline" className="text-green-600 border-green-200 bg-green-50">
+                          {item.trend}
+                        </Badge>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </CardContent>
