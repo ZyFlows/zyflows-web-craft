@@ -16,6 +16,9 @@ import PortfolioDemo from "./pages/demos/PortfolioDemo";
 import LifestyleBlogDemo from "./pages/demos/LifestyleBlogDemo";
 import RealEstateDemo from "./pages/demos/RealEstateDemo";
 import LegalGPTDemo from "./pages/demos/LegalGPTDemo";
+import RestaurantDemo from "./pages/demos/RestaurantDemo";
+import AgencyDemo from "./pages/demos/AgencyDemo";
+import AutomationDemo from "./pages/demos/AutomationDemo";
 import "@/components/ui/rtl-support.css";
 
 const queryClient = new QueryClient();
@@ -30,12 +33,17 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/demo/fashion" element={<FashionDemo />} />
+            <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
+            <Route path="/demo/saas" element={<SaasDemo />} />
             <Route path="/demo/tech-saas" element={<TechSaasDemo />} />
             <Route path="/demo/legal-firm" element={<LegalFirmDemo />} />
             <Route path="/demo/portfolio" element={<PortfolioDemo />} />
             <Route path="/demo/lifestyle-blog" element={<LifestyleBlogDemo />} />
             <Route path="/demo/real-estate" element={<RealEstateDemo />} />
             <Route path="/demo/legal-gpt" element={<LegalGPTDemo />} />
+            <Route path="/demo/restaurant" element={<RestaurantDemo />} />
+            <Route path="/demo/agency" element={<AgencyDemo />} />
+            <Route path="/demo/automation" element={<AutomationDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -75,59 +75,90 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     console.log('Found project:', project);
     console.log('Combined text for detection:', combinedText);
     
-    // Fashion E-commerce
-    if (combinedText.includes('fashion') || combinedText.includes('ecommerce') || combinedText.includes('boutique') || 
-        combinedText.includes('mode') || combinedText.includes('חנות') || combinedText.includes('store')) {
-      console.log('Detected: Fashion E-commerce demo');
-      return '/demo/fashion';
-    }
-    
-    // SaaS/Tech Platform
-    if (combinedText.includes('saas') || combinedText.includes('technologique') || combinedText.includes('tech') ||
-        combinedText.includes('platform') || combinedText.includes('landing') || combinedText.includes('טכנולוגית')) {
-      console.log('Detected: Tech SaaS demo');
-      return '/demo/tech-saas';
-    }
-    
-    // Professional Law Firm
-    if (combinedText.includes('avocat') || combinedText.includes('law') || combinedText.includes('professional') ||
-        combinedText.includes('legal') || combinedText.includes('משפטי') || combinedText.includes('עורך דין') ||
-        combinedText.includes('cabinet') || combinedText.includes('professionnel')) {
-      console.log('Detected: Legal firm demo');
-      return '/demo/legal-firm';
-    }
-    
-    // Creative Portfolio
-    if (combinedText.includes('portfolio') || combinedText.includes('creative') || combinedText.includes('photographe') ||
-        combinedText.includes('יוצר') || combinedText.includes('צלם') || combinedText.includes('artist')) {
-      console.log('Detected: Portfolio demo');
-      return '/demo/portfolio';
-    }
-    
-    // Lifestyle Blog
-    if (combinedText.includes('blog') || combinedText.includes('lifestyle') || combinedText.includes('article') ||
-        combinedText.includes('content') || combinedText.includes('magazine')) {
-      console.log('Detected: Lifestyle blog demo');
-      return '/demo/lifestyle-blog';
-    }
-    
-    // Real Estate
-    if (combinedText.includes('real estate') || combinedText.includes('immobilier') || combinedText.includes('property') ||
-        combinedText.includes('luxury') || combinedText.includes('נדלן')) {
-      console.log('Detected: Real estate demo');
-      return '/demo/real-estate';
-    }
-    
-    // Legal GPT
-    if (combinedText.includes('gpt') || combinedText.includes('ai') || combinedText.includes('custom') ||
-        combinedText.includes('intelligence') || combinedText.includes('ia')) {
+    // Legal GPT (plus spécifique en premier)
+    if (combinedText.includes('gpt') || combinedText.includes('assistant') && combinedText.includes('legal')) {
       console.log('Detected: Legal GPT demo');
       return '/demo/legal-gpt';
     }
     
+    // Tech SaaS Platform (très spécifique)
+    if ((combinedText.includes('saas') && combinedText.includes('tech')) || 
+        (combinedText.includes('plateforme') && combinedText.includes('technologique')) ||
+        combinedText.includes('tech-saas')) {
+      console.log('Detected: Tech SaaS demo');
+      return '/demo/tech-saas';
+    }
+    
+    // SaaS générique
+    if (combinedText.includes('saas') || combinedText.includes('software as a service')) {
+      console.log('Detected: SaaS demo');
+      return '/demo/saas';
+    }
+    
+    // Professional Law Firm
+    if ((combinedText.includes('avocat') || combinedText.includes('law') || combinedText.includes('legal')) && 
+        !combinedText.includes('gpt') && !combinedText.includes('assistant')) {
+      console.log('Detected: Legal firm demo');
+      return '/demo/legal-firm';
+    }
+    
+    // Lifestyle Blog
+    if (combinedText.includes('blog') || combinedText.includes('lifestyle') || combinedText.includes('article')) {
+      console.log('Detected: Lifestyle blog demo');
+      return '/demo/lifestyle-blog';
+    }
+    
+    // Real Estate / Luxury
+    if (combinedText.includes('real estate') || combinedText.includes('immobilier') || 
+        combinedText.includes('luxury') || combinedText.includes('property') || combinedText.includes('נדלן')) {
+      console.log('Detected: Real estate demo');
+      return '/demo/real-estate';
+    }
+    
+    // Automation
+    if (combinedText.includes('automation') || combinedText.includes('workflow') || 
+        combinedText.includes('automatisation') || combinedText.includes('אוטומציה')) {
+      console.log('Detected: Automation demo');
+      return '/demo/automation';
+    }
+    
+    // Innovative Startup / Agency
+    if (combinedText.includes('innovative') || combinedText.includes('startup') || 
+        combinedText.includes('agency') || combinedText.includes('agence')) {
+      console.log('Detected: Agency demo');
+      return '/demo/agency';
+    }
+    
+    // Bakery / Restaurant
+    if (combinedText.includes('bakery') || combinedText.includes('boulangerie') || 
+        combinedText.includes('restaurant') || combinedText.includes('מאפייה')) {
+      console.log('Detected: Restaurant demo');
+      return '/demo/restaurant';
+    }
+    
+    // Creative Portfolio
+    if (combinedText.includes('portfolio') || combinedText.includes('creative') || 
+        combinedText.includes('photographe') || combinedText.includes('artist')) {
+      console.log('Detected: Portfolio demo');
+      return '/demo/portfolio';
+    }
+    
+    // Fashion E-commerce
+    if (combinedText.includes('fashion') || combinedText.includes('ecommerce') || 
+        combinedText.includes('boutique') || combinedText.includes('mode') || combinedText.includes('store')) {
+      console.log('Detected: Fashion demo');
+      return '/demo/fashion';
+    }
+    
+    // E-commerce générique
+    if (combinedText.includes('ecommerce') || combinedText.includes('e-commerce') || combinedText.includes('shop')) {
+      console.log('Detected: E-commerce demo');
+      return '/demo/ecommerce';
+    }
+    
     // Default fallback
-    console.log('No specific match found, using default fashion demo');
-    return '/demo/fashion';
+    console.log('No specific match found, using default portfolio demo');
+    return '/demo/portfolio';
   };
 
   return (
