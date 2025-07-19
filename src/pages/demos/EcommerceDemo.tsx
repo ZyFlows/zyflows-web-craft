@@ -47,60 +47,60 @@ const EcommerceDemo = () => {
 
   const heroSlides = [
     {
-      title: "Fall Collection 2024",
-      subtitle: "Discover our trending pieces",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop",
+      title: "W Garoupt, Resesen Devlniret",
+      subtitle: "Discover our elegant collection",
+      image: "/src/assets/mockup-ecommerce.jpg",
+      cta: "Explore Collection"
+    },
+    {
+      title: "LarceFuidries up",
+      subtitle: "Warmand to hages",
+      image: "/src/assets/mockup-ecommerce-product.jpg",
       cta: "Shop Now"
     },
     {
-      title: "Flash Sale - 50% OFF",
-      subtitle: "Limited time offer on selected items",
-      image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&h=600&fit=crop",
-      cta: "Get Deal"
-    },
-    {
-      title: "Free Shipping",
-      subtitle: "On orders over $50 worldwide",
-      image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1200&h=600&fit=crop",
-      cta: "Order Now"
+      title: "Eternal Eletower",
+      subtitle: "Premium fashion collection",
+      image: "/src/assets/mockup-ecommerce-checkout.jpg",
+      cta: "View Collection"
     }
   ];
 
   const products = [
     {
       id: 1,
-      name: "Elegant Black Dress",
+      name: "Elegant White Off-Shoulder Dress",
       price: 129,
       originalPrice: 189,
-      image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=600&fit=crop",
+      image: "/src/assets/mockup-ecommerce.jpg",
       rating: 4.8,
       reviews: 124,
       sale: true
     },
     {
       id: 2,
-      name: "Modern Camel Blazer",
+      name: "Modern Brown Blazer",
       price: 179,
-      image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=400&h=600&fit=crop",
+      image: "/src/assets/mockup-ecommerce-product.jpg",
       rating: 4.6,
       reviews: 89,
       sale: false
     },
     {
       id: 3,
-      name: "Pleated Beige Skirt",
+      name: "Classic Beige Trench Coat",
       price: 85,
-      image: "https://images.unsplash.com/photo-1583496661160-fb5886a13d0e?w=400&h=600&fit=crop",
+      image: "/src/assets/mockup-ecommerce-checkout.jpg",
       rating: 4.9,
       reviews: 156,
       sale: false
     },
     {
       id: 4,
-      name: "Cozy Pink Sweater",
+      name: "Casual V-Neck Top",
       price: 95,
       originalPrice: 135,
-      image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400&h=600&fit=crop",
+      image: "/src/assets/mockup-ecommerce-product.jpg",
       rating: 4.7,
       reviews: 203,
       sale: true
@@ -135,9 +135,9 @@ const EcommerceDemo = () => {
   ];
 
   const collections = [
-    { name: "New Arrivals", items: 42, image: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=300&h=200&fit=crop" },
-    { name: "Best Sellers", items: 28, image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&h=200&fit=crop" },
-    { name: "Flash Sale", items: 15, image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=300&h=200&fit=crop" }
+    { name: "New Arrivals", items: 42, image: "/src/assets/mockup-ecommerce.jpg" },
+    { name: "Best Sellers", items: 28, image: "/src/assets/mockup-ecommerce-product.jpg" },
+    { name: "Flash Sale", items: 15, image: "/src/assets/mockup-ecommerce-checkout.jpg" }
   ];
 
   return (
@@ -164,7 +164,7 @@ const EcommerceDemo = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-rose-600 to-pink-600 rounded-lg blur opacity-20 animate-pulse"></div>
                 <h1 className="relative text-2xl font-bold bg-gradient-to-r from-rose-600 via-pink-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
-                  FashionHub
+                  Exaogglerr
                 </h1>
               </div>
             </div>
