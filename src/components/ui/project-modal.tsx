@@ -69,14 +69,38 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
   const getDemoUrl = () => {
     const projectTitle = project.title.toLowerCase();
-    if (projectTitle.includes('ecommerce') || projectTitle.includes('fashion') || projectTitle.includes('boutique') || projectTitle.includes('חנות')) {
+    const projectDesc = project.description.toLowerCase();
+    const combinedText = `${projectTitle} ${projectDesc}`.toLowerCase();
+    
+    // Legal/Law firm detection
+    if (combinedText.includes('avocat') || combinedText.includes('legal') || combinedText.includes('lawyer') || 
+        combinedText.includes('cabinet') || combinedText.includes('droit') || combinedText.includes('law') ||
+        combinedText.includes('עורך דין') || combinedText.includes('משפטי')) {
+      return '/demo/legal';
+    }
+    
+    // E-commerce detection
+    if (combinedText.includes('ecommerce') || combinedText.includes('e-commerce') || combinedText.includes('fashion') || 
+        combinedText.includes('boutique') || combinedText.includes('store') || combinedText.includes('shop') ||
+        combinedText.includes('חנות') || combinedText.includes('magasin') || combinedText.includes('commerce')) {
       return '/demo/ecommerce';
-    } else if (projectTitle.includes('saas') || projectTitle.includes('dashboard') || projectTitle.includes('analytics') || projectTitle.includes('טכנולוגית')) {
-      return '/demo/saas';  
-    } else if (projectTitle.includes('automation') || projectTitle.includes('אוטומציה') || projectTitle.includes('automatisation')) {
+    }
+    
+    // SaaS/Analytics detection  
+    if (combinedText.includes('saas') || combinedText.includes('dashboard') || combinedText.includes('analytics') || 
+        combinedText.includes('data') || combinedText.includes('metrics') || combinedText.includes('tableau') ||
+        combinedText.includes('טכנולוגית') || combinedText.includes('données')) {
+      return '/demo/saas';
+    }
+    
+    // Automation detection
+    if (combinedText.includes('automation') || combinedText.includes('workflow') || combinedText.includes('process') ||
+        combinedText.includes('אוטומציה') || combinedText.includes('automatisation') || combinedText.includes('robot')) {
       return '/demo/automation';
     }
-    return '/demo/ecommerce'; // default fallback
+    
+    // Default fallback based on project order/type
+    return '/demo/ecommerce';
   };
 
   return (
