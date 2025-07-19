@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface MosaicCarouselProps {
@@ -9,12 +10,38 @@ interface MosaicCarouselProps {
 }
 
 const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const container = scrollRef.current;
+        const imageWidth = 288; // w-72 = 288px
+        const offset = 60; // chevauchement
+        const scrollDistance = imageWidth - offset;
+        
+        setCurrentIndex((prevIndex) => {
+          const nextIndex = (prevIndex + 1) % images.length;
+          container.scrollTo({
+            left: nextIndex * scrollDistance,
+            behavior: 'smooth'
+          });
+          return nextIndex;
+        });
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <div className="relative w-full max-w-6xl mx-auto">
       {/* Container avec scroll horizontal */}
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 p-6">
         <div 
-          className="flex gap-0 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth pb-4"
+          ref={scrollRef}
+          className="flex gap-0 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           style={{
             scrollSnapType: 'x mandatory',
             WebkitOverflowScrolling: 'touch'
