@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Dialog,
   DialogContent,
@@ -47,6 +48,7 @@ interface ProjectModalProps {
 
 export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
@@ -63,6 +65,18 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
   const goToImage = (index: number) => {
     setCurrentImageIndex(index);
+  };
+
+  const getDemoUrl = () => {
+    const projectTitle = project.title.toLowerCase();
+    if (projectTitle.includes('ecommerce') || projectTitle.includes('fashion') || projectTitle.includes('boutique') || projectTitle.includes('חנות')) {
+      return '/demo/ecommerce';
+    } else if (projectTitle.includes('saas') || projectTitle.includes('dashboard') || projectTitle.includes('analytics') || projectTitle.includes('טכנולוגית')) {
+      return '/demo/saas';  
+    } else if (projectTitle.includes('automation') || projectTitle.includes('אוטומציה') || projectTitle.includes('automatisation')) {
+      return '/demo/automation';
+    }
+    return '/demo/ecommerce'; // default fallback
   };
 
   return (
@@ -244,12 +258,15 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-border/50">
-            <Button className="flex-1 glow-primary">
+            <Button 
+              className="flex-1 glow-primary"
+              onClick={() => navigate(getDemoUrl())}
+            >
               <ExternalLink className="h-4 w-4 mr-2" />
-              {language === 'he' ? 'צפה בפרויקט החי' : language === 'en' ? 'View Live Project' : 'Voir le projet en ligne'}
+              {language === 'he' ? 'צפה בדמו חי' : language === 'en' ? 'View Live Demo' : 'Voir la démo en direct'}
             </Button>
-            <Button variant="outline" className="flex-1">
-              {language === 'he' ? 'פרויקט דומה' : language === 'en' ? 'Similar Project' : 'Projet similaire'}
+            <Button variant="outline" className="flex-1" onClick={onClose}>
+              {language === 'he' ? 'סגור' : language === 'en' ? 'Close' : 'Fermer'}
             </Button>
           </div>
         </div>
