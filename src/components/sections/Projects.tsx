@@ -671,7 +671,7 @@ const Projects = () => {
               {language === 'he' ? 'תבניות WordPress שיצרנו' : language === 'en' ? 'WordPress Templates We\'ve Created' : 'Templates WordPress que nous avons créés'}
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'he' ? 'דוגמאות של תבניות WordPress מותאמות אישית בתחומים שונים' : language === 'en' ? 'Examples of custom WordPress templates across various industries' : 'Exemples de templates WordPress personnalisés dans divers secteurs'}
+              {language === 'he' ? 'הצגת תבניות שפותחו עם WordPress, קידוד אינטואיטיבי או גישות קוד קלאסיות' : language === 'en' ? 'Showcasing templates developed with WordPress, vibe coding, or classic code approaches.' : 'Showcasing templates developed with WordPress, vibe coding, or classic code approaches.'}
             </p>
           </div>
           
