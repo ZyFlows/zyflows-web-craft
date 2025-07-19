@@ -9,10 +9,13 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import EcommerceDemo from "./pages/demos/EcommerceDemo";
 import SaasDemo from "./pages/demos/SaasDemo";
-import AutomationDemo from "./pages/demos/AutomationDemo";
-import LegalDemo from "./pages/demos/LegalDemo";
-import RestaurantDemo from "./pages/demos/RestaurantDemo";
-import AgencyDemo from "./pages/demos/AgencyDemo";
+import FashionDemo from "./pages/demos/FashionDemo";
+import TechSaasDemo from "./pages/demos/TechSaasDemo";
+import LegalFirmDemo from "./pages/demos/LegalFirmDemo";
+import PortfolioDemo from "./pages/demos/PortfolioDemo";
+import LifestyleBlogDemo from "./pages/demos/LifestyleBlogDemo";
+import RealEstateDemo from "./pages/demos/RealEstateDemo";
+import LegalGPTDemo from "./pages/demos/LegalGPTDemo";
 import "@/components/ui/rtl-support.css";
 
 const queryClient = new QueryClient();
@@ -26,12 +29,13 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
-            <Route path="/demo/saas" element={<SaasDemo />} />
-            <Route path="/demo/automation" element={<AutomationDemo />} />
-            <Route path="/demo/legal" element={<LegalDemo />} />
-            <Route path="/demo/restaurant" element={<RestaurantDemo />} />
-            <Route path="/demo/agency" element={<AgencyDemo />} />
+            <Route path="/demo/fashion" element={<FashionDemo />} />
+            <Route path="/demo/tech-saas" element={<TechSaasDemo />} />
+            <Route path="/demo/legal-firm" element={<LegalFirmDemo />} />
+            <Route path="/demo/portfolio" element={<PortfolioDemo />} />
+            <Route path="/demo/lifestyle-blog" element={<LifestyleBlogDemo />} />
+            <Route path="/demo/real-estate" element={<RealEstateDemo />} />
+            <Route path="/demo/legal-gpt" element={<LegalGPTDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
