@@ -72,34 +72,75 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     const projectDesc = project.description.toLowerCase();
     const combinedText = `${projectTitle} ${projectDesc}`.toLowerCase();
     
-    // Legal/Law firm detection
+    console.log('Found project:', project);
+    console.log('Combined text for detection:', combinedText);
+    
+    // Legal/Law firm detection - Enhanced
     if (combinedText.includes('avocat') || combinedText.includes('legal') || combinedText.includes('lawyer') || 
         combinedText.includes('cabinet') || combinedText.includes('droit') || combinedText.includes('law') ||
-        combinedText.includes('עורך דין') || combinedText.includes('משפטי')) {
+        combinedText.includes('עורך דין') || combinedText.includes('משפטי') || combinedText.includes('juridique') ||
+        combinedText.includes('attorney') || combinedText.includes('counsel') || combinedText.includes('litigation')) {
+      console.log('Detected: Legal demo');
       return '/demo/legal';
     }
     
-    // E-commerce detection
+    // E-commerce detection - Enhanced
     if (combinedText.includes('ecommerce') || combinedText.includes('e-commerce') || combinedText.includes('fashion') || 
         combinedText.includes('boutique') || combinedText.includes('store') || combinedText.includes('shop') ||
-        combinedText.includes('חנות') || combinedText.includes('magasin') || combinedText.includes('commerce')) {
+        combinedText.includes('חנות') || combinedText.includes('magasin') || combinedText.includes('commerce') ||
+        combinedText.includes('retail') || combinedText.includes('vente') || combinedText.includes('produit')) {
+      console.log('Detected: E-commerce demo');
       return '/demo/ecommerce';
     }
     
-    // SaaS/Analytics detection  
+    // SaaS/Analytics detection - Enhanced
     if (combinedText.includes('saas') || combinedText.includes('dashboard') || combinedText.includes('analytics') || 
         combinedText.includes('data') || combinedText.includes('metrics') || combinedText.includes('tableau') ||
-        combinedText.includes('טכנולוגית') || combinedText.includes('données')) {
+        combinedText.includes('טכנולוגית') || combinedText.includes('données') || combinedText.includes('startup') ||
+        combinedText.includes('tech') || combinedText.includes('software') || combinedText.includes('app')) {
+      console.log('Detected: SaaS demo');
       return '/demo/saas';
     }
     
-    // Automation detection
+    // Automation detection - Enhanced
     if (combinedText.includes('automation') || combinedText.includes('workflow') || combinedText.includes('process') ||
-        combinedText.includes('אוטומציה') || combinedText.includes('automatisation') || combinedText.includes('robot')) {
+        combinedText.includes('אוטומציה') || combinedText.includes('automatisation') || combinedText.includes('robot') ||
+        combinedText.includes('ai') || combinedText.includes('intelligence') || combinedText.includes('auto')) {
+      console.log('Detected: Automation demo');
       return '/demo/automation';
     }
     
-    // Default fallback based on project order/type
+    // Restaurant/Bakery detection
+    if (combinedText.includes('restaurant') || combinedText.includes('bakery') || combinedText.includes('food') ||
+        combinedText.includes('menu') || combinedText.includes('cuisine') || combinedText.includes('boulangerie') ||
+        combinedText.includes('café') || combinedText.includes('bistro')) {
+      console.log('Detected: Restaurant demo');
+      return '/demo/restaurant';
+    }
+    
+    // Portfolio/Agency detection
+    if (combinedText.includes('portfolio') || combinedText.includes('agency') || combinedText.includes('creative') ||
+        combinedText.includes('design') || combinedText.includes('agence') || combinedText.includes('digital')) {
+      console.log('Detected: Agency demo');
+      return '/demo/agency';
+    }
+    
+    // Real Estate detection
+    if (combinedText.includes('immobilier') || combinedText.includes('real estate') || combinedText.includes('property') ||
+        combinedText.includes('realty') || combinedText.includes('homes') || combinedText.includes('properties')) {
+      console.log('Detected: Real Estate demo (using ecommerce)');
+      return '/demo/ecommerce';
+    }
+    
+    // Professional services detection
+    if (combinedText.includes('professional') || combinedText.includes('services') || combinedText.includes('consulting') ||
+        combinedText.includes('conseil') || combinedText.includes('expertise')) {
+      console.log('Detected: Professional services demo (using saas)');
+      return '/demo/saas';
+    }
+    
+    // Default fallback
+    console.log('No specific match found, using default e-commerce demo');
     return '/demo/ecommerce';
   };
 

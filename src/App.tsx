@@ -11,6 +11,8 @@ import EcommerceDemo from "./pages/demos/EcommerceDemo";
 import SaasDemo from "./pages/demos/SaasDemo";
 import AutomationDemo from "./pages/demos/AutomationDemo";
 import LegalDemo from "./pages/demos/LegalDemo";
+import RestaurantDemo from "./pages/demos/RestaurantDemo";
+import AgencyDemo from "./pages/demos/AgencyDemo";
 import "@/components/ui/rtl-support.css";
 
 const queryClient = new QueryClient();
@@ -28,6 +30,8 @@ const App = () => (
             <Route path="/demo/saas" element={<SaasDemo />} />
             <Route path="/demo/automation" element={<AutomationDemo />} />
             <Route path="/demo/legal" element={<LegalDemo />} />
+            <Route path="/demo/restaurant" element={<RestaurantDemo />} />
+            <Route path="/demo/agency" element={<AgencyDemo />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
