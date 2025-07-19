@@ -15,13 +15,13 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Auto-play functionality
+  // Auto-play functionality - défilement continu plus rapide
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % Math.ceil(images.length / 6));
-    }, 4000);
+    }, 2500); // Plus rapide: 2.5 secondes au lieu de 4
 
     return () => clearInterval(interval);
   }, [images.length, isAutoPlaying]);
@@ -31,12 +31,14 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % totalPages);
-    setIsAutoPlaying(false);
+    // Reprendre l'auto-play après 5 secondes d'inactivité
+    setTimeout(() => setIsAutoPlaying(true), 5000);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
-    setIsAutoPlaying(false);
+    // Reprendre l'auto-play après 5 secondes d'inactivité
+    setTimeout(() => setIsAutoPlaying(true), 5000);
   };
 
   const getCurrentImages = () => {
@@ -130,6 +132,8 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
               onClick={() => {
                 setCurrentIndex(index);
                 setIsAutoPlaying(false);
+                // Reprendre l'auto-play après 5 secondes d'inactivité
+                setTimeout(() => setIsAutoPlaying(true), 5000);
               }}
             />
           ))}

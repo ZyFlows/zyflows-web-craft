@@ -49,6 +49,26 @@ import mockupWordpressTravel from "@/assets/mockup-wordpress-travel.jpg";
 import mockupWordpressEducation from "@/assets/mockup-wordpress-education.jpg";
 import mockupWordpressHotel from "@/assets/mockup-wordpress-hotel.jpg";
 import mockupWordpressStartup from "@/assets/mockup-wordpress-startup.jpg";
+import mockupWordpressRestaurant from "@/assets/mockup-wordpress-restaurant.jpg";
+import mockupWordpressDental from "@/assets/mockup-wordpress-dental.jpg";
+import mockupWordpressArchitecture from "@/assets/mockup-wordpress-architecture.jpg";
+import mockupWordpressConsultant from "@/assets/mockup-wordpress-consultant.jpg";
+import mockupWordpressPhotographer from "@/assets/mockup-wordpress-photographer.jpg";
+import mockupWordpressMusic from "@/assets/mockup-wordpress-music.jpg";
+import mockupWordpressWedding from "@/assets/mockup-wordpress-wedding.jpg";
+import mockupWordpressMedical from "@/assets/mockup-wordpress-medical.jpg";
+import mockupWordpressCoaching from "@/assets/mockup-wordpress-coaching.jpg";
+import mockupWordpressBeauty from "@/assets/mockup-wordpress-beauty.jpg";
+import mockupWordpressSoftware from "@/assets/mockup-wordpress-software.jpg";
+import mockupWordpressElearning from "@/assets/mockup-wordpress-elearning.jpg";
+import mockupWordpressCharity from "@/assets/mockup-wordpress-charity.jpg";
+import mockupWordpressConstruction from "@/assets/mockup-wordpress-construction.jpg";
+import mockupWordpressFreelance from "@/assets/mockup-wordpress-freelance.jpg";
+import mockupWordpressFoodDelivery from "@/assets/mockup-wordpress-food-delivery.jpg";
+import mockupWordpressAutomotive from "@/assets/mockup-wordpress-automotive.jpg";
+import mockupWordpressFinance from "@/assets/mockup-wordpress-finance.jpg";
+import mockupWordpressPetcare from "@/assets/mockup-wordpress-petcare.jpg";
+import mockupWordpressOrganicFarm from "@/assets/mockup-wordpress-organic-farm.jpg";
 
 const Projects = () => {
   const { t, language } = useLanguage();
@@ -370,11 +390,116 @@ const Projects = () => {
       alt: language === 'he' ? 'תבנית WordPress לסטארט-אפ' : language === 'en' ? 'WordPress Startup Template' : 'Template WordPress Startup',
       title: language === 'he' ? 'תבנית WordPress לחברת סטארט-אפ' : language === 'en' ? 'WordPress Tech Startup Template' : 'Template WordPress Startup Tech'
     },
-    // Ajout d'autres mockups existants pour remplir le carrousel
+    {
+      src: mockupWordpressRestaurant,
+      alt: language === 'he' ? 'תבנית WordPress למסעדה' : language === 'en' ? 'WordPress Restaurant Template' : 'Template WordPress Restaurant',
+      title: language === 'he' ? 'תבנית WordPress למסעדה אלגנטית' : language === 'en' ? 'WordPress Elegant Restaurant Template' : 'Template WordPress Restaurant Élégant'
+    },
+    {
+      src: mockupWordpressDental,
+      alt: language === 'he' ? 'תבנית WordPress לרופא שיניים' : language === 'en' ? 'WordPress Dental Template' : 'Template WordPress Dentaire',
+      title: language === 'he' ? 'תבנית WordPress למרפאת שיניים' : language === 'en' ? 'WordPress Dental Clinic Template' : 'Template WordPress Clinique Dentaire'
+    },
+    {
+      src: mockupWordpressArchitecture,
+      alt: language === 'he' ? 'תבנית WordPress לאדריכלות' : language === 'en' ? 'WordPress Architecture Template' : 'Template WordPress Architecture',
+      title: language === 'he' ? 'תבנית WordPress למשרד אדריכלות' : language === 'en' ? 'WordPress Architecture Firm Template' : 'Template WordPress Cabinet d\'Architecture'
+    },
+    {
+      src: mockupWordpressConsultant,
+      alt: language === 'he' ? 'תבנית WordPress ליועץ עסקי' : language === 'en' ? 'WordPress Consultant Template' : 'Template WordPress Consultant',
+      title: language === 'he' ? 'תבנית WordPress ליועץ עסקי' : language === 'en' ? 'WordPress Business Consultant Template' : 'Template WordPress Consultant Business'
+    },
+    {
+      src: mockupWordpressPhotographer,
+      alt: language === 'he' ? 'תבנית WordPress לצלם' : language === 'en' ? 'WordPress Photographer Template' : 'Template WordPress Photographe',
+      title: language === 'he' ? 'תבנית WordPress לפורטפוליו צלם' : language === 'en' ? 'WordPress Photographer Portfolio Template' : 'Template WordPress Portfolio Photographe'
+    },
+    {
+      src: mockupWordpressMusic,
+      alt: language === 'he' ? 'תבנית WordPress לאולפן מוזיקה' : language === 'en' ? 'WordPress Music Template' : 'Template WordPress Musique',
+      title: language === 'he' ? 'תבנית WordPress לאולפן מוזיקה' : language === 'en' ? 'WordPress Music Studio Template' : 'Template WordPress Studio Musique'
+    },
+    {
+      src: mockupWordpressWedding,
+      alt: language === 'he' ? 'תבנית WordPress למתכנן חתונות' : language === 'en' ? 'WordPress Wedding Template' : 'Template WordPress Mariage',
+      title: language === 'he' ? 'תבנית WordPress למתכנן חתונות' : language === 'en' ? 'WordPress Wedding Planner Template' : 'Template WordPress Organisateur Mariage'
+    },
+    {
+      src: mockupWordpressMedical,
+      alt: language === 'he' ? 'תבנית WordPress לרפואה' : language === 'en' ? 'WordPress Medical Template' : 'Template WordPress Médical',
+      title: language === 'he' ? 'תבנית WordPress למרפאה רפואית' : language === 'en' ? 'WordPress Medical Clinic Template' : 'Template WordPress Clinique Médicale'
+    },
+    {
+      src: mockupWordpressCoaching,
+      alt: language === 'he' ? 'תבנית WordPress לקואץ' : language === 'en' ? 'WordPress Coaching Template' : 'Template WordPress Coaching',
+      title: language === 'he' ? 'תבנית WordPress לקואץ אישי' : language === 'en' ? 'WordPress Life Coach Template' : 'Template WordPress Coach de Vie'
+    },
+    {
+      src: mockupWordpressBeauty,
+      alt: language === 'he' ? 'תבנית WordPress ליופי' : language === 'en' ? 'WordPress Beauty Template' : 'Template WordPress Beauté',
+      title: language === 'he' ? 'תבנית WordPress לסלון יופי' : language === 'en' ? 'WordPress Beauty Salon Template' : 'Template WordPress Salon de Beauté'
+    },
+    {
+      src: mockupWordpressSoftware,
+      alt: language === 'he' ? 'תבנית WordPress לתוכנה' : language === 'en' ? 'WordPress Software Template' : 'Template WordPress Logiciel',
+      title: language === 'he' ? 'תבנית WordPress לחברת תוכנה' : language === 'en' ? 'WordPress Software Company Template' : 'Template WordPress Société de Logiciels'
+    },
+    {
+      src: mockupWordpressElearning,
+      alt: language === 'he' ? 'תבנית WordPress ללמידה מקוונת' : language === 'en' ? 'WordPress E-learning Template' : 'Template WordPress E-learning',
+      title: language === 'he' ? 'תבנית WordPress לפלטפורמת למידה' : language === 'en' ? 'WordPress Online Learning Platform Template' : 'Template WordPress Plateforme d\'Apprentissage'
+    },
+    {
+      src: mockupWordpressCharity,
+      alt: language === 'he' ? 'תבנית WordPress לצדקה' : language === 'en' ? 'WordPress Charity Template' : 'Template WordPress Charité',
+      title: language === 'he' ? 'תבנית WordPress לארגון צדקה' : language === 'en' ? 'WordPress Charity Organization Template' : 'Template WordPress Organisation Caritative'
+    },
+    {
+      src: mockupWordpressConstruction,
+      alt: language === 'he' ? 'תבנית WordPress לבנייה' : language === 'en' ? 'WordPress Construction Template' : 'Template WordPress Construction',
+      title: language === 'he' ? 'תבנית WordPress לחברת בנייה' : language === 'en' ? 'WordPress Construction Company Template' : 'Template WordPress Entreprise Construction'
+    },
+    {
+      src: mockupWordpressFreelance,
+      alt: language === 'he' ? 'תבנית WordPress לעצמאי' : language === 'en' ? 'WordPress Freelance Template' : 'Template WordPress Freelance',
+      title: language === 'he' ? 'תבנית WordPress למעצב עצמאי' : language === 'en' ? 'WordPress Freelance Designer Template' : 'Template WordPress Designer Freelance'
+    },
+    {
+      src: mockupWordpressFoodDelivery,
+      alt: language === 'he' ? 'תבנית WordPress למשלוח אוכל' : language === 'en' ? 'WordPress Food Delivery Template' : 'Template WordPress Livraison Nourriture',
+      title: language === 'he' ? 'תבנית WordPress לאפליקציית משלוח אוכל' : language === 'en' ? 'WordPress Food Delivery App Template' : 'Template WordPress App Livraison Nourriture'
+    },
+    {
+      src: mockupWordpressAutomotive,
+      alt: language === 'he' ? 'תבנית WordPress לרכב' : language === 'en' ? 'WordPress Automotive Template' : 'Template WordPress Automobile',
+      title: language === 'he' ? 'תבנית WordPress לסוכנות רכב' : language === 'en' ? 'WordPress Automotive Dealership Template' : 'Template WordPress Concessionnaire Auto'
+    },
+    {
+      src: mockupWordpressFinance,
+      alt: language === 'he' ? 'תבנית WordPress לכספים' : language === 'en' ? 'WordPress Finance Template' : 'Template WordPress Finance',
+      title: language === 'he' ? 'תבנית WordPress ליועץ פיננסי' : language === 'en' ? 'WordPress Financial Advisor Template' : 'Template WordPress Conseiller Financier'
+    },
+    {
+      src: mockupWordpressPetcare,
+      alt: language === 'he' ? 'תבנית WordPress לטיפול בחיות' : language === 'en' ? 'WordPress Pet Care Template' : 'Template WordPress Soins Animaux',
+      title: language === 'he' ? 'תבנית WordPress למרפאה וטרינרית' : language === 'en' ? 'WordPress Pet Care Clinic Template' : 'Template WordPress Clinique Vétérinaire'
+    },
+    {
+      src: mockupWordpressOrganicFarm,
+      alt: language === 'he' ? 'תבנית WordPress לחווה אורגנית' : language === 'en' ? 'WordPress Organic Farm Template' : 'Template WordPress Ferme Biologique',
+      title: language === 'he' ? 'תבנית WordPress לחווה אורגנית' : language === 'en' ? 'WordPress Organic Farm Template' : 'Template WordPress Ferme Biologique'
+    },
+    // Ajout d'autres mockups existants pour plus de variété
     {
       src: mockupEcommerce,
       alt: language === 'he' ? 'תבנית WordPress לחנות אופנה' : language === 'en' ? 'WordPress Fashion Store Template' : 'Template WordPress Boutique Mode',
       title: language === 'he' ? 'תבנית WordPress לחנות אופנה' : language === 'en' ? 'WordPress Fashion E-commerce Template' : 'Template WordPress E-commerce Mode'
+    },
+    {
+      src: mockupSaas,
+      alt: language === 'he' ? 'תבנית WordPress לSaaS' : language === 'en' ? 'WordPress SaaS Template' : 'Template WordPress SaaS',
+      title: language === 'he' ? 'תבנית WordPress לפלטפורמת SaaS' : language === 'en' ? 'WordPress SaaS Platform Template' : 'Template WordPress Plateforme SaaS'
     },
     {
       src: mockupProfessional,
@@ -400,6 +525,11 @@ const Projects = () => {
       src: mockupBlog,
       alt: language === 'he' ? 'תבנית WordPress לבלוג' : language === 'en' ? 'WordPress Blog Template' : 'Template WordPress Blog',
       title: language === 'he' ? 'תבנית WordPress לבלוג אורח חיים' : language === 'en' ? 'WordPress Lifestyle Blog Template' : 'Template WordPress Blog Lifestyle'
+    },
+    {
+      src: mockupAgency,
+      alt: language === 'he' ? 'תבנית WordPress לסוכנות' : language === 'en' ? 'WordPress Agency Template' : 'Template WordPress Agence',
+      title: language === 'he' ? 'תבנית WordPress לסוכנות דיגיטל' : language === 'en' ? 'WordPress Digital Agency Template' : 'Template WordPress Agence Digitale'
     }
   ];
 
