@@ -75,52 +75,59 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     console.log('Found project:', project);
     console.log('Combined text for detection:', combinedText);
     
-    // Fashion E-commerce (specific to the mockup)
+    // Fashion E-commerce
     if (combinedText.includes('fashion') || combinedText.includes('ecommerce') || combinedText.includes('boutique') || 
         combinedText.includes('mode') || combinedText.includes('חנות') || combinedText.includes('store')) {
       console.log('Detected: Fashion E-commerce demo');
-      return '/demo/ecommerce';
+      return '/demo/fashion';
     }
     
-    // SaaS/Tech Platform (specific to the mockup)
+    // SaaS/Tech Platform
     if (combinedText.includes('saas') || combinedText.includes('technologique') || combinedText.includes('tech') ||
         combinedText.includes('platform') || combinedText.includes('landing') || combinedText.includes('טכנולוגית')) {
-      console.log('Detected: SaaS demo');
-      return '/demo/saas';
+      console.log('Detected: Tech SaaS demo');
+      return '/demo/tech-saas';
     }
     
-    // Professional Law Firm (specific to the mockup)
+    // Professional Law Firm
     if (combinedText.includes('avocat') || combinedText.includes('law') || combinedText.includes('professional') ||
         combinedText.includes('legal') || combinedText.includes('משפטי') || combinedText.includes('עורך דין') ||
         combinedText.includes('cabinet') || combinedText.includes('professionnel')) {
-      console.log('Detected: Legal demo');
-      return '/demo/legal';
+      console.log('Detected: Legal firm demo');
+      return '/demo/legal-firm';
     }
     
-    // Bakery (specific to the mockup)
-    if (combinedText.includes('bakery') || combinedText.includes('boulangerie') || combinedText.includes('מאפייה') ||
-        combinedText.includes('local') || combinedText.includes('chaleureuse') || combinedText.includes('cozy')) {
-      console.log('Detected: Restaurant demo');
-      return '/demo/restaurant';
+    // Creative Portfolio
+    if (combinedText.includes('portfolio') || combinedText.includes('creative') || combinedText.includes('photographe') ||
+        combinedText.includes('יוצר') || combinedText.includes('צלם') || combinedText.includes('artist')) {
+      console.log('Detected: Portfolio demo');
+      return '/demo/portfolio';
     }
     
-    // Creative Portfolio/Agency (specific to the mockup)
-    if (combinedText.includes('portfolio') || combinedText.includes('creative') || combinedText.includes('agency') ||
-        combinedText.includes('agence') || combinedText.includes('יוצר') || combinedText.includes('צלם') ||
-        combinedText.includes('photographe') || combinedText.includes('innovative') || combinedText.includes('startup')) {
-      console.log('Detected: Agency demo');
-      return '/demo/agency';
+    // Lifestyle Blog
+    if (combinedText.includes('blog') || combinedText.includes('lifestyle') || combinedText.includes('article') ||
+        combinedText.includes('content') || combinedText.includes('magazine')) {
+      console.log('Detected: Lifestyle blog demo');
+      return '/demo/lifestyle-blog';
     }
     
-    // Automation
-    if (combinedText.includes('automation') || combinedText.includes('workflow') || combinedText.includes('אוטומציה')) {
-      console.log('Detected: Automation demo');
-      return '/demo/automation';
+    // Real Estate
+    if (combinedText.includes('real estate') || combinedText.includes('immobilier') || combinedText.includes('property') ||
+        combinedText.includes('luxury') || combinedText.includes('נדלן')) {
+      console.log('Detected: Real estate demo');
+      return '/demo/real-estate';
+    }
+    
+    // Legal GPT
+    if (combinedText.includes('gpt') || combinedText.includes('ai') || combinedText.includes('custom') ||
+        combinedText.includes('intelligence') || combinedText.includes('ia')) {
+      console.log('Detected: Legal GPT demo');
+      return '/demo/legal-gpt';
     }
     
     // Default fallback
-    console.log('No specific match found, using default e-commerce demo');
-    return '/demo/ecommerce';
+    console.log('No specific match found, using default fashion demo');
+    return '/demo/fashion';
   };
 
   return (
