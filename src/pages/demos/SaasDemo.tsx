@@ -4,6 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import mockupSaas from "@/assets/mockup-saas.jpg";
+import mockupSaasPricing from "@/assets/mockup-saas-pricing.jpg";
+import mockupSaasDashboard from "@/assets/mockup-saas-dashboard.jpg";
 
 const SaasDemo = () => {
   const navigate = useNavigate();
@@ -214,14 +217,68 @@ const SaasDemo = () => {
           ))}
         </div>
 
+        {/* Feature Showcase with Mockup Images */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+          <Card className="group hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-0">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={mockupSaas} 
+                  alt="SaaS Platform Overview" 
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="p-6">
+                <h3 className="font-bold text-lg text-gray-900 mb-2">Analytics Dashboard</h3>
+                <p className="text-gray-600 text-sm">Comprehensive real-time analytics with advanced visualization tools</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-0">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={mockupSaasDashboard} 
+                  alt="SaaS Dashboard Interface" 
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="p-6">
+                <h3 className="font-bold text-lg text-gray-900 mb-2">Live Dashboard</h3>
+                <p className="text-gray-600 text-sm">Interactive dashboard with real-time data updates and team collaboration</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="group hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-0">
+              <div className="relative overflow-hidden rounded-t-lg">
+                <img 
+                  src={mockupSaasPricing} 
+                  alt="SaaS Pricing Plans" 
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <div className="p-6">
+                <h3 className="font-bold text-lg text-gray-900 mb-2">Pricing Strategy</h3>
+                <p className="text-gray-600 text-sm">Flexible pricing plans designed to scale with your business growth</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Chart Area */}
           <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
-                <span>Évolution du trafic</span>
+                <span>Traffic Evolution</span>
                 <div className="flex items-center space-x-2">
-                  <Badge variant="outline">7 derniers jours</Badge>
+                  <Badge variant="outline">Last 7 days</Badge>
                   <Button variant="ghost" size="sm">
                     <RefreshCw className="h-4 w-4" />
                   </Button>
@@ -230,7 +287,7 @@ const SaasDemo = () => {
             </CardHeader>
             <CardContent>
               <div className="h-80 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6">
-                {/* Simulation d'un graphique plus détaillé */}
+                {/* Detailed chart simulation */}
                 <div className="flex items-end justify-between h-full space-x-2">
                   {[65, 45, 78, 52, 89, 67, 93, 74, 81, 69, 87, 73, 95, 83].map((height, index) => (
                     <div key={index} className="flex flex-col items-center space-y-2 flex-1">
@@ -247,7 +304,7 @@ const SaasDemo = () => {
                 <div className="mt-4 flex justify-center space-x-6 text-sm">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-blue-500 rounded"></div>
-                    <span className="text-gray-600">Visiteurs uniques</span>
+                    <span className="text-gray-600">Unique Visitors</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-purple-500 rounded"></div>
