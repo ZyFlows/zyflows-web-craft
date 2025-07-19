@@ -17,7 +17,7 @@ const SaasDemo = () => {
   const [notifications, setNotifications] = useState(3);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Simulation de données en temps réel
+  // Real-time data simulation
   useEffect(() => {
     const interval = setInterval(() => {
       setLiveStats(prev => ({
@@ -37,17 +37,17 @@ const SaasDemo = () => {
   };
 
   const stats = [
-    { label: 'Utilisateurs actifs', value: liveStats.users.toLocaleString(), change: '+12%', icon: Users, color: 'text-blue-600' },
-    { label: 'Revenus mensuels', value: `€${liveStats.revenue.toLocaleString()}`, change: '+18%', icon: TrendingUp, color: 'text-green-600' },
-    { label: 'Taux de conversion', value: `${liveStats.conversion.toFixed(2)}%`, change: '+5%', icon: BarChart3, color: 'text-purple-600' },
-    { label: 'Pages vues', value: liveStats.pageViews.toLocaleString(), change: '+7%', icon: Eye, color: 'text-orange-600' }
+    { label: 'Active Users', value: liveStats.users.toLocaleString(), change: '+12%', icon: Users, color: 'text-blue-600' },
+    { label: 'Monthly Revenue', value: `$${liveStats.revenue.toLocaleString()}`, change: '+18%', icon: TrendingUp, color: 'text-green-600' },
+    { label: 'Conversion Rate', value: `${liveStats.conversion.toFixed(2)}%`, change: '+5%', icon: BarChart3, color: 'text-purple-600' },
+    { label: 'Page Views', value: liveStats.pageViews.toLocaleString(), change: '+7%', icon: Eye, color: 'text-orange-600' }
   ];
 
   const recentTransactions = [
-    { id: '#TXN-1234', customer: 'Entreprise ABC', amount: '€2,450', status: 'completed', time: '2 min' },
-    { id: '#TXN-1233', customer: 'StartUp XYZ', amount: '€890', status: 'pending', time: '5 min' },
-    { id: '#TXN-1232', customer: 'Corp 123', amount: '€3,200', status: 'completed', time: '12 min' },
-    { id: '#TXN-1231', customer: 'Tech Solutions', amount: '€1,750', status: 'completed', time: '25 min' }
+    { id: '#TXN-1234', customer: 'Acme Corp', amount: '$2,450', status: 'completed', time: '2 min' },
+    { id: '#TXN-1233', customer: 'StartUp Inc', amount: '$890', status: 'pending', time: '5 min' },
+    { id: '#TXN-1232', customer: 'Tech Solutions', amount: '$3,200', status: 'completed', time: '12 min' },
+    { id: '#TXN-1231', customer: 'Digital Agency', amount: '$1,750', status: 'completed', time: '25 min' }
   ];
 
   const deviceStats = [
@@ -57,23 +57,29 @@ const SaasDemo = () => {
   ];
 
   const topCountries = [
-    { country: 'France', flag: '🇫🇷', users: 4521, sessions: 12847 },
-    { country: 'Allemagne', flag: '🇩🇪', users: 2847, sessions: 8234 },
-    { country: 'Espagne', flag: '🇪🇸', users: 1923, sessions: 5432 },
-    { country: 'Italie', flag: '🇮🇹', users: 856, sessions: 2145 }
+    { country: 'United States', flag: '🇺🇸', users: 4521, sessions: 12847 },
+    { country: 'Germany', flag: '🇩🇪', users: 2847, sessions: 8234 },
+    { country: 'United Kingdom', flag: '🇬🇧', users: 1923, sessions: 5432 },
+    { country: 'Canada', flag: '🇨🇦', users: 856, sessions: 2145 }
   ];
 
   const recentActivity = [
-    { user: 'Marie L.', action: 'a créé un nouveau projet', time: 'Il y a 2 min', avatar: 'ML' },
-    { user: 'Thomas K.', action: 'a mis à jour les métriques', time: 'Il y a 5 min', avatar: 'TK' },
-    { user: 'Sarah M.', action: 'a ajouté un membre à l\'équipe', time: 'Il y a 12 min', avatar: 'SM' },
-    { user: 'Alex R.', action: 'a exporté les données', time: 'Il y a 25 min', avatar: 'AR' }
+    { user: 'Sarah J.', action: 'created a new project', time: '2 min ago', avatar: 'SJ' },
+    { user: 'Mike K.', action: 'updated analytics metrics', time: '5 min ago', avatar: 'MK' },
+    { user: 'Emma R.', action: 'added team member', time: '12 min ago', avatar: 'ER' },
+    { user: 'Alex D.', action: 'exported data report', time: '25 min ago', avatar: 'AD' }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-indigo-200/20 to-blue-200/20 rounded-full blur-3xl animate-pulse delay-700"></div>
+      </div>
+      
       {/* Header */}
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Button 
@@ -82,13 +88,16 @@ const SaasDemo = () => {
               className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
             >
               <ArrowLeft className="h-4 w-4" />
-              Retour au site
+              Back to Site
             </Button>
             
             <div className="flex items-center space-x-4">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Analytics Pro
-              </h1>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-20 animate-pulse"></div>
+                <h1 className="relative text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-fade-in">
+                  DataPulse Pro
+                </h1>
+              </div>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -98,24 +107,27 @@ const SaasDemo = () => {
                 onClick={refreshData}
                 disabled={isRefreshing}
               >
-                <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''} group-hover:scale-110 transition-transform duration-200`} />
               </Button>
-              <Button variant="ghost" size="sm">
-                <Download className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="hover:bg-blue-50 transition-all duration-200">
+                <Download className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
               </Button>
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="relative hover:bg-blue-50 transition-all duration-200">
+                <Bell className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
                 {notifications > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 text-xs bg-red-500">
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 text-xs bg-gradient-to-r from-red-500 to-pink-500 animate-pulse">
                     {notifications}
                   </Badge>
                 )}
               </Button>
-              <Button variant="ghost" size="sm">
-                <Settings className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="hover:bg-blue-50 transition-all duration-200">
+                <Settings className="h-5 w-5 group-hover:rotate-90 transition-transform duration-300" />
               </Button>
-              <div className="h-8 w-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                JD
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                <div className="relative h-10 w-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-lg">
+                  JP
+                </div>
               </div>
             </div>
           </div>
@@ -123,9 +135,10 @@ const SaasDemo = () => {
       </header>
 
       {/* Demo Banner */}
-      <div className="bg-blue-600 text-white text-center py-3">
-        <p className="text-sm font-medium">
-          📊 DÉMO INTERACTIVE - Tableau de bord SaaS développé par zyFlows
+      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white text-center py-3 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+        <p className="text-sm font-medium relative z-10">
+          📊 INTERACTIVE DEMO - SaaS Analytics Platform by zyFlows
         </p>
       </div>
 
@@ -133,40 +146,40 @@ const SaasDemo = () => {
         {/* Page Header avec indicateurs live */}
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Tableau de bord</h2>
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">Dashboard</h2>
             <div className="flex items-center space-x-4">
-              <p className="text-gray-600">Aperçu de vos métriques en temps réel</p>
+              <p className="text-xl text-gray-600">Real-time analytics overview</p>
               <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-green-600 font-medium">En direct</span>
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm text-green-600 font-bold">Live Data</span>
               </div>
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hover:bg-blue-50 transition-all duration-200">
               <Filter className="h-4 w-4 mr-2" />
-              Filtrer
+              Filter
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hover:bg-blue-50 transition-all duration-200">
               <Download className="h-4 w-4 mr-2" />
-              Exporter
+              Export
             </Button>
           </div>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="mb-8 border-b">
+        <div className="mb-8 border-b border-gray-200">
           <nav className="flex space-x-8">
             {[
-              { id: 'dashboard', label: 'Tableau de bord', icon: BarChart3 },
-              { id: 'users', label: 'Utilisateurs', icon: Users },
+              { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
+              { id: 'users', label: 'Users', icon: Users },
               { id: 'analytics', label: 'Analytics', icon: TrendingUp },
-              { id: 'calendar', label: 'Calendrier', icon: Calendar }
+              { id: 'calendar', label: 'Calendar', icon: Calendar }
             ].map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 ${
+                className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-all duration-200 hover:scale-105 ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -411,11 +424,11 @@ const SaasDemo = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">
-            © 2024 Analytics Pro - Dashboard créé par <span className="text-blue-400 font-semibold">zyFlows</span>
+          <p className="text-gray-400 text-lg">
+            © 2024 DataPulse Pro - Platform created by <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text font-bold">zyFlows</span>
           </p>
-          <p className="text-sm text-gray-500 mt-2">
-            Interface SaaS moderne avec métriques en temps réel
+          <p className="text-gray-500 mt-3 text-lg">
+            Modern SaaS interface with real-time analytics
           </p>
         </div>
       </footer>
