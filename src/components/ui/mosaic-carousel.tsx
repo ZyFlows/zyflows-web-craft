@@ -35,7 +35,7 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
         <CarouselContent className="-ml-2 md:-ml-4">
           {images.map((image, index) => (
             <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/4">
-              <div className="relative overflow-hidden rounded-2xl group cursor-pointer shadow-lg h-64">
+              <div className="relative overflow-hidden rounded-3xl group cursor-pointer shadow-lg h-64">
                 <img
                   src={image.src}
                   alt={image.alt}
