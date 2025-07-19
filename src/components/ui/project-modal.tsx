@@ -110,27 +110,22 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
       return '/demo/portfolio';
     }
     
-    // Innovative Startup Agency
-    if (combinedText.includes('innovative startup') || combinedText.includes('startup innovante') || 
-        combinedText.includes('סטארטאפ חדשני') || combinedText.includes('agency') || combinedText.includes('agence')) {
-      console.log('Detected: Agency demo');
-      return '/demo/agency';
-    }
-    
-    // Lifestyle Blog
-    if (combinedText.includes('lifestyle blog') || combinedText.includes('blog lifestyle') || 
-        combinedText.includes('בלוג לייף סטייל') || combinedText.includes('blog')) {
-      console.log('Detected: Lifestyle blog demo');
-      return '/demo/lifestyle-blog';
-    }
-    
-    // Luxury Real Estate Agency
+    // Luxury Real Estate Agency (AVANT innovative startup pour éviter conflit avec "agence")
     if (combinedText.includes('agence immobilière de luxe') || combinedText.includes('luxury real estate agency') || 
         combinedText.includes('סוכנות נדל"ן יוקרתית') || combinedText.includes('sophisticated platform for luxury properties') ||
         (combinedText.includes('immobilière') && combinedText.includes('luxe')) || 
         (combinedText.includes('luxury') && combinedText.includes('real estate') && combinedText.includes('agency'))) {
       console.log('Detected: Real estate demo');
       return '/demo/real-estate';
+    }
+    
+    // Innovative Startup Agency (PLUS SPÉCIFIQUE - éviter conflit avec immobilier)
+    if (combinedText.includes('innovative startup') || combinedText.includes('startup innovante') || 
+        combinedText.includes('סטארטאפ חדשני') || 
+        (combinedText.includes('agency') && !combinedText.includes('immobilière')) || 
+        (combinedText.includes('agence') && !combinedText.includes('immobilière'))) {
+      console.log('Detected: Agency demo');
+      return '/demo/agency';
     }
     
     // Automation System
