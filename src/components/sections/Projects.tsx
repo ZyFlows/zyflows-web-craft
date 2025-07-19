@@ -16,6 +16,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { useRef, useEffect, useState } from "react";
 import { ProjectModal } from "@/components/ui/project-modal";
+import MosaicCarousel from "@/components/ui/mosaic-carousel";
 
 // Import des mockups générés
 import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
@@ -40,6 +41,14 @@ import mockupAutomationAnalytics from "@/assets/mockup-automation-analytics.jpg"
 import mockupCustomGpt from "@/assets/mockup-custom-gpt.jpg";
 import mockupGptTraining from "@/assets/mockup-gpt-training.jpg";
 import mockupGptDeployment from "@/assets/mockup-gpt-deployment.jpg";
+
+// Import des nouveaux mockups WordPress
+import mockupWordpressSpa from "@/assets/mockup-wordpress-spa.jpg";
+import mockupWordpressFitness from "@/assets/mockup-wordpress-fitness.jpg";
+import mockupWordpressTravel from "@/assets/mockup-wordpress-travel.jpg";
+import mockupWordpressEducation from "@/assets/mockup-wordpress-education.jpg";
+import mockupWordpressHotel from "@/assets/mockup-wordpress-hotel.jpg";
+import mockupWordpressStartup from "@/assets/mockup-wordpress-startup.jpg";
 
 const Projects = () => {
   const { t, language } = useLanguage();
@@ -329,6 +338,71 @@ const Projects = () => {
     }
   ];
 
+  // Données pour le carrousel de mockups WordPress
+  const wordpressMockups = [
+    {
+      src: mockupWordpressSpa,
+      alt: language === 'he' ? 'תבנית WordPress לספא' : language === 'en' ? 'WordPress Spa Template' : 'Template WordPress Spa',
+      title: language === 'he' ? 'תבנית WordPress לספא ורווחה' : language === 'en' ? 'WordPress Wellness & Spa Template' : 'Template WordPress Spa & Bien-être'
+    },
+    {
+      src: mockupWordpressFitness,
+      alt: language === 'he' ? 'תבנית WordPress לחדר כושר' : language === 'en' ? 'WordPress Fitness Template' : 'Template WordPress Fitness',
+      title: language === 'he' ? 'תבנית WordPress לחדר כושר' : language === 'en' ? 'WordPress Fitness Gym Template' : 'Template WordPress Salle de Sport'
+    },
+    {
+      src: mockupWordpressTravel,
+      alt: language === 'he' ? 'תבנית WordPress לסוכנות נסיעות' : language === 'en' ? 'WordPress Travel Template' : 'Template WordPress Voyage',
+      title: language === 'he' ? 'תבנית WordPress לסוכנות נסיעות' : language === 'en' ? 'WordPress Travel Agency Template' : 'Template WordPress Agence de Voyage'
+    },
+    {
+      src: mockupWordpressEducation,
+      alt: language === 'he' ? 'תבנית WordPress לחינוך' : language === 'en' ? 'WordPress Education Template' : 'Template WordPress Éducation',
+      title: language === 'he' ? 'תבנית WordPress לפלטפורמת חינוך' : language === 'en' ? 'WordPress Education Platform Template' : 'Template WordPress Plateforme Éducative'
+    },
+    {
+      src: mockupWordpressHotel,
+      alt: language === 'he' ? 'תבנית WordPress למלון יוקרה' : language === 'en' ? 'WordPress Luxury Hotel Template' : 'Template WordPress Hôtel de Luxe',
+      title: language === 'he' ? 'תבנית WordPress למלון יוקרה' : language === 'en' ? 'WordPress Luxury Hotel Template' : 'Template WordPress Hôtel de Luxe'
+    },
+    {
+      src: mockupWordpressStartup,
+      alt: language === 'he' ? 'תבנית WordPress לסטארט-אפ' : language === 'en' ? 'WordPress Startup Template' : 'Template WordPress Startup',
+      title: language === 'he' ? 'תבנית WordPress לחברת סטארט-אפ' : language === 'en' ? 'WordPress Tech Startup Template' : 'Template WordPress Startup Tech'
+    },
+    // Ajout d'autres mockups existants pour remplir le carrousel
+    {
+      src: mockupEcommerce,
+      alt: language === 'he' ? 'תבנית WordPress לחנות אופנה' : language === 'en' ? 'WordPress Fashion Store Template' : 'Template WordPress Boutique Mode',
+      title: language === 'he' ? 'תבנית WordPress לחנות אופנה' : language === 'en' ? 'WordPress Fashion E-commerce Template' : 'Template WordPress E-commerce Mode'
+    },
+    {
+      src: mockupProfessional,
+      alt: language === 'he' ? 'תבנית WordPress מקצועית' : language === 'en' ? 'WordPress Professional Template' : 'Template WordPress Professionnel',
+      title: language === 'he' ? 'תבנית WordPress מקצועית' : language === 'en' ? 'WordPress Professional Services Template' : 'Template WordPress Services Professionnels'
+    },
+    {
+      src: mockupBakery,
+      alt: language === 'he' ? 'תבנית WordPress למאפייה' : language === 'en' ? 'WordPress Bakery Template' : 'Template WordPress Boulangerie',
+      title: language === 'he' ? 'תבנית WordPress למאפייה מקומית' : language === 'en' ? 'WordPress Local Bakery Template' : 'Template WordPress Boulangerie Locale'
+    },
+    {
+      src: mockupPortfolio,
+      alt: language === 'he' ? 'תבנית WordPress לפורטפוליו' : language === 'en' ? 'WordPress Portfolio Template' : 'Template WordPress Portfolio',
+      title: language === 'he' ? 'תבנית WordPress לפורטפוליו יוצר' : language === 'en' ? 'WordPress Creative Portfolio Template' : 'Template WordPress Portfolio Créatif'
+    },
+    {
+      src: mockupRealEstate,
+      alt: language === 'he' ? 'תבנית WordPress לנדל"ן' : language === 'en' ? 'WordPress Real Estate Template' : 'Template WordPress Immobilier',
+      title: language === 'he' ? 'תבנית WordPress לסוכנות נדל"ן' : language === 'en' ? 'WordPress Real Estate Agency Template' : 'Template WordPress Agence Immobilière'
+    },
+    {
+      src: mockupBlog,
+      alt: language === 'he' ? 'תבנית WordPress לבלוג' : language === 'en' ? 'WordPress Blog Template' : 'Template WordPress Blog',
+      title: language === 'he' ? 'תבנית WordPress לבלוג אורח חיים' : language === 'en' ? 'WordPress Lifestyle Blog Template' : 'Template WordPress Blog Lifestyle'
+    }
+  ];
+
   return (
     <section id="projects" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
       {/* Background elements */}
@@ -458,6 +532,20 @@ const Projects = () => {
               </span>
             </div>
           </div>
+        </div>
+
+        {/* Carrousel de mockups WordPress en mosaïque */}
+        <div className="mt-20 mb-16">
+          <div className="text-center mb-10">
+            <h3 className="text-3xl font-bold mb-4">
+              {language === 'he' ? 'תבניות WordPress שיצרנו' : language === 'en' ? 'WordPress Templates We\'ve Created' : 'Templates WordPress que nous avons créés'}
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'he' ? 'דוגמאות של תבניות WordPress מותאמות אישית בתחומים שונים' : language === 'en' ? 'Examples of custom WordPress templates across various industries' : 'Exemples de templates WordPress personnalisés dans divers secteurs'}
+            </p>
+          </div>
+          
+          <MosaicCarousel images={wordpressMockups} />
         </div>
 
         {/* CTA final */}
