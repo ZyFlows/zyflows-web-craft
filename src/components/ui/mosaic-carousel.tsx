@@ -1,13 +1,4 @@
-import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 
 interface MosaicCarouselProps {
   images: {
@@ -20,22 +11,24 @@ interface MosaicCarouselProps {
 const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
   return (
     <div className="relative w-full max-w-6xl mx-auto">
-      <Carousel
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 p-6"
-      >
-        <CarouselContent className="-ml-2 md:-ml-4">
+      {/* Container avec scroll horizontal */}
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-primary/5 to-secondary/5 p-6">
+        <div 
+          className="flex gap-0 overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth pb-4"
+          style={{
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
           {images.map((image, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/4">
-              <div className="relative overflow-hidden rounded-3xl group cursor-pointer shadow-lg h-64">
+            <div 
+              key={index} 
+              className="flex-none w-72 snap-start relative"
+              style={{
+                marginLeft: index > 0 ? '-60px' : '0'
+              }}
+            >
+              <div className="relative overflow-hidden rounded-3xl group cursor-pointer shadow-lg h-64 transition-all duration-300 hover:scale-105 hover:z-10">
                 <img
                   src={image.src}
                   alt={image.alt}
@@ -48,12 +41,10 @@ const MosaicCarousel = ({ images }: MosaicCarouselProps) => {
                   <div className="truncate">{image.title}</div>
                 </div>
               </div>
-            </CarouselItem>
+            </div>
           ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
-      </Carousel>
+        </div>
+      </div>
     </div>
   );
 };
