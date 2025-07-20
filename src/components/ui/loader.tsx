@@ -43,15 +43,15 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
 
   return (
     <div 
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-all duration-800 ${
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-all duration-800 backdrop-blur-md ${
         animateOut ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
       }`}
       style={{
         background: `
-          radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%),
-          radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3), transparent 50%),
-          linear-gradient(135deg, #000428 0%, #004e92 100%)
+          radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1), transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1), transparent 50%),
+          radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1), transparent 50%),
+          rgba(0, 4, 40, 0.3)
         `
       }}
     >
