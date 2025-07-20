@@ -27,6 +27,8 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [showLoader, setShowLoader] = useState(true);
+  
+  console.log('App.tsx - showLoader:', showLoader);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -34,8 +36,11 @@ const App = () => {
         <LanguageProvider>
           <Toaster />
           <Sonner />
-          {showLoader && <Loader onComplete={() => setShowLoader(false)} />}
           <BrowserRouter>
+            {showLoader && <Loader onComplete={() => {
+              console.log('Loader completed, hiding loader');
+              setShowLoader(false);
+            }} />}
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/demo/fashion" element={<FashionDemo />} />

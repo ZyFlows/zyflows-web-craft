@@ -13,7 +13,10 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
   const [glitchActive, setGlitchActive] = useState(false);
   const [textPhase, setTextPhase] = useState(0);
 
+  console.log('Loader rendered - isVisible:', isVisible, 'scanProgress:', scanProgress);
+
   useEffect(() => {
+    console.log('Loader useEffect started');
     // Séquence d'animation holographique
     const timeline = [
       // Phase 1: Scan laser
