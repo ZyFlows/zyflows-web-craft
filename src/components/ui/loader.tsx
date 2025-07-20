@@ -5,7 +5,7 @@ interface LoaderProps {
   duration?: number;
 }
 
-const Loader = ({ onComplete, duration = 6000 }: LoaderProps) => {
+const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
   const [magnetismActive, setMagnetismActive] = useState(false);
@@ -23,12 +23,12 @@ const Loader = ({ onComplete, duration = 6000 }: LoaderProps) => {
       // Phase 1: Activation du magnétisme
       setTimeout(() => {
         setMagnetismActive(true);
-      }, 800),
+      }, 600),
 
       // Phase 2: Formation du logo
       setTimeout(() => {
         setLogoFormed(true);
-      }, 2500),
+      }, 1800),
 
       // Phase 3: Texte et progression
       setTimeout(() => {
@@ -39,10 +39,10 @@ const Loader = ({ onComplete, duration = 6000 }: LoaderProps) => {
               clearInterval(progressInterval);
               return 100;
             }
-            return prev + 3;
+            return prev + 5;
           });
-        }, 50);
-      }, 3200),
+        }, 30);
+      }, 2200),
 
       // Phase 4: Sortie
       setTimeout(() => {
@@ -67,7 +67,7 @@ const Loader = ({ onComplete, duration = 6000 }: LoaderProps) => {
       initialY: Math.random() * 100,
       targetX: 50 + (Math.cos((i / count) * Math.PI * 2) * 15),
       targetY: 50 + (Math.sin((i / count) * Math.PI * 2) * 15),
-      delay: Math.random() * 1500,
+      delay: Math.random() * 800,
       size: Math.random() * 3 + 1,
     }));
   };
@@ -133,7 +133,7 @@ const Loader = ({ onComplete, duration = 6000 }: LoaderProps) => {
               top: magnetismActive && logoFormed ? `${particle.targetY}%` : `${particle.initialY}%`,
               width: `${particle.size}px`,
               height: `${particle.size}px`,
-              transition: `all ${1.2 + Math.random() * 0.8}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${particle.delay}ms`,
+              transition: `all ${0.8 + Math.random() * 0.6}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${particle.delay}ms`,
               boxShadow: magnetismActive ? `0 0 ${particle.size * 4}px hsl(258 90% 66% / 0.8)` : 'none',
               opacity: magnetismActive ? 1 : 0.3,
             }}
