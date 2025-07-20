@@ -558,109 +558,117 @@ const Projects = () => {
         </div>
 
         {/* Carousel de projets */}
-        <div className="relative group">
+        <div className="relative">
           <Carousel
             plugins={[autoplayPlugin.current]}
             opts={{
-              align: "start",
+              align: "center",
               loop: true,
+              slidesToScroll: 1,
             }}
             className="w-full"
             onMouseEnter={() => autoplayPlugin.current.stop()}
             onMouseLeave={() => autoplayPlugin.current.play()}
           >
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="flex gap-6 -ml-6 pl-6">
               {detailedProjects.map((project, index) => (
-                <CarouselItem key={project.title} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 px-2">
+                <CarouselItem key={project.title} className="pl-6 basis-[380px] flex-shrink-0">
                   <Card 
-                    className="gradient-card border-border/50 hover:border-primary/50 transition-all duration-500 hover:scale-102 group overflow-hidden h-full relative before:absolute before:inset-0 before:bg-gradient-to-r before:from-primary/0 before:via-primary/5 before:to-primary/0 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-700 before:ease-out hover:shadow-xl hover:shadow-primary/10 cursor-pointer" 
+                    className="group hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full bg-gradient-to-br from-white via-white to-gray-50/30 border-0 shadow-lg rounded-3xl overflow-hidden backdrop-blur-sm cursor-pointer" 
                     onClick={() => handleProjectView(project.title)}
                   >
                     {/* Image du projet */}
-                    <div className="relative overflow-hidden">
+                    <div className="relative overflow-hidden rounded-t-3xl">
                       <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 ease-out" 
+                        className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
-                      <div className={`absolute top-4 ${language === 'he' ? 'left-4' : 'right-4'} opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-105`}>
-                        <Button 
-                          size="sm" 
-                          variant="secondary" 
-                          className="rounded-full backdrop-blur-md bg-background/50 border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                          onClick={() => handleProjectView(project.title)}
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      {/* Particules flottantes */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300">
-                        <div className="absolute top-6 left-6 w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></div>
-                        <div className="absolute bottom-8 right-8 w-1 h-1 bg-accent rounded-full animate-pulse delay-200"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Badge flottant */}
+                      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-105">
+                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg">
+                          <ExternalLink className="h-4 w-4 text-primary" />
+                        </div>
                       </div>
                     </div>
 
-                    <CardHeader className={`pb-4 ${language === 'he' ? 'text-right' : ''}`}>
-                      <div className={`flex flex-wrap gap-2 mb-3 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`}>
-                        {project.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
+                    <CardHeader className="space-y-4 p-6">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                          <Badge 
+                            key={tagIndex} 
+                            variant="secondary" 
+                            className="bg-primary/10 text-primary hover:bg-primary/20 text-xs px-3 py-1 rounded-full font-medium border-0"
+                          >
                             {tag}
                           </Badge>
                         ))}
                       </div>
-                      <CardTitle className={`text-xl font-semibold group-hover:text-primary group-hover:scale-105 transition-all duration-500 ${language === 'he' ? 'text-right' : ''}`}>
+                      
+                      {/* Titre */}
+                      <CardTitle className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
                         {project.title}
                       </CardTitle>
-                      <CardDescription className={`text-muted-foreground group-hover:text-foreground transition-colors duration-300 ${language === 'he' ? 'text-right' : ''}`}>
+                      
+                      {/* Description */}
+                      <CardDescription className="text-gray-600 text-sm leading-relaxed line-clamp-3">
                         {project.description}
                       </CardDescription>
                     </CardHeader>
                     
-                    <CardContent className={`pt-0 ${language === 'he' ? 'text-right' : ''}`}>
-                      {/* Métriques */}
-                       <div className="space-y-2 mb-6">
-                        {project.metrics.map((metric, idx) => (
-                          <div key={idx} className={`flex items-center text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0 ${language === 'he' ? 'flex-row-reverse justify-end' : ''}`} style={{ transitionDelay: `${idx * 100}ms` }}>
-                            {language === 'he' ? (
-                              <>
-                                <span className="text-muted-foreground text-right group-hover:text-foreground transition-colors duration-300">{metric}</span>
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent ml-8 flex-shrink-0 group-hover:bg-primary group-hover:animate-pulse transition-colors duration-300" />
-                              </>
-                            ) : (
-                              <>
-                                <div className="w-1.5 h-1.5 rounded-full bg-accent mr-4 flex-shrink-0 group-hover:bg-primary group-hover:animate-pulse transition-colors duration-300" />
-                                <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">{metric}</span>
-                              </>
-                            )}
+                    <CardContent className="px-6 pb-6 pt-0">
+                      {/* Métriques compactes */}
+                      <div className="space-y-2 mb-4">
+                        {project.metrics.slice(0, 2).map((metric, idx) => (
+                          <div key={idx} className="flex items-center text-xs text-gray-500 group-hover:text-gray-700 transition-colors duration-300">
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary/60 mr-3 flex-shrink-0" />
+                            <span>{metric}</span>
                           </div>
                         ))}
                       </div>
                       
+                      {/* Boutons d'action */}
+                      <div className="flex gap-3">
+                        <Button 
+                          variant="default" 
+                          size="sm" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleProjectView(project.title);
+                          }}
+                          className="flex-1 bg-primary hover:bg-primary/90 text-white rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 text-xs"
+                        >
+                          <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                          {t('projects.view_project')}
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleGithubView(project.title);
+                          }}
+                          className="flex-1 border-gray-200 hover:border-primary hover:text-primary rounded-full font-medium transition-all duration-300 text-xs"
+                        >
+                          <Github className="mr-1.5 h-3.5 w-3.5" />
+                          Code
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
-            {/* Navigation du carousel avec animations */}
-            <CarouselPrevious className={`${language === 'he' ? 'right-12 left-auto' : 'left-12'} glass-effect hover:glass-effect-hover hover:scale-110 hover:rotate-12 transition-all duration-300 opacity-0 group-hover:opacity-100`} />
-            <CarouselNext className={`${language === 'he' ? 'left-12 right-auto' : 'right-12'} glass-effect hover:glass-effect-hover hover:scale-110 hover:-rotate-12 transition-all duration-300 opacity-0 group-hover:opacity-100`} />
           </Carousel>
           
-          {/* Indicateur de défilement avec animation */}
+          {/* Texte indicateur simple */}
           <div className="text-center mt-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-effect">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/60 animate-pulse delay-200"></div>
-                <div className="w-2 h-2 rounded-full bg-primary/30 animate-pulse delay-500"></div>
-              </div>
-              <span className="text-sm text-muted-foreground">
-                {language === 'he' ? 'החליקו לראות פרויקטים נוספים' : language === 'en' ? 'Swipe to see more projects' : 'Défilement automatique • Survolez pour arrêter'}
-              </span>
-            </div>
+            <p className="text-sm text-muted-foreground">
+              {language === 'he' ? 'החליקו לראות פרויקטים נוספים' : language === 'en' ? 'Swipe to see more projects' : 'Défilement automatique • Survolez pour arrêter'}
+            </p>
           </div>
         </div>
 
