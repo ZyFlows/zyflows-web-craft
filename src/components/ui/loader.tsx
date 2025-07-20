@@ -68,11 +68,12 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
       }`}
       style={{
         background: `
-          linear-gradient(45deg, rgba(0, 255, 255, 0.03) 25%, transparent 25%), 
-          linear-gradient(-45deg, rgba(0, 255, 255, 0.03) 25%, transparent 25%), 
-          linear-gradient(45deg, transparent 75%, rgba(0, 255, 255, 0.03) 75%), 
-          linear-gradient(-45deg, transparent 75%, rgba(0, 255, 255, 0.03) 75%),
-          rgba(0, 4, 40, 0.2)
+          linear-gradient(45deg, rgba(165, 101, 255, 0.03) 25%, transparent 25%), 
+          linear-gradient(-45deg, rgba(165, 101, 255, 0.03) 25%, transparent 25%), 
+          linear-gradient(45deg, transparent 75%, rgba(165, 101, 255, 0.03) 75%), 
+          linear-gradient(-45deg, transparent 75%, rgba(165, 101, 255, 0.03) 75%),
+          linear-gradient(135deg, hsl(258 90% 66% / 0.1) 0%, hsl(184 90% 56% / 0.1) 100%),
+          rgba(36, 38, 54, 0.3)
         `,
         backgroundSize: '20px 20px',
         backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
@@ -84,7 +85,7 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
           {[...Array(400)].map((_, i) => (
             <div 
               key={i} 
-              className="border border-cyan-400/20" 
+              className="border border-primary/20" 
               style={{
                 animation: `holoPulse ${Math.random() * 3 + 2}s ease-in-out infinite ${Math.random() * 2}s`
               }}
@@ -97,7 +98,7 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(90deg, transparent ${scanProgress}%, rgba(0, 255, 255, 0.8) ${scanProgress + 1}%, transparent ${scanProgress + 2}%)`,
+          background: `linear-gradient(90deg, transparent ${scanProgress}%, hsl(258 90% 66% / 0.8) ${scanProgress + 1}%, transparent ${scanProgress + 2}%)`,
           animation: scanProgress < 100 ? 'scanFlicker 0.1s infinite' : 'none'
         }}
       />
@@ -107,12 +108,12 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
         {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
+            className="absolute w-1 h-1 bg-primary rounded-full opacity-60"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animation: `holoFloat ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s`,
-              boxShadow: '0 0 10px rgba(0, 255, 255, 0.8)'
+              boxShadow: '0 0 10px hsl(258 90% 66% / 0.8)'
             }}
           />
         ))}
@@ -123,7 +124,7 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
         <div 
           className={`relative ${glitchActive ? 'animate-pulse' : ''}`}
           style={{
-            filter: logoVisible ? 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.6)) brightness(1.2)' : 'none',
+            filter: logoVisible ? 'drop-shadow(0 0 20px hsl(258 90% 66% / 0.6)) brightness(1.2)' : 'none',
             transform: glitchActive ? 'translateX(2px)' : 'none'
           }}
         >
@@ -166,36 +167,36 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
         
         {/* Lignes de scan autour du logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute w-40 h-40 border border-cyan-400/30 rounded-full animate-spin" style={{ animationDuration: '8s' }} />
-          <div className="absolute w-48 h-48 border border-cyan-400/20 rounded-full animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }} />
+          <div className="absolute w-40 h-40 border border-primary/30 rounded-full animate-spin" style={{ animationDuration: '8s' }} />
+          <div className="absolute w-48 h-48 border border-secondary/20 rounded-full animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }} />
         </div>
       </div>
 
       {/* Texte holographique avec effet machine à écrire */}
       <div className={`text-center mb-8 transition-all duration-1000 ${textPhase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <h1 className="text-4xl md:text-6xl font-mono font-bold text-cyan-300 tracking-wider mb-2 relative">
+        <h1 className="text-4xl md:text-6xl font-mono font-bold text-primary tracking-wider mb-2 relative">
           <span 
             className="relative"
             style={{
-              textShadow: '0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4)',
+              textShadow: '0 0 10px hsl(258 90% 66% / 0.8), 0 0 20px hsl(258 90% 66% / 0.4)',
               animation: glitchActive ? 'textGlitch 0.3s ease-in-out' : 'none'
             }}
           >
             Zyflows
           </span>
           {/* Curseur clignotant */}
-          <span className="animate-pulse text-cyan-400">|</span>
+          <span className="animate-pulse text-secondary">|</span>
         </h1>
         
         <div className={`transition-all duration-800 ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="text-cyan-200/80 text-lg md:text-xl font-mono font-light">
-            <span className="text-cyan-400">&gt;</span> Initializing Digital Solutions...
+          <p className="text-secondary/80 text-lg md:text-xl font-mono font-light">
+            <span className="text-primary">&gt;</span> Initializing Digital Solutions...
           </p>
           <div className="flex justify-center mt-2 space-x-1">
             {[...Array(20)].map((_, i) => (
               <div 
                 key={i}
-                className="w-2 h-1 bg-cyan-400 opacity-60"
+                className="w-2 h-1 bg-secondary opacity-60"
                 style={{
                   animation: `loadingBar 1.5s ease-in-out infinite ${i * 0.1}s`
                 }}
@@ -206,7 +207,7 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
       </div>
 
       {/* Console de chargement */}
-      <div className={`font-mono text-sm text-cyan-300/70 text-center ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`font-mono text-sm text-primary/70 text-center ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
         <p>&gt; Loading AI Systems... [OK]</p>
         <p>&gt; Connecting Automation Tools... [OK]</p>
         <p>&gt; Ready for Digital Innovation... [OK]</p>
