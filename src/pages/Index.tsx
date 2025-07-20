@@ -10,6 +10,8 @@ import WhatsAppButton from "@/components/ui/whatsapp-button";
 import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
 
 const Index = () => {
+  console.log('Index.tsx - Page rendering, about to render WhatsApp Button');
+  
   return (
     <div className="min-h-screen bg-background">
       <DynamicMetaTags />
