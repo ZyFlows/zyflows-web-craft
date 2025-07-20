@@ -48,6 +48,9 @@
     /* Effets visuels */
     --shadow-glow: 0 0 40px hsl(258 90% 66% / 0.3);
     --shadow-card: 0 8px 32px hsl(222 14% 6% / 0.8);
+    
+    /* 3D Carousel */
+    --perspective: 1000px;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Animations */
@@ -183,6 +186,15 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* 3D Carousel utilities */
+  .perspective-1000 {
+    perspective: var(--perspective);
+  }
+  
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
   }
 }
 
