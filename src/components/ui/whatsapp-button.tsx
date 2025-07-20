@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface WhatsAppButtonProps {
   phoneNumber?: string;
@@ -6,19 +7,26 @@ interface WhatsAppButtonProps {
 }
 
 /**
- * Bouton flottant WhatsApp accessible conforme WCAG
- * - Positionné en bas à droite de l'écran
+ * Bouton flottant WhatsApp accessible, multilingue et responsive conforme WCAG
+ * - Support complet des langues du site (français, anglais, hébreu)
+ * - Positionné en bas à droite, adaptation RTL pour l'hébreu
+ * - Responsive sur tous les formats d'écran (mobile, tablet, desktop)
  * - Accessible au clavier (Tab navigation)
- * - Aria-label descriptif pour les lecteurs d'écran
+ * - Aria-labels descriptifs pour les lecteurs d'écran
  * - Contraste suffisant et taille tactile recommandée (44px minimum)
  */
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
   phoneNumber = "+972584229255",
   className = ""
 }) => {
+  const { t, language } = useLanguage();
+  
   // Format du numéro pour l'URL WhatsApp (supprime les espaces et caractères spéciaux)
   const formattedNumber = phoneNumber.replace(/\D/g, '');
-  const whatsappUrl = `https://wa.me/${formattedNumber}`;
+  
+  // Message de WhatsApp traduit selon la langue active
+  const whatsappMessage = t('whatsapp.message');
+  const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const handleClick = () => {
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
@@ -32,35 +40,40 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
     }
   };
 
+  // Déterminer la position selon la langue (RTL pour l'hébreu)
+  const positionClass = language === 'he' ? 'bottom-4 left-4 sm:bottom-6 sm:left-6' : 'bottom-4 right-4 sm:bottom-6 sm:right-6';
+
   return (
     <button
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={`
-        fixed bottom-6 right-6 z-50
-        w-14 h-14 min-w-[44px] min-h-[44px]
-        bg-[#25D366] hover:bg-[#128C7E] 
+        fixed ${positionClass} z-50
+        w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 
+        min-w-[44px] min-h-[44px]
+        bg-[#25D366] hover:bg-[#128C7E] active:bg-[#075E54]
         text-white rounded-full shadow-lg hover:shadow-xl
         transition-all duration-300 ease-in-out
         flex items-center justify-center
         focus:outline-none focus:ring-4 focus:ring-[#25D366]/30
         hover:scale-110 active:scale-95
         group
+        touch-manipulation
         ${className}
       `}
-      aria-label="Contacter par WhatsApp"
-      title="Envoyer un message WhatsApp"
+      aria-label={t('whatsapp.aria_label')}
+      title={t('whatsapp.tooltip')}
       type="button"
     >
-      {/* Icône WhatsApp SVG optimisée pour l'accessibilité */}
+      {/* Icône WhatsApp SVG optimisée pour l'accessibilité et responsive */}
       <svg
-        width="28"
-        height="28"
+        width="20"
+        height="20"
+        className="sm:w-6 sm:h-6 lg:w-7 lg:h-7 group-hover:scale-110 transition-transform duration-200"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-        className="group-hover:scale-110 transition-transform duration-200"
       >
         <path
           fillRule="evenodd"
@@ -70,8 +83,8 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
         />
       </svg>
       
-      {/* Animation de pulsation pour attirer l'attention */}
-      <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20"></div>
+      {/* Animation de pulsation pour attirer l'attention - Plus discrète sur mobile */}
+      <div className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-15 sm:opacity-20 duration-1000"></div>
     </button>
   );
 };

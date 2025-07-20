@@ -304,8 +304,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'language.english': 'English',
       'language.hebrew': 'עברית',
       
-      // WhatsApp message
-      'whatsapp.message': 'Bonjour 👋 Je suis intéressé(e) par vos services digitaux (site web, automation, IA). Pouvez-vous m\'en dire plus ?'
+      // WhatsApp
+      'whatsapp.message': 'Bonjour 👋 Je suis intéressé(e) par vos services digitaux (site web, automation, IA). Pouvez-vous m\'en dire plus ?',
+      'whatsapp.aria_label': 'Contacter par WhatsApp',
+      'whatsapp.tooltip': 'Envoyer un message WhatsApp'
     },
     en: {
       // Navigation
@@ -615,8 +617,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'email.ready_to_start': 'Ready to start your project?',
       'email.click_below': 'Click the button below to open your email client with a pre-filled template containing all the necessary information for your project.',
       
-      // WhatsApp message  
-      'whatsapp.message': 'Hello 👋 I am interested in your digital services (website, automation, AI). Can you tell me more?'
+      // WhatsApp
+      'whatsapp.message': 'Hello 👋 I am interested in your digital services (website, automation, AI). Can you tell me more?',
+      'whatsapp.aria_label': 'Contact via WhatsApp',
+      'whatsapp.tooltip': 'Send a WhatsApp message'
     },
     he: {
       // Navigation
@@ -926,8 +930,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'email.ready_to_start': 'מוכנים להתחיל את הפרויקט שלכם?',
       'email.click_below': 'לחצו על הכפתור למטה כדי לפתוח את לקוח האימייל שלכם עם תבנית מוכנה מראש המכילה את כל המידע הדרוש לפרויקט שלכם.',
       
-      // WhatsApp message
-      'whatsapp.message': 'שלום 👋 אני מעוניין/ת בשירותים הדיגיטליים שלכם (אתר אינטרנט, אוטומציה, בינה מלאכותית). אתם יכולים לספר לי יותר?'
+      // WhatsApp
+      'whatsapp.message': 'שלום 👋 אני מעוניין/ת בשירותים הדיגיטליים שלכם (אתר אינטרנט, אוטומציה, בינה מלאכותית). אתם יכולים לספר לי יותר?',
+      'whatsapp.aria_label': 'יצירת קשר דרך WhatsApp',
+      'whatsapp.tooltip': 'שליחת הודעת WhatsApp'
     }
   };
 
