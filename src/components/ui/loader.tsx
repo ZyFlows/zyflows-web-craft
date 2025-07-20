@@ -8,51 +8,49 @@ interface LoaderProps {
 const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
-  const [scanProgress, setScanProgress] = useState(0);
-  const [logoVisible, setLogoVisible] = useState(false);
-  const [glitchActive, setGlitchActive] = useState(false);
-  const [textPhase, setTextPhase] = useState(0);
+  const [magnetismActive, setMagnetismActive] = useState(false);
+  const [logoFormed, setLogoFormed] = useState(false);
+  const [textVisible, setTextVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
-  console.log('Loader rendered - isVisible:', isVisible, 'scanProgress:', scanProgress);
+  console.log('Loader rendered - isVisible:', isVisible, 'magnetismActive:', magnetismActive);
 
   useEffect(() => {
     console.log('Loader useEffect started');
-    // Séquence d'animation holographique
+    
+    // Séquence d'animation magnétique
     const timeline = [
-      // Phase 1: Scan laser
+      // Phase 1: Activation du magnétisme
       setTimeout(() => {
-        const scanInterval = setInterval(() => {
-          setScanProgress(prev => {
-            if (prev >= 100) {
-              clearInterval(scanInterval);
-              setLogoVisible(true);
-              return 100;
-            }
-            return prev + 3;
-          });
-        }, 50);
+        setMagnetismActive(true);
       }, 500),
 
-      // Phase 2: Révélation du logo avec glitch
+      // Phase 2: Formation du logo
       setTimeout(() => {
-        setGlitchActive(true);
-        setTimeout(() => setGlitchActive(false), 300);
-      }, 2000),
+        setLogoFormed(true);
+      }, 1800),
 
-      // Phase 3: Texte holographique
-      setTimeout(() => setTextPhase(1), 2500),
-      setTimeout(() => setTextPhase(2), 3000),
-
-      // Phase 4: Glitch final et sortie
+      // Phase 3: Texte et progression
       setTimeout(() => {
-        setGlitchActive(true);
+        setTextVisible(true);
+        const progressInterval = setInterval(() => {
+          setProgress(prev => {
+            if (prev >= 100) {
+              clearInterval(progressInterval);
+              return 100;
+            }
+            return prev + 4;
+          });
+        }, 40);
+      }, 2200),
+
+      // Phase 4: Sortie
+      setTimeout(() => {
+        setAnimateOut(true);
         setTimeout(() => {
-          setAnimateOut(true);
-          setTimeout(() => {
-            setIsVisible(false);
-            onComplete?.();
-          }, 800);
-        }, 200);
+          setIsVisible(false);
+          onComplete?.();
+        }, 800);
       }, duration),
     ];
 
@@ -61,6 +59,21 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
 
   if (!isVisible) return null;
 
+  // Générer les particules avec positions prédéfinies
+  const generateParticles = (count: number) => {
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      initialX: Math.random() * 100,
+      initialY: Math.random() * 100,
+      targetX: 50 + (Math.cos((i / count) * Math.PI * 2) * 15),
+      targetY: 50 + (Math.sin((i / count) * Math.PI * 2) * 15),
+      delay: Math.random() * 1000,
+      size: Math.random() * 3 + 1,
+    }));
+  };
+
+  const particles = generateParticles(40);
+
   return (
     <div 
       className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-all duration-800 backdrop-blur-md ${
@@ -68,64 +81,72 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
       }`}
       style={{
         background: `
-          linear-gradient(45deg, rgba(165, 101, 255, 0.03) 25%, transparent 25%), 
-          linear-gradient(-45deg, rgba(165, 101, 255, 0.03) 25%, transparent 25%), 
-          linear-gradient(45deg, transparent 75%, rgba(165, 101, 255, 0.03) 75%), 
-          linear-gradient(-45deg, transparent 75%, rgba(165, 101, 255, 0.03) 75%),
-          linear-gradient(135deg, hsl(258 90% 66% / 0.1) 0%, hsl(184 90% 56% / 0.1) 100%),
+          radial-gradient(circle at 50% 50%, hsl(258 90% 66% / 0.1) 0%, transparent 70%),
+          radial-gradient(circle at 20% 80%, hsl(184 90% 56% / 0.08) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, hsl(258 90% 66% / 0.08) 0%, transparent 50%),
           rgba(36, 38, 54, 0.3)
-        `,
-        backgroundSize: '20px 20px',
-        backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+        `
       }}
     >
-      {/* Grille holographique */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
-          {[...Array(400)].map((_, i) => (
-            <div 
-              key={i} 
-              className="border border-primary/20" 
-              style={{
-                animation: `holoPulse ${Math.random() * 3 + 2}s ease-in-out infinite ${Math.random() * 2}s`
-              }}
-            />
-          ))}
-        </div>
+      {/* Champ magnétique visuel */}
+      <div className="absolute inset-0 overflow-hidden">
+        {magnetismActive && (
+          <div className="absolute inset-0">
+            {/* Lignes de champ magnétique */}
+            <svg className="w-full h-full opacity-20" viewBox="0 0 100 100">
+              <defs>
+                <radialGradient id="magnetGradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="hsl(258 90% 66%)" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="transparent" />
+                </radialGradient>
+              </defs>
+              {[...Array(8)].map((_, i) => (
+                <ellipse
+                  key={i}
+                  cx="50"
+                  cy="50"
+                  rx={15 + i * 5}
+                  ry={10 + i * 3}
+                  fill="none"
+                  stroke="url(#magnetGradient)"
+                  strokeWidth="0.5"
+                  className="animate-pulse"
+                  style={{
+                    animationDelay: `${i * 0.2}s`,
+                    animationDuration: '2s'
+                  }}
+                />
+              ))}
+            </svg>
+          </div>
+        )}
       </div>
 
-      {/* Laser scanner vertical */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(90deg, transparent ${scanProgress}%, hsl(258 90% 66% / 0.8) ${scanProgress + 1}%, transparent ${scanProgress + 2}%)`,
-          animation: scanProgress < 100 ? 'scanFlicker 0.1s infinite' : 'none'
-        }}
-      />
-
-      {/* Particules holographiques */}
+      {/* Particules magnétiques */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(30)].map((_, i) => (
+        {particles.map((particle) => (
           <div
-            key={i}
-            className="absolute w-1 h-1 bg-primary rounded-full opacity-60"
+            key={particle.id}
+            className="absolute w-1 h-1 bg-primary rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `holoFloat ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s`,
-              boxShadow: '0 0 10px hsl(258 90% 66% / 0.8)'
+              left: magnetismActive && logoFormed ? `${particle.targetX}%` : `${particle.initialX}%`,
+              top: magnetismActive && logoFormed ? `${particle.targetY}%` : `${particle.initialY}%`,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              transition: `all ${1 + Math.random()}s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${particle.delay}ms`,
+              boxShadow: magnetismActive ? `0 0 ${particle.size * 4}px hsl(258 90% 66% / 0.8)` : 'none',
+              opacity: magnetismActive ? 1 : 0.3,
             }}
           />
         ))}
       </div>
 
-      {/* Logo avec effet holographique */}
-      <div className={`relative mb-8 z-10 transition-all duration-1000 ${logoVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Logo central avec effet magnétique */}
+      <div className={`relative mb-8 z-10 transition-all duration-1000 ${logoFormed ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
         <div 
-          className={`relative ${glitchActive ? 'animate-pulse' : ''}`}
+          className="relative"
           style={{
-            filter: logoVisible ? 'drop-shadow(0 0 20px hsl(258 90% 66% / 0.6)) brightness(1.2)' : 'none',
-            transform: glitchActive ? 'translateX(2px)' : 'none'
+            filter: logoFormed ? 'drop-shadow(0 0 30px hsl(258 90% 66% / 0.6)) brightness(1.2)' : 'drop-shadow(0 0 10px hsl(258 90% 66% / 0.3))',
           }}
         >
           <img 
@@ -133,121 +154,88 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
             alt="Zyflows Logo" 
             className="h-32 w-auto object-contain"
             style={{
-              filter: `hue-rotate(${glitchActive ? 180 : 0}deg) saturate(${logoVisible ? 1.5 : 1})`,
-              transition: 'all 0.3s ease'
+              filter: `saturate(${logoFormed ? 1.3 : 1})`,
+              transition: 'all 1s ease'
             }}
           />
-          
-          {/* Effet de glitch sur le logo */}
-          {glitchActive && (
-            <>
-              <img 
-                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
-                alt="" 
-                className="absolute top-0 left-0 h-32 w-auto object-contain opacity-70"
-                style={{
-                  filter: 'hue-rotate(120deg)',
-                  transform: 'translateX(-2px) translateY(1px)',
-                  mixBlendMode: 'screen'
-                }}
-              />
-              <img 
-                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
-                alt="" 
-                className="absolute top-0 left-0 h-32 w-auto object-contain opacity-70"
-                style={{
-                  filter: 'hue-rotate(240deg)',
-                  transform: 'translateX(2px) translateY(-1px)',
-                  mixBlendMode: 'screen'
-                }}
-              />
-            </>
-          )}
         </div>
         
-        {/* Lignes de scan autour du logo */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="absolute w-40 h-40 border border-primary/30 rounded-full animate-spin" style={{ animationDuration: '8s' }} />
-          <div className="absolute w-48 h-48 border border-secondary/20 rounded-full animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }} />
+        {/* Champ magnétique autour du logo */}
+        {magnetismActive && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div 
+              className="absolute w-40 h-40 border border-primary/20 rounded-full"
+              style={{
+                animation: 'magneticPulse 2s ease-in-out infinite'
+              }}
+            />
+            <div 
+              className="absolute w-48 h-48 border border-secondary/15 rounded-full"
+              style={{
+                animation: 'magneticPulse 2.5s ease-in-out infinite reverse'
+              }}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Texte et informations */}
+      <div className={`text-center mb-6 transition-all duration-1000 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <h1 className="text-4xl md:text-6xl font-bold text-primary tracking-wider mb-2">
+          Zyflows
+        </h1>
+        <p className="text-secondary/80 text-lg md:text-xl font-light">
+          Connecting Digital Solutions
+        </p>
+      </div>
+
+      {/* Barre de connexion */}
+      <div className={`w-80 max-w-sm mx-auto mb-4 transition-all duration-800 ${textVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="h-1 bg-muted/30 rounded-full overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-primary via-secondary to-primary rounded-full transition-all duration-300 ease-out"
+            style={{ 
+              width: `${progress}%`,
+              boxShadow: '0 0 10px hsl(258 90% 66% / 0.5)'
+            }}
+          />
+        </div>
+        <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
+          <span>Establishing connections...</span>
+          <span className="font-mono">{progress}%</span>
         </div>
       </div>
 
-      {/* Texte holographique avec effet machine à écrire */}
-      <div className={`text-center mb-8 transition-all duration-1000 ${textPhase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <h1 className="text-4xl md:text-6xl font-mono font-bold text-primary tracking-wider mb-2 relative">
-          <span 
-            className="relative"
+      {/* Indicateurs de connexion */}
+      <div className={`flex space-x-2 transition-all duration-800 ${textVisible ? 'opacity-100' : 'opacity-0'}`}>
+        {['API', 'Automation', 'Database'].map((item, i) => (
+          <div 
+            key={item}
+            className={`px-3 py-1 rounded-full text-xs font-mono border transition-all duration-500 ${
+              progress > (i + 1) * 25 
+                ? 'bg-primary/20 border-primary text-primary' 
+                : 'bg-muted/20 border-muted-foreground/30 text-muted-foreground'
+            }`}
             style={{
-              textShadow: '0 0 10px hsl(258 90% 66% / 0.8), 0 0 20px hsl(258 90% 66% / 0.4)',
-              animation: glitchActive ? 'textGlitch 0.3s ease-in-out' : 'none'
+              transitionDelay: `${i * 200}ms`
             }}
           >
-            Zyflows
-          </span>
-          {/* Curseur clignotant */}
-          <span className="animate-pulse text-secondary">|</span>
-        </h1>
-        
-        <div className={`transition-all duration-800 ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="text-secondary/80 text-lg md:text-xl font-mono font-light">
-            <span className="text-primary">&gt;</span> Initializing Digital Solutions...
-          </p>
-          <div className="flex justify-center mt-2 space-x-1">
-            {[...Array(20)].map((_, i) => (
-              <div 
-                key={i}
-                className="w-2 h-1 bg-secondary opacity-60"
-                style={{
-                  animation: `loadingBar 1.5s ease-in-out infinite ${i * 0.1}s`
-                }}
-              />
-            ))}
+            {item}
           </div>
-        </div>
-      </div>
-
-      {/* Console de chargement */}
-      <div className={`font-mono text-sm text-primary/70 text-center ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
-        <p>&gt; Loading AI Systems... [OK]</p>
-        <p>&gt; Connecting Automation Tools... [OK]</p>
-        <p>&gt; Ready for Digital Innovation... [OK]</p>
+        ))}
       </div>
 
       <style>
         {`
-          @keyframes holoPulse {
-            0%, 100% { opacity: 0.1; }
-            50% { opacity: 0.3; }
-          }
-          
-          @keyframes scanFlicker {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-          }
-          
-          @keyframes holoFloat {
+          @keyframes magneticPulse {
             0%, 100% { 
-              transform: translateY(0px) scale(1);
-              opacity: 0.6;
+              transform: scale(1);
+              opacity: 0.3;
             }
             50% { 
-              transform: translateY(-20px) scale(1.2);
-              opacity: 1;
+              transform: scale(1.1);
+              opacity: 0.6;
             }
-          }
-          
-          @keyframes textGlitch {
-            0% { transform: translateX(0); filter: hue-rotate(0deg); }
-            20% { transform: translateX(-2px); filter: hue-rotate(90deg); }
-            40% { transform: translateX(2px); filter: hue-rotate(180deg); }
-            60% { transform: translateX(-1px); filter: hue-rotate(270deg); }
-            80% { transform: translateX(1px); filter: hue-rotate(360deg); }
-            100% { transform: translateX(0); filter: hue-rotate(0deg); }
-          }
-          
-          @keyframes loadingBar {
-            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
-            50% { opacity: 1; transform: scaleY(1); }
           }
         `}
       </style>
