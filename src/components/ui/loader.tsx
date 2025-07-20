@@ -8,35 +8,52 @@ interface LoaderProps {
 const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [animateOut, setAnimateOut] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [logoScale, setLogoScale] = useState(0.5);
-  const [textVisible, setTextVisible] = useState(false);
+  const [scanProgress, setScanProgress] = useState(0);
+  const [logoVisible, setLogoVisible] = useState(false);
+  const [glitchActive, setGlitchActive] = useState(false);
+  const [textPhase, setTextPhase] = useState(0);
 
   useEffect(() => {
-    // Animation séquentielle
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) return 100;
-        return prev + 2;
-      });
-    }, 50);
-
-    // Logo animation
-    setTimeout(() => setLogoScale(1), 300);
-    setTimeout(() => setTextVisible(true), 800);
-
-    const timer = setTimeout(() => {
-      setAnimateOut(true);
+    // Séquence d'animation holographique
+    const timeline = [
+      // Phase 1: Scan laser
       setTimeout(() => {
-        setIsVisible(false);
-        onComplete?.();
-      }, 800);
-    }, duration);
+        const scanInterval = setInterval(() => {
+          setScanProgress(prev => {
+            if (prev >= 100) {
+              clearInterval(scanInterval);
+              setLogoVisible(true);
+              return 100;
+            }
+            return prev + 3;
+          });
+        }, 50);
+      }, 500),
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(progressInterval);
-    };
+      // Phase 2: Révélation du logo avec glitch
+      setTimeout(() => {
+        setGlitchActive(true);
+        setTimeout(() => setGlitchActive(false), 300);
+      }, 2000),
+
+      // Phase 3: Texte holographique
+      setTimeout(() => setTextPhase(1), 2500),
+      setTimeout(() => setTextPhase(2), 3000),
+
+      // Phase 4: Glitch final et sortie
+      setTimeout(() => {
+        setGlitchActive(true);
+        setTimeout(() => {
+          setAnimateOut(true);
+          setTimeout(() => {
+            setIsVisible(false);
+            onComplete?.();
+          }, 800);
+        }, 200);
+      }, duration),
+    ];
+
+    return () => timeline.forEach(timer => clearTimeout(timer));
   }, [duration, onComplete]);
 
   if (!isVisible) return null;
@@ -44,42 +61,67 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
   return (
     <div 
       className={`fixed inset-0 z-50 flex flex-col items-center justify-center transition-all duration-800 backdrop-blur-md ${
-        animateOut ? 'opacity-0 scale-110' : 'opacity-100 scale-100'
+        animateOut ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
       }`}
       style={{
         background: `
-          radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1), transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1), transparent 50%),
-          radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1), transparent 50%),
-          rgba(0, 4, 40, 0.3)
-        `
+          linear-gradient(45deg, rgba(0, 255, 255, 0.03) 25%, transparent 25%), 
+          linear-gradient(-45deg, rgba(0, 255, 255, 0.03) 25%, transparent 25%), 
+          linear-gradient(45deg, transparent 75%, rgba(0, 255, 255, 0.03) 75%), 
+          linear-gradient(-45deg, transparent 75%, rgba(0, 255, 255, 0.03) 75%),
+          rgba(0, 4, 40, 0.2)
+        `,
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
       }}
     >
-      {/* Particules flottantes en arrière-plan */}
+      {/* Grille holographique */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
+          {[...Array(400)].map((_, i) => (
+            <div 
+              key={i} 
+              className="border border-cyan-400/20" 
+              style={{
+                animation: `holoPulse ${Math.random() * 3 + 2}s ease-in-out infinite ${Math.random() * 2}s`
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Laser scanner vertical */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `linear-gradient(90deg, transparent ${scanProgress}%, rgba(0, 255, 255, 0.8) ${scanProgress + 1}%, transparent ${scanProgress + 2}%)`,
+          animation: scanProgress < 100 ? 'scanFlicker 0.1s infinite' : 'none'
+        }}
+      />
+
+      {/* Particules holographiques */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animation: `holoFloat ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s`,
+              boxShadow: '0 0 10px rgba(0, 255, 255, 0.8)'
             }}
           />
         ))}
       </div>
 
-      {/* Logo avec animations interactives */}
-      <div className="relative mb-8 z-10">
+      {/* Logo avec effet holographique */}
+      <div className={`relative mb-8 z-10 transition-all duration-1000 ${logoVisible ? 'opacity-100' : 'opacity-0'}`}>
         <div 
-          className={`transition-all duration-1000 ease-out ${
-            logoScale === 1 ? 'transform-none' : 'scale-50'
-          }`}
+          className={`relative ${glitchActive ? 'animate-pulse' : ''}`}
           style={{
-            filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.5))',
-            transform: `scale(${logoScale}) rotate(${progress * 3.6}deg)`
+            filter: logoVisible ? 'drop-shadow(0 0 20px rgba(0, 255, 255, 0.6)) brightness(1.2)' : 'none',
+            transform: glitchActive ? 'translateX(2px)' : 'none'
           }}
         >
           <img 
@@ -87,91 +129,121 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
             alt="Zyflows Logo" 
             className="h-32 w-auto object-contain"
             style={{
-              filter: `brightness(${1 + progress/200}) saturate(${1 + progress/100})`
+              filter: `hue-rotate(${glitchActive ? 180 : 0}deg) saturate(${logoVisible ? 1.5 : 1})`,
+              transition: 'all 0.3s ease'
             }}
           />
+          
+          {/* Effet de glitch sur le logo */}
+          {glitchActive && (
+            <>
+              <img 
+                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
+                alt="" 
+                className="absolute top-0 left-0 h-32 w-auto object-contain opacity-70"
+                style={{
+                  filter: 'hue-rotate(120deg)',
+                  transform: 'translateX(-2px) translateY(1px)',
+                  mixBlendMode: 'screen'
+                }}
+              />
+              <img 
+                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
+                alt="" 
+                className="absolute top-0 left-0 h-32 w-auto object-contain opacity-70"
+                style={{
+                  filter: 'hue-rotate(240deg)',
+                  transform: 'translateX(2px) translateY(-1px)',
+                  mixBlendMode: 'screen'
+                }}
+              />
+            </>
+          )}
         </div>
         
-        {/* Cercles orbitaux autour du logo */}
+        {/* Lignes de scan autour du logo */}
         <div className="absolute inset-0 flex items-center justify-center">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute border border-white/30 rounded-full"
-              style={{
-                width: `${140 + i * 40}px`,
-                height: `${140 + i * 40}px`,
-                animation: `spin ${3 + i}s linear infinite ${i * 0.5}s`
-              }}
-            />
-          ))}
+          <div className="absolute w-40 h-40 border border-cyan-400/30 rounded-full animate-spin" style={{ animationDuration: '8s' }} />
+          <div className="absolute w-48 h-48 border border-cyan-400/20 rounded-full animate-spin" style={{ animationDuration: '12s', animationDirection: 'reverse' }} />
         </div>
       </div>
 
-      {/* Texte avec effet de machine à écrire */}
-      <div className={`text-center mb-8 transition-all duration-1000 ${textVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <h1 className="text-4xl md:text-6xl font-bold text-white tracking-wider mb-2">
-          <span className="inline-block animate-pulse">Z</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.1s' }}>y</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.2s' }}>f</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.3s' }}>l</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.4s' }}>o</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.5s' }}>w</span>
-          <span className="inline-block animate-pulse" style={{ animationDelay: '0.6s' }}>s</span>
-        </h1>
-        <p className="text-white/80 text-lg md:text-xl font-light">
-          Solutions Digitales Innovantes
-        </p>
-      </div>
-
-      {/* Barre de progression interactive */}
-      <div className="w-80 max-w-sm mx-auto mb-4">
-        <div className="h-2 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
-          <div 
-            className="h-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 rounded-full transition-all duration-300 ease-out"
-            style={{ 
-              width: `${progress}%`,
-              boxShadow: '0 0 20px rgba(147, 197, 253, 0.8)'
+      {/* Texte holographique avec effet machine à écrire */}
+      <div className={`text-center mb-8 transition-all duration-1000 ${textPhase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <h1 className="text-4xl md:text-6xl font-mono font-bold text-cyan-300 tracking-wider mb-2 relative">
+          <span 
+            className="relative"
+            style={{
+              textShadow: '0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.4)',
+              animation: glitchActive ? 'textGlitch 0.3s ease-in-out' : 'none'
             }}
-          />
-        </div>
-        <div className="text-center mt-2">
-          <span className="text-white/70 text-sm font-mono">{progress}%</span>
+          >
+            Zyflows
+          </span>
+          {/* Curseur clignotant */}
+          <span className="animate-pulse text-cyan-400">|</span>
+        </h1>
+        
+        <div className={`transition-all duration-800 ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
+          <p className="text-cyan-200/80 text-lg md:text-xl font-mono font-light">
+            <span className="text-cyan-400">&gt;</span> Initializing Digital Solutions...
+          </p>
+          <div className="flex justify-center mt-2 space-x-1">
+            {[...Array(20)].map((_, i) => (
+              <div 
+                key={i}
+                className="w-2 h-1 bg-cyan-400 opacity-60"
+                style={{
+                  animation: `loadingBar 1.5s ease-in-out infinite ${i * 0.1}s`
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Spinner géométrique */}
-      <div className="relative">
-        <div className="flex items-center justify-center">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
-              style={{
-                transform: `rotate(${i * 60}deg) translateY(-30px)`,
-                animation: `pulse 1.5s ease-in-out infinite ${i * 0.2}s`
-              }}
-            />
-          ))}
-        </div>
+      {/* Console de chargement */}
+      <div className={`font-mono text-sm text-cyan-300/70 text-center ${textPhase >= 2 ? 'opacity-100' : 'opacity-0'}`}>
+        <p>&gt; Loading AI Systems... [OK]</p>
+        <p>&gt; Connecting Automation Tools... [OK]</p>
+        <p>&gt; Ready for Digital Innovation... [OK]</p>
       </div>
 
       <style>
         {`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+          @keyframes holoPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
           }
           
-          @keyframes pulse {
+          @keyframes scanFlicker {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+          }
+          
+          @keyframes holoFloat {
             0%, 100% { 
-              opacity: 0.4; 
-              transform: rotate(var(--rotation)) translateY(-30px) scale(0.8);
+              transform: translateY(0px) scale(1);
+              opacity: 0.6;
             }
             50% { 
-              opacity: 1; 
-              transform: rotate(var(--rotation)) translateY(-30px) scale(1.2);
+              transform: translateY(-20px) scale(1.2);
+              opacity: 1;
             }
+          }
+          
+          @keyframes textGlitch {
+            0% { transform: translateX(0); filter: hue-rotate(0deg); }
+            20% { transform: translateX(-2px); filter: hue-rotate(90deg); }
+            40% { transform: translateX(2px); filter: hue-rotate(180deg); }
+            60% { transform: translateX(-1px); filter: hue-rotate(270deg); }
+            80% { transform: translateX(1px); filter: hue-rotate(360deg); }
+            100% { transform: translateX(0); filter: hue-rotate(0deg); }
+          }
+          
+          @keyframes loadingBar {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+            50% { opacity: 1; transform: scaleY(1); }
           }
         `}
       </style>
