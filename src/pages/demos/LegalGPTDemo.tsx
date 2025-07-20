@@ -3,17 +3,72 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Bot, Send, FileText, Scale, Zap, Shield, MessageSquare } from "lucide-react";
+import { ArrowLeft, Bot, Send, FileText, Scale, Zap, Shield, MessageSquare, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
 
 const LegalGPTDemo = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: 'assistant', content: "Bonjour ! Je suis LegalGPT. Comment puis-je vous aider avec vos questions juridiques aujourd'hui ?" }
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendMessage = async () => {
+    if (!message.trim() || isLoading) return;
+
+    const userMessage = message.trim();
+    setMessage("");
+    setIsLoading(true);
+
+    // Ajouter le message de l'utilisateur
+    const newMessages = [...messages, { role: 'user' as const, content: userMessage }];
+    setMessages(newMessages);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('legal-gpt-chat', {
+        body: {
+          message: userMessage,
+          conversationHistory: messages.slice(-10) // Garder les 10 derniers messages pour le contexte
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Ajouter la réponse de l'assistant
+      setMessages([...newMessages, { role: 'assistant', content: data.message }]);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du message:', error);
+      setMessages([...newMessages, { 
+        role: 'assistant', 
+        content: "Désolé, je rencontre des difficultés techniques. Veuillez réessayer." 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
 
   const features = [
-    { icon: FileText, title: "Document Analysis", description: "AI-powered contract review and analysis" },
-    { icon: Scale, title: "Legal Research", description: "Instant access to case law and statutes" },
-    { icon: Zap, title: "Quick Answers", description: "Get legal insights in seconds" },
-    { icon: Shield, title: "Secure & Confidential", description: "Enterprise-grade security for sensitive data" }
+    { icon: FileText, title: "Analyse de Documents", description: "Révision et analyse de contrats par IA" },
+    { icon: Scale, title: "Recherche Juridique", description: "Accès instantané à la jurisprudence et aux lois" },
+    { icon: Zap, title: "Réponses Rapides", description: "Obtenez des insights juridiques en quelques secondes" },
+    { icon: Shield, title: "Sécurisé et Confidentiel", description: "Sécurité de niveau entreprise pour les données sensibles" }
   ];
 
   return (
@@ -60,12 +115,34 @@ const LegalGPTDemo = () => {
             <CardContent className="p-6">
               <div className="bg-black/20 rounded-lg p-4 h-96 mb-4 overflow-y-auto">
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-2">
-                    <Bot className="h-6 w-6 text-purple-400 mt-1" />
-                    <div className="bg-purple-500/20 rounded-lg p-3 max-w-xs">
-                      <p className="text-white text-sm">Hello! I'm LegalGPT. How can I assist with your legal research today?</p>
+                  {messages.map((msg, index) => (
+                    <div key={index} className="flex items-start space-x-2">
+                      {msg.role === 'assistant' ? (
+                        <Bot className="h-6 w-6 text-purple-400 mt-1 flex-shrink-0" />
+                      ) : (
+                        <User className="h-6 w-6 text-blue-400 mt-1 flex-shrink-0" />
+                      )}
+                      <div className={`rounded-lg p-3 max-w-[80%] ${
+                        msg.role === 'assistant' 
+                          ? 'bg-purple-500/20 text-white' 
+                          : 'bg-blue-500/20 text-white ml-auto'
+                      }`}>
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      </div>
                     </div>
-                  </div>
+                  ))}
+                  {isLoading && (
+                    <div className="flex items-start space-x-2">
+                      <Bot className="h-6 w-6 text-purple-400 mt-1 flex-shrink-0" />
+                      <div className="bg-purple-500/20 rounded-lg p-3">
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                          <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex space-x-2">
@@ -73,10 +150,16 @@ const LegalGPTDemo = () => {
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Ask a legal question..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-400"
+                  onKeyPress={handleKeyPress}
+                  placeholder="Posez une question juridique..."
+                  disabled={isLoading}
+                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-400 disabled:opacity-50"
                 />
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button 
+                  onClick={sendMessage}
+                  disabled={isLoading || !message.trim()}
+                  className="bg-purple-600 hover:bg-purple-700 disabled:opacity-50"
+                >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
