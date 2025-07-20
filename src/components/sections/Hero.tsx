@@ -34,7 +34,11 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}>
+    <section 
+      id="home" 
+      className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}
+      aria-label={t('hero.section_label') || "Section d'accueil"}
+    >
       {/* Background image */}
       <div 
         className="absolute inset-0 z-0 opacity-20"
@@ -43,19 +47,32 @@ const Hero = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
+        role="img"
+        aria-label="Image de fond représentant la technologie"
       />
       
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
       
-      {/* Floating elements */}
-      <div className={`absolute top-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}>
+      {/* Floating elements - Decorative, hidden from screen readers */}
+      <div 
+        className={`absolute top-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}
+        aria-hidden="true"
+      >
         <Code2 className="h-8 w-8 text-primary/30" />
       </div>
-      <div className={`absolute top-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} style={{ animationDelay: '1s' }}>
+      <div 
+        className={`absolute top-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} 
+        style={{ animationDelay: '1s' }}
+        aria-hidden="true"
+      >
         <Zap className="h-6 w-6 text-accent/40" />
       </div>
-      <div className={`absolute bottom-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} style={{ animationDelay: '2s' }}>
+      <div 
+        className={`absolute bottom-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} 
+        style={{ animationDelay: '2s' }}
+        aria-hidden="true"
+      >
         <Sparkles className="h-10 w-10 text-primary/20" />
       </div>
 

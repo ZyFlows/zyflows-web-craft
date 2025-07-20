@@ -53,17 +53,23 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}>
+    <nav 
+      className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}
+      aria-label="Navigation principale"
+      role="navigation"
+    >
       <div className="container mx-auto px-4">
         <div className={`flex items-center justify-between h-16 md:h-20 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
-              alt="zyFlows" 
-              style={{ height: '140px', width: 'auto' }}
-              className="object-contain transition-all duration-300 ease-in-out"
-            />
+            <a href="#home" aria-label="Retour à l'accueil - zyFlows">
+              <img 
+                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
+                alt="Logo zyFlows - Solutions digitales innovantes" 
+                style={{ height: '140px', width: 'auto' }}
+                className="object-contain transition-all duration-300 ease-in-out"
+              />
+            </a>
           </div>
 
           {/* Navigation desktop */}
@@ -93,7 +99,14 @@ const Navigation = () => {
 
           {/* Menu mobile - Only show on small screens */}
           <div className="md:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+            >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
           </div>
@@ -101,7 +114,12 @@ const Navigation = () => {
 
         {/* Menu mobile ouvert - Only show when menu is open on mobile */}
         {isOpen && (
-          <div className="md:hidden glass-effect border-t border-border">
+          <div 
+            id="mobile-menu"
+            className="md:hidden glass-effect border-t border-border"
+            role="menu"
+            aria-labelledby="menu-button"
+          >
             <div className={`px-2 pt-2 pb-3 space-y-1 ${language === 'he' ? 'text-right' : ''}`}>
               {navItems.map(item => (
                 <a 

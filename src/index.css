@@ -209,3 +209,116 @@
   margin-right: 0.75rem;
   margin-left: 0;
 }
+
+/* === AMÉLIORATIONS ACCESSIBILITÉ WCAG === */
+
+/* Focus visible amélioré pour tous les éléments interactifs */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Focus pour les boutons */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px hsl(var(--primary) / 0.2);
+}
+
+/* Focus pour les liens */
+a:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Amélioration du contraste pour le texte muted */
+.text-muted-foreground {
+  color: hsl(215 20% 70%); /* Contraste amélioré pour WCAG AA */
+}
+
+/* Taille minimale tactile pour les éléments interactifs (44px WCAG) */
+button,
+[role="button"],
+a[href],
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Exception pour les petits éléments décoratifs */
+.btn-small,
+.icon-small {
+  min-height: 32px;
+  min-width: 32px;
+}
+
+/* Amélioration de la lisibilité */
+.readable-text {
+  font-size: clamp(16px, 2.5vw, 18px);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+/* Animations respectueuses de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-fade-in-up {
+    animation: none !important;
+  }
+}
+
+/* Amélioration des zones de clic */
+.clickable-area {
+  position: relative;
+  cursor: pointer;
+}
+
+.clickable-area::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  z-index: -1;
+}
+
+/* Style pour les éléments sautés (skip links) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.3s ease;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Amélioration du contraste en mode sombre */
+.dark .text-muted-foreground {
+  color: hsl(215 20% 75%);
+}

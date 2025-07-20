@@ -77,12 +77,23 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className={`py-12 md:py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
-      {/* Background elements */}
-      <div className={`absolute top-10 ${language === 'he' ? 'left-4 md:left-10' : 'right-4 md:right-10'} animate-float opacity-10`}>
+    <section 
+      id="services" 
+      className={`py-12 md:py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}
+      aria-labelledby="services-title"
+    >
+      {/* Background elements - Decorative only */}
+      <div 
+        className={`absolute top-10 ${language === 'he' ? 'left-4 md:left-10' : 'right-4 md:right-10'} animate-float opacity-10`}
+        aria-hidden="true"
+      >
         <Code2 className="h-16 w-16 md:h-32 md:w-32 text-primary" />
       </div>
-      <div className={`absolute bottom-10 ${language === 'he' ? 'right-4 md:right-10' : 'left-4 md:left-10'} animate-float opacity-10`} style={{ animationDelay: '2s' }}>
+      <div 
+        className={`absolute bottom-10 ${language === 'he' ? 'right-4 md:right-10' : 'left-4 md:left-10'} animate-float opacity-10`} 
+        style={{ animationDelay: '2s' }}
+        aria-hidden="true"
+      >
         <Settings className="h-12 w-12 md:h-24 md:w-24 text-accent" />
       </div>
 
@@ -94,7 +105,10 @@ const Services = () => {
             <span className="text-sm font-medium">{t('services.badge')}</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 px-2">
+          <h2 
+            id="services-title"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 px-2"
+          >
             {t('services.title')}
           </h2>
           
@@ -104,7 +118,11 @@ const Services = () => {
         </div>
 
         {/* Grille de services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16"
+          role="list"
+          aria-label="Liste des services proposés"
+        >
           {services.map((service, index) => {
             const IconComponent = service.icon;
             return (
@@ -112,9 +130,15 @@ const Services = () => {
                 key={service.title} 
                 className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up" 
                 style={{ animationDelay: service.delay }}
+                role="listitem"
+                tabIndex={0}
+                aria-label={`Service: ${service.title}`}
               >
                 <CardHeader className="pb-4">
-                  <div className={`w-12 h-12 rounded-lg glass-effect flex items-center justify-center mb-4 ${service.color} group-hover:glow-primary transition-smooth`}>
+                  <div 
+                    className={`w-12 h-12 rounded-lg glass-effect flex items-center justify-center mb-4 ${service.color} group-hover:glow-primary transition-smooth`}
+                    aria-hidden="true"
+                  >
                     <IconComponent className="h-6 w-6" />
                   </div>
                   <CardTitle className="text-lg md:text-xl font-semibold group-hover:text-primary transition-smooth">
