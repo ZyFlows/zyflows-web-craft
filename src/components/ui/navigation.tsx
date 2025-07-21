@@ -59,7 +59,7 @@ const Navigation = () => {
       role="navigation"
     >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between h-16 md:h-20 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-between h-20 md:h-24 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <div className="flex items-center">
             <a href="#home" aria-label="Retour à l'accueil - zyFlows">
@@ -82,7 +82,7 @@ const Navigation = () => {
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-sm lg:text-base"
+                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-base lg:text-lg font-medium"
               >
                 {item.label}
               </a>
