@@ -97,9 +97,8 @@ const Navigation = () => {
             </Button>
           </div>
 
-          {/* Menu mobile - Show language selector and menu button */}
-          <div className="md:hidden flex items-center gap-2">
-            <LanguageSelector />
+          {/* Menu mobile - Only show on small screens */}
+          <div className="md:hidden">
             <Button 
               variant="ghost" 
               size="icon" 
@@ -132,19 +131,20 @@ const Navigation = () => {
                   {item.label}
                 </a>
               ))}
-               <div className={`px-3 py-2 flex ${
+              <div className={`px-3 py-2 flex ${
                 language === 'he' 
-                  ? 'justify-end' 
-                  : 'justify-start'
-               }`}>
-                 <Button 
-                   variant="default" 
-                   className="glow-primary text-sm"
-                   onClick={handleWhatsAppClick}
-                 >
-                   {t('nav.start_project')}
-                 </Button>
-               </div>
+                  ? 'flex-row-reverse justify-start' 
+                  : 'flex-row justify-between'
+              } items-center gap-4`}>
+                <LanguageSelector />
+                <Button 
+                  variant="default" 
+                  className="glow-primary flex-shrink-0 text-sm"
+                  onClick={handleWhatsAppClick}
+                >
+                  {t('nav.start_project')}
+                </Button>
+              </div>
             </div>
           </div>
         )}
