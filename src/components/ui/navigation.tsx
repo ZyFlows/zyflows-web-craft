@@ -62,13 +62,15 @@ const Navigation = () => {
         <div className={`flex items-center justify-between h-20 md:h-24 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#home" aria-label="Retour à l'accueil - zyFlows">
+            <a href="#home" aria-label="Retour à l'accueil - zyFlows" className="flex items-center gap-3">
               <img 
-                src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
+                src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
                 alt="Logo zyFlows - Solutions digitales innovantes" 
-                style={{ height: '140px', width: 'auto' }}
-                className="object-contain transition-all duration-300 ease-in-out"
+                className="h-12 w-12 object-contain transition-all duration-300 ease-in-out"
               />
+              <span className="hidden md:block text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Zyflows
+              </span>
             </a>
           </div>
 
