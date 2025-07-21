@@ -59,23 +59,23 @@ const Navigation = () => {
       role="navigation"
     >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between h-20 md:h-24 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-between h-16 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <div className="flex items-center">
             <a href="#home" aria-label="Retour à l'accueil - zyFlows" className="flex items-center gap-3">
               <img 
                 src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
                 alt="Logo zyFlows - Solutions digitales innovantes" 
-                className="h-12 w-12 object-contain transition-all duration-300 ease-in-out"
+                className="h-10 w-10 object-contain transition-all duration-300 ease-in-out"
               />
-              <span className="hidden md:block text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="hidden md:block text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Zyflows
               </span>
             </a>
           </div>
 
           {/* Navigation desktop */}
-          <div className={`hidden md:flex items-center ${
+          <div className={`hidden md:flex items-center h-10 ${
             language === 'he' 
               ? 'space-x-reverse space-x-6 lg:space-x-8' 
               : 'space-x-6 lg:space-x-8'
@@ -84,15 +84,18 @@ const Navigation = () => {
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-base lg:text-lg font-medium"
+                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-sm lg:text-base font-medium flex items-center h-10"
               >
                 {item.label}
               </a>
             ))}
-            <LanguageSelector />
+            <div className="flex items-center h-10">
+              <LanguageSelector />
+            </div>
             <Button 
               variant="default" 
-              className="glow-primary whitespace-nowrap text-sm lg:text-base px-4 lg:px-6"
+              size="sm"
+              className="glow-primary whitespace-nowrap text-sm px-4 h-10"
               onClick={handleWhatsAppClick}
             >
               {t('nav.start_project')}
@@ -100,7 +103,8 @@ const Navigation = () => {
           </div>
 
           {/* Menu mobile - Only show on small screens */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            <LanguageSelector />
             <Button 
               variant="ghost" 
               size="icon" 
@@ -108,6 +112,7 @@ const Navigation = () => {
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
+              className="ml-2 h-10 w-10"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
