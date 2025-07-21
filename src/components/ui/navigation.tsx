@@ -68,7 +68,7 @@ const Navigation = () => {
                 alt="Logo zyFlows - Solutions digitales innovantes" 
                 className="h-10 w-10 object-contain transition-all duration-300 ease-in-out"
               />
-              <span className="hidden md:block text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="hidden lg:block text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Zyflows
               </span>
             </a>
