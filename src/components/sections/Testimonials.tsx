@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Star, Quote, ArrowRight, MessageSquare, Mail } from "lucide-react";
+import { Quote, ArrowRight, MessageSquare, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
@@ -97,16 +97,6 @@ const Testimonials = () => {
     }
   ];
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`h-4 w-4 ${
-          i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ));
-  };
 
   return (
     <section id="testimonials" className={`py-20 relative overflow-hidden ${language === 'he' ? 'rtl' : ''}`}>
@@ -144,11 +134,8 @@ const Testimonials = () => {
               style={{ animationDelay: testimonial.delay }}
             >
               <CardHeader className="pb-4">
-                {/* Rating et tags */}
-                <div className={`flex items-center justify-between mb-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                  <div className={`flex items-center gap-1 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                    {renderStars(testimonial.rating)}
-                  </div>
+                {/* Quote icon */}
+                <div className={`flex ${language === 'he' ? 'justify-start' : 'justify-end'} mb-4`}>
                   <Quote className="h-5 w-5 text-primary/50" />
                 </div>
 
