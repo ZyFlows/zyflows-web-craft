@@ -23,23 +23,18 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('fr');
+  const [language, setLanguage] = useState<Language>('en');
 
-  // Effet pour détecter la langue du navigateur au premier chargement
+  // Effet pour charger la langue sauvegardée uniquement
   useEffect(() => {
-    // Vérifier d'abord s'il y a une préférence sauvegardée
+    // Vérifier s'il y a une préférence sauvegardée
     const savedLang = localStorage.getItem('preferred-language') as Language;
     const supportedLangs: Language[] = ['fr', 'en', 'he'];
     
     if (savedLang && supportedLangs.includes(savedLang)) {
       setLanguage(savedLang);
-    } else {
-      // Sinon détecter la langue du navigateur
-      const browserLang = navigator.language.slice(0, 2) as Language;
-      if (supportedLangs.includes(browserLang)) {
-        setLanguage(browserLang);
-      }
     }
+    // Pas de détection automatique de la langue du navigateur - l'anglais reste par défaut
   }, []);
 
   const translations = {
