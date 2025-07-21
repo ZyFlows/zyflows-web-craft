@@ -312,6 +312,10 @@ const Footer = () => {
           <div className={`flex flex-col md:flex-row items-center justify-between gap-4 ${language === 'he' ? 'md:flex-row-reverse' : ''}`}>
             <div className={`flex items-center gap-6 text-sm text-muted-foreground ${language === 'he' ? 'flex-row-reverse' : ''}`}>
               <span>{t('footer.copyright')}</span>
+              <span className="hidden md:inline">•</span>
+              <span className={`flex items-center gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                {t('footer.made_with_love')}
+              </span>
             </div>
             
             <div className="flex items-center gap-4 text-sm">
