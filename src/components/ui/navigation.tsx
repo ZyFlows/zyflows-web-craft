@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/ui/language-selector";
+import ThemeToggle from "@/components/ui/theme-toggle";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,8 +87,9 @@ const Navigation = () => {
               >
                 {item.label}
               </a>
-            ))}
-            <LanguageSelector />
+             ))}
+             <LanguageSelector />
+             <ThemeToggle />
             <Button 
               variant="default" 
               className="glow-primary whitespace-nowrap text-sm lg:text-base px-4 lg:px-6"
@@ -100,8 +102,9 @@ const Navigation = () => {
           {/* Menu mobile - Show language selector and menu button */}
           <div className={`md:hidden flex items-center gap-2 ${
             language === 'he' ? 'flex-row-reverse' : ''
-          }`}>
+           }`}>
             <LanguageSelector />
+            <ThemeToggle />
             <Button 
               variant="ghost" 
               size="icon" 
