@@ -150,9 +150,9 @@ const Loader = ({ onComplete, duration = 4000 }: LoaderProps) => {
           }}
         >
           <img 
-            src="/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png" 
+            src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
             alt="Zyflows Logo" 
-            className="h-32 w-auto object-contain"
+            className="h-24 w-24 object-contain"
             style={{
               filter: `saturate(${logoFormed ? 1.3 : 1})`,
               transition: 'all 1s ease'
