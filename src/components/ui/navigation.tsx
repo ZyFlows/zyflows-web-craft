@@ -98,7 +98,9 @@ const Navigation = () => {
           </div>
 
           {/* Menu mobile - Show language selector and menu button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className={`md:hidden flex items-center gap-2 ${
+            language === 'he' ? 'flex-row-reverse' : ''
+          }`}>
             <LanguageSelector />
             <Button 
               variant="ghost" 
