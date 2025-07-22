@@ -272,30 +272,17 @@ const Contact = () => {
                         onChange={(e) => handleInputChange('company', e.target.value)}
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        {t('contact.phone')}
-                      </label>
-                      <div className="flex gap-2">
-                        <select 
-                          className="w-24 p-3 border rounded-md bg-background text-foreground"
-                          defaultValue="+972"
-                        >
-                          <option value="+972">+972</option>
-                          <option value="+33">+33</option>
-                          <option value="+1">+1</option>
-                          <option value="+44">+44</option>
-                          <option value="+49">+49</option>
-                        </select>
-                        <Input
-                          type="tel"
-                          placeholder="50 123 4567"
-                          value={formData.phone}
-                          onChange={(e) => handleInputChange('phone', e.target.value)}
-                          className="flex-1"
-                        />
-                      </div>
-                    </div>
+                     <div>
+                       <label className="block text-sm font-medium mb-2">
+                         {t('contact.phone')}
+                       </label>
+                       <Input
+                         type="tel"
+                         placeholder={t('contact.phone_placeholder')}
+                         value={formData.phone}
+                         onChange={(e) => handleInputChange('phone', e.target.value)}
+                       />
+                     </div>
                   </div>
 
                   <div>
@@ -316,23 +303,6 @@ const Contact = () => {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      {t('contact.timeline')}
-                    </label>
-                    <select 
-                      className="w-full p-3 border rounded-md bg-background text-foreground"
-                      value={formData.timeline}
-                      onChange={(e) => handleInputChange('timeline', e.target.value)}
-                    >
-                      <option value="">{t('contact.timeline')}</option>
-                      {timelines.map((timeline, index) => (
-                        <option key={index} value={timeline}>
-                          {timeline}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
