@@ -276,28 +276,41 @@ const Contact = () => {
                       <label className="block text-sm font-medium mb-2">
                         {t('contact.phone')}
                       </label>
-                      <Input
-                        type="tel"
-                        placeholder={t('contact.phone_placeholder')}
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                      />
+                      <div className="flex gap-2">
+                        <select 
+                          className="w-24 p-3 border rounded-md bg-background text-foreground"
+                          defaultValue="+972"
+                        >
+                          <option value="+972">+972</option>
+                          <option value="+33">+33</option>
+                          <option value="+1">+1</option>
+                          <option value="+44">+44</option>
+                          <option value="+49">+49</option>
+                        </select>
+                        <Input
+                          type="tel"
+                          placeholder="50 123 4567"
+                          value={formData.phone}
+                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          className="flex-1"
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      {t('contact.service')}
+                      שירות רצוי
                     </label>
                     <select 
                       className="w-full p-3 border rounded-md bg-background text-foreground"
                       value={formData.service}
                       onChange={(e) => handleInputChange('service', e.target.value)}
                     >
-                      <option value="">{t('contact.service')}</option>
+                      <option value="">נא לבחור שירות</option>
                       {services.map((service, index) => (
                         <option key={index} value={service}>
-                          {service}
+                          {service.replace(/[()]/g, '')}
                         </option>
                       ))}
                     </select>
@@ -362,7 +375,7 @@ const Contact = () => {
                 <div className="mt-8 pt-8 border-t border-border/50">
                   <div className="text-center">
                     <p className="text-sm text-muted-foreground mb-4">
-                      {emailTranslations[language]?.['email.or_send_email'] || 'Ou envoyez-nous un email directement :'}
+                      {language === 'he' ? 'או לשלוח לנו מייל ישירות:' : emailTranslations[language]?.['email.or_send_email'] || 'Ou envoyez-nous un email directement :'}
                     </p>
                     <Button 
                       variant="outline"
