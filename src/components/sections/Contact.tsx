@@ -25,8 +25,6 @@ const Contact = () => {
     message: "",
     timeline: ""
   });
-  const [webhookUrl, setWebhookUrl] = useState("");
-  const [showWebhookConfig, setShowWebhookConfig] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -63,24 +61,9 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Vérifier si l'URL webhook est configurée
-      if (!webhookUrl.trim()) {
-        toast({
-          title: "Configuration manquante",
-          description: "Veuillez configurer votre URL webhook Make",
-          variant: "destructive",
-        });
-        setShowWebhookConfig(true);
-        setIsSubmitting(false);
-        return;
-      }
-
       // Envoyer vers la fonction edge Supabase
       const { data, error } = await supabase.functions.invoke('send-to-make', {
-        body: {
-          ...formData,
-          webhookUrl: webhookUrl.trim()
-        }
+        body: formData
       });
 
       if (error) {
@@ -276,49 +259,15 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
-                    <CardDescription>
-                      {t('contact.form_subtitle')}
-                    </CardDescription>
-                  </div>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setShowWebhookConfig(!showWebhookConfig)}
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Make
-                  </Button>
+                <div>
+                  <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
+                  <CardDescription>
+                    {t('contact.form_subtitle')}
+                  </CardDescription>
                 </div>
               </CardHeader>
               
               <CardContent>
-                {/* Configuration webhook Make */}
-                {showWebhookConfig && (
-                  <div className="mb-6 p-4 border rounded-lg bg-muted/50">
-                    <h4 className="font-medium mb-2 flex items-center gap-2">
-                      <Settings className="h-4 w-4" />
-                      Configuration webhook Make
-                    </h4>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      Collez l'URL de votre webhook Make pour recevoir automatiquement les soumissions du formulaire.
-                    </p>
-                    <Input
-                      type="url"
-                      placeholder="https://hook.eu1.make.com/..."
-                      value={webhookUrl}
-                      onChange={(e) => setWebhookUrl(e.target.value)}
-                      className="mb-2"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      💡 Dans Make, créez un nouveau scénario avec un trigger "Webhook" pour recevoir les données.
-                    </p>
-                  </div>
-                )}
-
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>

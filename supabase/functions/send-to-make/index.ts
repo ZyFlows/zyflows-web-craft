@@ -15,7 +15,6 @@ interface ContactFormData {
   budget?: string;
   message: string;
   timeline?: string;
-  webhookUrl: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -35,15 +34,8 @@ const handler = async (req: Request): Promise<Response> => {
     const formData: ContactFormData = await req.json();
     console.log('Received form data:', formData);
 
-    if (!formData.webhookUrl) {
-      return new Response(
-        JSON.stringify({ error: 'URL webhook Make requise' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders },
-        }
-      );
-    }
+    // URL webhook Make hardcodée
+    const webhookUrl = "https://hook.eu2.make.com/7su1w8p5otasvefjrkj5uphh4w35muwy";
 
     // Préparer les données pour Make
     const makeData = {
@@ -65,7 +57,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log('Sending data to Make:', makeData);
 
     // Envoyer vers Make
-    const makeResponse = await fetch(formData.webhookUrl, {
+    const makeResponse = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
