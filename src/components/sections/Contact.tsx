@@ -7,9 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle } from "lucide-react";
+import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle, Settings } from "lucide-react";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { t, language } = useLanguage();
@@ -24,6 +25,8 @@ const Contact = () => {
     message: "",
     timeline: ""
   });
+  const [webhookUrl, setWebhookUrl] = useState("");
+  const [showWebhookConfig, setShowWebhookConfig] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -59,26 +62,74 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulation d'envoi
-    setTimeout(() => {
+    try {
+      // Vérifier si l'URL webhook est configurée
+      if (!webhookUrl.trim()) {
+        toast({
+          title: "Configuration manquante",
+          description: "Veuillez configurer votre URL webhook Make",
+          variant: "destructive",
+        });
+        setShowWebhookConfig(true);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Envoyer vers la fonction edge Supabase
+      const { data, error } = await supabase.functions.invoke('send-to-make', {
+        body: {
+          ...formData,
+          webhookUrl: webhookUrl.trim()
+        }
+      });
+
+      if (error) {
+        console.error('Supabase function error:', error);
+        toast({
+          title: "Erreur d'envoi",
+          description: "Impossible d'envoyer le formulaire. Veuillez réessayer.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (data?.success) {
+        toast({
+          title: t('contact.success_title'),
+          description: "Votre message a été envoyé vers Make avec succès !",
+        });
+        
+        // Réinitialiser le formulaire
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          service: "",
+          project: "",
+          budget: "",
+          message: "",
+          timeline: ""
+        });
+      } else {
+        toast({
+          title: "Erreur Make",
+          description: data?.error || "Erreur lors de l'envoi vers Make",
+          variant: "destructive",
+        });
+      }
+
+    } catch (error) {
+      console.error('Form submission error:', error);
       toast({
-        title: t('contact.success_title'),
-        description: t('contact.success_desc'),
+        title: "Erreur",
+        description: "Une erreur inattendue s'est produite",
+        variant: "destructive",
       });
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        service: "",
-        project: "",
-        budget: "",
-        message: "",
-        timeline: ""
-      });
-    }, 2000);
-    
-    setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -225,13 +276,49 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
-                <CardDescription>
-                  {t('contact.form_subtitle')}
-                </CardDescription>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
+                    <CardDescription>
+                      {t('contact.form_subtitle')}
+                    </CardDescription>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowWebhookConfig(!showWebhookConfig)}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Make
+                  </Button>
+                </div>
               </CardHeader>
               
               <CardContent>
+                {/* Configuration webhook Make */}
+                {showWebhookConfig && (
+                  <div className="mb-6 p-4 border rounded-lg bg-muted/50">
+                    <h4 className="font-medium mb-2 flex items-center gap-2">
+                      <Settings className="h-4 w-4" />
+                      Configuration webhook Make
+                    </h4>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Collez l'URL de votre webhook Make pour recevoir automatiquement les soumissions du formulaire.
+                    </p>
+                    <Input
+                      type="url"
+                      placeholder="https://hook.eu1.make.com/..."
+                      value={webhookUrl}
+                      onChange={(e) => setWebhookUrl(e.target.value)}
+                      className="mb-2"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      💡 Dans Make, créez un nouveau scénario avec un trigger "Webhook" pour recevoir les données.
+                    </p>
+                  </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
