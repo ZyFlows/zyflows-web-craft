@@ -225,32 +225,154 @@ const Contact = () => {
           <div className="lg:col-span-2">
             <Card className="gradient-card border-border/50">
               <CardHeader>
-                <CardTitle className="text-2xl">{emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}</CardTitle>
-                <CardDescription className={language === 'he' ? 'text-left' : 'text-right'}>
-                  {emailTranslations[language]?.['email.send_email_desc'] || 'Contactez-nous directement par email avec un template pré-rempli pour votre projet.'}
+                <CardTitle className="text-2xl">{t('contact.form_title')}</CardTitle>
+                <CardDescription>
+                  {t('contact.form_subtitle')}
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="text-center py-12">
-                <Mail className="h-16 w-16 text-primary mx-auto mb-6" />
-                <h3 className="text-xl font-semibold mb-4">
-                  {emailTranslations[language]?.['email.ready_to_start'] || 'Prêt à démarrer votre projet ?'}
-                </h3>
-                <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                  {emailTranslations[language]?.['email.click_below'] || 'Cliquez sur le bouton ci-dessous pour ouvrir votre client email avec un template pré-rempli contenant toutes les informations nécessaires pour votre projet.'}
-                </p>
-                <Button 
-                  size="lg" 
-                  className="glow-primary"
-                  onClick={handleEmailProject}
-                >
-                  <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-                  {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
-                  <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
-                </Button>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Email : zyflow.web@gmail.com
-                </p>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('contact.name')} *
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder={t('contact.name_placeholder')}
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('contact.email')} *
+                      </label>
+                      <Input
+                        type="email"
+                        placeholder={t('contact.email_placeholder')}
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('contact.company')}
+                      </label>
+                      <Input
+                        type="text"
+                        placeholder={t('contact.company_placeholder')}
+                        value={formData.company}
+                        onChange={(e) => handleInputChange('company', e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        {t('contact.phone')}
+                      </label>
+                      <Input
+                        type="tel"
+                        placeholder={t('contact.phone_placeholder')}
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t('contact.service')}
+                    </label>
+                    <select 
+                      className="w-full p-3 border rounded-md bg-background text-foreground"
+                      value={formData.service}
+                      onChange={(e) => handleInputChange('service', e.target.value)}
+                    >
+                      <option value="">{t('contact.service')}</option>
+                      {services.map((service, index) => (
+                        <option key={index} value={service}>
+                          {service}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t('contact.timeline')}
+                    </label>
+                    <select 
+                      className="w-full p-3 border rounded-md bg-background text-foreground"
+                      value={formData.timeline}
+                      onChange={(e) => handleInputChange('timeline', e.target.value)}
+                    >
+                      <option value="">{t('contact.timeline')}</option>
+                      {timelines.map((timeline, index) => (
+                        <option key={index} value={timeline}>
+                          {timeline}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      {t('contact.message')} *
+                    </label>
+                    <Textarea
+                      placeholder={t('contact.message_placeholder')}
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      className="min-h-[120px]"
+                      required
+                    />
+                  </div>
+
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full glow-primary"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        {t('contact.submitting')}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <Send className="h-4 w-4" />
+                        {t('contact.submit')}
+                      </div>
+                    )}
+                  </Button>
+                  
+                  <p className="text-xs text-muted-foreground text-center">
+                    {t('contact.disclaimer')}
+                  </p>
+                </form>
+
+                {/* Email alternatif */}
+                <div className="mt-8 pt-8 border-t border-border/50">
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {emailTranslations[language]?.['email.or_send_email'] || 'Ou envoyez-nous un email directement :'}
+                    </p>
+                    <Button 
+                      variant="outline"
+                      onClick={handleEmailProject}
+                    >
+                      <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-4 w-4`} />
+                      {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+                    </Button>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>
