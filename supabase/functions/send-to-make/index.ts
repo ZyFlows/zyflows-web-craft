@@ -15,6 +15,7 @@ interface ContactFormData {
   budget?: string;
   message: string;
   timeline?: string;
+  language?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -51,7 +52,7 @@ const handler = async (req: Request): Promise<Response> => {
       message: formData.message,
       timeline: formData.timeline || '',
       source: 'zyflows-website',
-      language: 'fr', // ou détecter depuis les headers
+      language: formData.language || 'he', // langue sélectionnée par l'utilisateur
     };
 
     console.log('Sending data to Make:', makeData);

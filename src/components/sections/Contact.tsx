@@ -63,7 +63,10 @@ const Contact = () => {
     try {
       // Envoyer vers la fonction edge Supabase
       const { data, error } = await supabase.functions.invoke('send-to-make', {
-        body: formData
+        body: {
+          ...formData,
+          language: language
+        }
       });
 
       if (error) {
