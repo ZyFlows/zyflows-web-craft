@@ -326,14 +326,14 @@ const Contact = () => {
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      שירות רצוי
+                      {t('contact.service')}
                     </label>
                     <select 
                       className="w-full p-3 border rounded-md bg-background text-foreground"
                       value={formData.service}
                       onChange={(e) => handleInputChange('service', e.target.value)}
                     >
-                      <option value="">נא לבחור שירות</option>
+                      <option value="">{t('contact.service_placeholder')}</option>
                       {services.map((service, index) => (
                         <option key={index} value={service}>
                           {service.replace(/[()]/g, '')}
