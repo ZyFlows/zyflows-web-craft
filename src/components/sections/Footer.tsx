@@ -12,24 +12,21 @@ const Footer = () => {
   };
 
   return (
-    <footer className={`py-8 border-t border-border/50 ${language === 'he' ? 'rtl' : ''}`}>
+    <footer className={`py-6 border-t border-border/50 ${language === 'he' ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
-        <div className="text-center space-y-2">
+        <div className="text-center">
           <p className="text-sm text-muted-foreground">
-            © 2024{' '}
+            Copyright © 2024 - {' '}
             <button 
               onClick={handleHomeClick}
-              className="text-primary hover:text-primary/80 transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium"
             >
               zyFlows
             </button>
-            . כל הזכויות שמורות.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            {t('footer.developed_by')}{' '}
+            {' '}- {t('footer.developed_by')}{' '}
             <button 
               onClick={handleLinkedInClick}
-              className="text-primary hover:text-primary/80 transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium"
             >
               Raphael Belhassen
             </button>
