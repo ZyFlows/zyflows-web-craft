@@ -12,25 +12,33 @@ const Footer = () => {
   };
 
   return (
-    <footer className="py-8 bg-muted/30">
+    <footer className="bg-black text-white py-8 relative">
       <div className="container mx-auto px-4">
         <div className="text-center">
-          <p className="text-muted-foreground text-sm">
-            Copyright © 2024 - {' '}
+          <p className="text-white/80 text-sm mb-2">
+            Copyright © 2024
+          </p>
+          <p className="text-white/80 text-sm">
+            {t('footer.developed_by')}
+          </p>
+        </div>
+        <div className="absolute top-8 right-4 text-right space-y-1">
+          <div>
             <button 
               onClick={handleHomeClick}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-white hover:text-white/80 transition-colors font-medium block"
             >
               zyFlows
             </button>
-            {' '}- {t('footer.developed_by')}{' '}
+          </div>
+          <div>
             <button 
               onClick={handleLinkedInClick}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="text-white hover:text-white/80 transition-colors font-medium block"
             >
               Raphael Belhassen
             </button>
-          </p>
+          </div>
         </div>
       </div>
     </footer>
