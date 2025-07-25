@@ -16,19 +16,19 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="text-center space-y-1">
           <p className="text-white/80 text-sm">
-            Copyright © 2025 {' '}
+            Copyright © 2025 
             <button 
               onClick={handleHomeClick}
-              className="text-white hover:text-white/80 transition-colors"
+              className="text-white hover:text-white/80 transition-colors ml-1"
             >
               zyFlows
             </button>
           </p>
           <p className="text-white/80 text-sm">
-            {t('footer.developed_by')} {' '}
+            {t('footer.developed_by')}
             <button 
               onClick={handleLinkedInClick}
-              className="text-white hover:text-white/80 transition-colors"
+              className="text-white hover:text-white/80 transition-colors ml-1"
             >
               Raphael Belhassen
             </button>
