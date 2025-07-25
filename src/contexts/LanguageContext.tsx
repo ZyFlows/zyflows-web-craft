@@ -224,6 +224,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'contact.disclaimer': 'En soumettant ce formulaire, vous acceptez que nous vous contactions concernant votre projet. Vos données sont protégées et ne seront jamais partagées.',
       'contact.success_title': 'Message envoyé avec succès !',
       'contact.success_desc': 'Nous vous répondrons dans les 24h. Merci pour votre confiance.',
+      
+      // Footer
+      'footer.developed_by': 'Développé par',
       'contact.service1': 'Site Web (Wix/WordPress/Shopify/Framer)',
       'contact.service2': 'Application Sur-Mesure',
       'contact.service3': 'Automatisation (Make/Zapier/N8N)',
@@ -491,6 +494,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'contact.disclaimer': 'By submitting this form, you agree that we may contact you regarding your project. Your data is protected and will never be shared.',
       'contact.success_title': 'Message sent successfully!',
       'contact.success_desc': 'We will respond within 24 hours. Thank you for your trust.',
+      
+      // Footer
+      'footer.developed_by': 'Developed by',
       'contact.service1': 'Website (Wix/WordPress/Shopify/Framer)',
       'contact.service2': 'Custom Application',
       'contact.service3': 'Automation (Make/Zapier/N8N)',
@@ -805,6 +811,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'contact.disclaimer': 'על ידי שליחת הטופס הזה, אתם מסכימים שניצור איתכם קשר בנוגע לפרויקט שלכם. הנתונים שלכם מוגנים ולעולם לא יישותפו.',
       'contact.success_title': 'ההודעה נשלחה בהצלחה!',
       'contact.success_desc': 'נענה תוך 24 שעות. תודה על האמון.',
+      
+      // Footer
+      'footer.developed_by': 'פותח על ידי',
       'contact.service1': 'אתר אינטרנט (Wix/WordPress/Shopify/Framer)',
       'contact.service2': 'יישום מותאם אישית',
       'contact.service3': 'אוטומציה (Make/Zapier/N8N)',
