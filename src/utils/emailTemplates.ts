@@ -90,6 +90,6 @@ ${eT('email.signature_name')}`;
 };
 
 export const openEmailClient = (subject: string, body: string) => {
-  const mailtoUrl = `mailto:zyflow.web@gmail.com?subject=${subject}&body=${body}`;
+  const mailtoUrl = `mailto:contact.zyflows@gmail.com?subject=${subject}&body=${body}`;
   window.open(mailtoUrl, '_self');
 };

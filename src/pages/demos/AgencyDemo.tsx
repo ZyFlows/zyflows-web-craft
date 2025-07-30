@@ -361,7 +361,7 @@ const AgencyDemo = () => {
           </h3>
           <p className="text-gray-400 mb-6">Transformons ensemble vos idées en réalité digitale</p>
           <div className="flex justify-center space-x-8 text-sm mb-8">
-            <span>contact@creativeflow.fr</span>
+            <span>contact.zyflows@gmail.com</span>
             <span>+33 1 23 45 67 89</span>
             <span>Paris, France</span>
           </div>

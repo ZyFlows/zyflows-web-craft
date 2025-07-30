@@ -214,7 +214,7 @@ const Contact = () => {
                   <Mail className="h-5 w-5 text-accent" />
                   <div>
                     <div className="font-medium text-center">Mail</div>
-                    <div className="text-sm text-muted-foreground">zyflow.web@gmail.com</div>
+                    <div className="text-sm text-muted-foreground">contact.zyflows@gmail.com</div>
                   </div>
                 </div>
                 
