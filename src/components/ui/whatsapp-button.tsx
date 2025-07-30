@@ -32,14 +32,14 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
         position: 'fixed',
         bottom: '20px',
         [isRTL ? 'left' : 'right']: '20px',
-        width: '60px',
-        height: '60px',
+        width: '50px',
+        height: '50px',
         backgroundColor: '#25D366',
         borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 4px 12px rgba(37, 211, 102, 0.4)',
+        boxShadow: '0 2px 8px rgba(37, 211, 102, 0.3)',
         cursor: 'pointer',
         zIndex: 999999,
         border: 'none',
@@ -63,8 +63,8 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       {/* Icône WhatsApp simple */}
       <svg
         style={{
-          width: '32px',
-          height: '32px',
+          width: '28px',
+          height: '28px',
           fill: 'white'
         }}
         viewBox="0 0 24 24"
