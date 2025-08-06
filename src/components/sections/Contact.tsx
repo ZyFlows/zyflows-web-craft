@@ -61,6 +61,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      console.log('Submitting form with data:', { ...formData, language });
+      
       // Envoyer vers la fonction edge Supabase
       const { data, error } = await supabase.functions.invoke('send-to-make', {
         body: {
@@ -69,11 +71,13 @@ const Contact = () => {
         }
       });
 
+      console.log('Supabase function response:', { data, error });
+
       if (error) {
-        console.error('Supabase function error:', error);
+        console.error('Supabase function error details:', error);
         toast({
           title: "Erreur d'envoi",
-          description: "Impossible d'envoyer le formulaire. Veuillez réessayer.",
+          description: `Impossible d'envoyer le formulaire: ${error.message || 'Erreur inconnue'}`,
           variant: "destructive",
         });
         setIsSubmitting(false);
