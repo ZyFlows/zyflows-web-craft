@@ -87,7 +87,7 @@ const Contact = () => {
       if (data?.success) {
         toast({
           title: t('contact.success_title'),
-          description: "Votre message a été envoyé vers Make avec succès !",
+          description: "Votre message a été envoyé avec succès !",
         });
         
         // Réinitialiser le formulaire
@@ -104,8 +104,8 @@ const Contact = () => {
         });
       } else {
         toast({
-          title: "Erreur Make",
-          description: data?.error || "Erreur lors de l'envoi vers Make",
+          title: "Erreur d'envoi",
+          description: data?.error || "Erreur lors de l'envoi du formulaire",
           variant: "destructive",
         });
       }
