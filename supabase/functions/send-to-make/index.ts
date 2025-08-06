@@ -35,8 +35,8 @@ const handler = async (req: Request): Promise<Response> => {
     const formData: ContactFormData = await req.json();
     console.log('Received form data:', formData);
 
-    // URL webhook Make hardcodée
-    const webhookUrl = "https://hook.eu2.make.com/7su1w8p5otasvefjrkj5uphh4w35muwy";
+    // URL webhook n8n hardcodée
+    const webhookUrl = "https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-leads";
 
     // Préparer les données pour Make
     const makeData = {
