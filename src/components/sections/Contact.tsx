@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -168,20 +167,20 @@ const Contact = () => {
   };
 
   const countries = [
-    { code: '+1', country: 'us', name: 'États-Unis' },
-    { code: '+33', country: 'fr', name: 'France' },
-    { code: '+972', country: 'il', name: 'Israël' },
-    { code: '+44', country: 'gb', name: 'Royaume-Uni' },
-    { code: '+49', country: 'de', name: 'Allemagne' },
-    { code: '+34', country: 'es', name: 'Espagne' },
-    { code: '+39', country: 'it', name: 'Italie' },
-    { code: '+86', country: 'cn', name: 'Chine' },
-    { code: '+81', country: 'jp', name: 'Japon' },
-    { code: '+91', country: 'in', name: 'Inde' },
-    { code: '+55', country: 'br', name: 'Brésil' },
-    { code: '+7', country: 'ru', name: 'Russie' },
-    { code: '+61', country: 'au', name: 'Australie' },
-    { code: '+27', country: 'za', name: 'Afrique du Sud' }
+    { code: '+1', country: 'us' },
+    { code: '+33', country: 'fr' },
+    { code: '+972', country: 'il' },
+    { code: '+44', country: 'gb' },
+    { code: '+49', country: 'de' },
+    { code: '+34', country: 'es' },
+    { code: '+39', country: 'it' },
+    { code: '+86', country: 'cn' },
+    { code: '+81', country: 'jp' },
+    { code: '+91', country: 'in' },
+    { code: '+55', country: 'br' },
+    { code: '+7', country: 'ru' },
+    { code: '+61', country: 'au' },
+    { code: '+27', country: 'za' }
   ];
 
   const getSelectedCountry = () => {
@@ -384,7 +383,7 @@ const Contact = () => {
                         <div className="flex gap-2">
                           <div className="relative">
                             <select 
-                              className="appearance-none px-3 py-3 pr-8 border rounded-md bg-background text-foreground min-w-[140px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer"
+                              className="appearance-none px-3 py-3 pr-8 border rounded-md bg-background text-foreground min-w-[100px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer"
                               value={formData.countryCode}
                               onChange={(e) => handleInputChange('countryCode', e.target.value)}
                               style={{ 
@@ -396,7 +395,7 @@ const Contact = () => {
                             >
                               {countries.map((country) => (
                                 <option key={country.code} value={country.code}>
-                                  {country.name} ({country.code})
+                                  {country.code}
                                 </option>
                               ))}
                             </select>
@@ -435,7 +434,6 @@ const Contact = () => {
                       ))}
                     </select>
                   </div>
-
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
