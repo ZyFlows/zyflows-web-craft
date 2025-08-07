@@ -362,24 +362,25 @@ const Contact = () => {
                        </label>
                        <div className="flex gap-2">
                          <select 
-                           className="px-3 py-3 border rounded-md bg-background text-foreground min-w-[120px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                           className="px-3 py-3 border rounded-md bg-background text-foreground min-w-[140px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2"
                            value={formData.countryCode}
                            onChange={(e) => handleInputChange('countryCode', e.target.value)}
+                           style={{ fontSize: '16px' }}
                          >
-                           <option value="+1">🇺🇸 +1</option>
-                           <option value="+33">🇫🇷 +33</option>
-                           <option value="+972">🇮🇱 +972</option>
-                           <option value="+44">🇬🇧 +44</option>
-                           <option value="+49">🇩🇪 +49</option>
-                           <option value="+34">🇪🇸 +34</option>
-                           <option value="+39">🇮🇹 +39</option>
-                           <option value="+86">🇨🇳 +86</option>
-                           <option value="+81">🇯🇵 +81</option>
-                           <option value="+91">🇮🇳 +91</option>
-                           <option value="+55">🇧🇷 +55</option>
-                           <option value="+7">🇷🇺 +7</option>
-                           <option value="+61">🇦🇺 +61</option>
-                           <option value="+27">🇿🇦 +27</option>
+                           <option value="+1">🇺🇸 États-Unis (+1)</option>
+                           <option value="+33">🇫🇷 France (+33)</option>
+                           <option value="+972">🇮🇱 Israël (+972)</option>
+                           <option value="+44">🇬🇧 Royaume-Uni (+44)</option>
+                           <option value="+49">🇩🇪 Allemagne (+49)</option>
+                           <option value="+34">🇪🇸 Espagne (+34)</option>
+                           <option value="+39">🇮🇹 Italie (+39)</option>
+                           <option value="+86">🇨🇳 Chine (+86)</option>
+                           <option value="+81">🇯🇵 Japon (+81)</option>
+                           <option value="+91">🇮🇳 Inde (+91)</option>
+                           <option value="+55">🇧🇷 Brésil (+55)</option>
+                           <option value="+7">🇷🇺 Russie (+7)</option>
+                           <option value="+61">🇦🇺 Australie (+61)</option>
+                           <option value="+27">🇿🇦 Afrique du Sud (+27)</option>
                          </select>
                          <Input
                            type="tel"
