@@ -167,6 +167,27 @@ const Contact = () => {
     return placeholders[countryCode] || '123 456 7890';
   };
 
+  const countries = [
+    { code: '+1', country: 'us', name: 'États-Unis' },
+    { code: '+33', country: 'fr', name: 'France' },
+    { code: '+972', country: 'il', name: 'Israël' },
+    { code: '+44', country: 'gb', name: 'Royaume-Uni' },
+    { code: '+49', country: 'de', name: 'Allemagne' },
+    { code: '+34', country: 'es', name: 'Espagne' },
+    { code: '+39', country: 'it', name: 'Italie' },
+    { code: '+86', country: 'cn', name: 'Chine' },
+    { code: '+81', country: 'jp', name: 'Japon' },
+    { code: '+91', country: 'in', name: 'Inde' },
+    { code: '+55', country: 'br', name: 'Brésil' },
+    { code: '+7', country: 'ru', name: 'Russie' },
+    { code: '+61', country: 'au', name: 'Australie' },
+    { code: '+27', country: 'za', name: 'Afrique du Sud' }
+  ];
+
+  const getSelectedCountry = () => {
+    return countries.find(c => c.code === formData.countryCode) || countries[0];
+  };
+
   const handleScheduleCall = () => {
     console.log("Scheduling call...");
     toast({
@@ -360,37 +381,40 @@ const Contact = () => {
                        <label className="block text-sm font-medium mb-2">
                          {t('contact.phone')}
                        </label>
-                       <div className="flex gap-2">
-                         <select 
-                           className="px-3 py-3 border rounded-md bg-background text-foreground min-w-[140px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                           value={formData.countryCode}
-                           onChange={(e) => handleInputChange('countryCode', e.target.value)}
-                           style={{ fontSize: '16px' }}
-                         >
-                           <option value="+1">🇺🇸 États-Unis (+1)</option>
-                           <option value="+33">🇫🇷 France (+33)</option>
-                           <option value="+972">🇮🇱 Israël (+972)</option>
-                           <option value="+44">🇬🇧 Royaume-Uni (+44)</option>
-                           <option value="+49">🇩🇪 Allemagne (+49)</option>
-                           <option value="+34">🇪🇸 Espagne (+34)</option>
-                           <option value="+39">🇮🇹 Italie (+39)</option>
-                           <option value="+86">🇨🇳 Chine (+86)</option>
-                           <option value="+81">🇯🇵 Japon (+81)</option>
-                           <option value="+91">🇮🇳 Inde (+91)</option>
-                           <option value="+55">🇧🇷 Brésil (+55)</option>
-                           <option value="+7">🇷🇺 Russie (+7)</option>
-                           <option value="+61">🇦🇺 Australie (+61)</option>
-                           <option value="+27">🇿🇦 Afrique du Sud (+27)</option>
-                         </select>
-                         <Input
-                           type="tel"
-                           placeholder={getPhonePlaceholder(formData.countryCode)}
-                           value={formData.phone}
-                           onChange={(e) => handleInputChange('phone', e.target.value)}
-                           className="flex-1"
-                           maxLength={12}
-                         />
-                       </div>
+                        <div className="flex gap-2">
+                          <div className="relative">
+                            <select 
+                              className="appearance-none px-3 py-3 pr-8 border rounded-md bg-background text-foreground min-w-[140px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2 cursor-pointer"
+                              value={formData.countryCode}
+                              onChange={(e) => handleInputChange('countryCode', e.target.value)}
+                              style={{ 
+                                backgroundImage: `url(https://flagcdn.com/24x18/${getSelectedCountry().country}.png)`,
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: '8px center',
+                                paddingLeft: '40px'
+                              }}
+                            >
+                              {countries.map((country) => (
+                                <option key={country.code} value={country.code}>
+                                  {country.name} ({country.code})
+                                </option>
+                              ))}
+                            </select>
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </div>
+                          </div>
+                          <Input
+                            type="tel"
+                            placeholder={getPhonePlaceholder(formData.countryCode)}
+                            value={formData.phone}
+                            onChange={(e) => handleInputChange('phone', e.target.value)}
+                            className="flex-1"
+                            maxLength={12}
+                          />
+                        </div>
                      </div>
                   </div>
 
