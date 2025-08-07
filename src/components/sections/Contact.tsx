@@ -126,7 +126,45 @@ const Contact = () => {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    if (field === 'phone') {
+      // Limiter à 10 chiffres et formater automatiquement
+      const cleanValue = value.replace(/\D/g, '').substring(0, 10);
+      const formattedValue = formatPhoneNumber(cleanValue);
+      setFormData(prev => ({ ...prev, [field]: formattedValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [field]: value }));
+    }
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    if (!value) return value;
+    const phoneNumber = value.replace(/[^\d]/g, '');
+    const phoneNumberLength = phoneNumber.length;
+    if (phoneNumberLength < 4) return phoneNumber;
+    if (phoneNumberLength < 7) {
+      return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3)}`;
+    }
+    return `${phoneNumber.slice(0, 3)} ${phoneNumber.slice(3, 6)} ${phoneNumber.slice(6, 10)}`;
+  };
+
+  const getPhonePlaceholder = (countryCode: string) => {
+    const placeholders: { [key: string]: string } = {
+      '+1': '123 456 7890',
+      '+33': '06 12 34 56 78',
+      '+972': '050 123 4567',
+      '+44': '020 1234 5678',
+      '+49': '030 12345678',
+      '+34': '612 34 56 78',
+      '+39': '320 123 4567',
+      '+86': '138 0013 8000',
+      '+81': '090 1234 5678',
+      '+91': '098765 43210',
+      '+55': '11 99999 9999',
+      '+7': '495 123 4567',
+      '+61': '0412 345 678',
+      '+27': '082 123 4567'
+    };
+    return placeholders[countryCode] || '123 456 7890';
   };
 
   const handleScheduleCall = () => {
@@ -324,7 +362,7 @@ const Contact = () => {
                        </label>
                        <div className="flex gap-2">
                          <select 
-                           className="p-3 border rounded-md bg-background text-foreground w-24"
+                           className="px-3 py-3 border rounded-md bg-background text-foreground min-w-[120px] z-10 relative border-input focus:ring-2 focus:ring-ring focus:ring-offset-2"
                            value={formData.countryCode}
                            onChange={(e) => handleInputChange('countryCode', e.target.value)}
                          >
@@ -345,10 +383,11 @@ const Contact = () => {
                          </select>
                          <Input
                            type="tel"
-                           placeholder="555-5555"
+                           placeholder={getPhonePlaceholder(formData.countryCode)}
                            value={formData.phone}
                            onChange={(e) => handleInputChange('phone', e.target.value)}
                            className="flex-1"
+                           maxLength={12}
                          />
                        </div>
                      </div>
