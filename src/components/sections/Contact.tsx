@@ -18,6 +18,7 @@ const Contact = () => {
     name: "",
     email: "",
     company: "",
+    countryCode: "+1",
     phone: "",
     service: "",
     project: "",
@@ -67,6 +68,7 @@ const Contact = () => {
       const { data, error } = await supabase.functions.invoke('send-to-make', {
         body: {
           ...formData,
+          phone: formData.countryCode + ' ' + formData.phone,
           language: language
         }
       });
@@ -95,6 +97,7 @@ const Contact = () => {
           name: "",
           email: "",
           company: "",
+          countryCode: "+1",
           phone: "",
           service: "",
           project: "",
@@ -319,12 +322,35 @@ const Contact = () => {
                        <label className="block text-sm font-medium mb-2">
                          {t('contact.phone')}
                        </label>
-                       <Input
-                         type="tel"
-                         placeholder={t('contact.phone_placeholder')}
-                         value={formData.phone}
-                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                       />
+                       <div className="flex gap-2">
+                         <select 
+                           className="p-3 border rounded-md bg-background text-foreground w-24"
+                           value={formData.countryCode}
+                           onChange={(e) => handleInputChange('countryCode', e.target.value)}
+                         >
+                           <option value="+1">🇺🇸 +1</option>
+                           <option value="+33">🇫🇷 +33</option>
+                           <option value="+972">🇮🇱 +972</option>
+                           <option value="+44">🇬🇧 +44</option>
+                           <option value="+49">🇩🇪 +49</option>
+                           <option value="+34">🇪🇸 +34</option>
+                           <option value="+39">🇮🇹 +39</option>
+                           <option value="+86">🇨🇳 +86</option>
+                           <option value="+81">🇯🇵 +81</option>
+                           <option value="+91">🇮🇳 +91</option>
+                           <option value="+55">🇧🇷 +55</option>
+                           <option value="+7">🇷🇺 +7</option>
+                           <option value="+61">🇦🇺 +61</option>
+                           <option value="+27">🇿🇦 +27</option>
+                         </select>
+                         <Input
+                           type="tel"
+                           placeholder="555-5555"
+                           value={formData.phone}
+                           onChange={(e) => handleInputChange('phone', e.target.value)}
+                           className="flex-1"
+                         />
+                       </div>
                      </div>
                   </div>
 
