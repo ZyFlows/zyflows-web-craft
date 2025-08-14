@@ -9,7 +9,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle, Settings } from "lucide-react";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
-import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { t, language } = useLanguage();
@@ -63,33 +62,7 @@ const Contact = () => {
     try {
       console.log('Submitting form with data:', { ...formData, language });
       
-      // Envoyer vers la fonction edge Supabase
-      const { data, error } = await supabase.functions.invoke('send-to-make', {
-        body: {
-          ...formData,
-          phone: formData.countryCode + ' ' + formData.phone,
-          language: language
-        }
-      });
 
-      console.log('Supabase function response:', { data, error });
-
-      if (error) {
-        console.error('Supabase function error details:', error);
-        toast({
-          title: "Erreur d'envoi",
-          description: `Impossible d'envoyer le formulaire: ${error.message || 'Erreur inconnue'}`,
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
-
-      if (data?.success) {
-        toast({
-          title: t('contact.success_title'),
-          description: "Votre message a été envoyé avec succès !",
-        });
         
         // Réinitialiser le formulaire
         setFormData({
