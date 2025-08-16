@@ -1,4 +1,0 @@
-project_id = "lfocrnmwwliaiguvskuf"
-
-[functions.send-to-make]
-verify_jwt = false

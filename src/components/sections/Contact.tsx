@@ -9,7 +9,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Send, Phone, Mail, MapPin, Calendar, Clock, Globe, MessageCircle, ArrowRight, CheckCircle, Settings } from "lucide-react";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
-import { supabase } from "@/integrations/supabase/client";
+
 
 const Contact = () => {
   const { t, language } = useLanguage();
@@ -63,54 +63,60 @@ const Contact = () => {
     try {
       console.log('Submitting form with data:', { ...formData, language });
       
-      // Envoyer vers la fonction edge Supabase
-      const { data, error } = await supabase.functions.invoke('send-to-make', {
-        body: {
-          ...formData,
-          phone: formData.countryCode + ' ' + formData.phone,
-          language: language
-        }
+      // Envoyer directement vers le webhook n8n (sans Supabase)
+      const webhookUrl = "https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-leads";
+      const makeData = {
+        timestamp: new Date().toISOString(),
+        form_type: 'contact',
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || '',
+        phone: formData.countryCode + ' ' + formData.phone,
+        service: formData.service || '',
+        project: formData.project || '',
+        budget: formData.budget || '',
+        message: formData.message,
+        timeline: formData.timeline || '',
+        source: 'zyflows-website',
+        language: language,
+      };
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(makeData),
       });
 
-      console.log('Supabase function response:', { data, error });
-
-      if (error) {
-        console.error('Supabase function error details:', error);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Webhook error:', errorText);
         toast({
           title: "Erreur d'envoi",
-          description: `Impossible d'envoyer le formulaire: ${error.message || 'Erreur inconnue'}`,
+          description: errorText || "Erreur lors de l'envoi du formulaire",
           variant: "destructive",
         });
         setIsSubmitting(false);
         return;
       }
 
-      if (data?.success) {
-        toast({
-          title: t('contact.success_title'),
-          description: "Votre message a été envoyé avec succès !",
-        });
-        
-        // Réinitialiser le formulaire
-        setFormData({
-          name: "",
-          email: "",
-          company: "",
-          countryCode: "+1",
-          phone: "",
-          service: "",
-          project: "",
-          budget: "",
-          message: "",
-          timeline: ""
-        });
-      } else {
-        toast({
-          title: "Erreur d'envoi",
-          description: data?.error || "Erreur lors de l'envoi du formulaire",
-          variant: "destructive",
-        });
-      }
+      toast({
+        title: t('contact.success_title'),
+        description: "Votre message a été envoyé avec succès !",
+      });
+      
+      // Réinitialiser le formulaire
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        countryCode: "+1",
+        phone: "",
+        service: "",
+        project: "",
+        budget: "",
+        message: "",
+        timeline: ""
+      });
 
     } catch (error) {
       console.error('Form submission error:', error);

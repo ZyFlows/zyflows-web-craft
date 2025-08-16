@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Bot, Send, FileText, Scale, Zap, Shield, MessageSquare, User } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -31,27 +31,9 @@ const LegalGPTDemo = () => {
     setMessages(newMessages);
 
     try {
-      const { data, error } = await supabase.functions.invoke('legal-gpt-chat', {
-        body: {
-          message: userMessage,
-          conversationHistory: messages.slice(-10) // Garder les 10 derniers messages pour le contexte
-        }
-      });
-
-      if (error) throw error;
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      // Ajouter la réponse de l'assistant
-      setMessages([...newMessages, { role: 'assistant', content: data.message }]);
-    } catch (error) {
-      console.error('Erreur lors de l\'envoi du message:', error);
-      setMessages([...newMessages, { 
-        role: 'assistant', 
-        content: "Désolé, je rencontre des difficultés techniques. Veuillez réessayer." 
-      }]);
+      // Supabase retiré: réponse simulée côté client
+      const reply = "La fonctionnalité LegalGPT est désactivée pour le moment (backend supprimé).";
+      setMessages([...newMessages, { role: 'assistant', content: reply }]);
     } finally {
       setIsLoading(false);
     }
