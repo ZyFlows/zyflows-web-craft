@@ -37,6 +37,15 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     // Pas de détection automatique de la langue du navigateur - l'anglais reste par défaut
   }, []);
 
+  // Synchroniser la direction du document et la classe body pour RTL/LTR (ex: Chatbase)
+  useEffect(() => {
+    const dir = language === 'he' ? 'rtl' : 'ltr';
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('dir', dir);
+      document.body.classList.remove('rtl', 'ltr');
+      document.body.classList.add(dir);
+    }
+  }, [language]);
   const translations = {
     fr: {
       // Navigation

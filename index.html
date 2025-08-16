@@ -31,17 +31,19 @@
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="-nQnQrYeYDSaShT6gZhNh";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
     </script>
     <style>
-      /* Position du chatbot Chatbase au-dessus du bouton WhatsApp */
-      #chatbase-bubble-button {
-        bottom: 85px !important;
+      /* Position du chatbot Chatbase au-dessus du bouton WhatsApp (toutes langues) */
+      html[dir='ltr'] #chatbase-bubble-button,
+      html[dir='rtl'] #chatbase-bubble-button {
+        bottom: 80px !important; /* 20 (WA offset) + 50 (WA size) + 10 (gap) */
         z-index: 999998 !important;
         width: 50px !important;
         height: 50px !important;
       }
-      /* Si le chatbot est ouvert, s'assurer qu'il ne cache pas WhatsApp */
-      .chatbase-bubble-window {
-        z-index: 999997 !important;
-      }
+      html[dir='ltr'] #chatbase-bubble-button { right: 20px !important; left: auto !important; }
+      html[dir='rtl'] #chatbase-bubble-button { left: 20px !important; right: auto !important; }
+
+      /* S'assurer que la fenêtre ne recouvre pas WhatsApp */
+      .chatbase-bubble-window { z-index: 999997 !important; }
     </style>
   </body>
 </html>
