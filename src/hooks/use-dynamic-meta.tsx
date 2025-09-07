@@ -25,15 +25,32 @@ const metaTranslations: MetaTranslations = {
 };
 
 export const useDynamicMeta = () => {
-  const { language } = useLanguage();
+  // Récupération robuste de la langue même si le Provider n'est pas encore monté
+  let lang: Language = 'he';
+  try {
+    const ctx = useLanguage();
+    lang = ctx.language;
+  } catch (e) {
+    // Fallback si le contexte n'est pas disponible (évite le crash au boot)
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('preferred-language') as Language | null;
+      if (saved && ['fr', 'en', 'he'].includes(saved)) {
+        lang = saved;
+      } else if (document?.documentElement?.getAttribute('dir') === 'rtl') {
+        lang = 'he';
+      } else {
+        lang = 'en';
+      }
+    }
+  }
 
   useEffect(() => {
-    // Store the language preference for future visits
-    localStorage.setItem('preferred-language', language);
-  }, [language]);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferred-language', lang);
+    }
+  }, [lang]);
 
-  const meta = metaTranslations[language];
-  
+  const meta = metaTranslations[lang];
   return meta;
 };
 
