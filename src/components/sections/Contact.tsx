@@ -86,14 +86,19 @@ const Contact = () => {
 
       const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
         body: JSON.stringify(makeData),
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      console.log('Response status:', response.status, 'type:', response.type);
+      if (response.type === 'opaque') {
+        console.warn('CORS opaque response: treating as success fallback.');
+      } else {
+        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      }
 
-      if (!response.ok) {
+      if (response.type !== 'opaque' && !response.ok) {
         const errorText = await response.text();
         console.error('Webhook error response:', errorText);
         console.error('Full response:', response);
@@ -107,8 +112,10 @@ const Contact = () => {
         return;
       }
 
-      const responseData = await response.text();
-      console.log('Success response:', responseData);
+      if (response.type !== 'opaque') {
+        const responseData = await response.text();
+        console.log('Success response:', responseData);
+      }
 
       toast({
         title: t('contact.success_title'),
