@@ -30,6 +30,82 @@
     <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="-nQnQrYeYDSaShT6gZhNh";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
     </script>
+
+    <!-- Plugin d'accessibilité israélien - Normes WCAG -->
+    <script>
+window.args = {
+  sitekey   : '9f6980f8ddc55b637919c572bd0388ce',
+  position  : 'Right',
+  language  : 'HE', // Sera mise à jour dynamiquement
+  container : '',
+  icon : '',
+  access : 'https://vee-crm.com',
+  styles : {
+    primary_color: '#8b5cf6', // hsl(258 90% 66%) - couleur primaire du thème
+    secondary_color: '#06b6d4', // hsl(184 90% 56%) - couleur secondaire du thème
+    background_color: '#1a1b24', // background sombre du thème
+    primary_text_color: '#cbd5e1', // texte primaire
+    headers_text_color: '#a855f7', // couleur des headers (primary glow)
+    primary_font_size: 16,
+    slider_left_color:  '#06b6d4',
+    slider_right_color:  '#8b5cf6',
+    icon_vertical_position: 'top',
+    icon_offset_top: 140, // Positionné au-dessus de Chatbase (80px) + WhatsApp (60px)
+    icon_offset_bottom: 0,
+    highlight_focus_color: '#8b5cf6',
+    toggler_icon_color: '#ffffff',
+  },
+  links : {
+    acc_policy: '',
+    additional_link: 'https://zyflows.com'
+  },
+  options : {
+    open: false,
+    aaa: false,
+    hide_tablet: false,
+    hide_mobile: false,
+    button_size_tablet: 44,
+    button_size_mobile: 44,
+    position_tablet: 'Right',
+    position_mobile: 'Right',
+    icon_vertical_position_tablet: 'top',
+    icon_vertical_position_mobile: 'top',
+    icon_offset_top_tablet: 140,
+    icon_offset_bottom_tablet: 0,
+    icon_offset_top_mobile: 140,
+    icon_offset_bottom_mobile: 0,
+    keyboard_shortcut: true,
+    hide_purchase_link: false,
+    display_checkmark_icon: false,
+    active_toggler_color: '#06b6d4'
+  },
+  exclude : []
+};
+
+// Fonction pour mettre à jour la langue de l'accessibilité selon la langue du site
+window.updateAccessibilityLanguage = function(language) {
+  if (window.args) {
+    const langMap = { 'fr': 'FR', 'en': 'EN', 'he': 'HE' };
+    window.args.language = langMap[language] || 'HE';
+    
+    // Repositionner selon la direction RTL/LTR
+    const isRTL = language === 'he';
+    window.args.position = isRTL ? 'Left' : 'Right';
+    window.args.options.position_tablet = isRTL ? 'Left' : 'Right';
+    window.args.options.position_mobile = isRTL ? 'Left' : 'Right';
+  }
+};
+
+(function(doc, head, body){
+  var embed = doc.createElement('script');
+  embed.src = window.args['access'] + '/js/';
+  embed.defer = true;
+  embed.crossOrigin = 'anonymous';
+  embed.setAttribute('data-cfasync', true );
+  body? body.appendChild(embed) : head.appendChild(embed);
+})(document, document.head, document.body);
+    </script>
+
     <style>
       /* Position du chatbot Chatbase au-dessus du bouton WhatsApp (toutes langues) */
       html[dir='ltr'] #chatbase-bubble-button,
@@ -44,6 +120,12 @@
 
       /* S'assurer que la fenêtre ne recouvre pas WhatsApp */
       .chatbase-bubble-window { z-index: 999997 !important; }
+      
+      /* Position du widget d'accessibilité au-dessus des autres widgets */
+      html[dir='ltr'] .vee-widget-icon,
+      html[dir='rtl'] .vee-widget-icon {
+        z-index: 999999 !important;
+      }
     </style>
   </body>
 </html>

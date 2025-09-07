@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 
 export type Language = 'fr' | 'en' | 'he';
 
+// Déclaration globale pour TypeScript
+declare global {
+  interface Window {
+    updateAccessibilityLanguage?: (language: Language) => void;
+  }
+}
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -44,6 +51,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       document.documentElement.setAttribute('dir', dir);
       document.body.classList.remove('rtl', 'ltr');
       document.body.classList.add(dir);
+      
+      // Mettre à jour la langue du widget d'accessibilité
+      if (window.updateAccessibilityLanguage) {
+        window.updateAccessibilityLanguage(language);
+      }
     }
   }, [language]);
   const translations = {
