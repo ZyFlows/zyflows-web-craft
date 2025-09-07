@@ -81,23 +81,34 @@ const Contact = () => {
         language: language,
       };
 
+      console.log('Sending to webhook:', webhookUrl);
+      console.log('Data being sent:', makeData);
+
       const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(makeData),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Webhook error:', errorText);
+        console.error('Webhook error response:', errorText);
+        console.error('Full response:', response);
+        
         toast({
-          title: "Erreur d'envoi",
-          description: errorText || "Erreur lors de l'envoi du formulaire",
+          title: t('contact.error_title') || "Erreur d'envoi",
+          description: `Erreur ${response.status}: ${errorText || "Problème de connexion au serveur"}`,
           variant: "destructive",
         });
         setIsSubmitting(false);
         return;
       }
+
+      const responseData = await response.text();
+      console.log('Success response:', responseData);
 
       toast({
         title: t('contact.success_title'),
@@ -120,9 +131,15 @@ const Contact = () => {
 
     } catch (error) {
       console.error('Form submission error:', error);
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
+      
       toast({
-        title: "Erreur",
-        description: "Une erreur inattendue s'est produite",
+        title: t('contact.error_title') || "Erreur",
+        description: `Erreur de connexion: ${error.message || "Vérifiez votre connexion internet"}`,
         variant: "destructive",
       });
     } finally {
