@@ -1,0 +1,180 @@
+/* Accessibility Styles */
+
+/* Font size scaling */
+* {
+  font-size: calc(var(--accessibility-font-scale, 1) * 1em) !important;
+}
+
+/* Letter spacing */
+body {
+  letter-spacing: var(--accessibility-letter-spacing, 0px);
+  line-height: calc(var(--accessibility-line-height, 1) * 1.5);
+}
+
+/* High contrast mode */
+.accessibility-high-contrast {
+  filter: contrast(150%) brightness(110%);
+}
+
+.accessibility-high-contrast * {
+  background-color: white !important;
+  color: black !important;
+  border-color: black !important;
+}
+
+.accessibility-high-contrast button,
+.accessibility-high-contrast .bg-primary {
+  background-color: black !important;
+  color: white !important;
+}
+
+/* Dark mode */
+.accessibility-dark-mode {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.accessibility-dark-mode img,
+.accessibility-dark-mode video,
+.accessibility-dark-mode iframe {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Highlight links */
+.accessibility-highlight-links a {
+  background-color: yellow !important;
+  color: black !important;
+  text-decoration: underline !important;
+  border: 2px solid red !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+}
+
+/* Highlight headers */
+.accessibility-highlight-headers h1,
+.accessibility-highlight-headers h2,
+.accessibility-highlight-headers h3,
+.accessibility-highlight-headers h4,
+.accessibility-highlight-headers h5,
+.accessibility-highlight-headers h6 {
+  background-color: lightblue !important;
+  color: black !important;
+  border: 2px solid blue !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+}
+
+/* Big cursor */
+.accessibility-big-cursor,
+.accessibility-big-cursor * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M12,4 L12,36 L20,28 L28,36 L36,28 L28,20 L36,12 L4,12 Z" fill="black" stroke="white" stroke-width="2"/></svg>') 20 20, auto !important;
+}
+
+/* Reading guide */
+.accessibility-reading-guide {
+  position: relative;
+}
+
+.accessibility-reading-guide::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.8) 45%,
+    transparent 47%,
+    transparent 53%,
+    rgba(0, 0, 0, 0.8) 55%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Reduced motion */
+.accessibility-reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+}
+
+/* Focus visibility */
+.accessibility-keyboard-navigation *:focus {
+  outline: 3px solid #ffcc00 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 5px rgba(255, 204, 0, 0.3) !important;
+}
+
+/* Screen reader support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: black;
+  color: white;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 3px;
+  z-index: 10000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Keyboard navigation indicators */
+.accessibility-keyboard-navigation button:focus,
+.accessibility-keyboard-navigation a:focus,
+.accessibility-keyboard-navigation input:focus,
+.accessibility-keyboard-navigation select:focus,
+.accessibility-keyboard-navigation textarea:focus {
+  outline: 3px solid #007acc !important;
+  outline-offset: 2px !important;
+}
+
+/* High contrast buttons */
+.accessibility-high-contrast button:hover,
+.accessibility-high-contrast .bg-primary:hover {
+  background-color: #333 !important;
+  color: white !important;
+}
+
+/* Text selection */
+.accessibility-highlight-links ::selection,
+.accessibility-highlight-headers ::selection {
+  background-color: #ffcc00 !important;
+  color: black !important;
+}
+
+/* Form elements accessibility */
+.accessibility-high-contrast input,
+.accessibility-high-contrast textarea,
+.accessibility-high-contrast select {
+  border: 2px solid black !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.accessibility-high-contrast input:focus,
+.accessibility-high-contrast textarea:focus,
+.accessibility-high-contrast select:focus {
+  outline: 3px solid #007acc !important;
+  outline-offset: 2px !important;
+}
