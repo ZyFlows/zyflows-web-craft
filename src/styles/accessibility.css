@@ -1,14 +1,18 @@
 /* Accessibility Styles */
 
 /* Font size scaling */
-* {
+.accessibility-font-scaling * {
   font-size: calc(var(--accessibility-font-scale, 1) * 1em) !important;
 }
 
 /* Letter spacing */
-body {
-  letter-spacing: var(--accessibility-letter-spacing, 0px);
-  line-height: calc(var(--accessibility-line-height, 1) * 1.5);
+.accessibility-letter-spacing * {
+  letter-spacing: var(--accessibility-letter-spacing, 0px) !important;
+}
+
+/* Line height */
+.accessibility-line-height * {
+  line-height: calc(var(--accessibility-line-height, 1) * 1.5) !important;
 }
 
 /* High contrast mode */

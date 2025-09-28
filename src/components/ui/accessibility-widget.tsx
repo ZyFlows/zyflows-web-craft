@@ -9,12 +9,9 @@ import {
   Sun, 
   Moon, 
   Eye, 
-  EyeOff, 
   MousePointer, 
   Keyboard,
   RotateCcw,
-  Underline,
-  Sparkles,
   Link,
   Volume2,
   Contrast,
@@ -41,7 +38,7 @@ interface AccessibilitySettings {
 }
 
 const AccessibilityWidget = () => {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('main');
   const [settings, setSettings] = useState<AccessibilitySettings>({
@@ -129,7 +126,9 @@ const AccessibilityWidget = () => {
   };
 
   const getText = (key: string) => {
-    return translations[language as keyof typeof translations]?.[key as keyof typeof translations['fr']] || key;
+    const currentLanguage = language as keyof typeof translations;
+    const langTranslations = translations[currentLanguage] || translations.en;
+    return langTranslations[key as keyof typeof langTranslations] || key;
   };
 
   // Apply settings to document
@@ -138,12 +137,15 @@ const AccessibilityWidget = () => {
     
     // Font size
     root.style.setProperty('--accessibility-font-scale', `${settings.fontSize / 100}`);
+    document.body.classList.toggle('accessibility-font-scaling', settings.fontSize !== 100);
     
     // Letter spacing
     root.style.setProperty('--accessibility-letter-spacing', `${settings.letterSpacing}px`);
+    document.body.classList.toggle('accessibility-letter-spacing', settings.letterSpacing !== 0);
     
     // Line height
     root.style.setProperty('--accessibility-line-height', `${settings.lineHeight / 100}`);
+    document.body.classList.toggle('accessibility-line-height', settings.lineHeight !== 100);
     
     // Apply classes
     document.body.classList.toggle('accessibility-high-contrast', settings.contrast);
@@ -153,7 +155,9 @@ const AccessibilityWidget = () => {
     document.body.classList.toggle('accessibility-big-cursor', settings.bigCursor);
     document.body.classList.toggle('accessibility-reading-guide', settings.readingGuide);
     document.body.classList.toggle('accessibility-reduced-motion', settings.reducedMotion);
+    document.body.classList.toggle('accessibility-keyboard-navigation', settings.keyboardNavigation);
     
+    console.log('Accessibility settings applied:', settings);
   }, [settings]);
 
   const resetSettings = () => {
@@ -171,6 +175,7 @@ const AccessibilityWidget = () => {
       keyboardNavigation: false,
       reducedMotion: false,
     });
+    console.log('Accessibility settings reset');
   };
 
   const adjustFontSize = (increment: number) => {
@@ -180,6 +185,7 @@ const AccessibilityWidget = () => {
     }));
   };
 
+  // Floating button when closed
   if (!isOpen) {
     return (
       <div className={cn(
@@ -190,7 +196,7 @@ const AccessibilityWidget = () => {
         <Button
           onClick={() => setIsOpen(true)}
           size="lg"
-          className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg"
+          className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300"
           aria-label={getText('accessibility')}
         >
           <Accessibility className="w-8 h-8" />
@@ -199,13 +205,14 @@ const AccessibilityWidget = () => {
     );
   }
 
+  // Full widget when open
   return (
     <div className={cn(
       "fixed z-50 transition-all duration-300",
       language === 'he' ? "left-4" : "right-4",
       "top-4 w-80"
     )}>
-      <Card className="shadow-2xl border-2 border-primary/20">
+      <Card className="shadow-2xl border-2 border-primary/20 bg-background">
         <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-4 rounded-t-lg">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold flex items-center gap-2">
@@ -216,7 +223,7 @@ const AccessibilityWidget = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(false)}
-              className="text-primary-foreground hover:bg-white/20"
+              className="text-primary-foreground hover:bg-white/20 h-8 w-8 p-0"
             >
               <X className="w-4 h-4" />
             </Button>
@@ -227,7 +234,7 @@ const AccessibilityWidget = () => {
               variant={activeTab === 'main' ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setActiveTab('main')}
-              className="text-xs"
+              className="text-xs h-8"
             >
               {getText('visualAdjustments')}
             </Button>
@@ -235,7 +242,7 @@ const AccessibilityWidget = () => {
               variant={activeTab === 'navigation' ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setActiveTab('navigation')}
-              className="text-xs"
+              className="text-xs h-8"
             >
               {getText('navigation')}
             </Button>
@@ -254,6 +261,7 @@ const AccessibilityWidget = () => {
                     size="sm"
                     onClick={() => adjustFontSize(-10)}
                     disabled={settings.fontSize <= 50}
+                    className="h-8 w-8 p-0"
                   >
                     <ZoomOut className="w-4 h-4" />
                   </Button>
@@ -263,6 +271,7 @@ const AccessibilityWidget = () => {
                     size="sm"
                     onClick={() => adjustFontSize(10)}
                     disabled={settings.fontSize >= 200}
+                    className="h-8 w-8 p-0"
                   >
                     <ZoomIn className="w-4 h-4" />
                   </Button>
@@ -394,7 +403,7 @@ const AccessibilityWidget = () => {
 
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" />
+                  <Sun className="w-4 h-4" />
                   {getText('reducedMotion')}
                 </label>
                 <Switch
@@ -405,7 +414,7 @@ const AccessibilityWidget = () => {
             </div>
           )}
 
-          <div className="pt-4 border-t">
+          <div className="pt-4 border-t mt-4">
             <Button
               variant="outline"
               onClick={resetSettings}
