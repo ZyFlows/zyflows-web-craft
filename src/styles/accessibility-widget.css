@@ -1,19 +1,6 @@
 /* Accessibility Widget Styles - zyFlows Theme */
 
-/* Font scaling */
-html[style*="--acc-font-scale"] * {
-  font-size: calc(var(--acc-font-scale, 1) * 1em) !important;
-}
-
-/* Word spacing */
-html[style*="--acc-word-spacing"] * {
-  word-spacing: var(--acc-word-spacing, normal) !important;
-}
-
-/* Letter spacing */
-html[style*="--acc-letter-spacing"] * {
-  letter-spacing: var(--acc-letter-spacing, normal) !important;
-}
+/* Font and spacing handled inline by the app to avoid cascading issues */
 
 /* High contrast */
 .acc-contrast {

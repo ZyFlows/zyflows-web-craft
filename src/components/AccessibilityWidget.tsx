@@ -137,24 +137,24 @@ const AccessibilityWidget = () => {
     const root = document.documentElement;
     const body = document.body;
 
-    // Font size
-    if (p.fontPercent) {
-      root.style.setProperty('--acc-font-scale', String(p.fontPercent / 100));
+    // Font size: change root font-size to scale rem-based text globally
+    if (p.fontPercent && p.fontPercent !== 100) {
+      root.style.fontSize = `${p.fontPercent}%`;
     } else {
-      root.style.removeProperty('--acc-font-scale');
+      root.style.removeProperty('font-size');
     }
 
-    // Spacing
-    if (p.wordSpacing) {
-      root.style.setProperty('--acc-word-spacing', `${p.wordSpacing}px`);
+    // Spacing (inherit from body)
+    if (typeof p.wordSpacing === 'number') {
+      document.body.style.wordSpacing = `${p.wordSpacing}px`;
     } else {
-      root.style.removeProperty('--acc-word-spacing');
+      document.body.style.removeProperty('word-spacing');
     }
 
-    if (p.letterSpacing) {
-      root.style.setProperty('--acc-letter-spacing', `${p.letterSpacing}px`);
+    if (typeof p.letterSpacing === 'number') {
+      document.body.style.letterSpacing = `${p.letterSpacing}px`;
     } else {
-      root.style.removeProperty('--acc-letter-spacing');
+      document.body.style.removeProperty('letter-spacing');
     }
 
     // Visual filters
@@ -275,7 +275,7 @@ const AccessibilityWidget = () => {
         ref={togglerRef}
         onClick={() => !isDragging && setIsOpen(o => !o)}
         onMouseDown={handleMouseDown}
-        className="fixed bottom-[140px] right-5 z-[999999] w-14 h-14 rounded-full bg-primary hover:bg-primary-glow text-white shadow-glow flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        className="fixed bottom-[140px] right-5 z-[999999] w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         style={togglerStyle}
         aria-label={l.label}
         title={`${l.label} (Alt+Shift+A)`}
@@ -298,7 +298,7 @@ const AccessibilityWidget = () => {
       {/* Widget panel */}
       {isOpen && (
         <div
-          className="fixed bottom-[200px] right-5 z-[999999] w-80 max-h-[80vh] overflow-y-auto bg-card border border-border rounded-lg shadow-card animate-scale-in"
+          className="fixed bottom-[200px] right-5 z-[999999] w-80 max-h-[80vh] overflow-y-auto bg-card border border-border rounded-lg shadow-lg glow-primary animate-scale-in"
           role="dialog"
           aria-label={l.title}
         >
