@@ -1,0 +1,113 @@
+/* Accessibility Widget Styles - zyFlows Theme */
+
+/* Font scaling */
+html[style*="--acc-font-scale"] * {
+  font-size: calc(var(--acc-font-scale, 1) * 1em) !important;
+}
+
+/* Word spacing */
+html[style*="--acc-word-spacing"] * {
+  word-spacing: var(--acc-word-spacing, normal) !important;
+}
+
+/* Letter spacing */
+html[style*="--acc-letter-spacing"] * {
+  letter-spacing: var(--acc-letter-spacing, normal) !important;
+}
+
+/* High contrast */
+.acc-contrast {
+  filter: contrast(150%);
+}
+
+.acc-contrast * {
+  background-color: white !important;
+  color: black !important;
+  border-color: black !important;
+}
+
+.acc-contrast button,
+.acc-contrast [class*="primary"] {
+  background-color: black !important;
+  color: white !important;
+}
+
+/* Grayscale */
+.acc-grayscale {
+  filter: grayscale(100%);
+}
+
+/* Invert colors */
+.acc-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+.acc-invert img,
+.acc-invert video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Monochrome */
+.acc-monochrome {
+  filter: grayscale(100%) contrast(150%);
+}
+
+/* Underline links */
+.acc-underline a {
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 3px !important;
+}
+
+/* Hide images */
+.acc-hide-images img,
+.acc-hide-images [style*="background-image"] {
+  opacity: 0 !important;
+}
+
+/* Readable font */
+.acc-readable * {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Dyslexia font */
+.acc-dyslexia * {
+  font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
+  font-weight: 600 !important;
+  line-height: 1.8 !important;
+}
+
+/* Large light cursor */
+.acc-cursor-light,
+.acc-cursor-light * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="white" stroke="black" stroke-width="2"/><circle cx="24" cy="24" r="4" fill="black"/></svg>') 24 24, auto !important;
+}
+
+/* Large dark cursor */
+.acc-cursor-dark,
+.acc-cursor-dark * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="black" stroke="white" stroke-width="2"/><circle cx="24" cy="24" r="4" fill="white"/></svg>') 24 24, auto !important;
+}
+
+/* Highlight headings */
+.acc-highlight-h h1,
+.acc-highlight-h h2,
+.acc-highlight-h h3,
+.acc-highlight-h h4,
+.acc-highlight-h h5,
+.acc-highlight-h h6 {
+  background-color: hsl(var(--primary) / 0.2) !important;
+  padding: 8px !important;
+  border-left: 4px solid hsl(var(--primary)) !important;
+  border-radius: 4px !important;
+}
+
+/* Disable animations */
+.acc-no-anim *,
+.acc-no-anim *::before,
+.acc-no-anim *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+}

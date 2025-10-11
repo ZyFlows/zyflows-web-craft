@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Loader from "@/components/ui/loader";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import EcommerceDemo from "./pages/demos/EcommerceDemo";
@@ -36,6 +37,7 @@ const App = () => {
         <LanguageProvider>
           <Toaster />
           <Sonner />
+          <AccessibilityWidget />
           <BrowserRouter>
             {showLoader && <Loader onComplete={() => {
               console.log('Loader completed, hiding loader');
