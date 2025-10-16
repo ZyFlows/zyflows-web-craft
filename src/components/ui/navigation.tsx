@@ -59,9 +59,9 @@ const Navigation = () => {
       role="navigation"
     >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between h-16 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-          {/* Logo */}
-          <div className="flex items-center">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo - toujours à droite en mode hébreu, à gauche en FR/EN */}
+          <div className={`flex items-center ${language === 'he' ? 'order-3' : 'order-1'}`}>
             <a href="#home" aria-label="Retour à l'accueil - zyFlows" className="flex items-center gap-3">
               <img 
                 src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
@@ -74,8 +74,8 @@ const Navigation = () => {
             </a>
           </div>
 
-          {/* Navigation desktop */}
-          <div className={`hidden md:flex items-center h-10 ${
+          {/* Navigation desktop - au centre */}
+          <div className={`hidden md:flex items-center h-10 order-2 ${
             language === 'he' 
               ? 'space-x-reverse space-x-6 lg:space-x-8' 
               : 'space-x-6 lg:space-x-8'
@@ -89,9 +89,11 @@ const Navigation = () => {
                 {item.label}
               </a>
             ))}
-            <div className="flex items-center h-10">
-              <LanguageSelector />
-            </div>
+          </div>
+
+          {/* Bouton CTA + Langue - toujours à gauche en mode hébreu, à droite en FR/EN */}
+          <div className={`hidden md:flex items-center gap-4 h-10 ${language === 'he' ? 'order-1' : 'order-3'}`}>
+            <LanguageSelector />
             <Button 
               variant="default" 
               size="sm"
