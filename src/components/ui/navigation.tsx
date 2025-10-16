@@ -25,7 +25,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const baseNavItems = [
     {
       label: t('nav.home'),
       href: "#home"
@@ -51,6 +51,9 @@ const Navigation = () => {
       href: "#contact"
     }
   ];
+
+  // Inverser l'ordre en mode hébreu pour que בית soit près du logo
+  const navItems = language === 'he' ? [...baseNavItems].reverse() : baseNavItems;
 
   return (
     <nav 
