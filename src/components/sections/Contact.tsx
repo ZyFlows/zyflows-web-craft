@@ -173,7 +173,7 @@ const Contact = () => {
               {/* Ligne 3: Message */}
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {t('contact.message_label') || "הודעה"}
+                  הודעה
                 </label>
                 <Textarea
                   placeholder={t('contact.message_placeholder') || "תאר את הצרכים הביטוחיים שלכם..."}
