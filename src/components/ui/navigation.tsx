@@ -43,10 +43,6 @@ const Navigation = () => {
       href: "#about"
     },
     {
-      label: t('nav.testimonials'),
-      href: "#testimonials"
-    },
-    {
       label: t('nav.contact'),
       href: "#contact"
     }
