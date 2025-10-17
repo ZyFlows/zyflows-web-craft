@@ -435,7 +435,7 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
     window.speechSynthesis.cancel();
   }
 
-  // Panel UI - zyFlows theme
+  // Panel UI - Modern blue theme matching reference
   const Panel = (
     <div
       role="dialog"
@@ -449,193 +449,369 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         right: 24,
         top: position ? position.y + 56 : "auto",
         left: position ? position.x : "auto",
-        maxWidth: 360,
-        width: 360,
-        background: "hsl(var(--card))",
-        color: "hsl(var(--card-foreground))",
-        borderRadius: 12,
-        border: "1px solid hsl(var(--border))",
-        boxShadow: "var(--shadow-glow), 0 10px 30px rgba(0,0,0,.3)",
-        padding: 16,
+        maxWidth: 440,
+        width: 440,
+        background: "#ffffff",
+        color: "#333",
+        borderRadius: 16,
+        border: "none",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
+        padding: 0,
         fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+        direction: language === "he" ? "rtl" : "ltr",
       }}
     >
+      {/* Header */}
       <div
-        style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}
+        style={{
+          background: "linear-gradient(135deg, #1e88e5 0%, #1565c0 100%)",
+          padding: "16px 20px",
+          borderRadius: "16px 16px 0 0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        <Accessibility aria-hidden size={20} style={{ color: "hsl(var(--primary))" }} />
-        <strong style={{ fontSize: 16, color: "hsl(var(--card-foreground))" }}>{l.title}</strong>
-      </div>
-
-      {/* Font size */}
-      <div style={{ marginTop: 12 }}>
-        <label style={{ fontSize: 13, fontWeight: 600, display: "block", color: "hsl(var(--foreground))" }}>
-          {l.fontSize}: {prefs.fontPercent}%
-        </label>
-        <input
-          aria-label={l.fontSize}
-          type="range"
-          min={60}
-          max={250}
-          value={prefs.fontPercent}
-          onChange={(e) =>
-            setPrefs((p) => ({ ...p, fontPercent: parseInt(e.target.value, 10) }))
-          }
-          style={{ 
-            width: "100%",
-            accentColor: "hsl(var(--primary))"
+        <strong style={{ fontSize: 18, color: "#fff", fontWeight: 600 }}>{l.title}</strong>
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          aria-label="Close"
+          style={{
+            background: "rgba(255,255,255,0.2)",
+            border: "none",
+            color: "#fff",
+            width: 32,
+            height: 32,
+            borderRadius: "50%",
+            cursor: "pointer",
+            fontSize: 20,
+            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            transition: "background 0.2s",
           }}
-        />
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(255,255,255,0.3)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+          }}
+        >
+          ×
+        </button>
       </div>
 
-      {/* Spacing */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 12 }}>
-        <div>
-          <label style={{ fontSize: 13, fontWeight: 600, display: "block", color: "hsl(var(--foreground))" }}>
-            {l.wordSpacing}: {prefs.wordSpacing}px
-          </label>
+      <div style={{ padding: 20 }}>
+        {/* Toggles Grid - 3 columns */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 12,
+          }}
+        >
+          {[
+            ["grayscale", l.grayscale],
+            ["contrast", l.contrast],
+            ["invert", l.invert],
+            ["monochrome", l.monochrome],
+            ["underline", l.underline],
+            ["hideImages", l.hideImages],
+            ["dyslexia", l.dyslexia],
+            ["readable", l.readable],
+            ["guide", l.guide],
+            ["highlightH", l.highlightH],
+            ["cursorLight", l.cursorLight],
+            ["cursorDark", l.cursorDark],
+            ["noAnim", l.noAnim],
+          ].map(([key, label]) => {
+            const active = (prefs as any)[key];
+            return (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={!!active}
+                onClick={() => setPrefs((p) => ({ ...p, [key]: !active } as any))}
+                style={{
+                  textAlign: "center",
+                  fontSize: 14,
+                  padding: "14px 10px",
+                  borderRadius: 12,
+                  border: "2px solid #1e88e5",
+                  background: active ? "#1e88e5" : "#f5f5f5",
+                  color: active ? "#fff" : "#333",
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                  fontWeight: 500,
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = "#e3f2fd";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) {
+                    e.currentTarget.style.background = "#f5f5f5";
+                  }
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Reset button - full width */}
+        <button
+          type="button"
+          onClick={handleReset}
+          style={{
+            width: "100%",
+            marginTop: 12,
+            padding: "14px",
+            borderRadius: 12,
+            border: "2px solid #1e88e5",
+            background: "#f5f5f5",
+            color: "#1e88e5",
+            fontSize: 14,
+            fontWeight: 600,
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "#e3f2fd";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "#f5f5f5";
+          }}
+        >
+          {l.reset}
+        </button>
+
+        {/* Font size slider */}
+        <div
+          style={{
+            marginTop: 20,
+            padding: "16px",
+            background: "#f9f9f9",
+            borderRadius: 12,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 12,
+            }}
+          >
+            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+              {l.fontSize}
+            </label>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, fontPercent: Math.max(60, p.fontPercent - 10) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              −
+            </button>
+            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+              {prefs.fontPercent}%
+            </span>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, fontPercent: Math.min(250, p.fontPercent + 10) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              +
+            </button>
+          </div>
+          <input
+            aria-label={l.fontSize}
+            type="range"
+            min={60}
+            max={250}
+            value={prefs.fontPercent}
+            onChange={(e) =>
+              setPrefs((p) => ({ ...p, fontPercent: parseInt(e.target.value, 10) }))
+            }
+            style={{
+              width: "100%",
+              accentColor: "#1e88e5",
+            }}
+          />
+        </div>
+
+        {/* Word spacing slider */}
+        <div
+          style={{
+            marginTop: 16,
+            padding: "16px",
+            background: "#f9f9f9",
+            borderRadius: 12,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 12,
+            }}
+          >
+            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+              {l.wordSpacing}
+            </label>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, wordSpacing: Math.max(0, p.wordSpacing - 1) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              −
+            </button>
+            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+              {prefs.wordSpacing.toFixed(1)}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, wordSpacing: Math.min(16, p.wordSpacing + 1) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              +
+            </button>
+          </div>
           <input
             aria-label={l.wordSpacing}
             type="range"
             min={0}
             max={16}
+            step={0.1}
             value={prefs.wordSpacing}
             onChange={(e) =>
-              setPrefs((p) => ({ ...p, wordSpacing: parseInt(e.target.value, 10) }))
+              setPrefs((p) => ({ ...p, wordSpacing: parseFloat(e.target.value) }))
             }
-            style={{ 
+            style={{
               width: "100%",
-              accentColor: "hsl(var(--primary))"
+              accentColor: "#1e88e5",
             }}
           />
         </div>
-        <div>
-          <label style={{ fontSize: 13, fontWeight: 600, display: "block", color: "hsl(var(--foreground))" }}>
-            {l.letterSpacing}: {prefs.letterSpacing}px
-          </label>
+
+        {/* Letter spacing slider */}
+        <div
+          style={{
+            marginTop: 16,
+            padding: "16px",
+            background: "#f9f9f9",
+            borderRadius: 12,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 12,
+            }}
+          >
+            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+              {l.letterSpacing}
+            </label>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, letterSpacing: Math.max(0, p.letterSpacing - 0.1) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              −
+            </button>
+            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+              {prefs.letterSpacing.toFixed(2)}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPrefs((p) => ({ ...p, letterSpacing: Math.min(8, p.letterSpacing + 0.1) }))}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontSize: 24,
+                color: "#1e88e5",
+                cursor: "pointer",
+                padding: "0 8px",
+              }}
+            >
+              +
+            </button>
+          </div>
           <input
             aria-label={l.letterSpacing}
             type="range"
             min={0}
             max={8}
+            step={0.01}
             value={prefs.letterSpacing}
             onChange={(e) =>
-              setPrefs((p) => ({ ...p, letterSpacing: parseInt(e.target.value, 10) }))
+              setPrefs((p) => ({ ...p, letterSpacing: parseFloat(e.target.value) }))
             }
-            style={{ 
+            style={{
               width: "100%",
-              accentColor: "hsl(var(--primary))"
+              accentColor: "#1e88e5",
             }}
           />
         </div>
-      </div>
 
-      {/* Toggles */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 8,
-          marginTop: 12,
-        }}
-      >
-        {[
-          ["contrast", l.contrast],
-          ["invert", l.invert],
-          ["grayscale", l.grayscale],
-          ["monochrome", l.monochrome],
-          ["underline", l.underline],
-          ["hideImages", l.hideImages],
-          ["readable", l.readable],
-          ["dyslexia", l.dyslexia],
-          ["highlightH", l.highlightH],
-          ["noAnim", l.noAnim],
-          ["cursorLight", l.cursorLight],
-          ["cursorDark", l.cursorDark],
-          ["guide", l.guide],
-        ].map(([key, label]) => {
-          const active = (prefs as any)[key];
-          return (
-            <button
-              key={key}
-              type="button"
-              aria-pressed={!!active}
-              onClick={() => setPrefs((p) => ({ ...p, [key]: !active } as any))}
-              style={{
-                textAlign: "left",
-                fontSize: 13,
-                padding: "10px 12px",
-                borderRadius: 10,
-                border: active ? "1px solid hsl(var(--primary))" : "1px solid hsl(var(--border))",
-                background: active ? "hsl(var(--primary))" : "hsl(var(--muted))",
-                color: active ? "hsl(var(--primary-foreground))" : "hsl(var(--foreground))",
-                boxShadow: active ? "var(--shadow-glow)" : "none",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-            >
-              {label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* TTS & Reset */}
-      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <button
-          type="button"
-          onClick={speakSelection}
-          disabled={!canSpeak}
+        {/* Accessibility statement */}
+        <div
           style={{
-            flex: 1,
-            padding: "10px 12px",
-            borderRadius: 10,
-            border: "1px solid hsl(var(--border))",
-            background: "hsl(var(--secondary))",
-            color: "hsl(var(--secondary-foreground))",
-            fontWeight: 600,
-            cursor: canSpeak ? "pointer" : "not-allowed",
-            opacity: canSpeak ? 1 : 0.5,
+            marginTop: 20,
+            padding: "16px",
+            background: "#f9f9f9",
+            borderRadius: 12,
           }}
         >
-          {l.speakSel}
-        </button>
-        <button
-          type="button"
-          onClick={stopSpeak}
-          disabled={!canSpeak}
-          style={{
-            padding: "10px 12px",
-            borderRadius: 10,
-            border: "1px solid hsl(var(--border))",
-            background: "hsl(var(--muted))",
-            color: "hsl(var(--foreground))",
-            fontWeight: 600,
-            cursor: canSpeak ? "pointer" : "not-allowed",
-            opacity: canSpeak ? 1 : 0.5,
-          }}
-        >
-          {l.stop}
-        </button>
-        <button
-          type="button"
-          onClick={handleReset}
-          style={{
-            padding: "10px 12px",
-            borderRadius: 10,
-            border: "1px solid hsl(var(--destructive))",
-            background: "hsl(var(--destructive))",
-            color: "hsl(var(--destructive-foreground))",
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          {l.reset}
-        </button>
-      </div>
-
-      <div style={{ marginTop: 8, fontSize: 12, opacity: 0.7, color: "hsl(var(--muted-foreground))" }}>
-        {l.statement}
+          <div style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5", marginBottom: 8, textAlign: "center" }}>
+            {l.statement}
+          </div>
+          <div style={{ fontSize: 12, color: "#666", lineHeight: 1.6, textAlign: language === "he" ? "right" : "left" }}>
+            {l.shortcuts}
+          </div>
+        </div>
       </div>
     </div>
   );
