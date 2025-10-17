@@ -25,7 +25,7 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const baseNavItems = [
+  const navItems = [
     {
       label: t('nav.home'),
       href: "#home"
@@ -52,9 +52,6 @@ const Navigation = () => {
     }
   ];
 
-  // Inverser l'ordre en mode hébreu pour que בית soit près du logo
-  const navItems = language === 'he' ? [...baseNavItems].reverse() : baseNavItems;
-
   return (
     <nav 
       className={`fixed top-0 w-full z-50 transition-smooth ${scrolled ? "glass-effect shadow-lg" : ""} ${language === 'he' ? 'rtl' : ''}`}
@@ -80,7 +77,7 @@ const Navigation = () => {
           {/* Navigation desktop - au centre */}
           <div className={`hidden md:flex items-center h-10 order-2 ${
             language === 'he' 
-              ? 'space-x-reverse space-x-10 lg:space-x-12' 
+              ? 'space-x-reverse space-x-8' 
               : 'space-x-6 lg:space-x-8'
           }`}>
             {navItems.map(item => (
