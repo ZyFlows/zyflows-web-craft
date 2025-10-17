@@ -80,7 +80,7 @@ const Navigation = () => {
           {/* Navigation desktop - au centre */}
           <div className={`hidden md:flex items-center h-10 order-2 ${
             language === 'he' 
-              ? 'space-x-reverse space-x-12 lg:space-x-16' 
+              ? 'space-x-reverse space-x-10 lg:space-x-12' 
               : 'space-x-6 lg:space-x-8'
           }`}>
             {navItems.map(item => (
