@@ -78,18 +78,17 @@ const Navigation = () => {
           </div>
 
           {/* Navigation desktop - au centre */}
-          <div className={`hidden md:flex items-center h-10 order-2 ${
-            language === 'he' 
-              ? 'space-x-reverse space-x-8' 
-              : 'space-x-6 lg:space-x-8'
+          <div className={`hidden md:flex items-center justify-center order-2 ${
+            language === 'he' ? 'flex-row-reverse gap-8' : 'gap-8'
           }`}>
             {navItems.map(item => (
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-muted-foreground hover:text-primary transition-smooth hover:scale-105 whitespace-nowrap text-sm lg:text-base font-medium flex items-center h-10"
+                className="text-white/90 hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap text-base font-medium relative group py-2"
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
           </div>
