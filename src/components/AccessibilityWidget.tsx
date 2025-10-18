@@ -435,7 +435,7 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
     window.speechSynthesis.cancel();
   }
 
-  // Panel UI - Modern blue theme matching reference
+  // Panel UI - Compact design matching piexpertises.com
   const Panel = (
     <div
       role="dialog"
@@ -449,13 +449,13 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         right: 24,
         top: position ? position.y + 56 : "auto",
         left: position ? position.x : "auto",
-        maxWidth: 440,
-        width: 440,
+        maxWidth: 370,
+        width: 370,
         background: "#ffffff",
         color: "#333",
-        borderRadius: 16,
+        borderRadius: 12,
         border: "none",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
+        boxShadow: "0 15px 50px rgba(0,0,0,0.2)",
         padding: 0,
         fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
         direction: language === "he" ? "rtl" : "ltr",
@@ -465,14 +465,14 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
       <div
         style={{
           background: "linear-gradient(135deg, #1e88e5 0%, #1565c0 100%)",
-          padding: "16px 20px",
-          borderRadius: "16px 16px 0 0",
+          padding: "12px 16px",
+          borderRadius: "12px 12px 0 0",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <strong style={{ fontSize: 18, color: "#fff", fontWeight: 600 }}>{l.title}</strong>
+        <strong style={{ fontSize: 16, color: "#fff", fontWeight: 600 }}>{l.title}</strong>
         <button
           type="button"
           onClick={() => setIsOpen(false)}
@@ -481,11 +481,11 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
             background: "rgba(255,255,255,0.2)",
             border: "none",
             color: "#fff",
-            width: 32,
-            height: 32,
+            width: 28,
+            height: 28,
             borderRadius: "50%",
             cursor: "pointer",
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: "bold",
             display: "flex",
             alignItems: "center",
@@ -503,13 +503,13 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         </button>
       </div>
 
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: 16 }}>
         {/* Toggles Grid - 3 columns */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 12,
+            gap: 8,
           }}
         >
           {[
@@ -536,15 +536,16 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
                 onClick={() => setPrefs((p) => ({ ...p, [key]: !active } as any))}
                 style={{
                   textAlign: "center",
-                  fontSize: 14,
-                  padding: "14px 10px",
-                  borderRadius: 12,
+                  fontSize: 11.5,
+                  padding: "10px 6px",
+                  borderRadius: 10,
                   border: "2px solid #1e88e5",
                   background: active ? "#1e88e5" : "#f5f5f5",
                   color: active ? "#fff" : "#333",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   fontWeight: 500,
+                  lineHeight: 1.3,
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
@@ -569,13 +570,13 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
           onClick={handleReset}
           style={{
             width: "100%",
-            marginTop: 12,
-            padding: "14px",
-            borderRadius: 12,
+            marginTop: 8,
+            padding: "10px",
+            borderRadius: 10,
             border: "2px solid #1e88e5",
             background: "#f5f5f5",
             color: "#1e88e5",
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: 600,
             cursor: "pointer",
             transition: "all 0.2s ease",
@@ -593,10 +594,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         {/* Font size slider */}
         <div
           style={{
-            marginTop: 20,
-            padding: "16px",
+            marginTop: 12,
+            padding: "12px",
             background: "#f9f9f9",
-            borderRadius: 12,
+            borderRadius: 10,
           }}
         >
           <div
@@ -604,10 +605,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 12,
+              marginBottom: 8,
             }}
           >
-            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
               {l.fontSize}
             </label>
             <button
@@ -616,15 +617,15 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
               {prefs.fontPercent}%
             </span>
             <button
@@ -633,10 +634,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               +
@@ -661,10 +662,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         {/* Word spacing slider */}
         <div
           style={{
-            marginTop: 16,
-            padding: "16px",
+            marginTop: 12,
+            padding: "12px",
             background: "#f9f9f9",
-            borderRadius: 12,
+            borderRadius: 10,
           }}
         >
           <div
@@ -672,10 +673,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 12,
+              marginBottom: 8,
             }}
           >
-            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
               {l.wordSpacing}
             </label>
             <button
@@ -684,15 +685,15 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
               {prefs.wordSpacing.toFixed(1)}
             </span>
             <button
@@ -701,10 +702,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               +
@@ -730,10 +731,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         {/* Letter spacing slider */}
         <div
           style={{
-            marginTop: 16,
-            padding: "16px",
+            marginTop: 12,
+            padding: "12px",
             background: "#f9f9f9",
-            borderRadius: 12,
+            borderRadius: 10,
           }}
         >
           <div
@@ -741,10 +742,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 12,
+              marginBottom: 8,
             }}
           >
-            <label style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5" }}>
+            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
               {l.letterSpacing}
             </label>
             <button
@@ -753,15 +754,15 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 16, fontWeight: 600, minWidth: 60, textAlign: "center" }}>
+            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
               {prefs.letterSpacing.toFixed(2)}
             </span>
             <button
@@ -770,10 +771,10 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
               style={{
                 background: "transparent",
                 border: "none",
-                fontSize: 24,
+                fontSize: 20,
                 color: "#1e88e5",
                 cursor: "pointer",
-                padding: "0 8px",
+                padding: "0 6px",
               }}
             >
               +
@@ -799,16 +800,16 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
         {/* Accessibility statement */}
         <div
           style={{
-            marginTop: 20,
-            padding: "16px",
+            marginTop: 12,
+            padding: "12px",
             background: "#f9f9f9",
-            borderRadius: 12,
+            borderRadius: 10,
           }}
         >
-          <div style={{ fontSize: 15, fontWeight: 600, color: "#1e88e5", marginBottom: 8, textAlign: "center" }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5", marginBottom: 6, textAlign: "center" }}>
             {l.statement}
           </div>
-          <div style={{ fontSize: 12, color: "#666", lineHeight: 1.6, textAlign: language === "he" ? "right" : "left" }}>
+          <div style={{ fontSize: 11, color: "#666", lineHeight: 1.5, textAlign: language === "he" ? "right" : "left" }}>
             {l.shortcuts}
           </div>
         </div>
