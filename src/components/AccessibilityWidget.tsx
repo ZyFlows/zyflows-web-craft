@@ -1,17 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Accessibility } from "lucide-react";
+import { Accessibility, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ACC_STORAGE_KEY = "acc_prefs_v3";
-const STYLE_NODE_ID = "acc-widget-global-styles";
-const STYLE_UNDERLINE_ID = "acc-underline-styles";
-const STYLE_HIDE_IMAGES_ID = "acc-hide-images-styles";
-const STYLE_NO_ANIM_ID = "acc-no-anim-styles";
-const STYLE_HIGHLIGHT_H_ID = "acc-highlight-h-styles";
-const STYLE_CURSOR_LIGHT_ID = "acc-cursor-light-styles";
-const STYLE_CURSOR_DARK_ID = "acc-cursor-dark-styles";
-const STYLE_GUIDE_ID = "acc-guide-styles";
+const ACC_POS_KEY = "acc_pos_v3";
 
 type AccPrefs = {
   fontPercent: number;
@@ -70,18 +63,21 @@ function savePrefs(p: AccPrefs) {
   }
 }
 
-function setGlobalStyle(id: string, css: string | null) {
-  let node = document.getElementById(id) as HTMLStyleElement | null;
-  if (css && css.trim()) {
-    if (!node) {
-      node = document.createElement("style");
-      node.id = id;
-      node.type = "text/css";
-      document.head.appendChild(node);
-    }
-    node.textContent = css;
-  } else if (node) {
-    node.remove();
+function loadPosition(): { x: number; y: number; isCustom: boolean } | null {
+  try {
+    const raw = localStorage.getItem(ACC_POS_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function savePosition(x: number, y: number, isCustom: boolean) {
+  try {
+    localStorage.setItem(ACC_POS_KEY, JSON.stringify({ x, y, isCustom }));
+  } catch {
+    // ignore
   }
 }
 
@@ -90,8 +86,11 @@ const AccessibilityWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [prefs, setPrefs] = useState<AccPrefs>(() => loadPrefs());
   const [showQuickReset, setShowQuickReset] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
+  const [position, setPosition] = useState<{ x: number; y: number; isCustom: boolean } | null>(
+    () => loadPosition()
+  );
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const togglerRef = useRef<HTMLButtonElement | null>(null);
@@ -122,10 +121,10 @@ const AccessibilityWidget: React.FC = () => {
       letterSpacing: "ריווח בין אותיות",
       statement: "הצהרת נגישות",
       shortcuts:
-        "Alt+Shift+A לפתיחה · C ניגודיות · I היפוך · U קישורים · G אפור · M שחור־לבן · X ביטול אנימציות · R איפוס · =/-/0 טקסט",
+        "Alt+Shift+A לפתיחה · C ניגודיות · I היפוך · U קישורים · G אפור · M שחור־לבן · H כותרות · L תמונות · X אנימציות · R איפוס · +/- גודל · 0 איפוס גודל · Esc סגור",
       label: "כלי נגישות",
       speakSel: "הקרא טקסט נבחר",
-      stop: "עצור דיבור",
+      stop: "עצור הקראה",
     },
     fr: {
       skip: "Aller au contenu principal",
@@ -150,7 +149,7 @@ const AccessibilityWidget: React.FC = () => {
       letterSpacing: "Espacement des lettres",
       statement: "Déclaration d'accessibilité",
       shortcuts:
-        "Alt+Shift+A ouvrir · C contraste · I inverser · U liens · G gris · M mono · X anim off · R reset · =/-/0 texte",
+        "Alt+Shift+A ouvrir · C contraste · I inverser · U liens · G gris · M mono · H titres · L images · X anim · R reset · +/- taille · 0 reset taille · Esc fermer",
       label: "Outils d'accessibilité",
       speakSel: "Lire la sélection",
       stop: "Arrêter la lecture",
@@ -178,7 +177,7 @@ const AccessibilityWidget: React.FC = () => {
       letterSpacing: "Letter spacing",
       statement: "Accessibility statement",
       shortcuts:
-        "Alt+Shift+A open · C contrast · I invert · U links · G gray · M mono · X no anim · R reset · =/-/0 text",
+        "Alt+Shift+A open · C contrast · I invert · U links · G gray · M mono · H headings · L images · X anim off · R reset · +/- size · 0 reset size · Esc close",
       label: "Accessibility tools",
       speakSel: "Speak selection",
       stop: "Stop speech",
@@ -194,6 +193,7 @@ const AccessibilityWidget: React.FC = () => {
     if (typeof document === "undefined") return;
 
     const root = document.documentElement as HTMLElement;
+    const mainContent = document.getElementById("main-app-content") || document.body;
 
     // Base text sizing/spacing
     root.style.setProperty("--acc-font-scale", `${prefs.fontPercent}%`);
@@ -203,129 +203,65 @@ const AccessibilityWidget: React.FC = () => {
 
     // Font family
     if (prefs.dyslexia) {
-      root.style.fontFamily = `"OpenDyslexic", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+      root.style.fontFamily = `"OpenDyslexic", "Comic Sans MS", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
     } else if (prefs.readable) {
-      root.style.fontFamily = `"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`;
+      root.style.fontFamily = `"Atkinson Hyperlegible", Arial, Helvetica, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`;
     } else {
       root.style.removeProperty("font-family");
     }
 
-    // Filters
+    // Filters on main content only
     const filters: string[] = [];
     if (prefs.grayscale) filters.push("grayscale(1)");
     if (prefs.invert) filters.push("invert(1) hue-rotate(180deg)");
     if (prefs.monochrome) filters.push("grayscale(1) contrast(1.2)");
-    (document.body as HTMLElement).style.filter = filters.join(" ");
+    mainContent.style.filter = filters.join(" ");
 
-    // High contrast via global CSS
-    setGlobalStyle(
-      STYLE_NODE_ID,
-      prefs.contrast
-        ? `
-html, body {
-  background: #000 !important;
-  color: #fff !important;
-}
-a, button {
-  color: #0ff !important;
-}
-*, *::before, *::after {
-  border-color: #fff !important;
-  box-shadow: none !important;
-}
-img { opacity: 0.95; }
-`
-        : null
-    );
+    // High contrast
+    if (prefs.contrast) {
+      root.classList.add("acc-contrast");
+    } else {
+      root.classList.remove("acc-contrast");
+    }
 
     // Underline links
-    setGlobalStyle(
-      STYLE_UNDERLINE_ID,
-      prefs.underline
-        ? `
-a, [role="link"] {
-  text-decoration: underline !important;
-  text-underline-offset: 2px;
-}
-`
-        : null
-    );
+    if (prefs.underline) {
+      root.classList.add("acc-underline");
+    } else {
+      root.classList.remove("acc-underline");
+    }
 
     // Hide images
-    setGlobalStyle(
-      STYLE_HIDE_IMAGES_ID,
-      prefs.hideImages
-        ? `
-img, picture, video, figure {
-  display: none !important;
-  visibility: hidden !important;
-}
-`
-        : null
-    );
+    if (prefs.hideImages) {
+      root.classList.add("acc-hide-images");
+    } else {
+      root.classList.remove("acc-hide-images");
+    }
 
     // No animations
-    setGlobalStyle(
-      STYLE_NO_ANIM_ID,
-      prefs.noAnim
-        ? `
-* {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
-}
-html { scroll-behavior: auto !important; }
-`
-        : null
-    );
+    if (prefs.noAnim) {
+      root.classList.add("acc-no-anim");
+    } else {
+      root.classList.remove("acc-no-anim");
+    }
 
     // Highlight headings
-    setGlobalStyle(
-      STYLE_HIGHLIGHT_H_ID,
-      prefs.highlightH
-        ? `
-h1, h2, h3, h4, h5, h6, [role="heading"] {
-  outline: 2px dashed #ff0 !important;
-  outline-offset: 4px;
-}
-`
-        : null
-    );
+    if (prefs.highlightH) {
+      root.classList.add("acc-highlight-h");
+    } else {
+      root.classList.remove("acc-highlight-h");
+    }
 
-    // Cursor styles
-    setGlobalStyle(
-      STYLE_CURSOR_LIGHT_ID,
-      prefs.cursorLight
-        ? `
-* { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><circle cx="6" cy="6" r="6" fill="white" stroke="black" stroke-width="2"/></svg>') 6 6, default !important; }
-`
-        : null
-    );
-    setGlobalStyle(
-      STYLE_CURSOR_DARK_ID,
-      prefs.cursorDark
-        ? `
-* { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><circle cx="6" cy="6" r="6" fill="black" stroke="white" stroke-width="2"/></svg>') 6 6, default !important; }
-`
-        : null
-    );
-
-    // Reading guide
-    setGlobalStyle(
-      STYLE_GUIDE_ID,
-      prefs.guide
-        ? `
-.acc-reading-guide {
-  position: fixed;
-  left: 0; right: 0;
-  height: 40px;
-  background: rgba(138, 99, 210, 0.2);
-  pointer-events: none;
-  z-index: 2147483647;
-}
-`
-        : null
-    );
+    // Cursor styles (mutually exclusive)
+    if (prefs.cursorLight) {
+      root.classList.add("acc-cursor-light");
+      root.classList.remove("acc-cursor-dark");
+    } else if (prefs.cursorDark) {
+      root.classList.add("acc-cursor-dark");
+      root.classList.remove("acc-cursor-light");
+    } else {
+      root.classList.remove("acc-cursor-light", "acc-cursor-dark");
+    }
 
     savePrefs(prefs);
   }, [prefs]);
@@ -358,28 +294,44 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
   // Keyboard shortcuts
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      // Main toggle
       if (e.altKey && e.shiftKey && e.key.toLowerCase() === "a") {
         e.preventDefault();
         setIsOpen((v) => !v);
         return;
       }
+
+      // Close on Escape
+      if (e.key === "Escape" && isOpen) {
+        e.preventDefault();
+        setIsOpen(false);
+        return;
+      }
+
+      // All other shortcuts require Alt+Shift
+      if (!e.altKey || !e.shiftKey) return;
+
       const k = e.key.toLowerCase();
+      e.preventDefault();
+
       if (k === "c") setPrefs((p) => ({ ...p, contrast: !p.contrast }));
       if (k === "i") setPrefs((p) => ({ ...p, invert: !p.invert }));
       if (k === "u") setPrefs((p) => ({ ...p, underline: !p.underline }));
       if (k === "g") setPrefs((p) => ({ ...p, grayscale: !p.grayscale }));
       if (k === "m") setPrefs((p) => ({ ...p, monochrome: !p.monochrome }));
       if (k === "x") setPrefs((p) => ({ ...p, noAnim: !p.noAnim }));
+      if (k === "h") setPrefs((p) => ({ ...p, highlightH: !p.highlightH }));
+      if (k === "l") setPrefs((p) => ({ ...p, hideImages: !p.hideImages }));
       if (k === "r") handleReset();
       if (k === "=" || k === "+")
-        setPrefs((p) => ({ ...p, fontPercent: Math.min(250, p.fontPercent + 10) }));
+        setPrefs((p) => ({ ...p, fontPercent: Math.min(160, p.fontPercent + 10) }));
       if (k === "-")
-        setPrefs((p) => ({ ...p, fontPercent: Math.max(60, p.fontPercent - 10) }));
+        setPrefs((p) => ({ ...p, fontPercent: Math.max(80, p.fontPercent - 10) }));
       if (k === "0") setPrefs((p) => ({ ...p, fontPercent: 100 }));
     };
-    window.addEventListener("keydown", onKey, { passive: false });
+    window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [isOpen]);
 
   // Quick reset bubble visibility
   useEffect(() => {
@@ -396,9 +348,17 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
   useEffect(() => {
     function onMouseMove(e: MouseEvent) {
       if (!isDragging || !position) return;
-      setPosition({ x: e.clientX - dragOffset.x, y: e.clientY - dragOffset.y });
+      const newPos = { 
+        x: e.clientX - dragOffset.x, 
+        y: e.clientY - dragOffset.y,
+        isCustom: true 
+      };
+      setPosition(newPos);
     }
     function onMouseUp() {
+      if (isDragging && position) {
+        savePosition(position.x, position.y, true);
+      }
       setIsDragging(false);
     }
     window.addEventListener("mousemove", onMouseMove);
@@ -410,17 +370,20 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
   }, [isDragging, position, dragOffset]);
 
   function onTogglerMouseDown(e: React.MouseEvent) {
-    if (!e.shiftKey) return;
+    if (!e.shiftKey && !e.altKey) return;
     const rect = togglerRef.current?.getBoundingClientRect();
     if (!rect) return;
     setIsDragging(true);
     setDragOffset({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-    setPosition({ x: rect.left, y: rect.top });
+    if (!position) {
+      setPosition({ x: rect.left, y: rect.top, isCustom: true });
+    }
     e.preventDefault();
   }
 
   // Text-to-speech
   const canSpeak = typeof window !== "undefined" && "speechSynthesis" in window;
+  
   function speakSelection() {
     if (!canSpeak) return;
     const selection = window.getSelection()?.toString().trim();
@@ -428,12 +391,30 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
     window.speechSynthesis.cancel();
     const utter = new SpeechSynthesisUtterance(selection);
     utter.lang = (language === "he" ? "he-IL" : language === "fr" ? "fr-FR" : "en-US");
+    utter.onstart = () => setIsSpeaking(true);
+    utter.onend = () => setIsSpeaking(false);
+    utter.onerror = () => setIsSpeaking(false);
     window.speechSynthesis.speak(utter);
   }
+  
   function stopSpeak() {
     if (!canSpeak) return;
     window.speechSynthesis.cancel();
+    setIsSpeaking(false);
   }
+
+  // Monitor speaking state
+  useEffect(() => {
+    if (!canSpeak) return;
+    const interval = setInterval(() => {
+      if (window.speechSynthesis.speaking) {
+        setIsSpeaking(true);
+      } else {
+        setIsSpeaking(false);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, [canSpeak]);
 
   // Panel UI - Compact design matching piexpertises.com
   const Panel = (
@@ -797,6 +778,71 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
           />
         </div>
 
+        {/* Text-to-speech controls */}
+        {canSpeak && (
+          <div
+            style={{
+              marginTop: 12,
+              padding: "12px",
+              background: "#f9f9f9",
+              borderRadius: 10,
+              display: "flex",
+              gap: 8,
+            }}
+          >
+            <button
+              type="button"
+              onClick={speakSelection}
+              disabled={isSpeaking}
+              style={{
+                flex: 1,
+                padding: "10px",
+                borderRadius: 8,
+                border: "2px solid #1e88e5",
+                background: isSpeaking ? "#e3f2fd" : "#1e88e5",
+                color: isSpeaking ? "#1e88e5" : "#fff",
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: isSpeaking ? "not-allowed" : "pointer",
+                transition: "all 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 6,
+                opacity: isSpeaking ? 0.7 : 1,
+              }}
+            >
+              <Volume2 size={16} />
+              {l.speakSel}
+            </button>
+            <button
+              type="button"
+              onClick={stopSpeak}
+              disabled={!isSpeaking}
+              style={{
+                flex: 1,
+                padding: "10px",
+                borderRadius: 8,
+                border: "2px solid #d32f2f",
+                background: !isSpeaking ? "#f5f5f5" : "#d32f2f",
+                color: !isSpeaking ? "#d32f2f" : "#fff",
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: !isSpeaking ? "not-allowed" : "pointer",
+                transition: "all 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 6,
+                opacity: !isSpeaking ? 0.7 : 1,
+              }}
+            >
+              <VolumeX size={16} />
+              {l.stop}
+            </button>
+          </div>
+        )}
+
         {/* Accessibility statement */}
         <div
           style={{
@@ -901,27 +947,149 @@ h1, h2, h3, h4, h5, h6, [role="heading"] {
 
   return (
     <>
+      {/* Integrated CSS Styles */}
+      <style dangerouslySetInnerHTML={{__html: `
+        /* Skip link */
+        .acc-skip-link {
+          position: fixed;
+          left: -9999px;
+          top: 8px;
+          z-index: 2147483647;
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-weight: 600;
+          text-decoration: none;
+          background: #8a63d2;
+          color: #fff;
+        }
+        .acc-skip-link:focus {
+          left: 8px !important;
+        }
+
+        /* High contrast */
+        .acc-contrast html,
+        .acc-contrast body {
+          background: #000 !important;
+          color: #fff !important;
+        }
+        .acc-contrast a,
+        .acc-contrast button {
+          color: #0ff !important;
+        }
+        .acc-contrast *,
+        .acc-contrast *::before,
+        .acc-contrast *::after {
+          border-color: #fff !important;
+          box-shadow: none !important;
+        }
+        .acc-contrast img {
+          opacity: 0.95;
+        }
+
+        /* Underline links */
+        .acc-underline a,
+        .acc-underline [role="link"] {
+          text-decoration: underline !important;
+          text-decoration-thickness: 2px !important;
+          text-underline-offset: 3px !important;
+        }
+
+        /* Hide images - but not accessibility widget */
+        .acc-hide-images img:not(.acc-widget *),
+        .acc-hide-images picture:not(.acc-widget *),
+        .acc-hide-images video:not(.acc-widget *),
+        .acc-hide-images figure:not(.acc-widget *) {
+          opacity: 0 !important;
+          visibility: hidden !important;
+        }
+
+        /* Disable animations */
+        .acc-no-anim *,
+        .acc-no-anim *::before,
+        .acc-no-anim *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          transition-delay: 0s !important;
+        }
+
+        /* Highlight headings */
+        .acc-highlight-h h1,
+        .acc-highlight-h h2,
+        .acc-highlight-h h3,
+        .acc-highlight-h h4,
+        .acc-highlight-h h5,
+        .acc-highlight-h h6,
+        .acc-highlight-h [role="heading"] {
+          background-color: rgba(138, 99, 210, 0.2) !important;
+          padding: 8px !important;
+          border-left: 4px solid #8a63d2 !important;
+          border-radius: 4px !important;
+        }
+
+        /* Large light cursor */
+        .acc-cursor-light,
+        .acc-cursor-light * {
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="white" stroke="black" stroke-width="2"/><circle cx="24" cy="24" r="4" fill="black"/></svg>') 24 24, auto !important;
+        }
+
+        /* Large dark cursor */
+        .acc-cursor-dark,
+        .acc-cursor-dark * {
+          cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="black" stroke="white" stroke-width="2"/><circle cx="24" cy="24" r="4" fill="white"/></svg>') 24 24, auto !important;
+        }
+
+        /* Reading guide */
+        .acc-reading-guide {
+          position: fixed;
+          left: 0;
+          right: 0;
+          height: 40px;
+          background: rgba(255, 255, 0, 0.3);
+          pointer-events: none;
+          z-index: 2147483646;
+          transition: top 0.05s ease;
+        }
+
+        /* Screen reader only */
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+
+        /* Isolation for widget */
+        .acc-widget {
+          isolation: isolate;
+          transform: translateZ(0);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .acc-widget button[aria-label*="Accessibility"] {
+            width: 52px !important;
+            height: 52px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .acc-widget button[aria-label*="Accessibility"] {
+            width: 50px !important;
+            height: 50px !important;
+          }
+        }
+      `}} />
+
       {/* Skip link */}
       <a
         href="#main-content"
-        style={{
-          position: "fixed",
-          left: -9999,
-          top: 8,
-          background: "hsl(var(--primary))",
-          color: "hsl(var(--primary-foreground))",
-          padding: "8px 16px",
-          zIndex: 2147483647,
-          borderRadius: 8,
-          fontWeight: 600,
-          textDecoration: "none",
-        }}
-        onFocus={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.left = "8px";
-        }}
-        onBlur={(e) => {
-          (e.currentTarget as HTMLAnchorElement).style.left = "-9999px";
-        }}
+        className="acc-skip-link"
       >
         {l.skip}
       </a>
