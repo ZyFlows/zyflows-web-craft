@@ -492,7 +492,7 @@ const AccessibilityWidget: React.FC = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 10,
+              gap: 8,
             }}
           >
             {[
@@ -520,27 +520,28 @@ const AccessibilityWidget: React.FC = () => {
                 style={{
                   textAlign: "center",
                   fontSize: 13,
-                  padding: "12px 8px",
-                  borderRadius: 22,
+                  padding: "10px 6px",
+                  borderRadius: 24,
                   border: "2px solid #0BA5E9",
                   background: active ? "#0BA5E9" : "#ffffff",
-                  color: active ? "#fff" : "#333",
+                  color: active ? "#fff" : "#1a1a1a",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   fontWeight: 500,
-                  lineHeight: 1.3,
-                  minHeight: 48,
+                  lineHeight: 1.2,
+                  minHeight: 52,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = "#E0F2FE";
-                    e.currentTarget.style.borderColor = "#0EA5E9";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
                     e.currentTarget.style.background = "#ffffff";
-                    e.currentTarget.style.borderColor = "#0BA5E9";
                   }
                 }}
               >
@@ -553,18 +554,18 @@ const AccessibilityWidget: React.FC = () => {
         {/* Font size slider */}
         <div
           style={{
-            marginTop: 14,
-            padding: "16px 18px",
-            background: "#F0F9FF",
-            borderRadius: 16,
+            marginTop: 16,
+            padding: "18px 20px",
+            background: "#E8F4F8",
+            borderRadius: 12,
           }}
         >
           <div
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 600,
               color: "#0BA5E9",
-              marginBottom: 12,
+              marginBottom: 14,
               textAlign: "center",
             }}
           >
@@ -575,7 +576,7 @@ const AccessibilityWidget: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 12,
+              gap: 16,
             }}
           >
             <button
@@ -584,22 +585,29 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
+            <span style={{ fontSize: 20, fontWeight: 700, minWidth: 70, textAlign: "center", color: "#1a1a1a" }}>
               {prefs.fontPercent}%
             </span>
             <button
@@ -608,17 +616,24 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               +
@@ -636,7 +651,7 @@ const AccessibilityWidget: React.FC = () => {
             style={{
               width: "100%",
               accentColor: "#0BA5E9",
-              marginTop: 8,
+              marginTop: 12,
             }}
           />
         </div>
@@ -644,18 +659,18 @@ const AccessibilityWidget: React.FC = () => {
         {/* Word spacing slider */}
         <div
           style={{
-            marginTop: 14,
-            padding: "16px 18px",
-            background: "#F0F9FF",
-            borderRadius: 16,
+            marginTop: 16,
+            padding: "18px 20px",
+            background: "#E8F4F8",
+            borderRadius: 12,
           }}
         >
           <div
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 600,
               color: "#0BA5E9",
-              marginBottom: 12,
+              marginBottom: 14,
               textAlign: "center",
             }}
           >
@@ -666,7 +681,7 @@ const AccessibilityWidget: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 12,
+              gap: 16,
             }}
           >
             <button
@@ -675,22 +690,29 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
+            <span style={{ fontSize: 20, fontWeight: 700, minWidth: 70, textAlign: "center", color: "#1a1a1a" }}>
               {prefs.wordSpacing.toFixed(1)}
             </span>
             <button
@@ -699,17 +721,24 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               +
@@ -728,7 +757,7 @@ const AccessibilityWidget: React.FC = () => {
             style={{
               width: "100%",
               accentColor: "#0BA5E9",
-              marginTop: 8,
+              marginTop: 12,
             }}
           />
         </div>
@@ -736,18 +765,18 @@ const AccessibilityWidget: React.FC = () => {
         {/* Letter spacing slider */}
         <div
           style={{
-            marginTop: 14,
-            padding: "16px 18px",
-            background: "#F0F9FF",
-            borderRadius: 16,
+            marginTop: 16,
+            padding: "18px 20px",
+            background: "#E8F4F8",
+            borderRadius: 12,
           }}
         >
           <div
             style={{
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: 600,
               color: "#0BA5E9",
-              marginBottom: 12,
+              marginBottom: 14,
               textAlign: "center",
             }}
           >
@@ -758,7 +787,7 @@ const AccessibilityWidget: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 12,
+              gap: 16,
             }}
           >
             <button
@@ -767,22 +796,29 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
+            <span style={{ fontSize: 20, fontWeight: 700, minWidth: 70, textAlign: "center", color: "#1a1a1a" }}>
               {prefs.letterSpacing.toFixed(2)}
             </span>
             <button
@@ -791,17 +827,24 @@ const AccessibilityWidget: React.FC = () => {
               style={{
                 background: "#ffffff",
                 border: "none",
-                fontSize: 24,
-                color: "#0BA5E9",
+                fontSize: 28,
+                color: "#1a1a1a",
                 cursor: "pointer",
-                width: 36,
-                height: 36,
+                width: 42,
+                height: 42,
                 borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: "bold",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                fontWeight: "normal",
+                boxShadow: "none",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#f0f0f0";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#ffffff";
               }}
             >
               +
@@ -820,7 +863,7 @@ const AccessibilityWidget: React.FC = () => {
             style={{
               width: "100%",
               accentColor: "#0BA5E9",
-              marginTop: 8,
+              marginTop: 12,
             }}
           />
         </div>
@@ -894,15 +937,15 @@ const AccessibilityWidget: React.FC = () => {
         <div
           style={{
             marginTop: 16,
-            padding: "16px 18px",
-            background: "#F0F9FF",
-            borderRadius: 16,
+            padding: "18px 20px",
+            background: "#E8F4F8",
+            borderRadius: 12,
           }}
         >
-          <div style={{ fontSize: 15, fontWeight: 600, color: "#0BA5E9", marginBottom: 10, textAlign: "center" }}>
+          <div style={{ fontSize: 16, fontWeight: 600, color: "#0BA5E9", marginBottom: 12, textAlign: "center" }}>
             {l.statement}
           </div>
-          <div style={{ fontSize: 12, color: "#666", lineHeight: 1.6, textAlign: language === "he" ? "right" : "left" }}>
+          <div style={{ fontSize: 11, color: "#555", lineHeight: 1.5, textAlign: language === "he" ? "right" : "left" }}>
             {l.shortcuts}
           </div>
         </div>
