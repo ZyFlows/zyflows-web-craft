@@ -417,7 +417,7 @@ const AccessibilityWidget: React.FC = () => {
     return () => clearInterval(interval);
   }, [canSpeak]);
 
-  // Panel UI - Compact design matching piexpertises.com
+  // Panel UI - Design exact de piexpertises.com
   const Panel = (
     <div
       role="dialog"
@@ -431,13 +431,13 @@ const AccessibilityWidget: React.FC = () => {
         right: 24,
         top: position ? position.y + 56 : "auto",
         left: position ? position.x : "auto",
-        maxWidth: 370,
-        width: 370,
+        maxWidth: 440,
+        width: 440,
         background: "#ffffff",
         color: "#333",
-        borderRadius: 12,
+        borderRadius: 20,
         border: "none",
-        boxShadow: "0 15px 50px rgba(0,0,0,0.2)",
+        boxShadow: "0 8px 40px rgba(0,0,0,0.15)",
         padding: 0,
         fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
         direction: language === "he" ? "rtl" : "ltr",
@@ -446,28 +446,28 @@ const AccessibilityWidget: React.FC = () => {
       {/* Header */}
       <div
         style={{
-          background: "linear-gradient(135deg, #1e88e5 0%, #1565c0 100%)",
-          padding: "12px 16px",
-          borderRadius: "12px 12px 0 0",
+          background: "#0BA5E9",
+          padding: "14px 20px",
+          borderRadius: "20px 20px 0 0",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <strong style={{ fontSize: 16, color: "#fff", fontWeight: 600 }}>{l.title}</strong>
+        <strong style={{ fontSize: 18, color: "#fff", fontWeight: 600 }}>{l.title}</strong>
         <button
           type="button"
           onClick={() => setIsOpen(false)}
           aria-label="Close"
           style={{
-            background: "rgba(255,255,255,0.2)",
+            background: "rgba(255,255,255,0.25)",
             border: "none",
             color: "#fff",
-            width: 28,
-            height: 28,
+            width: 32,
+            height: 32,
             borderRadius: "50%",
             cursor: "pointer",
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: "bold",
             display: "flex",
             alignItems: "center",
@@ -475,10 +475,10 @@ const AccessibilityWidget: React.FC = () => {
             transition: "background 0.2s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.3)";
+            e.currentTarget.style.background = "rgba(255,255,255,0.35)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+            e.currentTarget.style.background = "rgba(255,255,255,0.25)";
           }}
         >
           ×
@@ -486,13 +486,13 @@ const AccessibilityWidget: React.FC = () => {
       </div>
 
       <ScrollArea style={{ maxHeight: "70vh" }}>
-        <div style={{ padding: 16 }}>
+        <div style={{ padding: "18px 20px" }}>
           {/* Toggles Grid - 3 columns */}
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 8,
+              gap: 10,
             }}
           >
             {[
@@ -519,25 +519,28 @@ const AccessibilityWidget: React.FC = () => {
                 onClick={() => setPrefs((p) => ({ ...p, [key]: !active } as any))}
                 style={{
                   textAlign: "center",
-                  fontSize: 11.5,
-                  padding: "10px 6px",
-                  borderRadius: 10,
-                  border: "2px solid #1e88e5",
-                  background: active ? "#1e88e5" : "#f5f5f5",
+                  fontSize: 13,
+                  padding: "12px 8px",
+                  borderRadius: 22,
+                  border: "2px solid #0BA5E9",
+                  background: active ? "#0BA5E9" : "#ffffff",
                   color: active ? "#fff" : "#333",
                   cursor: "pointer",
                   transition: "all 0.2s ease",
                   fontWeight: 500,
                   lineHeight: 1.3,
+                  minHeight: 48,
                 }}
                 onMouseEnter={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = "#e3f2fd";
+                    e.currentTarget.style.background = "#E0F2FE";
+                    e.currentTarget.style.borderColor = "#0EA5E9";
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!active) {
-                    e.currentTarget.style.background = "#f5f5f5";
+                    e.currentTarget.style.background = "#ffffff";
+                    e.currentTarget.style.borderColor = "#0BA5E9";
                   }
                 }}
               >
@@ -547,80 +550,75 @@ const AccessibilityWidget: React.FC = () => {
           })}
         </div>
 
-        {/* Reset button - full width */}
-        <button
-          type="button"
-          onClick={handleReset}
-          style={{
-            width: "100%",
-            marginTop: 8,
-            padding: "10px",
-            borderRadius: 10,
-            border: "2px solid #1e88e5",
-            background: "#f5f5f5",
-            color: "#1e88e5",
-            fontSize: 12,
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "all 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "#e3f2fd";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "#f5f5f5";
-          }}
-        >
-          {l.reset}
-        </button>
-
         {/* Font size slider */}
         <div
           style={{
-            marginTop: 12,
-            padding: "12px",
-            background: "#f9f9f9",
-            borderRadius: 10,
+            marginTop: 14,
+            padding: "16px 18px",
+            background: "#F0F9FF",
+            borderRadius: 16,
           }}
         >
+          <div
+            style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: "#0BA5E9",
+              marginBottom: 12,
+              textAlign: "center",
+            }}
+          >
+            {l.fontSize}
+          </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 8,
+              gap: 12,
             }}
           >
-            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
-              {l.fontSize}
-            </label>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, fontPercent: Math.max(60, p.fontPercent - 10) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
+            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
               {prefs.fontPercent}%
             </span>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, fontPercent: Math.min(250, p.fontPercent + 10) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               +
@@ -637,7 +635,8 @@ const AccessibilityWidget: React.FC = () => {
             }
             style={{
               width: "100%",
-              accentColor: "#1e88e5",
+              accentColor: "#0BA5E9",
+              marginTop: 8,
             }}
           />
         </div>
@@ -645,50 +644,72 @@ const AccessibilityWidget: React.FC = () => {
         {/* Word spacing slider */}
         <div
           style={{
-            marginTop: 12,
-            padding: "12px",
-            background: "#f9f9f9",
-            borderRadius: 10,
+            marginTop: 14,
+            padding: "16px 18px",
+            background: "#F0F9FF",
+            borderRadius: 16,
           }}
         >
+          <div
+            style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: "#0BA5E9",
+              marginBottom: 12,
+              textAlign: "center",
+            }}
+          >
+            {l.wordSpacing}
+          </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 8,
+              gap: 12,
             }}
           >
-            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
-              {l.wordSpacing}
-            </label>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, wordSpacing: Math.max(0, p.wordSpacing - 1) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
+            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
               {prefs.wordSpacing.toFixed(1)}
             </span>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, wordSpacing: Math.min(16, p.wordSpacing + 1) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               +
@@ -706,7 +727,8 @@ const AccessibilityWidget: React.FC = () => {
             }
             style={{
               width: "100%",
-              accentColor: "#1e88e5",
+              accentColor: "#0BA5E9",
+              marginTop: 8,
             }}
           />
         </div>
@@ -714,50 +736,72 @@ const AccessibilityWidget: React.FC = () => {
         {/* Letter spacing slider */}
         <div
           style={{
-            marginTop: 12,
-            padding: "12px",
-            background: "#f9f9f9",
-            borderRadius: 10,
+            marginTop: 14,
+            padding: "16px 18px",
+            background: "#F0F9FF",
+            borderRadius: 16,
           }}
         >
+          <div
+            style={{
+              fontSize: 15,
+              fontWeight: 600,
+              color: "#0BA5E9",
+              marginBottom: 12,
+              textAlign: "center",
+            }}
+          >
+            {l.letterSpacing}
+          </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: 8,
+              gap: 12,
             }}
           >
-            <label style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5" }}>
-              {l.letterSpacing}
-            </label>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, letterSpacing: Math.max(0, p.letterSpacing - 0.1) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               −
             </button>
-            <span style={{ fontSize: 14, fontWeight: 600, minWidth: 50, textAlign: "center" }}>
+            <span style={{ fontSize: 18, fontWeight: 700, minWidth: 60, textAlign: "center", color: "#333" }}>
               {prefs.letterSpacing.toFixed(2)}
             </span>
             <button
               type="button"
               onClick={() => setPrefs((p) => ({ ...p, letterSpacing: Math.min(8, p.letterSpacing + 0.1) }))}
               style={{
-                background: "transparent",
+                background: "#ffffff",
                 border: "none",
-                fontSize: 20,
-                color: "#1e88e5",
+                fontSize: 24,
+                color: "#0BA5E9",
                 cursor: "pointer",
-                padding: "0 6px",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: "bold",
+                boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
               }}
             >
               +
@@ -775,7 +819,8 @@ const AccessibilityWidget: React.FC = () => {
             }
             style={{
               width: "100%",
-              accentColor: "#1e88e5",
+              accentColor: "#0BA5E9",
+              marginTop: 8,
             }}
           />
         </div>
@@ -848,16 +893,16 @@ const AccessibilityWidget: React.FC = () => {
         {/* Accessibility statement */}
         <div
           style={{
-            marginTop: 12,
-            padding: "12px",
-            background: "#f9f9f9",
-            borderRadius: 10,
+            marginTop: 16,
+            padding: "16px 18px",
+            background: "#F0F9FF",
+            borderRadius: 16,
           }}
         >
-          <div style={{ fontSize: 13, fontWeight: 600, color: "#1e88e5", marginBottom: 6, textAlign: "center" }}>
+          <div style={{ fontSize: 15, fontWeight: 600, color: "#0BA5E9", marginBottom: 10, textAlign: "center" }}>
             {l.statement}
           </div>
-          <div style={{ fontSize: 11, color: "#666", lineHeight: 1.5, textAlign: language === "he" ? "right" : "left" }}>
+          <div style={{ fontSize: 12, color: "#666", lineHeight: 1.6, textAlign: language === "he" ? "right" : "left" }}>
             {l.shortcuts}
           </div>
         </div>
