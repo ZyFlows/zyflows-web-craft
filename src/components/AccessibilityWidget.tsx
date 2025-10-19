@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Accessibility, Volume2, VolumeX } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const ACC_STORAGE_KEY = "acc_prefs_v3";
 const ACC_POS_KEY = "acc_pos_v3";
@@ -484,30 +485,31 @@ const AccessibilityWidget: React.FC = () => {
         </button>
       </div>
 
-      <div style={{ padding: 16 }}>
-        {/* Toggles Grid - 3 columns */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 8,
-          }}
-        >
-          {[
-            ["grayscale", l.grayscale],
-            ["contrast", l.contrast],
-            ["invert", l.invert],
-            ["monochrome", l.monochrome],
-            ["underline", l.underline],
-            ["hideImages", l.hideImages],
-            ["dyslexia", l.dyslexia],
-            ["readable", l.readable],
-            ["guide", l.guide],
-            ["highlightH", l.highlightH],
-            ["cursorLight", l.cursorLight],
-            ["cursorDark", l.cursorDark],
-            ["noAnim", l.noAnim],
-          ].map(([key, label]) => {
+      <ScrollArea style={{ maxHeight: "70vh" }}>
+        <div style={{ padding: 16 }}>
+          {/* Toggles Grid - 3 columns */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 8,
+            }}
+          >
+            {[
+              ["grayscale", l.grayscale],
+              ["contrast", l.contrast],
+              ["invert", l.invert],
+              ["monochrome", l.monochrome],
+              ["underline", l.underline],
+              ["hideImages", l.hideImages],
+              ["dyslexia", l.dyslexia],
+              ["readable", l.readable],
+              ["guide", l.guide],
+              ["highlightH", l.highlightH],
+              ["cursorLight", l.cursorLight],
+              ["cursorDark", l.cursorDark],
+              ["noAnim", l.noAnim],
+            ].map(([key, label]) => {
             const active = (prefs as any)[key];
             return (
               <button
@@ -859,7 +861,8 @@ const AccessibilityWidget: React.FC = () => {
             {l.shortcuts}
           </div>
         </div>
-      </div>
+        </div>
+      </ScrollArea>
     </div>
   );
 
