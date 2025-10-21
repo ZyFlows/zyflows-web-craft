@@ -98,4 +98,15 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Accessibility Statement -->
+  <url>
+    <loc>https://zyflows.com/accessibility-statement</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/accessibility-statement?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/accessibility-statement?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/accessibility-statement?lang=he"/>
+  </url>
+
 </urlset>

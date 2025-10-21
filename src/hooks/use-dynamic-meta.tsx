@@ -11,16 +11,16 @@ interface MetaTranslations {
 
 const metaTranslations: MetaTranslations = {
   fr: {
-    title: "zyFlows - Solutions Digitales Innovantes depuis Israël | Développement Web & IA",
-    description: "Entreprise technologique israélienne spécialisée en développement web sur mesure, applications mobiles, intégration IA et automatisation. Solutions de transformation digitale pour entreprises modernes."
+    title: "zyFlows - Solutions Digitales Innovantes | Développement Web & IA",
+    description: "Entreprise technologique spécialisée en développement web sur mesure, applications mobiles, intégration IA et automatisation. Solutions de transformation digitale pour entreprises modernes."
   },
   en: {
-    title: "zyFlows - Innovative Digital Solutions from Israel | Web Development & AI", 
-    description: "Israeli tech company specializing in custom web development, mobile apps, AI integration, and business automation. Expert digital transformation solutions for modern enterprises."
+    title: "zyFlows - Innovative Digital Solutions | Web Development & AI", 
+    description: "Tech company specializing in custom web development, mobile apps, AI integration, and business automation. Expert digital transformation solutions for modern enterprises."
   },
   he: {
-    title: "zyFlows - פתרונות דיגיטליים חדשניים מישראל | פיתוח ובינה מלאכותית",
-    description: "חברת טכנולוגיה ישראלית המתמחה בפיתוח אתרים מותאמים, אפליקציות מובייל, שילוב בינה מלאכותית ואוטומציה עסקית. פתרונות טרנספורמציה דיגיטלית מומחים."
+    title: "zyFlows - פתרונות דיגיטליים חדשניים | פיתוח ובינה מלאכותית",
+    description: "חברת טכנולוגיה המתמחה בפיתוח אתרים מותאמים, אפליקציות מובייל, שילוב בינה מלאכותית ואוטומציה עסקית. פתרונות טרנספורמציה דיגיטלית מומחים."
   }
 };
 
@@ -61,7 +61,7 @@ export const DynamicMetaTags = () => {
     <Helmet>
       <title>{meta.title}</title>
       <meta name="description" content={meta.description} />
-      <meta name="keywords" content="digital solutions Israel, web development, mobile apps, AI integration, business automation, digital transformation, Israeli tech, software development, cloud solutions" />
+      <meta name="keywords" content="digital solutions, web development, mobile apps, AI integration, business automation, digital transformation, tech company, software development, cloud solutions" />
       <link rel="canonical" href="https://zyflows.com/" />
       
       {/* Open Graph / Facebook */}

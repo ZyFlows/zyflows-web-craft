@@ -47,10 +47,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         if (countryCode === 'FR') {
           return 'fr';
         }
-        // Israël → Hébreu
-        if (countryCode === 'IL') {
-          return 'he';
-        }
+        // Fallback si pas de pays détecté → Langue du navigateur
       }
     } catch (error) {
       console.log('Geo detection failed, using fallback');
@@ -109,7 +106,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'nav.start_project': 'Démarrer un projet',
       
       // Hero Section
-      'hero.badge': 'Solutions digitales innovantes depuis Israël',
+      'hero.badge': 'Solutions digitales innovantes',
       'hero.title': 'Transformons vos idées digitales en réalité',
       'hero.subtitle': 'zyFlows conçoit des sites web performants, des applications sur-mesure et des automatisations intelligentes qui propulsent votre entreprise vers le futur.',
       'hero.cta_services': 'Découvrir nos services',
@@ -208,7 +205,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.badge': 'À Propos de zyFlows',
       'about.title': 'L\'expertise tech au service de vos ambitions',
       'about.mission_title': 'Notre Mission',
-      'about.mission_text1': 'Chez zyFlows, nous croyons que la technologie doit servir l\'humain, pas l\'inverse. Basée en Israël, notre équipe combine l\'innovation technologique de pointe avec une approche profondément humaine et accessible.',
+      'about.mission_text1': 'Chez zyFlows, nous croyons que la technologie doit servir l\'humain, pas l\'inverse. Notre équipe combine l\'innovation technologique de pointe avec une approche profondément humaine et accessible.',
       'about.mission_text2': 'Nous transformons les défis complexes en solutions élégantes, que ce soit à travers des sites web performants, des automatisations intelligentes ou des agents IA sur-mesure.',
       'about.values_title': 'Nos Valeurs Fondamentales',
       'about.value1_title': 'Excellence Technique',
@@ -218,7 +215,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.value3_title': 'Innovation Continue',
       'about.value3_desc': 'L\'IA, l\'automatisation et les nouvelles technologies n\'ont plus de secrets pour nous. Nous restons à la pointe.',
       'about.value4_title': 'Vision Globale',
-      'about.value4_desc': 'Basés en Israël, nous travaillons avec des clients du monde entier et maîtrisons les enjeux internationaux.',
+      'about.value4_desc': 'Nous travaillons avec des clients du monde entier et maîtrisons les enjeux internationaux.',
       'about.team_button': 'Découvrir notre équipe',
       'about.cta_title': 'Prêt à rejoindre l\'aventure ?',
       'about.cta_desc': 'Que vous soyez une startup ambitieuse ou une entreprise établie, nous avons les compétences et la passion pour propulser votre projet vers le succès.',
@@ -327,13 +324,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'footer.newsletter_placeholder': 'votre@email.com',
       'footer.newsletter_button': 'S\'abonner',
       'footer.newsletter_disclaimer': 'En vous abonnant, vous acceptez notre politique de confidentialité.',
-      'footer.company_desc': 'Solutions digitales innovantes depuis Israël. Nous transformons vos idées en applications performantes, sites web exceptionnels et automatisations intelligentes.',
+      'footer.company_desc': 'Solutions digitales innovantes. Nous transformons vos idées en applications performantes, sites web exceptionnels et automatisations intelligentes.',
       'footer.services_title': 'Services',
       'footer.company_title': 'Entreprise',
       'footer.resources_title': 'Ressources',
       'footer.legal_title': 'Légal',
       'footer.copyright': '© 2024 zyFlows. Tous droits réservés.',
-      'footer.made_with_love': 'Made with ♥ in Israel',
+      'footer.made_with_love': 'Crafted with ♥ Excellence',
       'footer.start_project': 'Démarrer un projet',
       'footer.service1': 'Sites Web (Wix, WordPress, Shopify)',
       'footer.service2': 'Applications Sur-Mesure',
@@ -379,7 +376,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'nav.start_project': 'Start a Project',
       
       // Hero Section
-      'hero.badge': 'Innovative Digital Solutions from Israel',
+      'hero.badge': 'Innovative Digital Solutions',
       'hero.title': 'Transform Your Digital Ideas into Reality',
       'hero.subtitle': 'zyFlows designs high-performing websites, custom applications and intelligent automations that propel your business toward the future.',
       'hero.cta_services': 'Discover Our Services',
@@ -478,7 +475,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.badge': 'About zyFlows',
       'about.title': 'Tech Expertise at the Service of Your Ambitions',
       'about.mission_title': 'Our Mission',
-      'about.mission_text1': 'At zyFlows, we believe technology should serve humans, not the other way around. Based in Israel, our team combines cutting-edge technological innovation with a deeply human and accessible approach.',
+      'about.mission_text1': 'At zyFlows, we believe technology should serve humans, not the other way around. Our team combines cutting-edge technological innovation with a deeply human and accessible approach.',
       'about.mission_text2': 'We transform complex challenges into elegant solutions, whether through high-performing websites, intelligent automations, or custom AI agents.',
       'about.values_title': 'Our Core Values',
       'about.value1_title': 'Technical Excellence',
@@ -488,7 +485,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.value3_title': 'Continuous Innovation',
       'about.value3_desc': 'AI, automation and new technologies hold no secrets for us. We stay at the cutting edge.',
       'about.value4_title': 'Global Vision',
-      'about.value4_desc': 'Based in Israel, we work with clients worldwide and master international challenges.',
+      'about.value4_desc': 'We work with clients worldwide and master international challenges.',
       'about.team_button': 'Discover Our Team',
       'about.cta_title': 'Ready to Join the Adventure?',
       'about.cta_desc': 'Whether you\'re an ambitious startup or an established company, we have the skills and passion to propel your project to success.',
@@ -597,13 +594,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'footer.newsletter_placeholder': 'your@email.com',
       'footer.newsletter_button': 'Subscribe',
       'footer.newsletter_disclaimer': 'By subscribing, you accept our privacy policy.',
-      'footer.company_desc': 'Innovative digital solutions from Israel. We transform your ideas into high-performing applications, exceptional websites and intelligent automations.',
+      'footer.company_desc': 'Innovative digital solutions. We transform your ideas into high-performing applications, exceptional websites and intelligent automations.',
       'footer.services_title': 'Services',
       'footer.company_title': 'Company',
       'footer.resources_title': 'Resources',
       'footer.legal_title': 'Legal',
       'footer.copyright': '© 2024 zyFlows. All rights reserved.',
-      'footer.made_with_love': 'Made with ♥ in Israel',
+      'footer.made_with_love': 'Crafted with ♥ Excellence',
       'footer.start_project': 'Start a Project',
       'footer.service1': 'Websites (Wix, WordPress, Shopify)',
       'footer.service2': 'Custom Applications',
@@ -696,7 +693,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'nav.start_project': 'התחל פרויקט',
       
       // Hero Section
-      'hero.badge': 'פתרונות דיגיטליים חדשניים מישראל',
+      'hero.badge': 'פתרונות דיגיטליים חדשניים',
       'hero.title': 'נהפוך את הרעיונות הדיגיטליים שלכם למציאות',
       'hero.subtitle': 'zyFlows מעצבת אתרי אינטרנט מתקדמים, יישומים מותאמים אישית ואוטומציות חכמות שמניעות את העסק שלכם קדימה לעתיד.',
       'hero.cta_services': 'גלו את השירותים שלנו',
@@ -795,7 +792,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.badge': 'אודות zyFlows',
       'about.title': 'מומחיות טכנולוגית בשירות השאיפות שלכם',
       'about.mission_title': 'המשימה שלנו',
-      'about.mission_text1': 'ב-zyFlows, אנו מאמינים שהטכנולוגיה צריכה לשרת את האדם, לא להיפך. הצוות שלנו, הממוקם בישראל, משלב חדשנות טכנולוגית מתקדמת עם גישה אנושית ונגישה עמוקה.',
+      'about.mission_text1': 'ב-zyFlows, אנו מאמינים שהטכנולוגיה צריכה לשרת את האדם, לא להיפך. הצוות שלנו משלב חדשנות טכנולוגית מתקדמת עם גישה אנושית ונגישה עמוקה.',
       'about.mission_text2': 'אנו הופכים אתגרים מורכבים לפתרונות אלגנטיים, בין אם דרך אתרי אינטרנט מתקדמים, אוטומציות חכמות או סוכני בינה מלאכותית מותאמים אישית.',
       'about.values_title': 'הערכים הבסיסיים שלנו',
       'about.value1_title': 'מצוינות טכנית',
@@ -805,7 +802,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'about.value3_title': 'חדשנות מתמשכת',
       'about.value3_desc': 'בינה מלאכותית, אוטומציה וטכנולוגיות חדשות אינן מסתוריות עבורנו. אנו נשארים בחזית.',
       'about.value4_title': 'חזון גלובלי',
-      'about.value4_desc': 'מבוססים בישראל, אנו עובדים עם לקוחות מרחבי העולם ושולטים באתגרים הבינלאומיים.',
+      'about.value4_desc': 'אנו עובדים עם לקוחות מרחבי העולם ושולטים באתגרים הבינלאומיים.',
       'about.team_button': 'גלו את הצוות שלנו',
       'about.cta_title': 'מוכנים להצטרף להרפתקה?',
       'about.cta_desc': 'בין אם אתם סטארט-אפ שאפתני או חברה מבוססת, יש לנו את הכישורים והתשוקה להוביל את הפרויקט שלכם להצלחה.',
@@ -914,13 +911,13 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'footer.newsletter_placeholder': 'האימייל@שלכם.com',
       'footer.newsletter_button': 'הרשמה',
       'footer.newsletter_disclaimer': 'על ידי ההרשמה, אתם מסכימים למדיניות הפרטיות שלנו.',
-      'footer.company_desc': 'פתרונות דיגיטליים חדשניים מישראל. אנו הופכים את הרעיונות שלכם ליישומים מתקדמים, אתרי אינטרנט יוצאי דופן ואוטומציות חכמות.',
+      'footer.company_desc': 'פתרונות דיגיטליים חדשניים. אנו הופכים את הרעיונות שלכם ליישומים מתקדמים, אתרי אינטרנט יוצאי דופן ואוטומציות חכמות.',
       'footer.services_title': 'שירותים',
       'footer.company_title': 'החברה',
       'footer.resources_title': 'משאבים',
       'footer.legal_title': 'משפטי',
       'footer.copyright': '© 2024 zyFlows. כל הזכויות שמורות.',
-      'footer.made_with_love': 'נוצר עם ♥ בישראל',
+      'footer.made_with_love': 'נוצר עם ♥ מצוינות',
       'footer.start_project': 'התחל פרויקט',
       'footer.service1': 'אתרי אינטרנט (Wix, WordPress, Shopify)',
       'footer.service2': 'יישומים מותאמים אישית',

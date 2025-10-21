@@ -149,7 +149,7 @@ const About = () => {
               {/* Badges flottants */}
               <div className={`absolute -top-4 ${language === 'he' ? '-left-4' : '-right-4'}`}>
                 <Badge className="bg-primary text-primary-foreground">
-                  Made in Israel 🇮🇱
+                  Crafted with Excellence 🌍
                 </Badge>
               </div>
               <div className={`absolute -bottom-4 ${language === 'he' ? '-right-4' : '-left-4'}`}>

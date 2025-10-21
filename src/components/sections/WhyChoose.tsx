@@ -8,12 +8,12 @@ const WhyChoose = () => {
   const reasons = [
     {
       icon: Award,
-      title: language === 'he' ? 'מומחיות טכנולוגית ישראלית' : language === 'fr' ? 'Expertise Tech Israélienne' : 'Israeli Tech Expertise',
+      title: language === 'he' ? 'מומחיות טכנולוגית מתקדמת' : language === 'fr' ? 'Expertise Technologique Avancée' : 'Advanced Tech Expertise',
       description: language === 'he' 
         ? 'ישראל ידועה כ"אומת הסטארט-אפ", ואנו מביאים את החדשנות והמצוינות הטכנולוגית הזו לכל פרויקט. הצוות שלנו משלב ידע מתקדם במיוחד בפיתוח, AI, ואוטומציה עם גישה מעשית ומונחית תוצאות.'
         : language === 'fr'
-        ? 'Israël est connue comme la "Nation Start-up", et nous apportons cette innovation et excellence technologique à chaque projet. Notre équipe combine une expertise de pointe en développement, IA et automatisation avec une approche pratique orientée résultats.'
-        : 'Israel is known as the "Start-up Nation", and we bring this innovation and technological excellence to every project. Our team combines cutting-edge expertise in development, AI, and automation with a practical, results-driven approach.',
+        ? 'Nous apportons l\'innovation et l\'excellence technologique mondiale à chaque projet. Notre équipe combine une expertise de pointe en développement, IA et automatisation avec une approche pratique orientée résultats.'
+        : 'We bring global innovation and technological excellence to every project. Our team combines cutting-edge expertise in development, AI, and automation with a practical, results-driven approach.',
       color: "text-blue-500"
     },
     {
@@ -77,8 +77,8 @@ const WhyChoose = () => {
             {language === 'he' 
               ? 'ההבדל של zyFlows: חדשנות ישראלית, טווח הגעה עולמי'
               : language === 'fr'
-              ? 'La différence zyFlows : Innovation israélienne, portée mondiale'
-              : 'The zyFlows Difference: Israeli Innovation, Global Reach'
+              ? 'La différence zyFlows : Innovation technologique, portée mondiale'
+              : 'The zyFlows Difference: Technological Innovation, Global Reach'
             }
           </h2>
           
