@@ -7,8 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Loader from "@/components/ui/loader";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import AccessibilityStatement from "./pages/AccessibilityStatement";
 import EcommerceDemo from "./pages/demos/EcommerceDemo";
 import SaasDemo from "./pages/demos/SaasDemo";
 import FashionDemo from "./pages/demos/FashionDemo";
@@ -36,6 +38,7 @@ const App = () => {
         <LanguageProvider>
           <Toaster />
           <Sonner />
+          <AccessibilityWidget />
           <BrowserRouter>
             {showLoader && <Loader onComplete={() => {
               console.log('Loader completed, hiding loader');
@@ -43,6 +46,7 @@ const App = () => {
             }} />}
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
             <Route path="/demo/fashion" element={<FashionDemo />} />
             <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
             <Route path="/demo/saas" element={<SaasDemo />} />

@@ -322,3 +322,119 @@ textarea {
 .dark .text-muted-foreground {
   color: hsl(215 20% 75%);
 }
+
+/* ========================================
+   ACCESSIBILITY WIDGET STYLES
+   ======================================== */
+
+/* Contraste élevé */
+html.accessibility-high-contrast {
+  filter: contrast(150%) !important;
+}
+
+html.accessibility-high-contrast * {
+  border-color: hsl(var(--foreground)) !important;
+}
+
+/* Couleurs inversées */
+html.accessibility-inverted {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
+html.accessibility-inverted img,
+html.accessibility-inverted video {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Niveaux de gris */
+html.accessibility-grayscale {
+  filter: grayscale(100%) !important;
+}
+
+/* Surbrillance liens */
+html.accessibility-highlight-links a {
+  background: hsl(60 100% 50%) !important;
+  color: hsl(0 0% 0%) !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  padding: 2px 4px !important;
+  border-radius: 2px !important;
+}
+
+/* Police lisible */
+html.accessibility-readable-font,
+html.accessibility-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Curseur agrandi */
+html.accessibility-large-cursor,
+html.accessibility-large-cursor * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><circle cx="24" cy="24" r="20" fill="black" stroke="white" stroke-width="3"/></svg>') 24 24, auto !important;
+}
+
+/* Masquer images */
+html.accessibility-hide-images img {
+  opacity: 0.1 !important;
+  filter: blur(10px) !important;
+}
+
+/* Arrêter animations */
+html.accessibility-no-animations,
+html.accessibility-no-animations *,
+html.accessibility-no-animations *::before,
+html.accessibility-no-animations *::after {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* Espacement personnalisé */
+html[style*="--accessibility-line-height"] * {
+  line-height: var(--accessibility-line-height) !important;
+}
+
+html[style*="--accessibility-letter-spacing"] * {
+  letter-spacing: var(--accessibility-letter-spacing) !important;
+}
+
+/* Animation slide-in pour le panel */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+/* RTL support pour le widget */
+[dir="rtl"] .accessibility-panel {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .animate-slide-in-right {
+  animation: slide-in-left 0.3s ease-out;
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile responsive pour le widget */
+@media (max-width: 768px) {
+  .accessibility-panel {
+    width: 100% !important;
+  }
+}
