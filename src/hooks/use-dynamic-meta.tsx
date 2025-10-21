@@ -11,16 +11,16 @@ interface MetaTranslations {
 
 const metaTranslations: MetaTranslations = {
   fr: {
-    title: "zyFlows - Solutions Digitales Innovantes d'Israël",
-    description: "zyFlows développe vos sites web, applications personnalisées et automatisations. Experts en Wix, WordPress, Shopify, Make, Zapier et IA pour entreprises."
+    title: "zyFlows - Solutions Digitales Innovantes depuis Israël | Développement Web & IA",
+    description: "Entreprise technologique israélienne spécialisée en développement web sur mesure, applications mobiles, intégration IA et automatisation. Solutions de transformation digitale pour entreprises modernes."
   },
   en: {
-    title: "zyFlows - Innovative Digital Solutions from Israel", 
-    description: "zyFlows develops your websites, custom applications and automations. Experts in Wix, WordPress, Shopify, Make, Zapier and AI for businesses."
+    title: "zyFlows - Innovative Digital Solutions from Israel | Web Development & AI", 
+    description: "Israeli tech company specializing in custom web development, mobile apps, AI integration, and business automation. Expert digital transformation solutions for modern enterprises."
   },
   he: {
-    title: "zyFlows - פתרונות דיגיטליים חדשניים מישראל",
-    description: "zyFlows מפתחת אתרים, אפליקציות מותאמות ואוטומציות. מומחים ב-Wix, WordPress, Shopify, Make, Zapier ובינה מלאכותית לעסקים."
+    title: "zyFlows - פתרונות דיגיטליים חדשניים מישראל | פיתוח ובינה מלאכותית",
+    description: "חברת טכנולוגיה ישראלית המתמחה בפיתוח אתרים מותאמים, אפליקציות מובייל, שילוב בינה מלאכותית ואוטומציה עסקית. פתרונות טרנספורמציה דיגיטלית מומחים."
   }
 };
 
@@ -61,18 +61,25 @@ export const DynamicMetaTags = () => {
     <Helmet>
       <title>{meta.title}</title>
       <meta name="description" content={meta.description} />
+      <meta name="keywords" content="digital solutions Israel, web development, mobile apps, AI integration, business automation, digital transformation, Israeli tech, software development, cloud solutions" />
+      <link rel="canonical" href="https://zyflows.com/" />
       
       {/* Open Graph / Facebook */}
       <meta property="og:title" content={meta.title} />
       <meta property="og:description" content={meta.description} />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="/lovable-uploads/95bff906-bd37-4d87-8782-3fcce7069157.png" />
+      <meta property="og:url" content="https://zyflows.com/" />
+      <meta property="og:image" content="https://zyflows.com/lovable-uploads/95bff906-bd37-4d87-8782-3fcce7069157.png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:site_name" content="zyFlows" />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
-      <meta name="twitter:image" content="/lovable-uploads/95bff906-bd37-4d87-8782-3fcce7069157.png" />
+      <meta name="twitter:image" content="https://zyflows.com/lovable-uploads/95bff906-bd37-4d87-8782-3fcce7069157.png" />
+      <meta name="twitter:site" content="@zyflows" />
     </Helmet>
   );
 };

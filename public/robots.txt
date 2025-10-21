@@ -1,3 +1,6 @@
+# robots.txt for zyflows.com
+# Allow all search engines to crawl the site
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +15,12 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Disallow crawling of demo parameter variations to avoid duplicate content
+Disallow: /*?*demo=*
+
+# Sitemap location
+Sitemap: https://zyflows.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
