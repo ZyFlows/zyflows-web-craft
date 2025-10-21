@@ -107,7 +107,7 @@ const Navigation = () => {
           </div>
 
           {/* Menu mobile - Only show on small screens */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center">
             <Button 
               variant="ghost" 
               size="icon" 
@@ -119,7 +119,6 @@ const Navigation = () => {
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
-            <LanguageSelector />
           </div>
         </div>
 
