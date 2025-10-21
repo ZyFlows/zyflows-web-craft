@@ -1,5 +1,6 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/ui/navigation";
+import Footer from "@/components/sections/Footer";
 import { Shield, Cookie, Lock, Eye } from "lucide-react";
 
 const PrivacyPolicy = () => {
@@ -201,6 +202,8 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
