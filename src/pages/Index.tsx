@@ -1,5 +1,6 @@
 import Navigation from "@/components/ui/navigation";
 import Hero from "@/components/sections/Hero";
+import WhyChoose from "@/components/sections/WhyChoose";
 import Services from "@/components/sections/Services";
 import Projects from "@/components/sections/Projects";
 import About from "@/components/sections/About";
@@ -22,6 +23,7 @@ const Index = () => {
       <Navigation />
       <div id="main-content">
         <Hero />
+        <WhyChoose />
         <Services />
         <Projects />
         <About />

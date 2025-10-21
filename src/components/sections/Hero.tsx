@@ -90,8 +90,18 @@ const Hero = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-4 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             {t('hero.subtitle')}
+          </p>
+          
+          {/* Additional descriptive paragraph for SEO */}
+          <p className="text-base md:text-lg text-muted-foreground/90 mb-8 leading-relaxed max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            {language === 'he'
+              ? 'מישראל לעולם, אנחנו משלבים מומחיות טכנולוגית מובילה עם גישה מותאמת אישית. בין אם אתה צריך אתר מתקדם, אפליקציה מובייל, אוטומציה עסקית או שילוב בינה מלאכותית - יש לנו את הכלים, הניסיון והתשוקה להוביל את הפרויקט שלך להצלחה.'
+              : language === 'fr'
+              ? 'Depuis Israël vers le monde entier, nous combinons une expertise technologique de premier plan avec une approche personnalisée. Que vous ayez besoin d\'un site web avancé, d\'une application mobile, d\'automatisation métier ou d\'intégration IA - nous avons les outils, l\'expérience et la passion pour mener votre projet vers le succès.'
+              : 'From Israel to the world, we combine leading technological expertise with a personalized approach. Whether you need an advanced website, mobile app, business automation, or AI integration - we have the tools, experience, and passion to drive your project to success.'
+            }
           </p>
 
           {/* CTA Buttons */}
