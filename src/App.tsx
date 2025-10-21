@@ -8,9 +8,11 @@ import { useState } from "react";
 import Loader from "@/components/ui/loader";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
+import CookieConsent from "@/components/CookieConsent";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AccessibilityStatement from "./pages/AccessibilityStatement";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import EcommerceDemo from "./pages/demos/EcommerceDemo";
 import SaasDemo from "./pages/demos/SaasDemo";
 import FashionDemo from "./pages/demos/FashionDemo";
@@ -39,6 +41,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <AccessibilityWidget />
+          <CookieConsent />
           <BrowserRouter>
             {showLoader && <Loader onComplete={() => {
               console.log('Loader completed, hiding loader');
@@ -47,6 +50,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/demo/fashion" element={<FashionDemo />} />
             <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
             <Route path="/demo/saas" element={<SaasDemo />} />

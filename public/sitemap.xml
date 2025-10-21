@@ -109,4 +109,15 @@
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/accessibility-statement?lang=he"/>
   </url>
 
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://zyflows.com/privacy-policy</loc>
+    <lastmod>2025-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/privacy-policy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/privacy-policy?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/privacy-policy?lang=he"/>
+  </url>
+
 </urlset>
