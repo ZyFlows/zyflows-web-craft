@@ -107,8 +107,7 @@ const Navigation = () => {
           </div>
 
           {/* Menu mobile - Only show on small screens */}
-          <div className="md:hidden flex items-center">
-            <LanguageSelector />
+          <div className="md:hidden flex items-center gap-2">
             <Button 
               variant="ghost" 
               size="icon" 
@@ -116,10 +115,11 @@ const Navigation = () => {
               aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
-              className="ml-2 h-10 w-10"
+              className="h-10 w-10"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
+            <LanguageSelector />
           </div>
         </div>
 
@@ -142,15 +142,10 @@ const Navigation = () => {
                   {item.label}
                 </a>
               ))}
-              <div className={`px-3 py-2 flex ${
-                language === 'he' 
-                  ? 'flex-row-reverse justify-start' 
-                  : 'flex-row justify-between'
-              } items-center gap-4`}>
-                <LanguageSelector />
+              <div className="px-3 py-2">
                 <Button 
                   variant="default" 
-                  className="glow-primary flex-shrink-0 text-sm"
+                  className="glow-primary w-full text-sm"
                   onClick={handleWhatsAppClick}
                 >
                   {t('nav.start_project')}
