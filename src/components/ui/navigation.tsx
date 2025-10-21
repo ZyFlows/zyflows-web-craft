@@ -28,23 +28,27 @@ const Navigation = () => {
   const baseNavItems = [
     {
       label: t('nav.home'),
-      href: "/"
+      href: "#home"
     },
     {
       label: t('nav.services'),
-      href: "/services"
+      href: "#services"
     },
     {
       label: t('nav.projects'),
-      href: "/portfolio"
+      href: "#projects"
     },
     {
       label: t('nav.about'),
-      href: "/about"
+      href: "#about"
+    },
+    {
+      label: t('nav.testimonials'),
+      href: "#testimonials"
     },
     {
       label: t('nav.contact'),
-      href: "/contact"
+      href: "#contact"
     }
   ];
 
