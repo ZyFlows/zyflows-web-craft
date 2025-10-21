@@ -10,7 +10,7 @@ const WhyChoose = () => {
       icon: Award,
       title: language === 'he' ? 'מומחיות טכנולוגית מתקדמת' : language === 'fr' ? 'Expertise Technologique Avancée' : 'Advanced Tech Expertise',
       description: language === 'he' 
-        ? 'ישראל ידועה כ"אומת הסטארט-אפ", ואנו מביאים את החדשנות והמצוינות הטכנולוגית הזו לכל פרויקט. הצוות שלנו משלב ידע מתקדם במיוחד בפיתוח, AI, ואוטומציה עם גישה מעשית ומונחית תוצאות.'
+        ? 'אנו מביאים חדשנות ומצוינות טכנולוגית עולמית לכל פרויקט. הצוות שלנו משלב ידע מתקדם במיוחד בפיתוח, AI, ואוטומציה עם גישה מעשית ומונחית תוצאות.'
         : language === 'fr'
         ? 'Nous apportons l\'innovation et l\'excellence technologique mondiale à chaque projet. Notre équipe combine une expertise de pointe en développement, IA et automatisation avec une approche pratique orientée résultats.'
         : 'We bring global innovation and technological excellence to every project. Our team combines cutting-edge expertise in development, AI, and automation with a practical, results-driven approach.',
@@ -75,7 +75,7 @@ const WhyChoose = () => {
           
           <h2 id="why-choose-title" className="text-4xl md:text-5xl font-bold mb-6">
             {language === 'he' 
-              ? 'ההבדל של zyFlows: חדשנות ישראלית, טווח הגעה עולמי'
+              ? 'ההבדל של zyFlows: חדשנות טכנולוגית, טווח הגעה עולמי'
               : language === 'fr'
               ? 'La différence zyFlows : Innovation technologique, portée mondiale'
               : 'The zyFlows Difference: Technological Innovation, Global Reach'
