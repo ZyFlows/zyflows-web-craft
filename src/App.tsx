@@ -21,6 +21,10 @@ import LegalGPTDemo from "./pages/demos/LegalGPTDemo";
 import RestaurantDemo from "./pages/demos/RestaurantDemo";
 import AgencyDemo from "./pages/demos/AgencyDemo";
 import AutomationDemo from "./pages/demos/AutomationDemo";
+import Services from "./pages/Services";
+import About from "./pages/About";
+import Portfolio from "./pages/Portfolio";
+import Contact from "./pages/Contact";
 import "@/components/ui/rtl-support.css";
 
 const queryClient = new QueryClient();
@@ -43,6 +47,10 @@ const App = () => {
             }} />}
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/demo/fashion" element={<FashionDemo />} />
             <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
             <Route path="/demo/saas" element={<SaasDemo />} />
