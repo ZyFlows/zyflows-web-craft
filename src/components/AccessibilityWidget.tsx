@@ -244,133 +244,226 @@ const AccessibilityWidget = () => {
       {/* Panel */}
       {isOpen && (
         <div 
-          className="fixed top-0 right-0 w-[400px] h-screen bg-background shadow-2xl z-[10000] overflow-y-auto animate-slide-in-right"
+          className="fixed top-0 right-0 w-[360px] max-w-[90vw] h-screen bg-card shadow-2xl z-[10000] overflow-y-auto animate-slide-in-right border-l border-border"
           role="dialog" 
           aria-label={t('title')}
         >
-          <div className="flex justify-between items-center p-5 bg-primary text-primary-foreground">
-            <h2 className="text-xl font-bold m-0">{t('title')}</h2>
-            <div className="flex gap-2">
-              <button
-                onClick={resetSettings}
-                title={t('reset')}
-                aria-label={t('reset')}
-                className="bg-primary-foreground/20 border-none text-primary-foreground p-2 rounded cursor-pointer transition-colors hover:bg-primary-foreground/30"
-              >
-                <RotateCcw className="h-5 w-5" />
-              </button>
-              <button
-                onClick={() => setIsOpen(false)}
-                title={t('close')}
-                aria-label={t('close')}
-                className="bg-primary-foreground/20 border-none text-primary-foreground p-2 rounded cursor-pointer transition-colors hover:bg-primary-foreground/30"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
+          <div className="flex justify-between items-center p-4 bg-primary text-primary-foreground rounded-br-3xl">
+            <h2 className="text-lg font-bold m-0">{t('title')}</h2>
+            <button
+              onClick={() => setIsOpen(false)}
+              title={t('close')}
+              aria-label={t('close')}
+              className="bg-primary-foreground/20 border-none text-primary-foreground p-1.5 rounded-lg cursor-pointer transition-all hover:bg-primary-foreground/30 hover:rotate-90"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
 
-          <div className="p-5">
-            {/* SECTION: Taille du texte */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('textSize')}</h3>
-              <div className="flex items-center gap-4 justify-center">
+          <div className="p-4">
+            {/* Quick Actions Grid */}
+            <section className="mb-6">
+              <div className="grid grid-cols-3 gap-2 mb-4">
                 <button
-                  onClick={() => setSettings({...settings, fontSize: Math.max(80, settings.fontSize - 10)})}
-                  aria-label="Decrease text size"
-                  className="px-5 py-2 border-2 border-primary bg-background text-primary rounded-md cursor-pointer font-bold transition-all hover:bg-primary hover:text-primary-foreground"
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.contrast === 'high'
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, contrast: settings.contrast === 'high' ? 'normal' : 'high'})}
                 >
-                  A-
+                  {t('high')} {t('contrast')}
                 </button>
-                <span className="min-w-[60px] text-center font-semibold">{settings.fontSize}%</span>
                 <button
-                  onClick={() => setSettings({...settings, fontSize: Math.min(200, settings.fontSize + 10)})}
-                  aria-label="Increase text size"
-                  className="px-5 py-2 border-2 border-primary bg-background text-primary rounded-md cursor-pointer font-bold transition-all hover:bg-primary hover:text-primary-foreground"
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.grayscale
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, grayscale: !settings.grayscale})}
                 >
-                  A+
+                  {t('grayscale')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.readableFont
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, readableFont: !settings.readableFont})}
+                >
+                  {t('readableFont')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.highlightLinks
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, highlightLinks: !settings.highlightLinks})}
+                >
+                  {t('highlightLinks')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.stopAnimations
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, stopAnimations: !settings.stopAnimations})}
+                >
+                  {t('stopAnimations')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.cursor === 'large'
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, cursor: settings.cursor === 'large' ? 'normal' : 'large'})}
+                >
+                  {t('large')} {t('cursor')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.hideImages
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, hideImages: !settings.hideImages})}
+                >
+                  {t('hideImages')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.readingGuide
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, readingGuide: !settings.readingGuide})}
+                >
+                  {t('readingGuide')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.contrast === 'inverted'
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, contrast: settings.contrast === 'inverted' ? 'normal' : 'inverted'})}
+                >
+                  {t('inverted')}
+                </button>
+                <button
+                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                    settings.letterSpacing === 'wide'
+                      ? 'bg-primary text-primary-foreground border-primary' 
+                      : 'bg-background border-primary/30 text-foreground hover:border-primary'
+                  }`}
+                  onClick={() => setSettings({...settings, letterSpacing: settings.letterSpacing === 'wide' ? 'normal' : 'wide'})}
+                >
+                  {t('wide')} {t('letterSpacing')}
                 </button>
               </div>
             </section>
 
-            {/* SECTION: Contraste */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('contrast')}</h3>
-              <div className="flex gap-2 flex-wrap">
-                {(['normal', 'high', 'inverted'] as const).map((type) => (
-                  <button
-                    key={type}
-                    className={`px-4 py-2 border-2 rounded-md cursor-pointer transition-all flex-1 min-w-[80px] ${
-                      settings.contrast === type 
-                        ? 'bg-primary text-primary-foreground border-primary' 
-                        : 'bg-background border-border hover:border-primary hover:text-primary'
-                    }`}
-                    onClick={() => setSettings({...settings, contrast: type})}
-                  >
-                    {t(type)}
-                  </button>
-                ))}
+            {/* SECTION: Taille du texte */}
+            <section className="mb-6 p-4 bg-muted/30 rounded-2xl">
+              <h3 className="text-sm mb-3 text-primary font-semibold text-center">{t('textSize')}</h3>
+              <div className="flex items-center gap-3 justify-between">
+                <button
+                  onClick={() => setSettings({...settings, fontSize: Math.max(80, settings.fontSize - 10)})}
+                  aria-label="Decrease text size"
+                  className="w-10 h-10 rounded-full border-2 border-primary bg-background text-primary cursor-pointer font-bold text-lg transition-all hover:bg-primary hover:text-primary-foreground flex items-center justify-center"
+                >
+                  −
+                </button>
+                <span className="text-2xl font-bold text-primary">{settings.fontSize}%</span>
+                <button
+                  onClick={() => setSettings({...settings, fontSize: Math.min(200, settings.fontSize + 10)})}
+                  aria-label="Increase text size"
+                  className="w-10 h-10 rounded-full border-2 border-primary bg-background text-primary cursor-pointer font-bold text-lg transition-all hover:bg-primary hover:text-primary-foreground flex items-center justify-center"
+                >
+                  +
+                </button>
               </div>
             </section>
 
             {/* SECTION: Luminosité */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('brightness')}</h3>
-              <input
-                type="range"
-                min="50"
-                max="150"
-                value={settings.brightness}
-                onChange={(e) => setSettings({...settings, brightness: Number(e.target.value)})}
-                aria-label="Adjust brightness"
-                className="w-full my-2"
-              />
-              <div className="text-center font-semibold">{settings.brightness}%</div>
+            <section className="mb-6 p-4 bg-muted/30 rounded-2xl">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm text-primary font-semibold">{t('brightness')}</h3>
+                <span className="text-sm font-bold text-primary">{settings.brightness}%</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSettings({...settings, brightness: Math.max(50, settings.brightness - 10)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  −
+                </button>
+                <input
+                  type="range"
+                  min="50"
+                  max="150"
+                  value={settings.brightness}
+                  onChange={(e) => setSettings({...settings, brightness: Number(e.target.value)})}
+                  aria-label="Adjust brightness"
+                  className="flex-1 h-2 rounded-full appearance-none bg-muted cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
+                />
+                <button
+                  onClick={() => setSettings({...settings, brightness: Math.min(150, settings.brightness + 10)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  +
+                </button>
+              </div>
             </section>
 
             {/* SECTION: Saturation */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('saturation')}</h3>
-              <input
-                type="range"
-                min="0"
-                max="200"
-                value={settings.saturation}
-                onChange={(e) => setSettings({...settings, saturation: Number(e.target.value)})}
-                aria-label="Adjust saturation"
-                className="w-full my-2"
-              />
-              <div className="text-center font-semibold">{settings.saturation}%</div>
+            <section className="mb-6 p-4 bg-muted/30 rounded-2xl">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm text-primary font-semibold">{t('saturation')}</h3>
+                <span className="text-sm font-bold text-primary">{settings.saturation}%</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSettings({...settings, saturation: Math.max(0, settings.saturation - 10)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  −
+                </button>
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  value={settings.saturation}
+                  onChange={(e) => setSettings({...settings, saturation: Number(e.target.value)})}
+                  aria-label="Adjust saturation"
+                  className="flex-1 h-2 rounded-full appearance-none bg-muted cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
+                />
+                <button
+                  onClick={() => setSettings({...settings, saturation: Math.min(200, settings.saturation + 10)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  +
+                </button>
+              </div>
             </section>
 
-            {/* SECTION: Options visuelles */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('visualOptions')}</h3>
-              {[
-                { key: 'grayscale', label: t('grayscale') },
-                { key: 'highlightLinks', label: t('highlightLinks') },
-                { key: 'readableFont', label: t('readableFont') },
-                { key: 'hideImages', label: t('hideImages') },
-                { key: 'stopAnimations', label: t('stopAnimations') },
-                { key: 'readingGuide', label: t('readingGuide') }
-              ].map(({ key, label }) => (
-                <label key={key} className="flex items-center gap-2 mb-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={settings[key as keyof typeof settings] as boolean}
-                    onChange={(e) => setSettings({...settings, [key]: e.target.checked})}
-                    className="w-5 h-5 cursor-pointer"
-                  />
-                  <span className="text-sm">{label}</span>
-                </label>
-              ))}
-            </section>
-
-            {/* SECTION: Espacement */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('spacing')}</h3>
-              <label className="block mb-4">
-                <span className="text-sm block mb-2">{t('lineHeight')}</span>
+            {/* SECTION: Espacement des lignes */}
+            <section className="mb-6 p-4 bg-muted/30 rounded-2xl">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm text-primary font-semibold">{t('lineHeight')}</h3>
+                <span className="text-sm font-bold text-primary">{settings.lineHeight.toFixed(1)}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setSettings({...settings, lineHeight: Math.max(1, settings.lineHeight - 0.1)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  −
+                </button>
                 <input
                   type="range"
                   min="1"
@@ -378,60 +471,34 @@ const AccessibilityWidget = () => {
                   step="0.1"
                   value={settings.lineHeight}
                   onChange={(e) => setSettings({...settings, lineHeight: Number(e.target.value)})}
-                  className="w-full"
+                  className="flex-1 h-2 rounded-full appearance-none bg-muted cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
                 />
-                <div className="text-center font-semibold mt-1">{settings.lineHeight}</div>
-              </label>
+                <button
+                  onClick={() => setSettings({...settings, lineHeight: Math.min(2.5, settings.lineHeight + 0.1)})}
+                  className="w-8 h-8 rounded-full border-2 border-primary/30 bg-background text-primary cursor-pointer font-bold transition-all hover:border-primary flex items-center justify-center"
+                >
+                  +
+                </button>
+              </div>
+            </section>
+
+            {/* Reset and Statement */}
+            <div className="flex flex-col gap-3 pt-4 border-t border-border">
+              <button
+                onClick={resetSettings}
+                className="w-full px-4 py-3 bg-destructive/10 text-destructive rounded-xl font-medium transition-all hover:bg-destructive hover:text-destructive-foreground flex items-center justify-center gap-2"
+              >
+                <RotateCcw className="h-4 w-4" />
+                {t('reset')}
+              </button>
               
-              <div className="text-sm mb-2">{t('letterSpacing')}</div>
-              <div className="flex gap-2">
-                {(['normal', 'wide'] as const).map((type) => (
-                  <button
-                    key={type}
-                    className={`px-4 py-2 border-2 rounded-md cursor-pointer transition-all flex-1 ${
-                      settings.letterSpacing === type 
-                        ? 'bg-primary text-primary-foreground border-primary' 
-                        : 'bg-background border-border hover:border-primary hover:text-primary'
-                    }`}
-                    onClick={() => setSettings({...settings, letterSpacing: type})}
-                  >
-                    {t(type)}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* SECTION: Curseur */}
-            <section className="mb-8 pb-5 border-b border-border">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('cursor')}</h3>
-              <div className="flex gap-2">
-                {(['normal', 'large'] as const).map((type) => (
-                  <button
-                    key={type}
-                    className={`px-4 py-2 border-2 rounded-md cursor-pointer transition-all flex-1 ${
-                      settings.cursor === type 
-                        ? 'bg-primary text-primary-foreground border-primary' 
-                        : 'bg-background border-border hover:border-primary hover:text-primary'
-                    }`}
-                    onClick={() => setSettings({...settings, cursor: type})}
-                  >
-                    {t(type)}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            {/* SECTION: Déclaration d'accessibilité */}
-            <section className="mb-8">
-              <h3 className="text-base mb-4 text-foreground font-semibold">{t('statement')}</h3>
-              <p className="text-sm mb-3 leading-relaxed">{t('statementText')}</p>
               <a 
                 href="/accessibility-statement" 
-                className="text-primary underline text-sm inline-block hover:text-primary/80"
+                className="text-xs text-center text-muted-foreground hover:text-primary underline transition-colors"
               >
-                {t('readMore')}
+                {t('statement')}
               </a>
-            </section>
+            </div>
           </div>
         </div>
       )}
