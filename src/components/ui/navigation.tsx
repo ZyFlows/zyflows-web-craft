@@ -79,7 +79,7 @@ const Navigation = () => {
 
           {/* Navigation desktop - au centre */}
           <div className={`hidden md:flex items-center justify-center order-2 ${
-            language === 'he' ? 'flex-row-reverse gap-8' : 'gap-8'
+            language === 'he' ? 'flex-row-reverse gap-6' : 'gap-6'
           }`}>
             {navItems.map(item => (
               <a 
