@@ -1,6 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import Navigation from "@/components/ui/navigation";
-import Footer from "@/components/sections/Footer";
 import { CheckCircle2 } from "lucide-react";
 
 const AccessibilityStatement = () => {
@@ -221,8 +220,6 @@ const AccessibilityStatement = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
