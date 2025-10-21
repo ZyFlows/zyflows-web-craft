@@ -29,17 +29,63 @@ interface LanguageProviderProps {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('he');
+  const [isDetecting, setIsDetecting] = useState(true);
 
-  // Effet pour charger la langue sauvegardée uniquement
-  useEffect(() => {
-    // Vérifier s'il y a une préférence sauvegardée
-    const savedLang = localStorage.getItem('preferred-language') as Language;
-    const supportedLangs: Language[] = ['fr', 'en', 'he'];
-    
-    if (savedLang && supportedLangs.includes(savedLang)) {
-      setLanguage(savedLang);
+  // Fonction de détection géographique
+  const detectLanguageFromGeo = async (): Promise<Language> => {
+    try {
+      // Tentative de géolocalisation via ipapi.co
+      const response = await fetch('https://ipapi.co/json/', {
+        signal: AbortSignal.timeout(3000) // Timeout après 3 secondes
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const countryCode = data.country_code;
+        
+        // France → Français
+        if (countryCode === 'FR') {
+          return 'fr';
+        }
+        // Israël → Hébreu
+        if (countryCode === 'IL') {
+          return 'he';
+        }
+      }
+    } catch (error) {
+      console.log('Geo detection failed, using fallback');
     }
-    // Pas de détection automatique de la langue du navigateur - l'anglais reste par défaut
+    
+    // Fallback : langue du navigateur
+    const browserLang = navigator.language.split('-')[0];
+    if (browserLang === 'fr') return 'fr';
+    if (browserLang === 'en') return 'en';
+    if (browserLang === 'he' || browserLang === 'iw') return 'he';
+    
+    // Défaut : Hébreu
+    return 'he';
+  };
+
+  // Effet pour détecter et charger la langue
+  useEffect(() => {
+    const initializeLanguage = async () => {
+      // 1. Vérifier s'il y a une préférence sauvegardée (priorité absolue)
+      const savedLang = localStorage.getItem('preferred-language') as Language;
+      const supportedLangs: Language[] = ['fr', 'en', 'he'];
+      
+      if (savedLang && supportedLangs.includes(savedLang)) {
+        setLanguage(savedLang);
+        setIsDetecting(false);
+        return;
+      }
+      
+      // 2. Détecter automatiquement via géolocalisation
+      const detectedLang = await detectLanguageFromGeo();
+      setLanguage(detectedLang);
+      setIsDetecting(false);
+    };
+
+    initializeLanguage();
   }, []);
 
   // Synchroniser la direction du document et la classe body pour RTL/LTR (ex: Chatbase)
@@ -962,11 +1008,26 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return translations[language][key] || key;
   };
 
+  // Wrapper pour setLanguage qui sauvegarde la préférence
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem('preferred-language', lang);
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      <div className={language === 'he' ? 'rtl' : 'ltr'}>
-        {children}
-      </div>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+      {isDetecting ? (
+        <div className="flex items-center justify-center min-h-screen bg-background">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      ) : (
+        <div className={language === 'he' ? 'rtl' : 'ltr'}>
+          {children}
+        </div>
+      )}
     </LanguageContext.Provider>
   );
 };
