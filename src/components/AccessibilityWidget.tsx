@@ -913,7 +913,37 @@ const AccessibilityWidget: React.FC = () => {
     </div>;
 
   // Floating toggle button - zyFlows purple
-  const Toggler;
+  const Toggler = <button type="button" onClick={() => setIsOpen(!isOpen)} aria-label={l.title} className="acc-widget" style={{
+    position: "fixed",
+    zIndex: 2147483646,
+    bottom: position ? "auto" : 24,
+    right: position ? 24 : 24,
+    top: position ? position.y ?? 0 : "auto",
+    left: position ? position.x ?? 0 : "auto",
+    width: 56,
+    height: 56,
+    borderRadius: "50%",
+    border: "none",
+    background: "#8a63d2",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(138,99,210,.4)",
+    transition: "all .2s ease"
+  }} onMouseEnter={e => {
+    e.currentTarget.style.transform = "scale(1.05)";
+    e.currentTarget.style.boxShadow = "0 6px 16px rgba(138,99,210,.5)";
+  }} onMouseLeave={e => {
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow = "0 4px 12px rgba(138,99,210,.4)";
+  }}>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    </button>;
 
   // Quick reset
   const QuickReset = showQuickReset && !isOpen && createPortal(<button type="button" onClick={handleReset} aria-label={l.reset} style={{
