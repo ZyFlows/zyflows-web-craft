@@ -79,13 +79,13 @@ const Navigation = () => {
 
           {/* Navigation desktop - au centre */}
           <div className={`hidden md:flex items-center justify-center order-2 ${
-            language === 'he' ? 'flex-row-reverse gap-6' : 'gap-6'
-          }`}>
+            language === 'he' ? 'flex-row-reverse' : ''
+          } gap-7`}>
             {navItems.map(item => (
               <a 
                 key={item.label} 
                 href={item.href} 
-                className="text-white/90 hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap text-base font-medium relative group py-2"
+                className="text-white/90 hover:text-primary transition-all duration-300 hover:scale-105 whitespace-nowrap text-base font-medium relative group py-2 px-0"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
