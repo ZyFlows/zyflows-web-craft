@@ -17,7 +17,7 @@ import { Send } from "lucide-react";
 const formSchema = z.object({
   full_name: z.string().trim().min(2, "Le nom doit contenir au moins 2 caractères").max(100),
   email: z.string().trim().email("Email invalide").max(255),
-  phone: z.string().optional(),
+  phone: z.string().min(1, "Le téléphone est obligatoire"),
   company: z.string().optional(),
   ai_need: z.string().min(1, "Veuillez sélectionner un enjeu"),
   budget: z.string().min(1, "Veuillez sélectionner un budget"),
@@ -184,7 +184,7 @@ const Contact = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{language === 'he' ? 'טלפון' : 'Téléphone'}</FormLabel>
+                        <FormLabel>{language === 'he' ? 'טלפון' : 'Téléphone'} *</FormLabel>
                         <FormControl>
                           <Input type="tel" placeholder="+972..." {...field} />
                         </FormControl>
@@ -218,17 +218,29 @@ const Contact = () => {
                       <FormLabel>{language === 'he' ? 'מה האתגר שלך?' : 'Quel est votre enjeu IA / digitalisation ?'} *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
                             <SelectValue placeholder={language === 'he' ? 'בחר אפשרות' : 'Sélectionnez'} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value="chatbot">Chatbot IA (site/WhatsApp)</SelectItem>
-                          <SelectItem value="automation">Automatisations (Make / n8n / Zapier)</SelectItem>
-                          <SelectItem value="crm">Intégration CRM / Data</SelectItem>
-                          <SelectItem value="content">Génération de contenu IA</SelectItem>
-                          <SelectItem value="process">Optimisation process / RPA léger</SelectItem>
-                          <SelectItem value="other">Autre (préciser dans le message)</SelectItem>
+                        <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
+                          <SelectItem value="chatbot">
+                            {language === 'he' ? 'צ\'אטבוט AI (אתר/WhatsApp)' : 'Chatbot IA (site/WhatsApp)'}
+                          </SelectItem>
+                          <SelectItem value="automation">
+                            {language === 'he' ? 'אוטומציות (Make / n8n / Zapier)' : 'Automatisations (Make / n8n / Zapier)'}
+                          </SelectItem>
+                          <SelectItem value="crm">
+                            {language === 'he' ? 'אינטגרציית CRM / נתונים' : 'Intégration CRM / Data'}
+                          </SelectItem>
+                          <SelectItem value="content">
+                            {language === 'he' ? 'יצירת תוכן AI' : 'Génération de contenu IA'}
+                          </SelectItem>
+                          <SelectItem value="process">
+                            {language === 'he' ? 'אופטימיזציית תהליכים / RPA קל' : 'Optimisation process / RPA léger'}
+                          </SelectItem>
+                          <SelectItem value="other">
+                            {language === 'he' ? 'אחר (פרט בהודעה)' : 'Autre (préciser dans le message)'}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -246,17 +258,17 @@ const Contact = () => {
                         <FormLabel>{language === 'he' ? 'תקציב משוער' : 'Budget estimé'} *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
                               <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
                             <SelectItem value="< 3000">{"< 3 000 ₪"}</SelectItem>
                             <SelectItem value="3000-8000">3 000–8 000 ₪</SelectItem>
                             <SelectItem value="8000-20000">8 000–20 000 ₪</SelectItem>
                             <SelectItem value="20000-50000">20 000–50 000 ₪</SelectItem>
                             <SelectItem value="> 50000">{"> 50 000 ₪"}</SelectItem>
-                            <SelectItem value="unknown">{language === 'he' ? 'לא יודע' : 'Je ne sais pas'}</SelectItem>
+                            <SelectItem value="unknown">{language === 'he' ? 'לא יודע / לקבוע' : 'Je ne sais pas / À définir'}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -272,15 +284,15 @@ const Contact = () => {
                         <FormLabel>{language === 'he' ? 'מתי להתחיל?' : 'Quand démarrer ?'} *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
                               <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
                             <SelectItem value="immediate">{language === 'he' ? 'מיידי (0-2 שבועות)' : 'Immédiat (0–2 semaines)'}</SelectItem>
                             <SelectItem value="month">{language === 'he' ? 'החודש (עד 30 יום)' : 'Ce mois-ci (≤ 30 jours)'}</SelectItem>
                             <SelectItem value="1-3months">{language === 'he' ? '1-3 חודשים' : '1–3 mois'}</SelectItem>
-                            <SelectItem value=">3months">{language === 'he' ? 'יותר מ-3 חודשים' : '> 3 mois'}</SelectItem>
+                            <SelectItem value=">3months">{language === 'he' ? 'יותר מ-3 חודשים / לקבוע' : '> 3 mois / à confirmer'}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
