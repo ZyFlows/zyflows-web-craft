@@ -265,104 +265,104 @@ const AccessibilityWidget = () => {
             <section className="mb-6">
               <div className="grid grid-cols-3 gap-2 mb-4">
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.contrast === 'high'
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, contrast: settings.contrast === 'high' ? 'normal' : 'high'})}
                 >
-                  {t('high')} {t('contrast')}
+                  <span className="text-center">{t('high')} {t('contrast')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.grayscale
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, grayscale: !settings.grayscale})}
                 >
-                  {t('grayscale')}
+                  <span className="text-center">{t('grayscale')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.readableFont
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, readableFont: !settings.readableFont})}
                 >
-                  {t('readableFont')}
+                  <span className="text-center">{t('readableFont')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.highlightLinks
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, highlightLinks: !settings.highlightLinks})}
                 >
-                  {t('highlightLinks')}
+                  <span className="text-center">{t('highlightLinks')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.stopAnimations
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, stopAnimations: !settings.stopAnimations})}
                 >
-                  {t('stopAnimations')}
+                  <span className="text-center">{t('stopAnimations')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.cursor === 'large'
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, cursor: settings.cursor === 'large' ? 'normal' : 'large'})}
                 >
-                  {t('large')} {t('cursor')}
+                  <span className="text-center">{t('large')} {t('cursor')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.hideImages
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, hideImages: !settings.hideImages})}
                 >
-                  {t('hideImages')}
+                  <span className="text-center">{t('hideImages')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.readingGuide
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, readingGuide: !settings.readingGuide})}
                 >
-                  {t('readingGuide')}
+                  <span className="text-center">{t('readingGuide')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.contrast === 'inverted'
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, contrast: settings.contrast === 'inverted' ? 'normal' : 'inverted'})}
                 >
-                  {t('inverted')}
+                  <span className="text-center">{t('inverted')}</span>
                 </button>
                 <button
-                  className={`px-3 py-2.5 text-xs rounded-2xl border-2 transition-all font-medium ${
+                  className={`px-2 py-2 text-[10px] leading-tight rounded-2xl border-2 transition-all font-medium min-h-[52px] flex items-center justify-center ${
                     settings.letterSpacing === 'wide'
                       ? 'bg-primary text-primary-foreground border-primary' 
                       : 'bg-background border-primary/30 text-foreground hover:border-primary'
                   }`}
                   onClick={() => setSettings({...settings, letterSpacing: settings.letterSpacing === 'wide' ? 'normal' : 'wide'})}
                 >
-                  {t('wide')} {t('letterSpacing')}
+                  <span className="text-center">{t('wide')} {t('letterSpacing')}</span>
                 </button>
               </div>
             </section>
