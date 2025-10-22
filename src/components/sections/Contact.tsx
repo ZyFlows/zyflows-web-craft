@@ -124,7 +124,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-20 relative overflow-hidden" dir={language === 'he' ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -138,7 +138,7 @@ const Contact = () => {
         <Card className="gradient-card border-border/50">
           <CardContent className="pt-6">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" dir={language === 'he' ? 'rtl' : 'ltr'}>
                 {/* Honeypot anti-spam (hidden) */}
                 <FormField
                   control={form.control}
@@ -300,10 +300,11 @@ const Contact = () => {
                         <Textarea 
                           placeholder={language === 'he' ? 'תאר בקצרה את הצורך שלך' : 'Décrivez brièvement votre besoin'} 
                           className="min-h-[120px]" 
+                          dir={language === 'he' ? 'rtl' : 'ltr'}
                           {...field} 
                         />
                       </FormControl>
-                      <div className="text-xs text-muted-foreground text-right">
+                      <div className={language === 'he' ? 'text-xs text-muted-foreground text-left' : 'text-xs text-muted-foreground text-right'}>
                         {field.value.length}/1000
                       </div>
                       <FormMessage />
@@ -316,12 +317,12 @@ const Contact = () => {
                   control={form.control}
                   name="consent"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rtl:space-x-reverse">
+                    <FormItem className={language === 'he' ? 'flex flex-row-reverse items-start gap-3' : 'flex flex-row items-start gap-3'}>
                       <FormControl>
                         <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                       </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel className="text-sm font-normal">
+                      <div className="space-y-1 leading-none flex-1">
+                        <FormLabel className={language === 'he' ? 'text-sm font-normal text-right' : 'text-sm font-normal text-left'}>
                           {language === 'he' 
                             ? 'אני מסכים(ה) ש-Zyflows יצרו איתי קשר בנוגע לפניה זו *' 
                             : "J'accepte que Zyflows me contacte à propos de ma demande *"}
