@@ -1,12 +1,23 @@
-# 🖼️ Guide d'Optimisation des Images
+# 🖼️ Guide d'Optimisation des Images - PageSpeed 100/100
+
+## 🎯 Objectifs de Performance
+
+- **LCP (Largest Contentful Paint)**: ≤ 2.5s sur mobile
+- **CLS (Cumulative Layout Shift)**: ≤ 0.05
+- **Poids total des images**: ≤ 2 Mo par page
+- **Format**: AVIF + WebP + fallback JPEG/PNG
+- **Responsive**: 5 tailles (360w, 480w, 640w, 800w, 1200w)
 
 ## 📋 Checklist Rapide
 
-- [ ] Toutes les images converties en WebP
+- [ ] Toutes les images converties en AVIF + WebP
 - [ ] Lazy loading sur images hors viewport initial
 - [ ] Dimensions (width/height) sur toutes les images
-- [ ] Image hero/LCP préchargée avec `fetchpriority="high"`
-- [ ] Versions responsive (srcset) pour grandes images
+- [ ] Image hero/LCP préchargée avec `fetchpriority="high"` et `priority={true}`
+- [ ] Versions responsive (srcset) avec 5 tailles minimum
+- [ ] Poids mobile (≤800px) ≤ 120 Ko pour LCP, ≤ 80 Ko pour autres
+- [ ] aspect-ratio CSS pour stabilité layout
+- [ ] Alt texts descriptifs et SEO-friendly
 
 ---
 

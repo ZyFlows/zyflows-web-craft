@@ -11,8 +11,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.chatbase.co">
     
-    <!-- Preload hero image critique pour LCP -->
-    <link rel="preload" as="image" href="/src/assets/hero-tech.jpg" type="image/jpeg" fetchpriority="high">
+    <!-- Preload UNIQUEMENT l'image LCP (Hero) - CRITIQUE pour PageSpeed -->
+    <link 
+      rel="preload" 
+      as="image" 
+      href="/src/assets/hero-tech.jpg"
+      type="image/jpeg"
+      fetchpriority="high"
+    >
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">

@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
 import { emailTranslations } from '@/contexts/emailTranslations';
 import heroTech from "@/assets/hero-tech.jpg";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const Hero = () => {
   const { t, language } = useLanguage();
@@ -39,16 +40,15 @@ const Hero = () => {
       className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}
       aria-label={t('hero.section_label') || "Section d'accueil"}
     >
-      {/* Background image optimisée pour LCP */}
-      <img 
+      {/* Background image optimisée pour LCP - Élément critique pour PageSpeed */}
+      <OptimizedImage
         src={heroTech}
-        alt="Technologie moderne et innovation digitale"
+        alt="Technologie moderne et innovation digitale - Développement web et applications mobiles"
+        width={1920}
+        height={1080}
+        priority={true}
         className="absolute inset-0 z-0 w-full h-full object-cover opacity-20"
-        width="1920"
-        height="1080"
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
+        sizes="100vw"
       />
       
       {/* Gradient overlay */}
