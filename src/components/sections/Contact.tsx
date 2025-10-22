@@ -15,16 +15,17 @@ import { Send } from "lucide-react";
 
 // Validation schema
 const formSchema = z.object({
-  full_name: z.string().trim().min(2, "Le nom doit contenir au moins 2 caractères").max(100),
-  email: z.string().trim().email("Email invalide").max(255),
-  phone: z.string().min(1, "Le téléphone est obligatoire"),
+  first_name: z.string().trim().min(2, "השם חייב להכיל לפחות 2 תווים").max(50),
+  last_name: z.string().trim().min(2, "שם המשפחה חייב להכיל לפחות 2 תווים").max(50),
+  email: z.string().trim().email("אימייל לא תקין").max(255),
+  phone: z.string().min(1, "טלפון הוא שדה חובה"),
   company: z.string().optional(),
-  ai_need: z.string().min(1, "Veuillez sélectionner un enjeu"),
-  budget: z.string().min(1, "Veuillez sélectionner un budget"),
-  start_timing: z.string().min(1, "Veuillez sélectionner un délai"),
-  message: z.string().trim().min(10, "Le message doit contenir au moins 10 caractères").max(1000),
-  consent: z.boolean().refine((val) => val === true, "Vous devez accepter d'être contacté"),
-  honeypot: z.string().max(0), // Anti-spam honeypot
+  ai_need: z.string().min(1, "אנא בחר אתגר"),
+  budget: z.string().min(1, "אנא בחר תקציב"),
+  start_timing: z.string().min(1, "אנא בחר מועד התחלה"),
+  message: z.string().optional(),
+  consent: z.boolean().refine((val) => val === true, "עליך לאשר כדי להמשיך"),
+  honeypot: z.string().max(0),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -36,7 +37,8 @@ const Contact = () => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      full_name: "",
+      first_name: "",
+      last_name: "",
       email: "",
       phone: "",
       company: "",
@@ -86,14 +88,15 @@ const Contact = () => {
       const payload = {
         timestamp: new Date().toISOString(),
         form_type: 'contact_intelligent',
-        full_name: data.full_name,
+        first_name: data.first_name,
+        last_name: data.last_name,
         email: data.email,
-        phone: data.phone || '',
+        phone: data.phone,
         company: data.company || '',
         ai_need: data.ai_need,
         budget: data.budget,
         start_timing: data.start_timing,
-        message: data.message,
+        message: data.message || '',
         consent: data.consent,
         source: 'zyflows-website',
         language: language,
@@ -107,8 +110,8 @@ const Contact = () => {
       });
 
       toast({
-        title: language === 'he' ? 'הטופס נשלח בהצלחה' : 'Message envoyé',
-        description: language === 'he' ? 'נחזור אליך בהקדם' : 'Nous vous contacterons rapidement.',
+        title: 'הטופס נשלח בהצלחה',
+        description: 'נחזור אליך בהקדם',
       });
       
       form.reset();
@@ -116,29 +119,29 @@ const Contact = () => {
     } catch (error) {
       console.error('Form submission error:', error);
       toast({
-        title: "Erreur",
-        description: "Une erreur s'est produite. Veuillez réessayer.",
+        title: "שגיאה",
+        description: "אירעה שגיאה. אנא נסה שוב.",
         variant: "destructive",
       });
     }
   };
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden" dir={language === 'he' ? 'rtl' : 'ltr'}>
+    <section id="contact" className="py-20 relative overflow-hidden" dir="rtl">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {language === 'he' ? 'צור קשר' : 'Contact'}
+            צור קשר
           </h2>
           <p className="text-muted-foreground">
-            {language === 'he' ? 'נשמח לשמוע עליך ולעזור בפרויקט שלך' : 'Parlons de votre projet IA'}
+            נשמח לשמוע עליך ולעזור בפרויקט שלך
           </p>
         </div>
 
         <Card className="gradient-card border-border/50">
           <CardContent className="pt-6">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" dir={language === 'he' ? 'rtl' : 'ltr'}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" dir="rtl">
                 {/* Honeypot anti-spam (hidden) */}
                 <FormField
                   control={form.control}
@@ -148,31 +151,16 @@ const Contact = () => {
                   )}
                 />
 
-                {/* Nom complet */}
-                <FormField
-                  control={form.control}
-                  name="full_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{language === 'he' ? 'שם מלא' : 'Nom complet'} *</FormLabel>
-                      <FormControl>
-                        <Input placeholder={language === 'he' ? 'השם שלך' : 'Votre nom'} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Email et Téléphone */}
+                {/* Prénom et Nom sur la même ligne */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="first_name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email *</FormLabel>
+                        <FormLabel>שם פרטי *</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="email@exemple.com" {...field} />
+                          <Input placeholder="הכנס את שמך הפרטי" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -181,12 +169,12 @@ const Contact = () => {
 
                   <FormField
                     control={form.control}
-                    name="phone"
+                    name="last_name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{language === 'he' ? 'טלפון' : 'Téléphone'} *</FormLabel>
+                        <FormLabel>שם משפחה *</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="+972..." {...field} />
+                          <Input placeholder="הכנס את שם המשפחה" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,15 +182,45 @@ const Contact = () => {
                   />
                 </div>
 
+                {/* Email */}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>אימייל עבודה *</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="name@company.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Téléphone */}
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>מספר טלפון *</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="050-123-4567" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 {/* Entreprise */}
                 <FormField
                   control={form.control}
                   name="company"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{language === 'he' ? 'חברה' : 'Entreprise'}</FormLabel>
+                      <FormLabel>חברה</FormLabel>
                       <FormControl>
-                        <Input placeholder={language === 'he' ? 'שם החברה' : 'Nom de votre entreprise'} {...field} />
+                        <Input placeholder="שם החברה שלך" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -215,32 +233,20 @@ const Contact = () => {
                   name="ai_need"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{language === 'he' ? 'מה האתגר שלך?' : 'Quel est votre enjeu IA / digitalisation ?'} *</FormLabel>
+                      <FormLabel>מה האתגר שלך? *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder={language === 'he' ? 'בחר אפשרות' : 'Sélectionnez'} />
+                            <SelectValue placeholder="בחר אפשרות" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="chatbot">
-                            {language === 'he' ? 'צ\'אטבוט AI (אתר/WhatsApp)' : 'Chatbot IA (site/WhatsApp)'}
-                          </SelectItem>
-                          <SelectItem value="automation">
-                            {language === 'he' ? 'אוטומציות (Make / n8n / Zapier)' : 'Automatisations (Make / n8n / Zapier)'}
-                          </SelectItem>
-                          <SelectItem value="crm">
-                            {language === 'he' ? 'אינטגרציית CRM / נתונים' : 'Intégration CRM / Data'}
-                          </SelectItem>
-                          <SelectItem value="content">
-                            {language === 'he' ? 'יצירת תוכן AI' : 'Génération de contenu IA'}
-                          </SelectItem>
-                          <SelectItem value="process">
-                            {language === 'he' ? 'אופטימיזציית תהליכים / RPA קל' : 'Optimisation process / RPA léger'}
-                          </SelectItem>
-                          <SelectItem value="other">
-                            {language === 'he' ? 'אחר (פרט בהודעה)' : 'Autre (préciser dans le message)'}
-                          </SelectItem>
+                          <SelectItem value="chatbot">צ'אטבוט AI (אתר/WhatsApp)</SelectItem>
+                          <SelectItem value="automation">אוטומציות (Make / n8n / Zapier)</SelectItem>
+                          <SelectItem value="crm">אינטגרציית CRM / נתונים</SelectItem>
+                          <SelectItem value="content">יצירת תוכן AI</SelectItem>
+                          <SelectItem value="process">אופטימיזציית תהליכים / RPA קל</SelectItem>
+                          <SelectItem value="other">אחר (פרט בהודעה)</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -255,20 +261,20 @@ const Contact = () => {
                     name="budget"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{language === 'he' ? 'תקציב משוער' : 'Budget estimé'} *</FormLabel>
+                        <FormLabel>תקציב משוער *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
+                              <SelectValue placeholder="בחר תקציב" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="< 3000">{"< 3 000 ₪"}</SelectItem>
-                            <SelectItem value="3000-8000">3 000–8 000 ₪</SelectItem>
-                            <SelectItem value="8000-20000">8 000–20 000 ₪</SelectItem>
-                            <SelectItem value="20000-50000">20 000–50 000 ₪</SelectItem>
-                            <SelectItem value="> 50000">{"> 50 000 ₪"}</SelectItem>
-                            <SelectItem value="unknown">{language === 'he' ? 'לא יודע / לקבוע' : 'Je ne sais pas / À définir'}</SelectItem>
+                            <SelectItem value="< 3000">{"< 3,000 ₪"}</SelectItem>
+                            <SelectItem value="3000-8000">3,000–8,000 ₪</SelectItem>
+                            <SelectItem value="8000-20000">8,000–20,000 ₪</SelectItem>
+                            <SelectItem value="20000-50000">20,000–50,000 ₪</SelectItem>
+                            <SelectItem value="> 50000">{"> 50,000 ₪"}</SelectItem>
+                            <SelectItem value="unknown">לא יודע / לקבוע</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -281,18 +287,18 @@ const Contact = () => {
                     name="start_timing"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{language === 'he' ? 'מתי להתחיל?' : 'Quand démarrer ?'} *</FormLabel>
+                        <FormLabel>מתי להתחיל? *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
+                              <SelectValue placeholder="בחר מועד" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="immediate">{language === 'he' ? 'מיידי (0-2 שבועות)' : 'Immédiat (0–2 semaines)'}</SelectItem>
-                            <SelectItem value="month">{language === 'he' ? 'החודש (עד 30 יום)' : 'Ce mois-ci (≤ 30 jours)'}</SelectItem>
-                            <SelectItem value="1-3months">{language === 'he' ? '1-3 חודשים' : '1–3 mois'}</SelectItem>
-                            <SelectItem value=">3months">{language === 'he' ? 'יותר מ-3 חודשים / לקבוע' : '> 3 mois / à confirmer'}</SelectItem>
+                            <SelectItem value="immediate">מיידי (0-2 שבועות)</SelectItem>
+                            <SelectItem value="month">החודש (עד 30 יום)</SelectItem>
+                            <SelectItem value="1-3months">1-3 חודשים</SelectItem>
+                            <SelectItem value=">3months">יותר מ-3 חודשים / לקבוע</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -301,24 +307,21 @@ const Contact = () => {
                   />
                 </div>
 
-                {/* Message */}
+                {/* Message (optionnel) */}
                 <FormField
                   control={form.control}
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{language === 'he' ? 'הודעה' : 'Message'} *</FormLabel>
+                      <FormLabel>משהו נוסף? (אופציונלי)</FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder={language === 'he' ? 'תאר בקצרה את הצורך שלך' : 'Décrivez brièvement votre besoin'} 
+                          placeholder="ספר לנו יותר על הפרויקט שלך..." 
                           className="min-h-[120px]" 
-                          dir={language === 'he' ? 'rtl' : 'ltr'}
+                          dir="rtl"
                           {...field} 
                         />
                       </FormControl>
-                      <div className={language === 'he' ? 'text-xs text-muted-foreground text-left' : 'text-xs text-muted-foreground text-right'}>
-                        {field.value.length}/1000
-                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -329,7 +332,7 @@ const Contact = () => {
                   control={form.control}
                   name="consent"
                   render={({ field }) => (
-                    <FormItem className={language === 'he' ? 'flex flex-row-reverse items-start gap-2' : 'flex flex-row items-start gap-2'}>
+                    <FormItem className="flex flex-row-reverse items-start gap-2">
                       <FormControl>
                         <Checkbox 
                           checked={field.value} 
@@ -338,10 +341,8 @@ const Contact = () => {
                         />
                       </FormControl>
                       <div className="space-y-1 leading-none flex-1">
-                        <FormLabel className={language === 'he' ? 'text-xs font-normal text-right block' : 'text-xs font-normal text-left block'}>
-                          {language === 'he' 
-                            ? 'אני מסכים(ה) ש-Zyflows יצרו איתי קשר בנוגע לפניה זו *' 
-                            : "J'accepte que Zyflows me contacte à propos de ma demande *"}
+                        <FormLabel className="text-xs font-normal text-right block">
+                          אני מסכים(ה) ש-Zyflows יצרו איתי קשר בנוגע לפניה זו *
                         </FormLabel>
                         <FormMessage />
                       </div>
@@ -359,12 +360,12 @@ const Contact = () => {
                   {form.formState.isSubmitting ? (
                     <div className="flex items-center gap-2">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      {language === 'he' ? 'שולח...' : 'Envoi...'}
+                      שולח...
                     </div>
                   ) : (
                     <div className="flex items-center gap-2">
                       <Send className="h-4 w-4" />
-                      {language === 'he' ? 'שלח' : 'Envoyer'}
+                      שלח
                     </div>
                   )}
                 </Button>
