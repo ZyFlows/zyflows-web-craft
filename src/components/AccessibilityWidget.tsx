@@ -231,14 +231,57 @@ const AccessibilityWidget = () => {
 
   return (
     <>
-      {/* Bouton flottant */}
+      {/* Bouton flottant - Au-dessus du WhatsApp */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-5 right-5 z-[9999] w-[60px] h-[60px] rounded-full bg-primary text-primary-foreground border-none cursor-pointer shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-xl focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="
+          fixed z-[9999]
+          
+          /* Position et taille - Desktop (au-dessus de WhatsApp: 25px + 56px + 12px = 93px) */
+          right-[25px] bottom-[93px]
+          w-[56px] h-[56px]
+          
+          /* Position et taille - Mobile (au-dessus de WhatsApp: 15px + 46px + 8px = 69px) */
+          max-[991px]:right-[15px] max-[991px]:bottom-[69px]
+          max-[991px]:w-[46px] max-[991px]:h-[46px]
+          
+          /* Support RTL */
+          rtl:right-auto rtl:left-[25px]
+          max-[991px]:rtl:left-[15px]
+          
+          /* Style */
+          rounded-full
+          bg-primary text-primary-foreground
+          border-none
+          cursor-pointer
+          
+          /* Ombre douce */
+          shadow-[0_4px_12px_rgba(0,0,0,0.15)]
+          max-[991px]:shadow-[0_2px_8px_rgba(0,0,0,0.12)]
+          
+          /* Interactions */
+          transition-all duration-300
+          hover:scale-[1.08] hover:shadow-[0_6px_16px_rgba(0,0,0,0.2)]
+          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent
+          active:scale-95
+          
+          /* Performance */
+          transform-gpu
+          will-change-transform
+          
+          /* Layout interne */
+          flex items-center justify-center
+        "
         aria-label={`${t('title')} - ${t('close')}`}
         title={t('title')}
+        type="button"
       >
-        <User className="h-6 w-6" />
+        <User 
+          className="
+            w-[26px] h-[26px]
+            max-[991px]:w-[22px] max-[991px]:h-[22px]
+          " 
+        />
       </button>
 
       {/* Panel */}
