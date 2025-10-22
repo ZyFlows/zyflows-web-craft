@@ -218,11 +218,11 @@ const Contact = () => {
                       <FormLabel>{language === 'he' ? 'מה האתגר שלך?' : 'Quel est votre enjeu IA / digitalisation ?'} *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
+                          <SelectTrigger>
                             <SelectValue placeholder={language === 'he' ? 'בחר אפשרות' : 'Sélectionnez'} />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
+                        <SelectContent>
                           <SelectItem value="chatbot">
                             {language === 'he' ? 'צ\'אטבוט AI (אתר/WhatsApp)' : 'Chatbot IA (site/WhatsApp)'}
                           </SelectItem>
@@ -258,11 +258,11 @@ const Contact = () => {
                         <FormLabel>{language === 'he' ? 'תקציב משוער' : 'Budget estimé'} *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
+                            <SelectTrigger>
                               <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
+                          <SelectContent>
                             <SelectItem value="< 3000">{"< 3 000 ₪"}</SelectItem>
                             <SelectItem value="3000-8000">3 000–8 000 ₪</SelectItem>
                             <SelectItem value="8000-20000">8 000–20 000 ₪</SelectItem>
@@ -284,11 +284,11 @@ const Contact = () => {
                         <FormLabel>{language === 'he' ? 'מתי להתחיל?' : 'Quand démarrer ?'} *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className={language === 'he' ? 'text-right' : 'text-left'}>
+                            <SelectTrigger>
                               <SelectValue placeholder={language === 'he' ? 'בחר' : 'Sélectionnez'} />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent className={language === 'he' ? 'text-right' : 'text-left'}>
+                          <SelectContent>
                             <SelectItem value="immediate">{language === 'he' ? 'מיידי (0-2 שבועות)' : 'Immédiat (0–2 semaines)'}</SelectItem>
                             <SelectItem value="month">{language === 'he' ? 'החודש (עד 30 יום)' : 'Ce mois-ci (≤ 30 jours)'}</SelectItem>
                             <SelectItem value="1-3months">{language === 'he' ? '1-3 חודשים' : '1–3 mois'}</SelectItem>
@@ -329,12 +329,16 @@ const Contact = () => {
                   control={form.control}
                   name="consent"
                   render={({ field }) => (
-                    <FormItem className={language === 'he' ? 'flex flex-row-reverse items-start gap-3' : 'flex flex-row items-start gap-3'}>
+                    <FormItem className={language === 'he' ? 'flex flex-row-reverse items-start gap-2' : 'flex flex-row items-start gap-2'}>
                       <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                        <Checkbox 
+                          checked={field.value} 
+                          onCheckedChange={field.onChange}
+                          className="mt-0.5 h-3.5 w-3.5"
+                        />
                       </FormControl>
                       <div className="space-y-1 leading-none flex-1">
-                        <FormLabel className={language === 'he' ? 'text-sm font-normal text-right' : 'text-sm font-normal text-left'}>
+                        <FormLabel className={language === 'he' ? 'text-xs font-normal text-right block' : 'text-xs font-normal text-left block'}>
                           {language === 'he' 
                             ? 'אני מסכים(ה) ש-Zyflows יצרו איתי קשר בנוגע לפניה זו *' 
                             : "J'accepte que Zyflows me contacte à propos de ma demande *"}
