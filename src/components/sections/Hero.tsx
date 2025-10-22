@@ -39,16 +39,16 @@ const Hero = () => {
       className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}
       aria-label={t('hero.section_label') || "Section d'accueil"}
     >
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: `url(${heroTech})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-        role="img"
-        aria-label="Image de fond représentant la technologie"
+      {/* Background image optimisée pour LCP */}
+      <img 
+        src={heroTech}
+        alt="Technologie moderne et innovation digitale"
+        className="absolute inset-0 z-0 w-full h-full object-cover opacity-20"
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
       />
       
       {/* Gradient overlay */}

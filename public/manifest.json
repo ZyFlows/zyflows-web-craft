@@ -1,0 +1,26 @@
+{
+  "name": "zyFlows - Innovative Digital Solutions",
+  "short_name": "zyFlows",
+  "description": "Tech company specializing in AI integration, business automation, custom web development, and mobile apps",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f15",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/lovable-uploads/8107f4f8-aed3-4dda-9c37-698139a71449.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "technology"],
+  "lang": "en-US"
+}
