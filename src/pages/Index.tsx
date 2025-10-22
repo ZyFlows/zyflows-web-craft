@@ -7,7 +7,6 @@ import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 import WhatsAppButton from "@/components/ui/whatsapp-button";
-import ChatbotButton from "@/components/ui/chatbot-button";
 import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
 
 const Index = () => {
@@ -30,8 +29,7 @@ const Index = () => {
         <Testimonials />
         <Contact />
       </div>
-      {/* Widgets flottants : Chatbot (gauche), Accessibilité + WhatsApp (droite empilés) */}
-      <ChatbotButton />
+      {/* Widget WhatsApp (droite) */}
       <WhatsAppButton />
     </div>
   );

@@ -231,23 +231,23 @@ const AccessibilityWidget = () => {
 
   return (
     <>
-      {/* Bouton flottant - Au-dessus du WhatsApp */}
+      {/* Bouton flottant - En bas à gauche */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="
           fixed z-[9999]
           
-          /* Position et taille - Desktop (au-dessus de WhatsApp: 25px + 56px + 12px = 93px) */
-          right-[25px] bottom-[93px]
+          /* Position et taille - Desktop */
+          left-[25px] bottom-[25px]
           w-[56px] h-[56px]
           
-          /* Position et taille - Mobile (au-dessus de WhatsApp: 15px + 46px + 8px = 69px) */
-          max-[991px]:right-[15px] max-[991px]:bottom-[69px]
+          /* Position et taille - Mobile */
+          max-[991px]:left-[15px] max-[991px]:bottom-[15px]
           max-[991px]:w-[46px] max-[991px]:h-[46px]
           
           /* Support RTL */
-          rtl:right-auto rtl:left-[25px]
-          max-[991px]:rtl:left-[15px]
+          rtl:left-auto rtl:right-[25px]
+          max-[991px]:rtl:right-[15px]
           
           /* Style */
           rounded-full
@@ -278,8 +278,8 @@ const AccessibilityWidget = () => {
       >
         <User 
           className="
-            w-[26px] h-[26px]
-            max-[991px]:w-[22px] max-[991px]:h-[22px]
+            w-[28px] h-[28px]
+            max-[991px]:w-[24px] max-[991px]:h-[24px]
           " 
         />
       </button>
