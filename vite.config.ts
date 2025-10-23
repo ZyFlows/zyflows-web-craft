@@ -57,7 +57,12 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'ui-vendor': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-tabs',
+          ],
           'icons': ['lucide-react'],
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
