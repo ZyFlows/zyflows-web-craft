@@ -151,22 +151,8 @@ const Contact = () => {
                   )}
                 />
 
-                {/* Prénom et Nom sur la même ligne */}
+                {/* Prénom et Nom sur la même ligne - RTL order */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="first_name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>שם פרטי *</FormLabel>
-                        <FormControl>
-                          <Input placeholder="שם פרטי" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
                   <FormField
                     control={form.control}
                     name="last_name"
@@ -175,6 +161,20 @@ const Contact = () => {
                         <FormLabel>שם משפחה *</FormLabel>
                         <FormControl>
                           <Input placeholder="שם משפחה" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="first_name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>שם פרטי *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="שם פרטי" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -254,8 +254,32 @@ const Contact = () => {
                   )}
                 />
 
-                {/* Budget et Délai */}
+                {/* Budget et Délai - RTL order: start_timing right, budget left */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="start_timing"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>מתי להתחיל ? *</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="בחר מועד" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="immediate">מיידי (0-2 שבועות)</SelectItem>
+                            <SelectItem value="month">החודש (עד 30 יום)</SelectItem>
+                            <SelectItem value="1-3months">1-3 חודשים</SelectItem>
+                            <SelectItem value=">3months">יותר מ-3 חודשים / לקבוע</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <FormField
                     control={form.control}
                     name="budget"
@@ -275,30 +299,6 @@ const Contact = () => {
                             <SelectItem value="20000-50000">20,000–50,000 ₪</SelectItem>
                             <SelectItem value="> 50000">{"> 50,000 ₪"}</SelectItem>
                             <SelectItem value="unknown">לא יודע / לקבוע</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="start_timing"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>מתי להתחיל ? *</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="בחר מועד" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="immediate">מיידי (0-2 שבועות)</SelectItem>
-                            <SelectItem value="month">החודש (עד 30 יום)</SelectItem>
-                            <SelectItem value="1-3months">1-3 חודשים</SelectItem>
-                            <SelectItem value=">3months">יותר מ-3 חודשים / לקבוע</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
