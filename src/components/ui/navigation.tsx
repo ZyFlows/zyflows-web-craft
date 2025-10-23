@@ -52,8 +52,10 @@ const Navigation = () => {
     }
   ];
 
-  // Inverser l'ordre en mode hébreu
+  // Inverser l'ordre en mode hébreu pour desktop seulement
   const navItems = language === 'he' ? [...baseNavItems].reverse() : baseNavItems;
+  // Pour mobile, toujours commencer par בית (home)
+  const mobileNavItems = baseNavItems;
 
   return (
     <nav 
@@ -131,7 +133,7 @@ const Navigation = () => {
             aria-labelledby="menu-button"
           >
             <div className={`px-2 pt-2 pb-3 space-y-1 ${language === 'he' ? 'text-right' : ''}`}>
-              {navItems.map(item => (
+              {mobileNavItems.map(item => (
                 <a 
                   key={item.label} 
                   href={item.href} 
