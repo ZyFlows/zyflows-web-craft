@@ -102,7 +102,6 @@ export default defineConfig(({ mode }) => ({
       },
     },
     cssCodeSplit: true,
-    cssMinify: 'lightningcss',
     sourcemap: false,
     chunkSizeWarningLimit: 500,
     reportCompressedSize: false,
