@@ -4,7 +4,6 @@ import Hero from "@/components/sections/Hero";
 import WhyChoose from "@/components/sections/WhyChoose";
 import WhatsAppButton from "@/components/ui/whatsapp-button";
 import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
-import Loader from "@/components/ui/loader";
 
 // Lazy load des sections non-critiques pour améliorer les performances
 const Services = lazy(() => import("@/components/sections/Services"));
@@ -25,7 +24,7 @@ const Index = () => {
       <div id="main-content">
         <Hero />
         <WhyChoose />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={null}>
           <Services />
           <Projects />
           <About />
