@@ -160,7 +160,7 @@ const Contact = () => {
                       <FormItem>
                         <FormLabel>שם פרטי *</FormLabel>
                         <FormControl>
-                          <Input placeholder="הכנס את שמך הפרטי" {...field} />
+                          <Input placeholder="שם פרטי" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -174,7 +174,7 @@ const Contact = () => {
                       <FormItem>
                         <FormLabel>שם משפחה *</FormLabel>
                         <FormControl>
-                          <Input placeholder="הכנס את שם המשפחה" {...field} />
+                          <Input placeholder="שם משפחה" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -205,7 +205,7 @@ const Contact = () => {
                     <FormItem>
                       <FormLabel>מספר טלפון *</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="050-123-4567" {...field} />
+                        <Input type="tel" placeholder="050-123-4567" {...field} dir="ltr" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -220,7 +220,7 @@ const Contact = () => {
                     <FormItem>
                       <FormLabel>חברה</FormLabel>
                       <FormControl>
-                        <Input placeholder="שם החברה שלך" {...field} />
+                        <Input placeholder="שם החברה" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
