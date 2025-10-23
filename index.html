@@ -37,8 +37,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://zyflows.com/" />
     
-    <!-- Fonts avec font-display swap pour performance -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonts avec font-display swap pour performance - Optimisé pour FCP -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
 
     
     
@@ -102,10 +102,9 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Chatbase script chargé après React avec délai -->
+    <!-- Chatbase script - Chargement différé max pour performance -->
     <script>
 (function(){
-  // Attendre que React soit complètement chargé
   const initChatbase = function() {
     if(!window.chatbase||window.chatbase("getState")!=="initialized"){
       window.chatbase=(...arguments)=>{
@@ -127,13 +126,25 @@
     document.body.appendChild(script)
   };
   
-  // Délai pour s'assurer que React est prêt
+  // Délai optimisé - charge après interaction utilisateur ou après 3s
+  let loaded = false;
+  const load = () => {
+    if (!loaded) {
+      loaded = true;
+      setTimeout(initChatbase, 100);
+    }
+  };
+  
+  // Charge au premier scroll, touch, ou clic
+  ['scroll', 'touchstart', 'click'].forEach(e => 
+    window.addEventListener(e, load, { once: true, passive: true })
+  );
+  
+  // Fallback après 3s si aucune interaction
   if(document.readyState==="complete"){
-    setTimeout(initChatbase, 1000);
-  }else{
-    window.addEventListener("load", function() {
-      setTimeout(initChatbase, 1000);
-    });
+    setTimeout(load, 3000);
+  } else {
+    window.addEventListener("load", () => setTimeout(load, 3000));
   }
 })();
     </script>

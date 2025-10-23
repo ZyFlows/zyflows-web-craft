@@ -123,10 +123,10 @@
   }
 }
 
-/* Animations personnalisées */
+/* Animations personnalisées - Optimisées GPU */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -20px, 0); }
 }
 
 @keyframes pulse-glow {
@@ -137,11 +137,11 @@
 @keyframes fade-in-up {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -168,14 +168,17 @@
   
   .animate-float {
     animation: var(--animation-float);
+    will-change: transform;
   }
   
   .animate-pulse-glow {
     animation: var(--animation-pulse-glow);
+    will-change: box-shadow;
   }
   
   .animate-fade-in-up {
     animation: fade-in-up 0.6s ease-out;
+    will-change: transform, opacity;
   }
   
   .transition-smooth {
