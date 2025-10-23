@@ -190,7 +190,7 @@ const Contact = () => {
                     <FormItem>
                       <FormLabel>אימייל עבודה *</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="name@company.com" {...field} />
+                        <Input type="email" placeholder="example@company.co.il" {...field} dir="ltr" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
