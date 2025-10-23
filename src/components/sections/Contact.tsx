@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Mail, Phone, MapPin, Globe, Send, Sparkles, Zap, Users } from "lucide-react";
+import { Mail, Phone, Globe, Send, Sparkles, Zap, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Validation schema
@@ -185,17 +185,6 @@ const Contact = () => {
                   </div>
                 </a>
 
-                <div className="flex items-center gap-4 p-4 rounded-xl" dir={language === 'he' ? 'rtl' : 'ltr'}>
-                  <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-xs text-muted-foreground mb-1">
-                      {language === 'he' ? 'מיקום' : 'Localisation'}
-                    </div>
-                    <div className="font-medium text-foreground">Herzliya, Israel</div>
-                  </div>
-                </div>
 
                 <a 
                   href="https://zyflows.com" 
