@@ -127,7 +127,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden" dir="rtl">
+    <section id="contact" className="py-20 relative overflow-hidden" dir="rtl" lang="he">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -236,11 +236,11 @@ const Contact = () => {
                       <FormLabel>מה האתגר שלך ? *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger dir="rtl" className="rtl:flex-row-reverse rtl:[&>span]:text-right">
                             <SelectValue placeholder="בחר אפשרות" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent dir="rtl">
                           <SelectItem value="chatbot">צ'אטבוט AI (אתר/WhatsApp)</SelectItem>
                           <SelectItem value="automation">אוטומציות (Make / n8n / Zapier)</SelectItem>
                           <SelectItem value="crm">אינטגרציית CRM / נתונים</SelectItem>
@@ -264,11 +264,11 @@ const Contact = () => {
                         <FormLabel>מתי להתחיל ? *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger dir="rtl" className="rtl:flex-row-reverse rtl:[&>span]:text-right">
                               <SelectValue placeholder="בחר מועד" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent dir="rtl">
                             <SelectItem value="immediate">מיידי (0-2 שבועות)</SelectItem>
                             <SelectItem value="month">החודש (עד 30 יום)</SelectItem>
                             <SelectItem value="1-3months">1-3 חודשים</SelectItem>
@@ -288,11 +288,11 @@ const Contact = () => {
                         <FormLabel>תקציב משוער *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger>
+                            <SelectTrigger dir="rtl" className="rtl:flex-row-reverse rtl:[&>span]:text-right">
                               <SelectValue placeholder="בחר תקציב" />
                             </SelectTrigger>
                           </FormControl>
-                          <SelectContent>
+                          <SelectContent dir="rtl">
                             <SelectItem value="< 3000">{"< 3,000 ₪"}</SelectItem>
                             <SelectItem value="3000-8000">3,000–8,000 ₪</SelectItem>
                             <SelectItem value="8000-20000">8,000–20,000 ₪</SelectItem>
