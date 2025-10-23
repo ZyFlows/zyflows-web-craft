@@ -233,7 +233,7 @@ const Contact = () => {
                   name="ai_need"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>מה האתגר שלך? *</FormLabel>
+                      <FormLabel>מה האתגר שלך ? *</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
@@ -287,7 +287,7 @@ const Contact = () => {
                     name="start_timing"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>מתי להתחיל? *</FormLabel>
+                        <FormLabel>מתי להתחיל ? *</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
@@ -313,7 +313,7 @@ const Contact = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>משהו נוסף? (אופציונלי)</FormLabel>
+                      <FormLabel>משהו נוסף ? (אופציונלי)</FormLabel>
                       <FormControl>
                         <Textarea 
                           placeholder="ספר לנו יותר על הפרויקט שלך..." 
