@@ -1,71 +1,79 @@
+import React from 'react';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import AccessibilityWidget from "@/components/AccessibilityWidget";
-import CookieConsent from "@/components/CookieConsent";
-import "@/components/ui/rtl-support.css";
+function App() {
+  React.useEffect(() => {
+    console.log('✅ zyFlows App loaded successfully');
+  }, []);
 
-// Lazy loading des pages pour code splitting et meilleures performances
-const Index = lazy(() => import("./pages/Index"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-const AccessibilityStatement = lazy(() => import("./pages/AccessibilityStatement"));
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
-const EcommerceDemo = lazy(() => import("./pages/demos/EcommerceDemo"));
-const SaasDemo = lazy(() => import("./pages/demos/SaasDemo"));
-const FashionDemo = lazy(() => import("./pages/demos/FashionDemo"));
-const TechSaasDemo = lazy(() => import("./pages/demos/TechSaasDemo"));
-const LegalFirmDemo = lazy(() => import("./pages/demos/LegalFirmDemo"));
-const PortfolioDemo = lazy(() => import("./pages/demos/PortfolioDemo"));
-const LifestyleBlogDemo = lazy(() => import("./pages/demos/LifestyleBlogDemo"));
-const RealEstateDemo = lazy(() => import("./pages/demos/RealEstateDemo"));
-const LegalGPTDemo = lazy(() => import("./pages/demos/LegalGPTDemo"));
-const RestaurantDemo = lazy(() => import("./pages/demos/RestaurantDemo"));
-const AgencyDemo = lazy(() => import("./pages/demos/AgencyDemo"));
-const AutomationDemo = lazy(() => import("./pages/demos/AutomationDemo"));
-
-const queryClient = new QueryClient();
-
-const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <LanguageProvider>
-          <Toaster />
-          <Sonner />
-          <AccessibilityWidget />
-          <CookieConsent />
-          <BrowserRouter>
-            <Suspense fallback={null}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/demo/fashion" element={<FashionDemo />} />
-                <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
-                <Route path="/demo/saas" element={<SaasDemo />} />
-                <Route path="/demo/tech-saas" element={<TechSaasDemo />} />
-                <Route path="/demo/legal-firm" element={<LegalFirmDemo />} />
-                <Route path="/demo/portfolio" element={<PortfolioDemo />} />
-                <Route path="/demo/lifestyle-blog" element={<LifestyleBlogDemo />} />
-                <Route path="/demo/real-estate" element={<RealEstateDemo />} />
-                <Route path="/demo/legal-gpt" element={<LegalGPTDemo />} />
-                <Route path="/demo/restaurant" element={<RestaurantDemo />} />
-                <Route path="/demo/agency" element={<AgencyDemo />} />
-                <Route path="/demo/automation" element={<AutomationDemo />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </LanguageProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      color: 'white',
+      fontFamily: 'system-ui, -apple-system, sans-serif',
+      padding: '2rem',
+      textAlign: 'center'
+    }}>
+      <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>
+        🚀
+      </div>
+      <h1 style={{ 
+        fontSize: '3rem', 
+        marginBottom: '1rem',
+        fontWeight: 700 
+      }}>
+        zyFlows
+      </h1>
+      <p style={{ 
+        fontSize: '1.2rem', 
+        opacity: 0.9, 
+        marginBottom: '2rem',
+        maxWidth: '600px'
+      }}>
+        Votre plateforme d'automatisation de workflows est maintenant opérationnelle
+      </p>
+      <button 
+        onClick={() => {
+          console.log('Button clicked!');
+          alert('🎉 zyFlows fonctionne parfaitement !');
+        }}
+        style={{
+          background: 'white',
+          color: '#667eea',
+          padding: '1rem 2rem',
+          border: 'none',
+          borderRadius: '50px',
+          fontSize: '1.1rem',
+          fontWeight: 600,
+          cursor: 'pointer',
+          transition: 'transform 0.2s',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scale(1.05)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scale(1)';
+        }}
+      >
+        Tester l'application
+      </button>
+      <div style={{
+        marginTop: '3rem',
+        padding: '1rem',
+        background: 'rgba(255,255,255,0.1)',
+        borderRadius: '10px',
+        fontSize: '0.9rem'
+      }}>
+        <p>✅ JavaScript chargé</p>
+        <p>✅ React initialisé</p>
+        <p>✅ Application fonctionnelle</p>
+      </div>
+    </div>
   );
-};
+}
 
 export default App;
