@@ -108,7 +108,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           style={{ aspectRatio }}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
-          fetchPriority={priority ? 'high' : 'auto'}
+          // @ts-expect-error fetchpriority is a valid HTML attribute; TS types may lag
+          fetchpriority={priority ? 'high' : 'auto'}
           onLoad={onLoad}
           onError={onError}
         />
@@ -127,7 +128,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       style={{ aspectRatio }}
       loading={priority ? 'eager' : 'lazy'}
       decoding="async"
-      fetchPriority={priority ? 'high' : 'auto'}
+      // @ts-expect-error fetchpriority is a valid HTML attribute; TS types may lag
+      fetchpriority={priority ? 'high' : 'auto'}
       onLoad={onLoad}
       onError={onError}
     />
