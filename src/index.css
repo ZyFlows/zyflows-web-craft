@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Performance: Font-display pour Inter (fallback) */
-@font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial');
-  font-display: swap;
-  ascent-override: 90%;
-  descent-override: 22%;
-  line-gap-override: 0%;
-  size-adjust: 107%;
-}
-
 /* zyFlows Design System - Tech moderne avec touches accessibles */
 
 @layer base {
@@ -55,7 +44,6 @@
     --gradient-hero: linear-gradient(135deg, hsl(258 90% 66%) 0%, hsl(184 90% 56%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(224 15% 8%) 0%, hsl(224 15% 12%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(224 15% 8%) 0%, hsl(224 15% 6%) 100%);
-    --gradient-background: linear-gradient(180deg, hsl(222 14% 8%) 0%, hsl(222 14% 6%) 50%, hsl(222 14% 4%) 100%);
     
     /* Effets visuels */
     --shadow-glow: 0 0 40px hsl(258 90% 66% / 0.3);
@@ -128,16 +116,14 @@
   }
 
   body {
-    @apply text-foreground font-sans;
-    background: var(--gradient-background);
-    background-attachment: fixed;
+    @apply bg-background text-foreground font-sans;
   }
 }
 
-/* Animations personnalisées - Optimisées GPU */
+/* Animations personnalisées */
 @keyframes float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -20px, 0); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 @keyframes pulse-glow {
@@ -148,11 +134,11 @@
 @keyframes fade-in-up {
   0% {
     opacity: 0;
-    transform: translate3d(0, 30px, 0);
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translateY(0);
   }
 }
 
@@ -179,17 +165,14 @@
   
   .animate-float {
     animation: var(--animation-float);
-    will-change: transform;
   }
   
   .animate-pulse-glow {
     animation: var(--animation-pulse-glow);
-    will-change: box-shadow;
   }
   
   .animate-fade-in-up {
     animation: fade-in-up 0.6s ease-out;
-    will-change: transform, opacity;
   }
   
   .transition-smooth {

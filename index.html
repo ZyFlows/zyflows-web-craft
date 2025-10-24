@@ -11,28 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.chatbase.co">
     
-    <!-- Preload fonts critiques -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
-    
-    <!-- Critical CSS inline pour FCP optimal -->
-    <style>
-      /* Styles critiques pour rendu immédiat du hero */
-      #root { min-height: 100vh; }
-      body { 
-        margin: 0; 
-        font-family: Inter, system-ui, -apple-system, sans-serif;
-        background: hsl(222 14% 6%);
-        color: hsl(210 40% 98%);
-      }
-      /* Assurer visibilité immédiate du contenu principal */
-      .hero-content { opacity: 1; }
-    </style>
-    
-    <!-- Preload image LCP (Hero) - CRITIQUE -->
+    <!-- Preload UNIQUEMENT l'image LCP (Hero) - CRITIQUE pour PageSpeed -->
     <link 
       rel="preload" 
       as="image" 
       href="/src/assets/hero-tech.jpg"
+      type="image/jpeg"
       fetchpriority="high"
     >
     
@@ -50,8 +34,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://zyflows.com/" />
     
-    <!-- Fonts avec font-display swap - Optimisé pour FCP -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <!-- Fonts avec font-display swap pour performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     
     
@@ -112,22 +96,13 @@
 </head>
 
   <body>
-    <div id="root">
-      <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter, system-ui, -apple-system, sans-serif;">
-        <div>
-          <h1 style="font-size:1.5rem;margin:0 0 .5rem 0;">Chargement de zyFlows…</h1>
-          <p style="opacity:.8;margin:0;">Si ce message persiste, JavaScript n’a pas pu se charger.</p>
-        </div>
-      </div>
-      <noscript>
-        <div style="padding:1rem;text-align:center;">JavaScript est désactivé. Activez-le pour afficher le site.</div>
-      </noscript>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Chatbase script - Chargement différé max pour performance -->
+    <!-- Chatbase script chargé après React avec délai -->
     <script>
 (function(){
+  // Attendre que React soit complètement chargé
   const initChatbase = function() {
     if(!window.chatbase||window.chatbase("getState")!=="initialized"){
       window.chatbase=(...arguments)=>{
@@ -149,25 +124,13 @@
     document.body.appendChild(script)
   };
   
-  // Délai optimisé - charge après interaction utilisateur ou après 3s
-  let loaded = false;
-  const load = () => {
-    if (!loaded) {
-      loaded = true;
-      setTimeout(initChatbase, 100);
-    }
-  };
-  
-  // Charge au premier scroll, touch, ou clic
-  ['scroll', 'touchstart', 'click'].forEach(e => 
-    window.addEventListener(e, load, { once: true, passive: true })
-  );
-  
-  // Fallback après 3s si aucune interaction
+  // Délai pour s'assurer que React est prêt
   if(document.readyState==="complete"){
-    setTimeout(load, 3000);
-  } else {
-    window.addEventListener("load", () => setTimeout(load, 3000));
+    setTimeout(initChatbase, 1000);
+  }else{
+    window.addEventListener("load", function() {
+      setTimeout(initChatbase, 1000);
+    });
   }
 })();
     </script>

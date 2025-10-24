@@ -77,7 +77,7 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 z-20 relative">
-        <div className="max-w-4xl mx-auto text-center hero-content">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
             <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />

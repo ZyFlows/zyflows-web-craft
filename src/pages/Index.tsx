@@ -1,16 +1,13 @@
-import { lazy, Suspense } from "react";
 import Navigation from "@/components/ui/navigation";
 import Hero from "@/components/sections/Hero";
 import WhyChoose from "@/components/sections/WhyChoose";
+import Services from "@/components/sections/Services";
+import Projects from "@/components/sections/Projects";
+import About from "@/components/sections/About";
+import Testimonials from "@/components/sections/Testimonials";
+import Contact from "@/components/sections/Contact";
 import WhatsAppButton from "@/components/ui/whatsapp-button";
 import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
-
-// Lazy load des sections non-critiques pour améliorer les performances
-const Services = lazy(() => import("@/components/sections/Services"));
-const Projects = lazy(() => import("@/components/sections/Projects"));
-const About = lazy(() => import("@/components/sections/About"));
-const Testimonials = lazy(() => import("@/components/sections/Testimonials"));
-const Contact = lazy(() => import("@/components/sections/Contact"));
 
 const Index = () => {
   return (
@@ -24,13 +21,11 @@ const Index = () => {
       <div id="main-content">
         <Hero />
         <WhyChoose />
-        <Suspense fallback={null}>
-          <Services />
-          <Projects />
-          <About />
-          <Testimonials />
-          <Contact />
-        </Suspense>
+        <Services />
+        <Projects />
+        <About />
+        <Testimonials />
+        <Contact />
       </div>
       {/* Widget WhatsApp (droite) */}
       <WhatsAppButton />
