@@ -14,12 +14,25 @@
     <!-- Preload fonts critiques -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
     
-    <!-- Preload UNIQUEMENT l'image LCP (Hero) - CRITIQUE pour PageSpeed -->
+    <!-- Critical CSS inline pour FCP optimal -->
+    <style>
+      /* Styles critiques pour rendu immédiat du hero */
+      #root { min-height: 100vh; }
+      body { 
+        margin: 0; 
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        background: hsl(222 14% 6%);
+        color: hsl(210 40% 98%);
+      }
+      /* Assurer visibilité immédiate du contenu principal */
+      .hero-content { opacity: 1; }
+    </style>
+    
+    <!-- Preload image LCP (Hero) - CRITIQUE -->
     <link 
       rel="preload" 
       as="image" 
       href="/src/assets/hero-tech.jpg"
-      type="image/jpeg"
       fetchpriority="high"
     >
     
@@ -37,8 +50,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://zyflows.com/" />
     
-    <!-- Fonts avec font-display swap pour performance - Optimisé pour FCP -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+    <!-- Fonts avec font-display swap - Optimisé pour FCP -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
     
     

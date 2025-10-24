@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance: Font-display pour Inter (fallback) */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  font-display: swap;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  size-adjust: 107%;
+}
+
 /* zyFlows Design System - Tech moderne avec touches accessibles */
 
 @layer base {
