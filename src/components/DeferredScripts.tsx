@@ -14,18 +14,23 @@ export const DeferredScripts = () => {
         return;
       }
 
+      // Note: Chatbase temporairement désactivé (ID invalide retourne 404)
+      // Décommenter et remplacer l'ID quand vous aurez un ID Chatbase valide
+      /*
       const script = document.createElement('script');
       script.src = 'https://www.chatbase.co/embed.min.js';
       script.defer = true;
-      script.setAttribute('chatbase-id', 'OuQmubKfLkZv7b4nBnT_J');
+      script.setAttribute('chatbase-id', 'VOTRE_ID_CHATBASE_ICI');
       script.setAttribute('domain', 'www.chatbase.co');
       document.body.appendChild(script);
 
-      // Configuration du widget (avec cast pour éviter les erreurs TypeScript)
       (window as any).embeddedChatbotConfig = {
-        chatbotId: "OuQmubKfLkZv7b4nBnT_J",
+        chatbotId: "VOTRE_ID_CHATBASE_ICI",
         domain: "www.chatbase.co"
       };
+      */
+
+      console.log('⚠️ Chatbase désactivé - Remplacer l\'ID dans DeferredScripts.tsx');
     };
 
     // Délai de 3 secondes ou au premier événement utilisateur

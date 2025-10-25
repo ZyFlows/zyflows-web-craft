@@ -106,9 +106,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           height={height}
           className={className}
           style={{ aspectRatio }}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchPriority={priority ? 'high' : 'auto'}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchPriority={priority ? 'high' : 'auto'}
           onLoad={onLoad}
           onError={onError}
         />
