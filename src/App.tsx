@@ -11,6 +11,7 @@ import AccessibilityWidget from "@/components/AccessibilityWidget";
 import CookieConsent from "@/components/CookieConsent";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import { ThirdPartyScripts } from "@/components/ThirdPartyScripts";
+import { DeferredScripts } from "@/components/DeferredScripts";
 import { PWAReloadPrompt } from "@/components/ui/pwa-reload-prompt";
 import "@/components/ui/rtl-support.css";
 
@@ -47,6 +48,7 @@ const App = () => {
             <AccessibilityWidget />
             <CookieConsent />
             <ThirdPartyScripts />
+            <DeferredScripts />
             <PWAReloadPrompt />
             <BrowserRouter>
               {showLoader && <Loader onComplete={() => setShowLoader(false)} />}
