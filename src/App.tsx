@@ -4,8 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, lazy, Suspense } from "react";
-import Loader from "@/components/ui/loader";
+import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import CookieConsent from "@/components/CookieConsent";
@@ -36,8 +35,6 @@ const AutomationDemo = lazy(() => import("./pages/demos/AutomationDemo"));
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [showLoader, setShowLoader] = useState(true);
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -51,8 +48,7 @@ const App = () => {
             <DeferredScripts />
             <PWAReloadPrompt />
             <BrowserRouter>
-              {showLoader && <Loader onComplete={() => setShowLoader(false)} />}
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={null}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
