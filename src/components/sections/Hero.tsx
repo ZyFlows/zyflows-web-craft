@@ -84,18 +84,18 @@ const Hero = () => {
             <span className="text-sm font-medium">{t('hero.badge')}</span>
           </div>
 
-          {/* Main title - LCP Critical - No animation delay */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
+          {/* Main title */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {t('hero.title')}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-4 leading-relaxed animate-fade-in-up">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-4 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             {t('hero.subtitle')}
           </p>
           
           {/* Additional descriptive paragraph for SEO */}
-          <p className="text-base md:text-lg text-muted-foreground/90 mb-8 leading-relaxed max-w-3xl mx-auto animate-fade-in-up">
+          <p className="text-base md:text-lg text-muted-foreground/90 mb-8 leading-relaxed max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
             {language === 'he'
               ? 'אנחנו משלבים מומחיות טכנולוגית מובילה עם גישה מותאמת אישית כדי לשרת לקוחות ברחבי העולם. בין אם אתה צריך אתר מתקדם, אפליקציה מובייל, אוטומציה עסקית או שילוב בינה מלאכותית - יש לנו את הכלים, הניסיון והתשוקה להוביל את הפרויקט שלך להצלחה.'
               : language === 'fr'
@@ -105,7 +105,7 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`}>
+          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
             <Button 
               size="lg" 
               className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
@@ -131,7 +131,7 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`}>
+          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">50+</div>
               <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>
