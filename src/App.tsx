@@ -10,6 +10,8 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import CookieConsent from "@/components/CookieConsent";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
+import { ThirdPartyScripts } from "@/components/ThirdPartyScripts";
+import { PWAReloadPrompt } from "@/components/ui/pwa-reload-prompt";
 import "@/components/ui/rtl-support.css";
 
 // Lazy loading des pages pour code splitting et meilleures performances
@@ -44,6 +46,8 @@ const App = () => {
             <Sonner />
             <AccessibilityWidget />
             <CookieConsent />
+            <ThirdPartyScripts />
+            <PWAReloadPrompt />
             <BrowserRouter>
               {showLoader && <Loader onComplete={() => setShowLoader(false)} />}
               <Suspense fallback={<Loader />}>
