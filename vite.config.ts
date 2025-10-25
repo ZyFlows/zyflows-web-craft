@@ -4,7 +4,6 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import viteCompression from 'vite-plugin-compression';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
@@ -16,15 +15,6 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    // Image optimization
-    imagetools({
-      defaultDirectives: (url) => {
-        return new URLSearchParams({
-          format: 'webp;avif;jpg',
-          quality: '80',
-        });
-      },
-    }),
     // Compression Brotli pour production
     mode === 'production' && viteCompression({
       algorithm: 'brotliCompress',
