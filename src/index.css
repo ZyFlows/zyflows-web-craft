@@ -186,13 +186,94 @@
   }
 }
 
-/* RTL support */
+/* ========================================
+   RTL SUPPORT COMPLET (FR, EN, HE)
+   ======================================== */
+
+/* Direction automatique */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
 .rtl {
   direction: rtl;
 }
 
 .ltr {
   direction: ltr;
+}
+
+/* Text-align automatique */
+[dir="rtl"] .text-start { text-align: right !important; }
+[dir="rtl"] .text-end { text-align: left !important; }
+[dir="ltr"] .text-start { text-align: left !important; }
+[dir="ltr"] .text-end { text-align: right !important; }
+
+/* Margins/Paddings - Utiliser logical properties */
+.ms-1 { margin-inline-start: 0.25rem; }
+.ms-2 { margin-inline-start: 0.5rem; }
+.ms-3 { margin-inline-start: 0.75rem; }
+.ms-4 { margin-inline-start: 1rem; }
+.ms-6 { margin-inline-start: 1.5rem; }
+.ms-8 { margin-inline-start: 2rem; }
+
+.me-1 { margin-inline-end: 0.25rem; }
+.me-2 { margin-inline-end: 0.5rem; }
+.me-3 { margin-inline-end: 0.75rem; }
+.me-4 { margin-inline-end: 1rem; }
+.me-6 { margin-inline-end: 1.5rem; }
+.me-8 { margin-inline-end: 2rem; }
+
+.ps-1 { padding-inline-start: 0.25rem; }
+.ps-2 { padding-inline-start: 0.5rem; }
+.ps-3 { padding-inline-start: 0.75rem; }
+.ps-4 { padding-inline-start: 1rem; }
+.ps-6 { padding-inline-start: 1.5rem; }
+.ps-8 { padding-inline-start: 2rem; }
+
+.pe-1 { padding-inline-end: 0.25rem; }
+.pe-2 { padding-inline-end: 0.5rem; }
+.pe-3 { padding-inline-end: 0.75rem; }
+.pe-4 { padding-inline-end: 1rem; }
+.pe-6 { padding-inline-end: 1.5rem; }
+.pe-8 { padding-inline-end: 2rem; }
+
+/* Flexbox - row-reverse pour RTL */
+[dir="rtl"] .flex-row { flex-direction: row-reverse; }
+[dir="ltr"] .flex-row { flex-direction: row; }
+
+/* Icons - flip horizontal pour flèches */
+[dir="rtl"] .flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* Borders */
+.border-s { border-inline-start-width: 1px; }
+.border-e { border-inline-end-width: 1px; }
+
+/* Positions */
+[dir="rtl"] .left-0 { left: auto; right: 0; }
+[dir="rtl"] .right-0 { right: auto; left: 0; }
+[dir="rtl"] .left-4 { left: auto; right: 1rem; }
+[dir="rtl"] .right-4 { right: auto; left: 1rem; }
+
+/* Shadows */
+[dir="rtl"] .shadow-lg {
+  box-shadow: -10px 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Animations - ajuster directions */
+[dir="rtl"] .slide-in-right {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
 }
 
 /* Hebrew RTL bullet point spacing fix */
