@@ -100,7 +100,7 @@ const About = () => {
 
         {/* Histoire et mission */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
+          <div className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
             <h3 className="text-2xl font-semibold mb-6">{t('about.mission_title')}</h3>
             <p className="text-lg text-muted-foreground mb-6">
               {t('about.mission_text1')}
@@ -125,7 +125,7 @@ const About = () => {
             </Button>
           </div>
 
-          <div className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
+          <div className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
             <div className="relative">
               <div className="glass-effect rounded-2xl p-8">
                 <div className="grid grid-cols-2 gap-6">
