@@ -13,8 +13,7 @@ const Contact = () => {
     email: '',
     phone: '',
     company: '',
-    message: '',
-    gdpr: false
+    message: ''
   });
   
   const [status, setStatus] = useState({ 
@@ -49,8 +48,7 @@ const Contact = () => {
           email: '', 
           phone: '', 
           company: '', 
-          message: '', 
-          gdpr: false 
+          message: ''
         });
         
         // Auto-hide success message after 5s
@@ -186,20 +184,6 @@ const Contact = () => {
                   aria-required="true"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                 />
-              </div>
-
-              {/* GDPR */}
-              <div className={`custom-checkbox-group ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-                <input
-                  type="checkbox"
-                  id="gdpr"
-                  required
-                  checked={formData.gdpr}
-                  onChange={(e) => setFormData({...formData, gdpr: e.target.checked})}
-                />
-                <label htmlFor="gdpr">
-                  {t('contact.gdpr')} <a href="/privacy-policy">{t('contact.privacy')}</a> *
-                </label>
               </div>
 
               {/* Submit Button */}
