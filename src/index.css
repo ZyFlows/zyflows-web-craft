@@ -522,6 +522,74 @@ textarea {
   color: hsl(215 20% 75%);
 }
 
+/* Custom checkbox styling for dark theme */
+.custom-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.custom-checkbox-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #0f1424;
+  border: 1px solid #1e293b;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.custom-checkbox-group input[type="checkbox"]:hover {
+  border-color: #6366f1;
+}
+
+.custom-checkbox-group input[type="checkbox"]:checked {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+.custom-checkbox-group input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox-group input[type="checkbox"]:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+}
+
+.custom-checkbox-group label {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox-group label a {
+  color: #6366f1;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.custom-checkbox-group label a:hover {
+  color: #8b5cf6;
+  text-decoration: underline;
+}
+
 /* ========================================
    ACCESSIBILITY WIDGET STYLES
    ======================================== */

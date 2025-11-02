@@ -189,17 +189,16 @@ const Contact = () => {
               </div>
 
               {/* GDPR */}
-              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`custom-checkbox-group ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <input
                   type="checkbox"
                   id="gdpr"
                   required
                   checked={formData.gdpr}
                   onChange={(e) => setFormData({...formData, gdpr: e.target.checked})}
-                  className="w-5 h-5 text-primary rounded focus:ring-2 focus:ring-primary flex-shrink-0"
                 />
-                <label htmlFor="gdpr" className="text-sm text-muted-foreground">
-                  {t('contact.gdpr')} <a href="/privacy-policy" className="text-primary hover:underline">{t('contact.privacy')}</a> *
+                <label htmlFor="gdpr">
+                  {t('contact.gdpr')} <a href="/privacy-policy">{t('contact.privacy')}</a> *
                 </label>
               </div>
 
