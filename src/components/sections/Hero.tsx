@@ -19,6 +19,18 @@ const Hero = () => {
     }
   };
 
+  const handleWhatsAppConsultation = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "Bonjour, je souhaite réserver une consultation gratuite pour discuter de mon projet."
+      : language === 'he'
+      ? "שלום, אני מעוניין לקבוע פגישת ייעוץ חינם כדי לדבר על הפרויקט שלי."
+      : "Hello, I would like to book a free consultation to discuss my project.";
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   const handleEmailContact = () => {
     const { subject, body } = generateEmailTemplate({ 
       language, 
@@ -116,7 +128,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-gradient-primary text-white text-lg px-8 py-6 group transition-smooth hover:scale-105 glow-primary"
-              onClick={handleEmailContact}
+              onClick={handleWhatsAppConsultation}
             >
               <Mail className={`h-5 w-5 ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
               {language === 'fr' ? 'Consultation Gratuite' : language === 'he' ? 'ייעוץ חינם' : 'Book Free Consultation'}

@@ -18,6 +18,18 @@ const Services = () => {
     }
   };
 
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "Bonjour, je souhaite discuter de mes besoins en développement et automatisation."
+      : language === 'he'
+      ? "שלום, אני מעוניין לדבר על הצרכים שלי בפיתוח ואוטומציה."
+      : "Hello, I would like to discuss my development and automation needs.";
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   const handleEmailContact = () => {
     const { subject, body } = generateEmailTemplate({ 
       language, 
@@ -171,10 +183,10 @@ const Services = () => {
                   <Button 
                     variant="ghost" 
                     className="w-full group/btn hover:bg-primary/10 transition-smooth text-sm md:text-base"
-                    onClick={handleEmailContact}
+                    onClick={handleWhatsAppContact}
                   >
                     <Mail className={`${language === 'he' ? 'ml-1' : 'mr-1'} h-4 w-4`} />
-                    {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+                    {language === 'fr' ? 'Discuter sur WhatsApp' : language === 'he' ? 'שיחה בווטסאפ' : 'Chat on WhatsApp'}
                     <ArrowRight className={`${language === 'he' ? 'mr-2 group-hover/btn:-translate-x-1' : 'ml-2 group-hover/btn:translate-x-1'} h-4 w-4 transition-transform`} />
                   </Button>
                 </CardContent>
@@ -195,10 +207,10 @@ const Services = () => {
             <Button 
               size="lg" 
               className="glow-primary w-full sm:w-auto"
-              onClick={handleEmailContact}
+              onClick={handleWhatsAppContact}
             >
               <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+              {language === 'fr' ? 'Planifier un Appel Gratuit' : language === 'he' ? 'לקבוע שיחה חינם' : 'Schedule Free Call'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>

@@ -69,7 +69,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 bg-gradient-to-b from-background via-muted/20 to-background">
+    <div id="contact" className="min-h-screen py-20 bg-gradient-to-b from-background via-muted/20 to-background">
       <div className="container mx-auto px-4 max-w-6xl">
         
         {/* Hero Simple */}
