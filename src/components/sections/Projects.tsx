@@ -17,6 +17,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { useRef, useEffect, useState } from "react";
 import { ProjectModal } from "@/components/ui/project-modal";
 import MosaicCarousel from "@/components/ui/mosaic-carousel";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 // Import des mockups générés
 import mockupEcommerce from "@/assets/mockup-ecommerce.jpg";
@@ -578,10 +579,13 @@ const Projects = () => {
                   >
                     {/* Image du projet */}
                     <div className="relative overflow-hidden">
-                      <img 
+                      <OptimizedImage
                         src={project.image} 
-                        alt={project.title} 
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 ease-out" 
+                        alt={project.title}
+                        width={796}
+                        height={448}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 ease-out"
+                        sizes="(max-width: 768px) 648px, 796px"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
