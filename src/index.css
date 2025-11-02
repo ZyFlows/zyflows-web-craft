@@ -229,6 +229,79 @@
     background-size: 200% 200%;
     animation: gradient-shift 6s ease infinite;
   }
+
+  /* Professional card styling - Dark theme */
+  .card,
+  [class*="card-"],
+  .pillar-card,
+  .service-card,
+  .project-card,
+  .testimonial-card,
+  .value-card {
+    background: linear-gradient(135deg, #0f1424 0%, rgba(15, 20, 36, 0.8) 100%) !important;
+    border: 1px solid #1e293b !important;
+    border-radius: 1.25rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before,
+  [class*="card-"]::before,
+  .pillar-card::before,
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .card:hover::before,
+  [class*="card-"]:hover::before,
+  .pillar-card:hover::before,
+  .service-card:hover::before {
+    opacity: 1;
+  }
+
+  .card:hover,
+  [class*="card-"]:hover,
+  .pillar-card:hover,
+  .service-card:hover,
+  .project-card:hover,
+  .testimonial-card:hover,
+  .value-card:hover {
+    transform: translateY(-8px);
+    border-color: #6366f1 !important;
+    background: #151b2e !important;
+    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+  }
+
+  /* Card text colors */
+  .card h3,
+  .card h4,
+  .pillar-card h3,
+  .service-card h3 {
+    color: #f8fafc !important;
+  }
+
+  .card p,
+  .pillar-card p,
+  .service-card p {
+    color: #94a3b8 !important;
+  }
+
+  /* Remove any light purple, lavender backgrounds */
+  [class*="bg-purple"],
+  [class*="bg-indigo-"],
+  [class*="bg-violet-"],
+  [class*="bg-lavender"] {
+    background: #0f1424 !important;
+  }
 }
 
 /* ========================================
