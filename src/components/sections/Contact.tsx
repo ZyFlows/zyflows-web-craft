@@ -250,7 +250,7 @@ const Contact = () => {
               </div>
               <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
                 <p className="text-sm text-muted-foreground">{t('contact.phone_label')}</p>
-                <p className="font-semibold">+972 58-422-9255</p>
+                <p className="font-semibold" dir="ltr">+972 58-422-9255</p>
               </div>
             </a>
 

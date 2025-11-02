@@ -193,7 +193,7 @@ const PrivacyPolicy = () => {
                 </p>
                 <p className="flex items-center gap-2">
                   <strong>WhatsApp:</strong>
-                  <a href="https://wa.me/972584229255" className="text-primary hover:underline">
+                  <a href="https://wa.me/972584229255" className="text-primary hover:underline" dir="ltr">
                     +972-58-422-9255
                   </a>
                 </p>

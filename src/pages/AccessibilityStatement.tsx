@@ -198,7 +198,7 @@ const AccessibilityStatement = () => {
                 </p>
                 <p className="flex items-center gap-2">
                   <strong>WhatsApp:</strong>
-                  <a href={`https://wa.me/${t.contactWhatsApp.replace(/[^0-9]/g, '')}`} className="text-primary hover:underline">
+                  <a href={`https://wa.me/${t.contactWhatsApp.replace(/[^0-9]/g, '')}`} className="text-primary hover:underline" dir="ltr">
                     {t.contactWhatsApp}
                   </a>
                 </p>
