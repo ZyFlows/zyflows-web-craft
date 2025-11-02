@@ -93,26 +93,30 @@ const Contact = () => {
               {/* Nom/Prénom - Grid */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label htmlFor="firstName" className="block text-sm font-medium mb-2">
                     {t('contact.firstName')} *
                   </label>
                   <input
+                    id="firstName"
                     type="text"
                     required
                     value={formData.firstName}
                     onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    aria-required="true"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label htmlFor="lastName" className="block text-sm font-medium mb-2">
                     {t('contact.lastName')} *
                   </label>
                   <input
+                    id="lastName"
                     type="text"
                     required
                     value={formData.lastName}
                     onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                    aria-required="true"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   />
                 </div>
@@ -120,15 +124,17 @@ const Contact = () => {
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
                   {t('contact.email')} *
                 </label>
                 <input
+                  id="email"
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                   placeholder={t('contact.email_placeholder')}
+                  aria-required="true"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                 />
               </div>
@@ -136,10 +142,11 @@ const Contact = () => {
               {/* Téléphone/Entreprise */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
                     {t('contact.phone')}
                   </label>
                   <input
+                    id="phone"
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
@@ -148,10 +155,11 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">
+                  <label htmlFor="company" className="block text-sm font-medium mb-2">
                     {t('contact.company')}
                   </label>
                   <input
+                    id="company"
                     type="text"
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
@@ -163,15 +171,17 @@ const Contact = () => {
 
               {/* Message */}
               <div>
-                <label className="block text-sm font-medium mb-2">
+                <label htmlFor="message" className="block text-sm font-medium mb-2">
                   {t('contact.message')} *
                 </label>
                 <textarea
+                  id="message"
                   required
                   rows={6}
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                   placeholder={t('contact.message_placeholder')}
+                  aria-required="true"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                 />
               </div>
@@ -195,11 +205,12 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={status.loading}
+                aria-label={status.loading ? t('contact.sending') : t('contact.submit')}
                 className="w-full gradient-hero text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:shadow-glow hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status.loading ? (
                   <span className="flex items-center justify-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
@@ -212,14 +223,14 @@ const Contact = () => {
 
               {/* Success Message */}
               {status.success && (
-                <div className="p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400 animate-scale-in">
+                <div role="alert" className="p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400 animate-scale-in">
                   ✓ {t('contact.success')}
                 </div>
               )}
 
               {/* Error Message */}
               {status.error && (
-                <div className="p-4 bg-destructive/10 border border-destructive/50 rounded-lg text-destructive animate-scale-in">
+                <div role="alert" className="p-4 bg-destructive/10 border border-destructive/50 rounded-lg text-destructive animate-scale-in">
                   ✗ {t('contact.error')}
                 </div>
               )}

@@ -67,10 +67,12 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo - toujours à droite en mode hébreu, à gauche en FR/EN */}
           <div className={`flex items-center ${language === 'he' ? 'order-3' : 'order-1'}`}>
-            <a href="#home" aria-label="Retour à l'accueil - zyFlows" className="flex items-center gap-3">
+            <a href="#home" aria-label={t('nav.home')} className="flex items-center gap-3">
               <img 
                 src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
-                alt="Logo zyFlows - Solutions digitales innovantes" 
+                alt="Logo zyFlows" 
+                width="40"
+                height="40"
                 className="h-10 w-10 object-contain transition-all duration-300 ease-in-out"
               />
               <span className="hidden lg:block text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
