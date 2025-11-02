@@ -189,7 +189,7 @@ const Contact = () => {
               </div>
 
               {/* GDPR */}
-              <div className={`custom-checkbox-group ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`custom-checkbox-group ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
                 <input
                   type="checkbox"
                   id="gdpr"
