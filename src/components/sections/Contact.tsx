@@ -250,7 +250,7 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                 <Mail className="w-6 h-6 text-primary" />
               </div>
-              <div className={isRTL ? 'text-right' : 'text-left'}>
+              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
                 <p className="text-sm text-muted-foreground">{t('contact.email_label')}</p>
                 <p className="font-semibold">contact@zyflows.com</p>
               </div>
@@ -264,7 +264,7 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                 <Phone className="w-6 h-6 text-primary" />
               </div>
-              <div className={isRTL ? 'text-right' : 'text-left'}>
+              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
                 <p className="text-sm text-muted-foreground">{t('contact.phone_label')}</p>
                 <p className="font-semibold">+972 58-422-9255</p>
               </div>
@@ -275,7 +275,7 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
-              <div className={isRTL ? 'text-right' : 'text-left'}>
+              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
                 <p className="text-sm text-muted-foreground mb-2">{t('contact.location_label')}</p>
                 <p className="font-semibold">Paris, France</p>
                 <p className="font-semibold">Tel Aviv, Israel</p>
@@ -287,7 +287,7 @@ const Contact = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Clock className="w-6 h-6 text-primary" />
               </div>
-              <div className={isRTL ? 'text-right' : 'text-left'}>
+              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
                 <p className="text-sm text-muted-foreground mb-2">{t('contact.hours_label')}</p>
                 <p className="font-semibold">{t('contact.hours')}</p>
               </div>
