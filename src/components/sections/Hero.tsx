@@ -80,27 +80,34 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
-            <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-            <span className="text-sm font-medium">{t('hero.badge')}</span>
+            <Sparkles className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+            <span className="text-sm font-medium">
+              {language === 'fr' ? 'Agence IA & Automatisation' : language === 'he' ? 'סוכנות AI ואוטומציה' : 'AI & Automation Agency'}
+            </span>
           </div>
 
           {/* Main title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            {t('hero.title')}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up leading-tight" style={{ animationDelay: '0.2s' }}>
+            <span className="gradient-text">
+              {language === 'fr' ? 'Automatisez.' : language === 'he' ? 'אוטומציה.' : 'Automate.'}
+            </span>
+            <br />
+            <span className="gradient-text">
+              {language === 'fr' ? 'Innovez.' : language === 'he' ? 'חדשנות.' : 'Innovate.'}
+            </span>
+            <br />
+            <span className="gradient-text">
+              {language === 'fr' ? 'Évoluez.' : language === 'he' ? 'התפתחות.' : 'Elevate.'}
+            </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-4 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            {t('hero.subtitle')}
-          </p>
-          
-          {/* Additional descriptive paragraph for SEO */}
-          <p className="text-base md:text-lg text-muted-foreground/90 mb-8 leading-relaxed max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-            {language === 'he'
-              ? 'אנחנו משלבים מומחיות טכנולוגית מובילה עם גישה מותאמת אישית כדי לשרת לקוחות ברחבי העולם. בין אם אתה צריך אתר מתקדם, אפליקציה מובייל, אוטומציה עסקית או שילוב בינה מלאכותית - יש לנו את הכלים, הניסיון והתשוקה להוביל את הפרויקט שלך להצלחה.'
-              : language === 'fr'
-              ? 'Nous combinons une expertise technologique de premier plan avec une approche personnalisée pour servir des clients dans le monde entier. Que vous ayez besoin d\'un site web avancé, d\'une application mobile, d\'automatisation métier ou d\'intégration IA - nous avons les outils, l\'expérience et la passion pour mener votre projet vers le succès.'
-              : 'We combine leading technological expertise with a personalized approach to serve clients worldwide. Whether you need an advanced website, mobile app, business automation, or AI integration - we have the tools, experience, and passion to drive your project to success.'
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            {language === 'fr'
+              ? 'Nous créons des automatisations intelligentes, des chatbots IA et des solutions digitales qui vous font gagner du temps et développent votre entreprise.'
+              : language === 'he'
+              ? 'אנחנו בונים אוטומציות חכמות, צ\'אטבוטים AI ופתרונות דיגיטליים שחוסכים לך זמן ומגדילים את העסק שלך.'
+              : 'We build intelligent automations, AI chatbots, and digital solutions that save you time and scale your business.'
             }
           </p>
 
@@ -108,11 +115,11 @@ const Hero = () => {
           <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
             <Button 
               size="lg" 
-              className="glow-primary text-lg px-8 py-6 group transition-smooth hover:scale-105"
+              className="bg-gradient-primary text-white text-lg px-8 py-6 group transition-smooth hover:scale-105 glow-primary"
               onClick={handleEmailContact}
             >
               <Mail className={`h-5 w-5 ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+              {language === 'fr' ? 'Consultation Gratuite' : language === 'he' ? 'ייעוץ חינם' : 'Book Free Consultation'}
               <ArrowRight className={`h-5 w-5 transition-transform ${
                 language === 'he' 
                   ? 'mr-2 group-hover:-translate-x-1' 
@@ -121,12 +128,11 @@ const Hero = () => {
             </Button>
             
             <Button 
-              variant="outline" 
               size="lg" 
-              className="text-lg px-8 py-6 glass-effect border-primary/30 hover:border-primary transition-smooth hover:scale-105"
+              className="glass-effect border-2 border-primary/50 hover:border-primary text-lg px-8 py-6 transition-smooth hover:scale-105"
               onClick={() => scrollToSection('projects')}
             >
-              {t('hero.cta_projects')}
+              {language === 'fr' ? 'Voir Nos Projets' : language === 'he' ? 'ראו את הפרויקטים שלנו' : 'View Our Work'}
             </Button>
           </div>
 
