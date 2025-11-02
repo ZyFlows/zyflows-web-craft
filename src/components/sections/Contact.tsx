@@ -133,8 +133,9 @@ const Contact = () => {
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  placeholder={t('contact.email_placeholder')}
+                  placeholder="contact@example.com"
                   aria-required="true"
+                  dir="ltr"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                 />
               </div>
@@ -150,7 +151,8 @@ const Contact = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder={t('contact.phone_placeholder')}
+                    placeholder="+972584229255"
+                    dir="ltr"
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   />
                 </div>
@@ -187,14 +189,14 @@ const Contact = () => {
               </div>
 
               {/* GDPR */}
-              <div className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <input
                   type="checkbox"
                   id="gdpr"
                   required
                   checked={formData.gdpr}
                   onChange={(e) => setFormData({...formData, gdpr: e.target.checked})}
-                  className="mt-1 w-4 h-4 text-primary rounded focus:ring-2 focus:ring-primary"
+                  className="w-5 h-5 text-primary rounded focus:ring-2 focus:ring-primary flex-shrink-0"
                 />
                 <label htmlFor="gdpr" className="text-sm text-muted-foreground">
                   {t('contact.gdpr')} <a href="/privacy-policy" className="text-primary hover:underline">{t('contact.privacy')}</a> *
