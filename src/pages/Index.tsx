@@ -6,6 +6,7 @@ import Projects from "@/components/sections/Projects";
 import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
+import Footer from "@/components/sections/Footer";
 import WhatsAppButton from "@/components/ui/whatsapp-button";
 import { DynamicMetaTags } from "@/hooks/use-dynamic-meta";
 
@@ -27,6 +28,7 @@ const Index = () => {
         <Testimonials />
         <Contact />
       </div>
+      <Footer />
       {/* Widget WhatsApp (droite) */}
       <WhatsAppButton />
     </div>
