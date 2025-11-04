@@ -51,13 +51,13 @@ const Footer = () => {
             </div>
             
             <a 
-              href="mailto:raphael.belhassen@gmail.com"
+              href="mailto:b.raphael1998@gmail.com"
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
             >
               <Mail className="h-5 w-5 text-primary" />
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Email</p>
-                <p className="font-semibold">raphael.belhassen@gmail.com</p>
+                <p className="font-semibold">b.raphael1998@gmail.com</p>
               </div>
             </a>
 
@@ -75,13 +75,13 @@ const Footer = () => {
             </a>
 
             <a 
-              href="tel:+33766554565"
+              href="tel:+972584229255"
               className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
             >
               <Phone className="h-5 w-5 text-primary" />
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Téléphone</p>
-                <p className="font-semibold">+33 7 66 55 45 65</p>
+                <p className="font-semibold">+972 58 422 9255</p>
               </div>
             </a>
           </div>
