@@ -13,6 +13,7 @@ const Contact = () => {
     email: '',
     phone: '',
     company: '',
+    service: '',
     message: ''
   });
   
@@ -47,7 +48,8 @@ const Contact = () => {
           lastName: '', 
           email: '', 
           phone: '', 
-          company: '', 
+          company: '',
+          service: '',
           message: ''
         });
         
@@ -167,6 +169,29 @@ const Contact = () => {
                     className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   />
                 </div>
+              </div>
+
+              {/* Service souhaité */}
+              <div>
+                <label htmlFor="service" className="block text-sm font-medium mb-2">
+                  {t('contact.service_label')} *
+                </label>
+                <select
+                  id="service"
+                  required
+                  value={formData.service}
+                  onChange={(e) => setFormData({...formData, service: e.target.value})}
+                  aria-required="true"
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                >
+                  <option value="">{t('contact.service_placeholder')}</option>
+                  <option value="website">{t('contact.service1')}</option>
+                  <option value="app">{t('contact.service2')}</option>
+                  <option value="automation">{t('contact.service3')}</option>
+                  <option value="leads">{t('contact.service4')}</option>
+                  <option value="ai">{t('contact.service5')}</option>
+                  <option value="other">{t('contact.service8')}</option>
+                </select>
               </div>
 
               {/* Message */}
