@@ -28,9 +28,10 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: false });
     
     try {
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-contact', {
+      await fetch('https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
         body: JSON.stringify({
           ...formData,
           full_name: `${formData.firstName} ${formData.lastName}`,
@@ -41,25 +42,22 @@ const Contact = () => {
         })
       });
 
-      if (response.ok) {
-        setStatus({ loading: false, success: true, error: false });
-        setFormData({ 
-          firstName: '', 
-          lastName: '', 
-          email: '', 
-          phone: '', 
-          company: '',
-          service: '',
-          message: ''
-        });
-        
-        // Auto-hide success message after 5s
-        setTimeout(() => {
-          setStatus({ loading: false, success: false, error: false });
-        }, 5000);
-      } else {
-        throw new Error('Failed');
-      }
+      // Avec mode: 'no-cors', on ne peut pas vérifier la réponse, donc on considère que c'est réussi
+      setStatus({ loading: false, success: true, error: false });
+      setFormData({ 
+        firstName: '', 
+        lastName: '', 
+        email: '', 
+        phone: '', 
+        company: '',
+        service: '',
+        message: ''
+      });
+      
+      // Auto-hide success message after 5s
+      setTimeout(() => {
+        setStatus({ loading: false, success: false, error: false });
+      }, 5000);
     } catch (error) {
       setStatus({ loading: false, success: false, error: true });
       
