@@ -124,9 +124,9 @@ const Footer = () => {
 
             {/* Copyright et liens légaux */}
             <div className="w-full pt-6 border-t border-primary/10 space-y-3">
-              <p className="text-xs text-muted-foreground" style={{ direction: 'ltr' }}>
-                Copyright © 2025 - 
-                <button onClick={() => setIsDialogOpen(true)} className="text-primary hover:text-primary/80 hover:underline transition-all duration-200 cursor-pointer bg-transparent border-none p-0 mx-1">
+              <p className="text-xs text-muted-foreground flex items-center justify-center flex-wrap gap-1" style={{ direction: 'ltr' }}>
+                <span>Copyright © 2025 -</span>
+                <button onClick={() => setIsDialogOpen(true)} className="text-primary hover:text-primary/80 hover:underline transition-all duration-200 cursor-pointer bg-transparent border-none p-0">
                   Raphael Belhassen
                 </button>
               </p>
