@@ -4,8 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, ArrowRight, Lightbulb, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
-import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
-import { emailTranslations } from '@/contexts/emailTranslations';
 import { 
   Carousel, 
   CarouselContent, 
@@ -110,19 +108,16 @@ const Projects = () => {
     });
   };
 
-  const handleEmailProject = () => {
-    const { subject, body } = generateEmailTemplate({ 
-      language, 
-      t, 
-      type: 'projects' 
-    });
+  const handleWhatsAppProject = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "💼 Bonjour ! J'ai vu vos projets et je suis impressionné. Je souhaite discuter d'un projet similaire. Êtes-vous disponible ?"
+      : language === 'he'
+      ? "💼 שלום! ראיתי את הפרויקטים שלכם ואני מתרשם. אני רוצה לדבר על פרויקט דומה. אתם פנויים?"
+      : "💼 Hello! I saw your projects and I'm impressed. I'd like to discuss a similar project. Are you available?";
     
-    openEmailClient(subject, body);
-    
-    toast({
-      title: t('email.send_email'),
-      description: t('email.click_below'),
-    });
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   // Données détaillées pour la modale
@@ -694,10 +689,10 @@ const Projects = () => {
             <Button 
               size="lg" 
               className="glow-primary"
-              onClick={handleEmailProject}
+              onClick={handleWhatsAppProject}
             >
               <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+              {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>

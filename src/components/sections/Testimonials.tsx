@@ -5,27 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Quote, ArrowRight, MessageSquare, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
-import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
-import { emailTranslations } from '@/contexts/emailTranslations';
 
 const Testimonials = () => {
   const { t, language } = useLanguage();
-  const { toast } = useToast();
 
-  const handleEmailProject = () => {
-    const { subject, body } = generateEmailTemplate({ 
-      language, 
-      t, 
-      type: 'testimonials' 
-    });
+  const handleWhatsAppProject = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "🚀 Bonjour ! J'ai vu vos témoignages clients et je souhaite démarrer un projet avec vous. Pouvons-nous en discuter ?"
+      : language === 'he'
+      ? "🚀 שלום! ראיתי את המלצות הלקוחות שלכם ואני רוצה להתחיל פרויקט איתכם. נוכל לדבר על זה?"
+      : "🚀 Hello! I saw your client testimonials and I'd like to start a project with you. Can we discuss it?";
     
-    openEmailClient(subject, body);
-    
-    toast({
-      title: t('email.send_email'),
-      description: t('email.click_below'),
-    });
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const testimonials = [
@@ -209,9 +202,9 @@ const Testimonials = () => {
             <p className="text-muted-foreground mb-6">
               {t('testimonials.cta_desc')}
             </p>
-            <Button size="lg" className="glow-primary" onClick={handleEmailProject}>
+            <Button size="lg" className="glow-primary" onClick={handleWhatsAppProject}>
               <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+              {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>

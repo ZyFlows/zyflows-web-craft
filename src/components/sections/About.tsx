@@ -14,27 +14,20 @@ import {
   Mail
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
-import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
-import { emailTranslations } from '@/contexts/emailTranslations';
 
 const About = () => {
   const { t, language } = useLanguage();
-  const { toast } = useToast();
 
-  const handleEmailContact = () => {
-    const { subject, body } = generateEmailTemplate({ 
-      language, 
-      t, 
-      type: 'contact' 
-    });
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "👋 Bonjour ! Je souhaite discuter de mon projet avec vous. Pouvons-nous organiser un appel ?"
+      : language === 'he'
+      ? "👋 שלום! אני מעוניין לדבר על הפרויקט שלי. האם נוכל לתאם שיחה?"
+      : "👋 Hello! I'd like to discuss my project with you. Can we schedule a call?";
     
-    openEmailClient(subject, body);
-    
-    toast({
-      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
-      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
-    });
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const values = [
@@ -118,9 +111,9 @@ const About = () => {
               ))}
             </div>
 
-            <Button size="lg" className="glow-primary" onClick={handleEmailContact}>
+            <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
               <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-              {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+              {language === 'fr' ? 'Discuter de mon projet' : language === 'he' ? 'לדבר על הפרויקט שלי' : 'Discuss My Project'}
               <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
             </Button>
           </div>
@@ -205,9 +198,9 @@ const About = () => {
               {t('about.cta_desc')}
             </p>
             <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
-              <Button size="lg" className="glow-primary" onClick={handleEmailContact}>
+              <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
                 <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-                {emailTranslations[language]?.['email.send_email'] || 'Envoyer un email'}
+                {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
                 <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
               </Button>
               <Button size="lg" variant="outline" className="glass-effect border-primary/30" onClick={() => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })}>

@@ -3,13 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Globe, Smartphone, Zap, MapPin, Bot, ArrowRight, Code2, Palette, Settings, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
-import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
-import { emailTranslations } from '@/contexts/emailTranslations';
 
 const Services = () => {
   const { t, language } = useLanguage();
-  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -21,28 +17,13 @@ const Services = () => {
   const handleWhatsAppContact = () => {
     const phoneNumber = "972584229255";
     const message = language === 'fr' 
-      ? "Bonjour, je souhaite discuter de mes besoins en développement et automatisation."
+      ? "💬 Bonjour ! Je souhaite discuter de mes besoins en développement et automatisation. Pouvons-nous organiser un appel ?"
       : language === 'he'
-      ? "שלום, אני מעוניין לדבר על הצרכים שלי בפיתוח ואוטומציה."
-      : "Hello, I would like to discuss my development and automation needs.";
+      ? "💬 שלום! אני מעוניין לדבר על הצרכים שלי בפיתוח ואוטומציה. נוכל לתאם שיחה?"
+      : "💬 Hello! I would like to discuss my development and automation needs. Can we schedule a call?";
     
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-  };
-
-  const handleEmailContact = () => {
-    const { subject, body } = generateEmailTemplate({ 
-      language, 
-      t, 
-      type: 'contact' 
-    });
-    
-    openEmailClient(subject, body);
-    
-    toast({
-      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
-      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
-    });
   };
 
   const services = [

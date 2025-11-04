@@ -2,15 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Zap, Code2, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
-import { generateEmailTemplate, openEmailClient } from "@/utils/emailTemplates";
-import { emailTranslations } from '@/contexts/emailTranslations';
 import heroTech from "@/assets/hero-tech.jpg";
 import OptimizedImage from "@/components/ui/optimized-image";
 
 const Hero = () => {
   const { t, language } = useLanguage();
-  const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -22,28 +18,13 @@ const Hero = () => {
   const handleWhatsAppConsultation = () => {
     const phoneNumber = "972584229255";
     const message = language === 'fr' 
-      ? "Bonjour, je souhaite réserver une consultation gratuite pour discuter de mon projet."
+      ? "📞 Bonjour ! Je souhaite réserver une consultation gratuite pour discuter de mon projet. Quand êtes-vous disponible ?"
       : language === 'he'
-      ? "שלום, אני מעוניין לקבוע פגישת ייעוץ חינם כדי לדבר על הפרויקט שלי."
-      : "Hello, I would like to book a free consultation to discuss my project.";
+      ? "📞 שלום! אני מעוניין לקבוע פגישת ייעוץ חינם כדי לדבר על הפרויקט שלי. מתי אתם פנויים?"
+      : "📞 Hello! I would like to book a free consultation to discuss my project. When are you available?";
     
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-  };
-
-  const handleEmailContact = () => {
-    const { subject, body } = generateEmailTemplate({ 
-      language, 
-      t, 
-      type: 'contact' 
-    });
-    
-    openEmailClient(subject, body);
-    
-    toast({
-      title: emailTranslations[language]?.['email.send_email'] || 'Envoyer un email',
-      description: emailTranslations[language]?.['email.click_below'] || 'Ouverture de votre client email...',
-    });
   };
 
   return (

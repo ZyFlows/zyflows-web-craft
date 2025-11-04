@@ -11,8 +11,12 @@ const Navigation = () => {
   const { t, language } = useLanguage();
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = "+972584229255";
-    const message = t('whatsapp.message');
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "🚀 Bonjour ! Je souhaite démarrer un projet avec vous. Pouvons-nous discuter des détails ?"
+      : language === 'he'
+      ? "🚀 שלום! אני רוצה להתחיל פרויקט איתכם. נוכל לדבר על הפרטים?"
+      : "🚀 Hello! I'd like to start a project with you. Can we discuss the details?";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
