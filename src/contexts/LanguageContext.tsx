@@ -31,14 +31,34 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [language, setLanguage] = useState<Language>('he');
   const [isDetecting, setIsDetecting] = useState(true);
 
+  // Fonction utilitaire: fetch avec timeout compatible
+  const fetchWithTimeout = async (url: string, ms = 3000) => {
+    try {
+      if (typeof AbortSignal !== 'undefined' && typeof (AbortSignal as any).timeout === 'function') {
+        return await fetch(url, { signal: (AbortSignal as any).timeout(ms) })
+      }
+      if (typeof AbortController !== 'undefined') {
+        const controller = new AbortController()
+        const id = setTimeout(() => controller.abort(), ms)
+        try {
+          return await fetch(url, { signal: controller.signal })
+        } finally {
+          clearTimeout(id)
+        }
+      }
+      return await fetch(url)
+    } catch (e) {
+      console.warn('fetchWithTimeout error', e)
+      throw e
+    }
+  }
+
   // Fonction de détection géographique
   const detectLanguageFromGeo = async (): Promise<Language> => {
     try {
       // Tentative de géolocalisation via ipapi.co
-      const response = await fetch('https://ipapi.co/json/', {
-        signal: AbortSignal.timeout(3000) // Timeout après 3 secondes
-      });
-      
+      const response = await fetchWithTimeout('https://ipapi.co/json/', 3000)
+
       if (response.ok) {
         const data = await response.json();
         const countryCode = data.country_code;
