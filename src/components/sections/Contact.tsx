@@ -28,7 +28,7 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: false });
     
     try {
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-leads', {
+      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
