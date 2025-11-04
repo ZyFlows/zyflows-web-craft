@@ -60,7 +60,7 @@ const Footer = () => {
 
             {/* Navigation */}
             <div>
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+              <h3 className={`font-semibold text-lg mb-4 flex items-center gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                 <Globe className="h-5 w-5 text-primary" />
                 {language === 'fr' ? 'Navigation' : language === 'he' ? 'ניווט' : 'Navigation'}
               </h3>
@@ -100,24 +100,24 @@ const Footer = () => {
 
             {/* Contact */}
             <div>
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+              <h3 className={`font-semibold text-lg mb-4 flex items-center gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                 <Phone className="h-5 w-5 text-primary" />
                 {language === 'fr' ? 'Contact' : language === 'he' ? 'צור קשר' : 'Contact'}
               </h3>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2">
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors">
                     +972 58 422 9255
                   </a>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <a href="mailto:b.raphael1998@gmail.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
                     b.raphael1998@gmail.com
                   </a>
                 </li>
-                <li className="flex items-start gap-2">
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                   <span className="text-muted-foreground">
                     {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
@@ -128,7 +128,7 @@ const Footer = () => {
 
             {/* Langue et Réseaux */}
             <div>
-              <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+              <h3 className={`font-semibold text-lg mb-4 flex items-center gap-2 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
                 <Globe className="h-5 w-5 text-primary" />
                 {language === 'fr' ? 'Langue' : language === 'he' ? 'שפה' : 'Language'}
               </h3>
@@ -226,9 +226,9 @@ const Footer = () => {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
-            <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
+            <div className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}>
               <User className="h-5 w-5 text-primary" />
-              <div>
+              <div className={language === 'he' ? 'text-right' : ''}>
                 <p className="text-sm font-medium text-muted-foreground">
                   {language === 'fr' ? 'Nom' : language === 'he' ? 'שם' : 'Name'}
                 </p>
@@ -238,10 +238,10 @@ const Footer = () => {
             
             <a 
               href="mailto:b.raphael1998@gmail.com"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+              className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}
             >
               <Mail className="h-5 w-5 text-primary" />
-              <div>
+              <div className={language === 'he' ? 'text-right' : ''}>
                 <p className="text-sm font-medium text-muted-foreground">Email</p>
                 <p className="font-semibold">b.raphael1998@gmail.com</p>
               </div>
@@ -251,10 +251,10 @@ const Footer = () => {
               href="https://www.linkedin.com/in/raphael-belhassen"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+              className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}
             >
               <Linkedin className="h-5 w-5 text-primary" />
-              <div>
+              <div className={language === 'he' ? 'text-right' : ''}>
                 <p className="text-sm font-medium text-muted-foreground">LinkedIn</p>
                 <p className="font-semibold">linkedin.com/in/raphael-belhassen</p>
               </div>
@@ -262,10 +262,10 @@ const Footer = () => {
 
             <a 
               href="tel:+972584229255"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+              className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}
             >
               <Phone className="h-5 w-5 text-primary" />
-              <div>
+              <div className={language === 'he' ? 'text-right' : ''}>
                 <p className="text-sm font-medium text-muted-foreground">
                   {language === 'fr' ? 'Téléphone' : language === 'he' ? 'טלפון' : 'Phone'}
                 </p>
