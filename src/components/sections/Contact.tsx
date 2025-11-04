@@ -176,21 +176,28 @@ const Contact = () => {
                 <label htmlFor="service" className="block text-sm font-medium mb-2">
                   {t('contact.service_label')} *
                 </label>
-                <select
-                  id="service"
-                  required
-                  value={formData.service}
-                  onChange={(e) => setFormData({...formData, service: e.target.value})}
-                  aria-required="true"
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                >
-                  <option value="">{t('contact.service_placeholder')}</option>
-                  <option value="website">{t('contact.service_website')}</option>
-                  <option value="automation">{t('contact.service_automation')}</option>
-                  <option value="chatbot">{t('contact.service_chatbot')}</option>
-                  <option value="consulting">{t('contact.service_consulting')}</option>
-                  <option value="other">{t('contact.service_other')}</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="service"
+                    required
+                    value={formData.service}
+                    onChange={(e) => setFormData({...formData, service: e.target.value})}
+                    aria-required="true"
+                    className={`w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none ${isRTL ? 'pr-10 pl-4' : 'pl-4 pr-10'}`}
+                  >
+                    <option value="">{t('contact.service_placeholder')}</option>
+                    <option value="website">{t('contact.service_website')}</option>
+                    <option value="automation">{t('contact.service_automation')}</option>
+                    <option value="chatbot">{t('contact.service_chatbot')}</option>
+                    <option value="consulting">{t('contact.service_consulting')}</option>
+                    <option value="other">{t('contact.service_other')}</option>
+                  </select>
+                  <div className={`absolute top-1/2 -translate-y-1/2 pointer-events-none ${isRTL ? 'left-3' : 'right-3'}`}>
+                    <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               {/* Message */}
