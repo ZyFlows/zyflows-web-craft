@@ -28,7 +28,7 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('he');
+  const [language, setLanguage] = useState<Language>('en');
   const [isDetecting, setIsDetecting] = useState(true);
 
   // Fonction utilitaire: fetch avec timeout compatible
@@ -79,8 +79,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (browserLang === 'en') return 'en';
     if (browserLang === 'he' || browserLang === 'iw') return 'he';
     
-    // Défaut : Hébreu
-    return 'he';
+    // Défaut : Anglais (international)
+    return 'en';
   };
 
   // Effet pour détecter et charger la langue

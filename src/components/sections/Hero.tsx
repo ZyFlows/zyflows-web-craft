@@ -122,7 +122,7 @@ const Hero = () => {
             
             <Button 
               size="lg" 
-              className="glass-effect border-2 border-primary/50 hover:border-primary text-lg px-8 py-6 transition-smooth hover:scale-105"
+              className="glass-effect border-2 border-primary/50 hover:border-primary text-base sm:text-lg px-6 sm:px-10 py-6 transition-smooth hover:scale-105 whitespace-nowrap"
               onClick={() => scrollToSection('projects')}
             >
               {language === 'fr' ? 'Voir Nos Projets' : language === 'he' ? 'ראו את הפרויקטים שלנו' : 'View Our Work'}
