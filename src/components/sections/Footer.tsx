@@ -27,7 +27,123 @@ const Footer = () => {
   return <>
       <footer className={`bg-gradient-to-br from-background via-background to-primary/5 border-t border-primary/10 py-12 ${language === 'he' ? 'rtl' : ''}`}>
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          
+          {/* Layout Mobile-first: centré et empilé */}
+          <div className="flex flex-col items-center text-center space-y-8 lg:hidden">
+            
+            {/* Logo et Description */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-center gap-3">
+                <img src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" alt="zyFlows Logo" className="h-12 w-12 object-contain" />
+                <span className="text-2xl font-bold gradient-text">zyFlows</span>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+                {language === 'fr' ? 'Solutions digitales innovantes pour automatiser et développer votre entreprise.' : language === 'he' ? 'פתרונות דיגיטליים חדשניים לאוטומציה והצמחת העסק שלך.' : 'Innovative digital solutions to automate and scale your business.'}
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div className="w-full max-w-sm">
+              <h3 className="font-semibold text-lg mb-4 text-primary">
+                {language === 'fr' ? 'Contact' : language === 'he' ? 'יצור קשר' : 'Contact'}
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center justify-center gap-2">
+                  <Phone className="h-4 w-4 text-primary flex-shrink-0" />
+                  <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
+                    +972 58 422 9255
+                  </a>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <Mail className="h-4 w-4 text-primary flex-shrink-0" />
+                  <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    contact@zyflows.com
+                  </a>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
+                  <span className="text-muted-foreground">
+                    {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Réseaux sociaux */}
+            <div className="w-full max-w-sm">
+              <h3 className="font-semibold text-lg mb-4 text-primary">
+                {language === 'fr' ? 'Réseaux sociaux' : language === 'he' ? 'רשתות חברתיות' : 'Social Media'}
+              </h3>
+              <div className="flex justify-center gap-3">
+                <Button variant="outline" size="icon" onClick={handleWhatsApp} className="rounded-full h-10 w-10 hover:bg-green-500/10 hover:border-green-500">
+                  <Phone className="h-5 w-5" />
+                </Button>
+                <Button variant="outline" size="icon" asChild className="rounded-full h-10 w-10 hover:bg-blue-500/10 hover:border-blue-500">
+                  <a href="https://www.linkedin.com/in/raphael-belhassen" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            {/* Langue */}
+            <div className="w-full max-w-sm">
+              <h3 className="font-semibold text-lg mb-4 text-primary">
+                {language === 'fr' ? 'Choisissez la langue' : language === 'he' ? 'בחרו שפה' : 'Choose Language'}
+              </h3>
+              <div className="grid grid-cols-3 gap-2">
+                <Button 
+                  variant={language === 'fr' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setLanguage('fr')} 
+                  className="flex flex-col items-center py-3 h-auto"
+                >
+                  <span className="text-xs">FR</span>
+                  <span className="text-xs font-normal">Français</span>
+                </Button>
+                <Button 
+                  variant={language === 'en' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setLanguage('en')} 
+                  className="flex flex-col items-center py-3 h-auto"
+                >
+                  <span className="text-xs">GB</span>
+                  <span className="text-xs font-normal">English</span>
+                </Button>
+                <Button 
+                  variant={language === 'he' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setLanguage('he')} 
+                  className="flex flex-col items-center py-3 h-auto"
+                >
+                  <span className="text-xs">IL</span>
+                  <span className="text-xs font-normal">עברית</span>
+                </Button>
+              </div>
+            </div>
+
+            {/* Copyright et liens légaux */}
+            <div className="w-full pt-6 border-t border-primary/10 space-y-3">
+              <p className="text-xs text-muted-foreground" style={{ direction: 'ltr' }}>
+                Copyright © 2025 - 
+                <button onClick={() => setIsDialogOpen(true)} className="text-primary hover:text-primary/80 hover:underline transition-all duration-200 cursor-pointer bg-transparent border-none p-0 mx-1">
+                  Raphael Belhassen
+                </button>
+              </p>
+              
+              <div className="flex justify-center gap-4 text-xs">
+                <a href="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'fr' ? 'Confidentialité' : language === 'he' ? 'פרטיות' : 'Privacy'}
+                </a>
+                <a href="/accessibility-statement" className="text-muted-foreground hover:text-primary transition-colors">
+                  {language === 'fr' ? 'Accessibilité' : language === 'he' ? 'נגישות' : 'Accessibility'}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Layout Desktop: grille classique */}
+          <div className="hidden lg:grid lg:grid-cols-4 gap-8 mb-8">
             
             {/* Logo et Description */}
             <div className="space-y-4">
@@ -83,29 +199,28 @@ const Footer = () => {
             {/* Contact */}
             <div>
               <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-                
                 {language === 'fr' ? 'Contact' : language === 'he' ? 'צור קשר' : 'Contact'}
               </h3>
-            <ul className="space-y-3 text-sm">
-              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
-                <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
-                  +972 58 422 9255
-                </a>
-              </li>
-              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
-                <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
-                  contact@zyflows.com
-                </a>
-              </li>
-              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
-                <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground">
-                  {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
-                </span>
-              </li>
-            </ul>
+              <ul className="space-y-3 text-sm">
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                  <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                  <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
+                    +972 58 422 9255
+                  </a>
+                </li>
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                  <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                  <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
+                    contact@zyflows.com
+                  </a>
+                </li>
+                <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                  <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-muted-foreground">
+                    {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
+                  </span>
+                </li>
+              </ul>
             </div>
 
             {/* Langue et Réseaux */}
@@ -146,12 +261,10 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Ligne de séparation */}
-          <div className="border-t border-primary/10 pt-6">
+          {/* Ligne de séparation Desktop uniquement */}
+          <div className="hidden lg:block border-t border-primary/10 pt-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-              <p className="text-center" style={{
-              direction: 'ltr'
-            }}>
+              <p className="text-center" style={{ direction: 'ltr' }}>
                 Copyright © 2025 - 
                 <button onClick={() => setIsDialogOpen(true)} className="text-primary hover:text-primary/80 hover:underline transition-all duration-200 cursor-pointer bg-transparent border-none p-0 mx-1">
                   Raphael Belhassen
