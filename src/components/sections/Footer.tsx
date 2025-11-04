@@ -27,7 +27,7 @@ const Footer = () => {
   return <>
       <footer className={`bg-gradient-to-br from-background via-background to-primary/5 border-t border-primary/10 py-12 ${language === 'he' ? 'rtl' : ''}`}>
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             
             {/* Logo et Description */}
             <div className="space-y-4">
@@ -86,26 +86,26 @@ const Footer = () => {
                 
                 {language === 'fr' ? 'Contact' : language === 'he' ? 'צור קשר' : 'Contact'}
               </h3>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-2">
-                  <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors">
-                    +972 58 422 9255
-                  </a>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
-                    contact@zyflows.com
-                  </a>
-                </li>
-                <li className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">
-                    {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
-                  </span>
-                </li>
-              </ul>
+            <ul className="space-y-3 text-sm">
+              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
+                  +972 58 422 9255
+                </a>
+              </li>
+              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
+                  contact@zyflows.com
+                </a>
+              </li>
+              <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
+                <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <span className="text-muted-foreground">
+                  {language === 'fr' ? 'Israël' : language === 'he' ? 'ישראל' : 'Israel'}
+                </span>
+              </li>
+            </ul>
             </div>
 
             {/* Langue et Réseaux */}
@@ -205,13 +205,13 @@ const Footer = () => {
               </div>
             </a>
 
-            <a href="tel:+972584229255" className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
+            <a href="tel:+972584229255" className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}>
               <Phone className="h-5 w-5 text-primary" />
-              <div>
+              <div className={language === 'he' ? 'text-right' : ''}>
                 <p className="text-sm font-medium text-muted-foreground">
                   {language === 'fr' ? 'Téléphone' : language === 'he' ? 'טלפון' : 'Phone'}
                 </p>
-                <p className="font-semibold">+972 58 422 9255</p>
+                <p className="font-semibold" style={{ direction: 'ltr' }}>+972 58 422 9255</p>
               </div>
             </a>
           </div>
