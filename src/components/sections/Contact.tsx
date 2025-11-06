@@ -172,16 +172,16 @@ const Contact = () => {
   return (
     <section 
       id="contact" 
-      className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800"
+      className="py-20 bg-gradient-to-b from-background/50 to-background"
     >
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* En-tête */}
           <div className="text-center mb-12" data-aos="fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               {t('contact.title')}
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               {t('contact.subtitle')}
             </p>
           </div>
@@ -189,7 +189,7 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Formulaire */}
             <div 
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8"
+              className="bg-card rounded-2xl shadow-xl p-8"
               data-aos="fade-right"
             >
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -198,9 +198,9 @@ const Contact = () => {
                   <div>
                     <label 
                       htmlFor="firstName"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      className="block text-sm font-medium text-foreground mb-2"
                     >
-                      {t('contact.firstName')} <span className="text-red-500">*</span>
+                      {t('contact.firstName')} <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="text"
@@ -210,19 +210,19 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       minLength={2}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                               dark:bg-gray-700 dark:text-white
+                      className="w-full px-4 py-3 rounded-lg border border-input 
+                               focus:ring-2 focus:ring-ring focus:border-transparent
+                               bg-background text-foreground
                                transition-all duration-200"
-                      placeholder={t('contact.firstNamePlaceholder') || 'Jean'}
+                      placeholder="Jean"
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="lastName"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      className="block text-sm font-medium text-foreground mb-2"
                     >
-                      {t('contact.lastName')} <span className="text-red-500">*</span>
+                      {t('contact.lastName')} <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="text"
@@ -232,11 +232,11 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       minLength={2}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                               dark:bg-gray-700 dark:text-white
+                      className="w-full px-4 py-3 rounded-lg border border-input 
+                               focus:ring-2 focus:ring-ring focus:border-transparent
+                               bg-background text-foreground
                                transition-all duration-200"
-                      placeholder={t('contact.lastNamePlaceholder') || 'Dupont'}
+                      placeholder="Dupont"
                     />
                   </div>
                 </div>
@@ -245,9 +245,9 @@ const Contact = () => {
                 <div>
                   <label 
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
-                    {t('contact.email')} <span className="text-red-500">*</span>
+                    {t('contact.email')} <span className="text-destructive">*</span>
                   </label>
                   <input
                     type="email"
@@ -256,11 +256,11 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                             dark:bg-gray-700 dark:text-white
+                    className="w-full px-4 py-3 rounded-lg border border-input 
+                             focus:ring-2 focus:ring-ring focus:border-transparent
+                             bg-background text-foreground
                              transition-all duration-200"
-                    placeholder={t('contact.emailPlaceholder') || 'jean.dupont@example.com'}
+                    placeholder={t('contact.email_placeholder')}
                   />
                 </div>
 
@@ -268,7 +268,7 @@ const Contact = () => {
                 <div>
                   <label 
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     {t('contact.phone')}
                   </label>
@@ -278,11 +278,11 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                             dark:bg-gray-700 dark:text-white
+                    className="w-full px-4 py-3 rounded-lg border border-input 
+                             focus:ring-2 focus:ring-ring focus:border-transparent
+                             bg-background text-foreground
                              transition-all duration-200"
-                    placeholder={t('contact.phonePlaceholder') || '+33 6 12 34 56 78'}
+                    placeholder={t('contact.phone_placeholder')}
                   />
                 </div>
 
@@ -290,7 +290,7 @@ const Contact = () => {
                 <div>
                   <label 
                     htmlFor="company"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
                     {t('contact.company')}
                   </label>
@@ -300,11 +300,11 @@ const Contact = () => {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                             dark:bg-gray-700 dark:text-white
+                    className="w-full px-4 py-3 rounded-lg border border-input 
+                             focus:ring-2 focus:ring-ring focus:border-transparent
+                             bg-background text-foreground
                              transition-all duration-200"
-                    placeholder={t('contact.companyPlaceholder') || 'Ma Société'}
+                    placeholder={t('contact.company_placeholder')}
                   />
                 </div>
 
@@ -312,9 +312,9 @@ const Contact = () => {
                 <div>
                   <label 
                     htmlFor="service"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
-                    {t('contact.service')} <span className="text-red-500">*</span>
+                    {t('contact.service_label')} <span className="text-destructive">*</span>
                   </label>
                   <select
                     id="service"
@@ -322,18 +322,18 @@ const Contact = () => {
                     value={formData.service}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                             dark:bg-gray-700 dark:text-white
+                    className="w-full px-4 py-3 rounded-lg border border-input 
+                             focus:ring-2 focus:ring-ring focus:border-transparent
+                             bg-background text-foreground
                              transition-all duration-200"
                   >
-                    <option value="">{t('contact.selectService') || 'Sélectionner un service'}</option>
-                    <option value="Automatisation">{t('services.automation.title') || 'Automatisation'}</option>
-                    <option value="Chatbot IA">{t('services.chatbot.title') || 'Chatbot IA'}</option>
-                    <option value="Site Web/SaaS">{t('services.website.title') || 'Site Web/SaaS'}</option>
-                    <option value="CRM personnalisé">{t('services.crm.title') || 'CRM personnalisé'}</option>
-                    <option value="Conseil IA">{t('services.consulting.title') || 'Conseil IA'}</option>
-                    <option value="Autre">{t('contact.other') || 'Autre'}</option>
+                    <option value="">{t('contact.service_placeholder')}</option>
+                    <option value="Automatisation">{t('contact.service_automation')}</option>
+                    <option value="Chatbot IA">{t('contact.service_chatbot')}</option>
+                    <option value="Site Web/SaaS">{t('contact.service_website')}</option>
+                    <option value="CRM personnalisé">CRM personnalisé</option>
+                    <option value="Conseil IA">{t('contact.service_consulting')}</option>
+                    <option value="Autre">{t('contact.service_other')}</option>
                   </select>
                 </div>
 
@@ -341,9 +341,9 @@ const Contact = () => {
                 <div>
                   <label 
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-medium text-foreground mb-2"
                   >
-                    {t('contact.message')} <span className="text-red-500">*</span>
+                    {t('contact.message')} <span className="text-destructive">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -353,11 +353,11 @@ const Contact = () => {
                     required
                     minLength={10}
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
-                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                             dark:bg-gray-700 dark:text-white
+                    className="w-full px-4 py-3 rounded-lg border border-input 
+                             focus:ring-2 focus:ring-ring focus:border-transparent
+                             bg-background text-foreground
                              transition-all duration-200 resize-none"
-                    placeholder={t('contact.messagePlaceholder') || 'Décrivez votre projet...'}
+                    placeholder={t('contact.message_placeholder')}
                   />
                 </div>
 
@@ -396,16 +396,16 @@ const Contact = () => {
 
                 {/* Messages de statut */}
                 {status.success && (
-                  <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 
-                                text-green-800 dark:text-green-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 
+                                text-green-500 rounded-lg flex items-start gap-3 animate-fade-in">
                     <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <p>{status.message}</p>
                   </div>
                 )}
 
                 {status.error && (
-                  <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 
-                                text-red-800 dark:text-red-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                  <div className="p-4 bg-destructive/10 border border-destructive/20 
+                                text-destructive rounded-lg flex items-start gap-3 animate-fade-in">
                     <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                     <p>{status.message}</p>
                   </div>
@@ -416,19 +416,19 @@ const Contact = () => {
             {/* Informations de contact */}
             <div className="space-y-6" data-aos="fade-left">
               {/* Email */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+              <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
-                    <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  <div className="bg-primary/10 p-3 rounded-lg">
+                    <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <h3 className="font-semibold text-foreground mb-1">
                       Email
                     </h3>
                     <a 
                       href="mailto:contact@zyflows.com" 
-                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                      className="text-primary hover:underline"
                     >
                       contact@zyflows.com
                     </a>
@@ -437,17 +437,17 @@ const Contact = () => {
               </div>
 
               {/* Téléphone */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+              <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">
-                    <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  <div className="bg-secondary/10 p-3 rounded-lg">
+                    <Phone className="w-6 h-6 text-secondary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.phone')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                       {t('contact.phoneNumber') || '+972 XX XXX XXXX'}
                     </p>
                   </div>
@@ -455,17 +455,17 @@ const Contact = () => {
               </div>
 
               {/* Localisation */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+              <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
-                    <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    <MapPin className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.location')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                       {t('contact.locationDetail') || 'Israel'}
                     </p>
                   </div>
@@ -473,17 +473,17 @@ const Contact = () => {
               </div>
 
               {/* Horaires */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+              <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
                 <div className="flex items-start gap-4">
-                  <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg">
-                    <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  <div className="bg-primary/10 p-3 rounded-lg">
+                    <Clock className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                    <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.hours')}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                       {t('contact.hoursDetail') || 'Lun - Ven: 9h - 18h'}
                     </p>
                   </div>
