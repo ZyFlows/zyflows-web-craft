@@ -1,13 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = () => {
   const { t } = useLanguage();
   const { isRTL } = useRTL();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -25,18 +23,8 @@ const Contact = () => {
     error: false 
   });
 
-  // Remplacez cette clé par votre clé reCAPTCHA site key de Google
-  const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Clé de test - à remplacer
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Vérifier reCAPTCHA
-    const recaptchaValue = recaptchaRef.current?.getValue();
-    if (!recaptchaValue) {
-      setStatus({ loading: false, success: false, error: true });
-      return;
-    }
     
     setStatus({ loading: true, success: false, error: false });
     
@@ -51,8 +39,7 @@ const Contact = () => {
           language: isRTL ? 'he' : t('nav.home') === 'Accueil' ? 'fr' : 'en',
           timestamp: new Date().toISOString(),
           source: 'zyflows-contact-form',
-          form_type: 'contact_optimized',
-          recaptcha_token: recaptchaValue
+          form_type: 'contact_optimized'
         })
       });
 
@@ -67,9 +54,6 @@ const Contact = () => {
         service: '',
         message: ''
       });
-      
-      // Réinitialiser reCAPTCHA
-      recaptchaRef.current?.reset();
       
       // Auto-hide success message after 5s
       setTimeout(() => {
@@ -229,15 +213,6 @@ const Contact = () => {
                   placeholder={t('contact.message_placeholder')}
                   aria-required="true"
                   className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
-                />
-              </div>
-
-              {/* reCAPTCHA */}
-              <div className="flex justify-center">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  theme="dark"
                 />
               </div>
 
