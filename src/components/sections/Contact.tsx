@@ -41,7 +41,7 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: false });
     
     try {
-      await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
+      await fetch('https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         mode: 'no-cors',
