@@ -103,7 +103,7 @@ const Contact = () => {
           
           {/* Formulaire - 3 cols */}
           <div className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in-up">
+            <form onSubmit={handleSubmit} className={`space-y-6 animate-fade-in-up transition-opacity duration-300 ${status.loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}>
               
               {/* Nom/Prénom - Grid */}
               <div className="grid sm:grid-cols-2 gap-4">
@@ -246,32 +246,54 @@ const Contact = () => {
                 type="submit"
                 disabled={status.loading}
                 aria-label={status.loading ? t('contact.sending') : t('contact.submit')}
-                className="w-full gradient-hero text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:shadow-glow hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative w-full gradient-hero text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden group"
               >
+                {/* Animated background on hover */}
+                <span className="absolute inset-0 w-full h-full bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                
                 {status.loading ? (
-                  <span className="flex items-center justify-center gap-2">
+                  <span className="relative flex items-center justify-center gap-3">
                     <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    {t('contact.sending')}
+                    <span className="animate-pulse">{t('contact.sending')}</span>
                   </span>
                 ) : (
-                  t('contact.submit')
+                  <span className="relative flex items-center justify-center gap-2">
+                    {t('contact.submit')}
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
                 )}
               </button>
 
               {/* Success Message */}
               {status.success && (
-                <div role="alert" className="p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400 animate-scale-in">
-                  ✓ {t('contact.success')}
+                <div role="alert" className="p-5 bg-green-500/10 border-2 border-green-500/50 rounded-lg animate-fade-in animate-scale-in">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center animate-scale-in flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-green-400 font-medium">{t('contact.success')}</span>
+                  </div>
                 </div>
               )}
 
               {/* Error Message */}
               {status.error && (
-                <div role="alert" className="p-4 bg-destructive/10 border border-destructive/50 rounded-lg text-destructive animate-scale-in">
-                  ✗ {t('contact.error')}
+                <div role="alert" className="p-5 bg-destructive/10 border-2 border-destructive/50 rounded-lg animate-fade-in animate-scale-in">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-destructive rounded-full flex items-center justify-center animate-scale-in flex-shrink-0">
+                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                    <span className="text-destructive font-medium">{t('contact.error')}</span>
+                  </div>
                 </div>
               )}
 
