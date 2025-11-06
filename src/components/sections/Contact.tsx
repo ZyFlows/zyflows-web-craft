@@ -325,13 +325,14 @@ const Contact = () => {
                     className="w-full px-4 py-3 rounded-lg border border-input 
                              focus:ring-2 focus:ring-ring focus:border-transparent
                              bg-background text-foreground
-                             transition-all duration-200"
+                             transition-all duration-200
+                             [&:dir(rtl)]:text-right"
                   >
                     <option value="">{t('contact.service_placeholder')}</option>
                     <option value="Automatisation">{t('contact.service_automation')}</option>
                     <option value="Chatbot IA">{t('contact.service_chatbot')}</option>
                     <option value="Site Web/SaaS">{t('contact.service_website')}</option>
-                    <option value="CRM personnalisé">CRM personnalisé</option>
+                    <option value="CRM personnalisé">{t('contact.service_crm')}</option>
                     <option value="Conseil IA">{t('contact.service_consulting')}</option>
                     <option value="Autre">{t('contact.service_other')}</option>
                   </select>
