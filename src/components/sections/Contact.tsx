@@ -214,7 +214,7 @@ const Contact = () => {
                                focus:ring-2 focus:ring-ring focus:border-transparent
                                bg-background text-foreground
                                transition-all duration-200"
-                      placeholder="Jean"
+                      placeholder={t('contact.firstNamePlaceholder')}
                     />
                   </div>
                   <div>
@@ -236,7 +236,7 @@ const Contact = () => {
                                focus:ring-2 focus:ring-ring focus:border-transparent
                                bg-background text-foreground
                                transition-all duration-200"
-                      placeholder="Dupont"
+                      placeholder={t('contact.lastNamePlaceholder')}
                     />
                   </div>
                 </div>
@@ -384,12 +384,12 @@ const Contact = () => {
                   {status.loading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      {t('contact.sending') || 'Envoi en cours...'}
+                      {t('contact.sending')}
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      {t('contact.send') || 'Envoyer le message'}
+                      {t('contact.send')}
                     </>
                   )}
                 </button>
@@ -448,7 +448,7 @@ const Contact = () => {
                       {t('contact.phone')}
                     </h3>
                     <p className="text-muted-foreground">
-                      {t('contact.phoneNumber') || '+972 XX XXX XXXX'}
+                      {t('contact.phoneNumber')}
                     </p>
                   </div>
                 </div>
@@ -466,7 +466,7 @@ const Contact = () => {
                       {t('contact.location')}
                     </h3>
                     <p className="text-muted-foreground">
-                      {t('contact.locationDetail') || 'Israel'}
+                      {t('contact.locationDetail')}
                     </p>
                   </div>
                 </div>
@@ -484,7 +484,7 @@ const Contact = () => {
                       {t('contact.hours')}
                     </h3>
                     <p className="text-muted-foreground">
-                      {t('contact.hoursDetail') || 'Lun - Ven: 9h - 18h'}
+                      {t('contact.hoursDetail')}
                     </p>
                   </div>
                 </div>
