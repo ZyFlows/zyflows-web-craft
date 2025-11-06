@@ -1,14 +1,12 @@
 // src/components/sections/Contact.tsx
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = () => {
   const { t } = useLanguage();
   const { isRTL } = useRTL();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -27,24 +25,8 @@ const Contact = () => {
     message: ''
   });
 
-  // Test reCAPTCHA key - remplacer par votre clé réelle en production
-  const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validation reCAPTCHA
-    const recaptchaValue = recaptchaRef.current?.getValue();
-    if (!recaptchaValue) {
-      setStatus({ 
-        loading: false, 
-        success: false, 
-        error: true,
-        message: t('contact.recaptcha_required') || 'Veuillez valider le reCAPTCHA'
-      });
-      return;
-    }
-
     setStatus({ loading: true, success: false, error: false, message: '' });
 
     try {
@@ -123,9 +105,6 @@ const Contact = () => {
         service: '',
         message: ''
       });
-
-      // Réinitialiser reCAPTCHA
-      recaptchaRef.current?.reset();
 
       // Masquer le message de succès après 7 secondes
       setTimeout(() => {
@@ -365,16 +344,6 @@ const Contact = () => {
                              bg-background text-foreground
                              transition-all duration-200 resize-none"
                     placeholder={t('contact.message_placeholder')}
-                  />
-                </div>
-
-                {/* reCAPTCHA */}
-                <div className="flex justify-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY}
-                    theme="light"
-                    hl={isRTL ? 'he' : t('nav.home') === 'Accueil' ? 'fr' : 'en'}
                   />
                 </div>
 
