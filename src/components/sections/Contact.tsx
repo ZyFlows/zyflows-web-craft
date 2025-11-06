@@ -1,14 +1,15 @@
+// src/components/sections/Contact.tsx
 import { useState, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = () => {
   const { t } = useLanguage();
   const { isRTL } = useRTL();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,46 +19,101 @@ const Contact = () => {
     service: '',
     message: ''
   });
-  
+
   const [status, setStatus] = useState({ 
     loading: false, 
     success: false, 
-    error: false 
+    error: false,
+    message: ''
   });
 
-  // Remplacez cette clé par votre clé reCAPTCHA site key de Google
-  const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Clé de test - à remplacer
+  // Test reCAPTCHA key - remplacer par votre clé réelle en production
+  const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Vérifier reCAPTCHA
+
+    // Validation reCAPTCHA
     const recaptchaValue = recaptchaRef.current?.getValue();
     if (!recaptchaValue) {
-      setStatus({ loading: false, success: false, error: true });
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: true,
+        message: t('contact.recaptcha_required') || 'Veuillez valider le reCAPTCHA'
+      });
       return;
     }
-    
-    setStatus({ loading: true, success: false, error: false });
-    
+
+    setStatus({ loading: true, success: false, error: false, message: '' });
+
     try {
-      await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
+      // Détection de la langue basée sur le contexte
+      const detectLanguage = () => {
+        if (isRTL) return 'he';
+        const homeText = t('nav.home');
+        if (homeText === 'Accueil') return 'fr';
+        if (homeText === 'Home') return 'en';
+        return 'fr'; // Fallback
+      };
+
+      const language = detectLanguage();
+
+      // ✅ Payload simplifié - exactement comme attendu par N8N
+      const payload = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim() || '',
+        company: formData.company.trim() || '',
+        service: formData.service,
+        message: formData.message.trim(),
+        language: language
+      };
+
+      console.log('📤 [Contact Form] Envoi des données:', payload);
+      console.log('🌐 [Contact Form] Langue détectée:', language);
+
+      // ✅ Requête sans 'no-cors' pour permettre l'envoi du body JSON
+      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'no-cors',
-        body: JSON.stringify({
-          ...formData,
-          full_name: `${formData.firstName} ${formData.lastName}`,
-          language: isRTL ? 'he' : t('nav.home') === 'Accueil' ? 'fr' : 'en',
-          timestamp: new Date().toISOString(),
-          source: 'zyflows-contact-form',
-          form_type: 'contact_optimized',
-          recaptcha_token: recaptchaValue
-        })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
 
-      // Avec mode: 'no-cors', on ne peut pas vérifier la réponse, donc on considère que c'est réussi
-      setStatus({ loading: false, success: true, error: false });
+      console.log('📥 [Contact Form] Réponse HTTP:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
+
+      // Vérification du statut HTTP
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      // Tentative de lecture de la réponse JSON
+      let result;
+      try {
+        result = await response.json();
+        console.log('✅ [Contact Form] Réponse JSON:', result);
+      } catch (jsonError) {
+        console.warn('⚠️ [Contact Form] Pas de JSON dans la réponse (normal si workflow OK)');
+        result = { success: true };
+      }
+
+      // Succès
+      setStatus({ 
+        loading: false, 
+        success: true, 
+        error: false,
+        message: t('contact.success') || 'Message envoyé avec succès !'
+      });
+      
+      // Réinitialiser le formulaire
       setFormData({ 
         firstName: '', 
         lastName: '', 
@@ -67,298 +123,377 @@ const Contact = () => {
         service: '',
         message: ''
       });
-      
+
       // Réinitialiser reCAPTCHA
       recaptchaRef.current?.reset();
-      
-      // Auto-hide success message after 5s
+
+      // Masquer le message de succès après 7 secondes
       setTimeout(() => {
-        setStatus({ loading: false, success: false, error: false });
-      }, 5000);
+        setStatus({ loading: false, success: false, error: false, message: '' });
+      }, 7000);
+
     } catch (error) {
-      setStatus({ loading: false, success: false, error: true });
+      console.error('❌ [Contact Form] Erreur détaillée:', error);
       
-      // Auto-hide error message after 5s
+      let errorMessage = t('contact.error') || 'Une erreur est survenue. Veuillez réessayer.';
+      
+      if (error instanceof Error) {
+        console.error('❌ [Contact Form] Message d\'erreur:', error.message);
+        // En production, ne pas exposer les détails techniques
+        if (process.env.NODE_ENV === 'development') {
+          errorMessage += ` (${error.message})`;
+        }
+      }
+
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: true,
+        message: errorMessage
+      });
+
+      // Masquer le message d'erreur après 7 secondes
       setTimeout(() => {
-        setStatus({ loading: false, success: false, error: false });
-      }, 5000);
+        setStatus({ loading: false, success: false, error: false, message: '' });
+      }, 7000);
     }
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   return (
-    <div id="contact" className="min-h-screen py-20 bg-gradient-to-b from-background via-muted/20 to-background">
-      <div className="container mx-auto px-4 max-w-6xl">
-        
-        {/* Hero Simple */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4 gradient-hero bg-clip-text text-transparent">
-            {t('contact.title')}
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t('contact.subtitle')}
-          </p>
-        </div>
+    <section 
+      id="contact" 
+      className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800"
+    >
+      <div className="container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          {/* En-tête */}
+          <div className="text-center mb-12" data-aos="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('contact.title')}
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              {t('contact.subtitle')}
+            </p>
+          </div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
-          
-          {/* Formulaire - 3 cols */}
-          <div className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className={`space-y-6 animate-fade-in-up transition-opacity duration-300 ${status.loading ? 'opacity-60 pointer-events-none' : 'opacity-100'}`}>
-              
-              {/* Nom/Prénom - Grid */}
-              <div className="grid sm:grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Formulaire */}
+            <div 
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8"
+              data-aos="fade-right"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Prénom + Nom */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label 
+                      htmlFor="firstName"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      {t('contact.firstName')} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      minLength={2}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                               dark:bg-gray-700 dark:text-white
+                               transition-all duration-200"
+                      placeholder={t('contact.firstNamePlaceholder') || 'Jean'}
+                    />
+                  </div>
+                  <div>
+                    <label 
+                      htmlFor="lastName"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      {t('contact.lastName')} <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      minLength={2}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                               focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                               dark:bg-gray-700 dark:text-white
+                               transition-all duration-200"
+                      placeholder={t('contact.lastNamePlaceholder') || 'Dupont'}
+                    />
+                  </div>
+                </div>
+
+                {/* Email */}
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-                    {t('contact.firstName')} *
+                  <label 
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    {t('contact.email')} <span className="text-red-500">*</span>
                   </label>
                   <input
-                    id="firstName"
-                    type="text"
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     required
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    aria-required="true"
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                             dark:bg-gray-700 dark:text-white
+                             transition-all duration-200"
+                    placeholder={t('contact.emailPlaceholder') || 'jean.dupont@example.com'}
                   />
                 </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-                    {t('contact.lastName')} *
-                  </label>
-                  <input
-                    id="lastName"
-                    type="text"
-                    required
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                    aria-required="true"
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                  />
-                </div>
-              </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  {t('contact.email')} *
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  placeholder="contact@example.com"
-                  aria-required="true"
-                  dir="ltr"
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                />
-              </div>
-
-              {/* Téléphone/Entreprise */}
-              <div className="grid sm:grid-cols-2 gap-4">
+                {/* Téléphone */}
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                  <label 
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
                     {t('contact.phone')}
                   </label>
                   <input
-                    id="phone"
                     type="tel"
+                    id="phone"
+                    name="phone"
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder="+972584229255"
-                    dir="ltr"
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                             dark:bg-gray-700 dark:text-white
+                             transition-all duration-200"
+                    placeholder={t('contact.phonePlaceholder') || '+33 6 12 34 56 78'}
                   />
                 </div>
+
+                {/* Société */}
                 <div>
-                  <label htmlFor="company" className="block text-sm font-medium mb-2">
+                  <label 
+                    htmlFor="company"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
                     {t('contact.company')}
                   </label>
                   <input
-                    id="company"
                     type="text"
+                    id="company"
+                    name="company"
                     value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    placeholder={t('contact.company_placeholder')}
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                             dark:bg-gray-700 dark:text-white
+                             transition-all duration-200"
+                    placeholder={t('contact.companyPlaceholder') || 'Ma Société'}
                   />
                 </div>
-              </div>
 
-              {/* Service souhaité */}
-              <div>
-                <label htmlFor="service" className="block text-sm font-medium mb-2">
-                  {t('contact.service_label')} *
-                </label>
-                <div className="relative">
+                {/* Service */}
+                <div>
+                  <label 
+                    htmlFor="service"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    {t('contact.service')} <span className="text-red-500">*</span>
+                  </label>
                   <select
                     id="service"
-                    required
+                    name="service"
                     value={formData.service}
-                    onChange={(e) => setFormData({...formData, service: e.target.value})}
-                    aria-required="true"
-                    className={`w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none ${isRTL ? 'pr-10 pl-4' : 'pl-4 pr-10'}`}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                             dark:bg-gray-700 dark:text-white
+                             transition-all duration-200"
                   >
-                    <option value="">{t('contact.service_placeholder')}</option>
-                    <option value="website">{t('contact.service_website')}</option>
-                    <option value="automation">{t('contact.service_automation')}</option>
-                    <option value="chatbot">{t('contact.service_chatbot')}</option>
-                    <option value="consulting">{t('contact.service_consulting')}</option>
-                    <option value="other">{t('contact.service_other')}</option>
+                    <option value="">{t('contact.selectService') || 'Sélectionner un service'}</option>
+                    <option value="Automatisation">{t('services.automation.title') || 'Automatisation'}</option>
+                    <option value="Chatbot IA">{t('services.chatbot.title') || 'Chatbot IA'}</option>
+                    <option value="Site Web/SaaS">{t('services.website.title') || 'Site Web/SaaS'}</option>
+                    <option value="CRM personnalisé">{t('services.crm.title') || 'CRM personnalisé'}</option>
+                    <option value="Conseil IA">{t('services.consulting.title') || 'Conseil IA'}</option>
+                    <option value="Autre">{t('contact.other') || 'Autre'}</option>
                   </select>
-                  <div className={`absolute top-1/2 -translate-y-1/2 pointer-events-none ${isRTL ? 'left-3' : 'right-3'}`}>
-                    <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
                 </div>
-              </div>
 
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  {t('contact.message')} *
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={6}
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  placeholder={t('contact.message_placeholder')}
-                  aria-required="true"
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
-                />
-              </div>
+                {/* Message */}
+                <div>
+                  <label 
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    {t('contact.message')} <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    minLength={10}
+                    rows={5}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 
+                             focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                             dark:bg-gray-700 dark:text-white
+                             transition-all duration-200 resize-none"
+                    placeholder={t('contact.messagePlaceholder') || 'Décrivez votre projet...'}
+                  />
+                </div>
 
-              {/* reCAPTCHA */}
-              <div className="flex justify-center">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  theme="dark"
-                />
-              </div>
+                {/* reCAPTCHA */}
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    theme="light"
+                    hl={isRTL ? 'he' : t('nav.home') === 'Accueil' ? 'fr' : 'en'}
+                  />
+                </div>
 
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={status.loading}
-                aria-label={status.loading ? t('contact.sending') : t('contact.submit')}
-                className="relative w-full gradient-hero text-white font-semibold py-4 px-8 rounded-lg shadow-lg hover:shadow-glow hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden group"
-              >
-                {/* Animated background on hover */}
-                <span className="absolute inset-0 w-full h-full bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                
-                {status.loading ? (
-                  <span className="relative flex items-center justify-center gap-3">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    <span className="animate-pulse">{t('contact.sending')}</span>
-                  </span>
-                ) : (
-                  <span className="relative flex items-center justify-center gap-2">
-                    {t('contact.submit')}
-                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
+                {/* Bouton Submit */}
+                <button
+                  type="submit"
+                  disabled={status.loading}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800
+                           text-white font-semibold py-4 px-6 rounded-lg
+                           transition-all duration-200 transform hover:scale-[1.02]
+                           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+                           flex items-center justify-center gap-2 shadow-lg"
+                >
+                  {status.loading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      {t('contact.sending') || 'Envoi en cours...'}
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      {t('contact.send') || 'Envoyer le message'}
+                    </>
+                  )}
+                </button>
+
+                {/* Messages de statut */}
+                {status.success && (
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 
+                                text-green-800 dark:text-green-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <p>{status.message}</p>
+                  </div>
                 )}
-              </button>
 
-              {/* Success Message */}
-              {status.success && (
-                <div role="alert" className="p-5 bg-green-500/10 border-2 border-green-500/50 rounded-lg animate-fade-in animate-scale-in">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center animate-scale-in flex-shrink-0">
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-green-400 font-medium">{t('contact.success')}</span>
+                {status.error && (
+                  <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 
+                                text-red-800 dark:text-red-200 rounded-lg flex items-start gap-3 animate-fade-in">
+                    <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                    <p>{status.message}</p>
                   </div>
-                </div>
-              )}
-
-              {/* Error Message */}
-              {status.error && (
-                <div role="alert" className="p-5 bg-destructive/10 border-2 border-destructive/50 rounded-lg animate-fade-in animate-scale-in">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-destructive rounded-full flex items-center justify-center animate-scale-in flex-shrink-0">
-                      <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </div>
-                    <span className="text-destructive font-medium">{t('contact.error')}</span>
-                  </div>
-                </div>
-              )}
-
-            </form>
-          </div>
-
-          {/* Info - 2 cols */}
-          <div className="lg:col-span-2 space-y-6">
-            
-            {/* Email */}
-            <a 
-              href="mailto:contact@zyflows.com" 
-              className="flex items-center gap-4 p-6 bg-card rounded-xl border border-border hover:border-primary hover:shadow-lg transition-all group"
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                <Mail className="w-6 h-6 text-primary" />
-              </div>
-              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
-                <p className="text-sm text-muted-foreground">{t('contact.email_label')}</p>
-                <p className="font-semibold">contact@zyflows.com</p>
-              </div>
-            </a>
-
-            {/* Téléphone */}
-            <a 
-              href="tel:+972584229255" 
-              className="flex items-center gap-4 p-6 bg-card rounded-xl border border-border hover:border-primary hover:shadow-lg transition-all group"
-            >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                <Phone className="w-6 h-6 text-primary" />
-              </div>
-              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
-                <p className="text-sm text-muted-foreground">{t('contact.phone_label')}</p>
-                <p className="font-semibold" dir="ltr">+972 58-422-9255</p>
-              </div>
-            </a>
-
-            {/* Localisation */}
-            <div className="flex items-start gap-4 p-6 bg-card rounded-xl border border-border">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-6 h-6 text-primary" />
-              </div>
-              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
-                <p className="text-sm text-muted-foreground mb-2">{t('contact.location_label')}</p>
-                <p className="font-semibold">Paris, France</p>
-                <p className="font-semibold">Tel Aviv, Israel</p>
-              </div>
+                )}
+              </form>
             </div>
 
-            {/* Horaires */}
-            <div className="flex items-start gap-4 p-6 bg-card rounded-xl border border-border">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Clock className="w-6 h-6 text-primary" />
+            {/* Informations de contact */}
+            <div className="space-y-6" data-aos="fade-left">
+              {/* Email */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+                            hover:shadow-xl transition-shadow duration-200">
+                <div className="flex items-start gap-4">
+                  <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg">
+                    <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      Email
+                    </h3>
+                    <a 
+                      href="mailto:contact@zyflows.com" 
+                      className="text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      contact@zyflows.com
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className={isRTL ? 'text-right flex-1' : 'text-left flex-1'}>
-                <p className="text-sm text-muted-foreground mb-2">{t('contact.hours_label')}</p>
-                <p className="font-semibold">{t('contact.hours')}</p>
+
+              {/* Téléphone */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+                            hover:shadow-xl transition-shadow duration-200">
+                <div className="flex items-start gap-4">
+                  <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg">
+                    <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      {t('contact.phone')}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('contact.phoneNumber') || '+972 XX XXX XXXX'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Localisation */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+                            hover:shadow-xl transition-shadow duration-200">
+                <div className="flex items-start gap-4">
+                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg">
+                    <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      {t('contact.location')}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('contact.locationDetail') || 'Israel'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Horaires */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 
+                            hover:shadow-xl transition-shadow duration-200">
+                <div className="flex items-start gap-4">
+                  <div className="bg-orange-100 dark:bg-orange-900/30 p-3 rounded-lg">
+                    <Clock className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                      {t('contact.hours')}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      {t('contact.hoursDetail') || 'Lun - Ven: 9h - 18h'}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
-    </div>
+    </section>
   );
 };
 
