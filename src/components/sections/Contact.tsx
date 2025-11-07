@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -41,7 +42,7 @@ const Contact = () => {
 
       const language = detectLanguage();
 
-      // ✅ Payload simplifié - exactement comme attendu par N8N
+      // Payload pour la fonction proxy
       const payload = {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
@@ -53,39 +54,30 @@ const Contact = () => {
         language: language
       };
 
-      console.log('📤 [Contact Form] Envoi des données:', payload);
+      console.log('📤 [Contact Form] Envoi via proxy serveur...', payload);
       console.log('🌐 [Contact Form] Langue détectée:', language);
 
-      // ✅ Requête sans 'no-cors' pour permettre l'envoi du body JSON
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
+      // ✅ Appel à la fonction proxy serveur (élimine CORS)
+      const { data, error } = await supabase.functions.invoke('contact', {
+        body: payload
       });
 
-      console.log('📥 [Contact Form] Réponse HTTP:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok
-      });
+      console.log('📥 [Contact Form] Réponse proxy:', { data, error });
 
-      // Vérification du statut HTTP
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+      // Vérification des erreurs
+      if (error) {
+        console.error('❌ [Contact Form] Erreur proxy:', error);
+        throw new Error(error.message || 'Erreur lors de l\'envoi');
       }
 
-      // Tentative de lecture de la réponse JSON
-      let result;
-      try {
-        result = await response.json();
-        console.log('✅ [Contact Form] Réponse JSON:', result);
-      } catch (jsonError) {
-        console.warn('⚠️ [Contact Form] Pas de JSON dans la réponse (normal si workflow OK)');
-        result = { success: true };
+      // Vérification de la réponse
+      if (!data || !data.success) {
+        console.error('❌ [Contact Form] Réponse négative:', data);
+        throw new Error(data?.error || 'Erreur lors de l\'envoi');
       }
+
+      console.log('✅ [Contact Form] Message envoyé avec succès !');
+      const result = data;
 
       // Succès
       setStatus({ 
