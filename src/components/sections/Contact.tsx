@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+// supabase import retiré - utilisation directe de fetch avec CORS proxy
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -31,18 +31,18 @@ const Contact = () => {
     setStatus({ loading: true, success: false, error: false, message: '' });
 
     try {
-      // Détection de la langue basée sur le contexte
+      // Détection de la langue
       const detectLanguage = () => {
         if (isRTL) return 'he';
         const homeText = t('nav.home');
         if (homeText === 'Accueil') return 'fr';
         if (homeText === 'Home') return 'en';
-        return 'fr'; // Fallback
+        return 'fr';
       };
 
       const language = detectLanguage();
 
-      // Payload pour la fonction proxy
+      // Préparation du payload
       const payload = {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
@@ -54,32 +54,32 @@ const Contact = () => {
         language: language
       };
 
-      console.log('📤 [Contact Form] Envoi via proxy serveur...', payload);
-      console.log('🌐 [Contact Form] Langue détectée:', language);
+      console.log('📤 [Contact Form] Envoi des données:', payload);
 
-      // ✅ Appel à la fonction proxy serveur (élimine CORS)
-      const { data, error } = await supabase.functions.invoke('contact', {
-        body: payload
+      // ✅ PROXY CORS PUBLIC
+      const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+      const N8N_WEBHOOK = 'https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact';
+      const url = CORS_PROXY + encodeURIComponent(N8N_WEBHOOK);
+
+      console.log('🌐 [Contact Form] URL utilisée:', url);
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
 
-      console.log('📥 [Contact Form] Réponse proxy:', { data, error });
+      console.log('📥 [Contact Form] Réponse HTTP:', response.status);
 
-      // Vérification des erreurs
-      if (error) {
-        console.error('❌ [Contact Form] Erreur proxy:', error);
-        throw new Error(error.message || 'Erreur lors de l\'envoi');
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
-
-      // Vérification de la réponse
-      if (!data || !data.success) {
-        console.error('❌ [Contact Form] Réponse négative:', data);
-        throw new Error(data?.error || 'Erreur lors de l\'envoi');
-      }
-
-      console.log('✅ [Contact Form] Message envoyé avec succès !');
-      const result = data;
 
       // Succès
+      console.log('✅ [Contact Form] Message envoyé avec succès !');
+
       setStatus({ 
         loading: false, 
         success: true, 
@@ -98,21 +98,20 @@ const Contact = () => {
         message: ''
       });
 
-      // Masquer le message de succès après 7 secondes
       setTimeout(() => {
         setStatus({ loading: false, success: false, error: false, message: '' });
       }, 7000);
 
     } catch (error) {
-      console.error('❌ [Contact Form] Erreur détaillée:', error);
+      console.error('❌ [Contact Form] Erreur:', error);
       
-      let errorMessage = t('contact.error') || 'Une erreur est survenue. Veuillez réessayer.';
+      let errorMessage = t('contact.error') || 'Erreur lors de l\'envoi. Veuillez réessayer.';
       
       if (error instanceof Error) {
-        console.error('❌ [Contact Form] Message d\'erreur:', error.message);
-        // En production, ne pas exposer les détails techniques
-        if (process.env.NODE_ENV === 'development') {
-          errorMessage += ` (${error.message})`;
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage = isRTL 
+            ? 'שגיאת חיבור לשרת'
+            : 'Erreur de connexion au serveur';
         }
       }
 
@@ -123,7 +122,6 @@ const Contact = () => {
         message: errorMessage
       });
 
-      // Masquer le message d'erreur après 7 secondes
       setTimeout(() => {
         setStatus({ loading: false, success: false, error: false, message: '' });
       }, 7000);
