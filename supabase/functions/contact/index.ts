@@ -101,7 +101,7 @@ Deno.serve(async (req) => {
 
     // Envoi vers le webhook N8N
     const n8nResponse = await fetch(
-      'https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact',
+      'https://n8n.srv945050.hstgr.cloud/webhook-test/zyflows-contact',
       {
         method: 'POST',
         headers: {
