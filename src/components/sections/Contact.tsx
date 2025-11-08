@@ -75,7 +75,7 @@ const Contact = () => {
       console.log('🌐 [Contact Form] Langue détectée:', language);
 
       // ✅ Requête sans 'no-cors' pour permettre l'envoi du body JSON
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
+      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
