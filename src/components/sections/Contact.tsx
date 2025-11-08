@@ -33,130 +33,57 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation reCAPTCHA
-    const recaptchaValue = recaptchaRef.current?.getValue();
-    if (!recaptchaValue) {
+    // Validation minimale
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus({ 
         loading: false, 
         success: false, 
         error: true,
-        message: t('contact.recaptcha_required') || 'Veuillez valider le reCAPTCHA'
+        message: "Veuillez remplir tous les champs obligatoires"
       });
       return;
     }
 
-    setStatus({ loading: true, success: false, error: false, message: '' });
+    // Formatage du message WhatsApp
+    const whatsappMessage = `
+🔷 *Nouveau message de contact*
 
-    try {
-      // Détection de la langue basée sur le contexte
-      const detectLanguage = () => {
-        if (isRTL) return 'he';
-        const homeText = t('nav.home');
-        if (homeText === 'Accueil') return 'fr';
-        if (homeText === 'Home') return 'en';
-        return 'fr'; // Fallback
-      };
+👤 *Nom:* ${formData.firstName} ${formData.lastName}
+📧 *Email:* ${formData.email}
+${formData.phone ? `📱 *Téléphone:* ${formData.phone}\n` : ''}${formData.company ? `🏢 *Entreprise:* ${formData.company}\n` : ''}${formData.service ? `🎯 *Service:* ${formData.service}\n` : ''}
+💬 *Message:*
+${formData.message}
+    `.trim();
 
-      const language = detectLanguage();
+    // Numéro WhatsApp
+    const phoneNumber = "+972584229255";
+    const formattedNumber = phoneNumber.replace(/\D/g, '');
+    const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-      // ✅ Payload simplifié - exactement comme attendu par N8N
-      const payload = {
-        firstName: formData.firstName.trim(),
-        lastName: formData.lastName.trim(),
-        email: formData.email.trim().toLowerCase(),
-        phone: formData.phone.trim() || '',
-        company: formData.company.trim() || '',
-        service: formData.service,
-        message: formData.message.trim(),
-        language: language
-      };
+    // Ouvrir WhatsApp
+    window.open(whatsappUrl, '_blank');
 
-      console.log('📤 [Contact Form] Envoi des données:', payload);
-      console.log('🌐 [Contact Form] Langue détectée:', language);
+    // Message de succès
+    setStatus({ 
+      loading: false, 
+      success: true, 
+      error: false,
+      message: "Redirection vers WhatsApp..."
+    });
 
-      // ✅ Requête sans 'no-cors' pour permettre l'envoi du body JSON
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+    // Réinitialiser le formulaire
+    setFormData({ 
+      firstName: '', 
+      lastName: '', 
+      email: '', 
+      phone: '', 
+      company: '',
+      service: '',
+      message: ''
+    });
 
-      console.log('📥 [Contact Form] Réponse HTTP:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok
-      });
-
-      // Vérification du statut HTTP
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      // Tentative de lecture de la réponse JSON
-      let result;
-      try {
-        result = await response.json();
-        console.log('✅ [Contact Form] Réponse JSON:', result);
-      } catch (jsonError) {
-        console.warn('⚠️ [Contact Form] Pas de JSON dans la réponse (normal si workflow OK)');
-        result = { success: true };
-      }
-
-      // Succès
-      setStatus({ 
-        loading: false, 
-        success: true, 
-        error: false,
-        message: t('contact.success') || 'Message envoyé avec succès !'
-      });
-      
-      // Réinitialiser le formulaire
-      setFormData({ 
-        firstName: '', 
-        lastName: '', 
-        email: '', 
-        phone: '', 
-        company: '',
-        service: '',
-        message: ''
-      });
-
-      // Réinitialiser reCAPTCHA
-      recaptchaRef.current?.reset();
-
-      // Masquer le message de succès après 7 secondes
-      setTimeout(() => {
-        setStatus({ loading: false, success: false, error: false, message: '' });
-      }, 7000);
-
-    } catch (error) {
-      console.error('❌ [Contact Form] Erreur détaillée:', error);
-      
-      let errorMessage = t('contact.error') || 'Une erreur est survenue. Veuillez réessayer.';
-      
-      if (error instanceof Error) {
-        console.error('❌ [Contact Form] Message d\'erreur:', error.message);
-        // En production, ne pas exposer les détails techniques
-        if (process.env.NODE_ENV === 'development') {
-          errorMessage += ` (${error.message})`;
-        }
-      }
-
-      setStatus({ 
-        loading: false, 
-        success: false, 
-        error: true,
-        message: errorMessage
-      });
-
-      // Masquer le message d'erreur après 7 secondes
-      setTimeout(() => {
-        setStatus({ loading: false, success: false, error: false, message: '' });
-      }, 7000);
-    }
+    // Réinitialiser reCAPTCHA
+    recaptchaRef.current?.reset();
   };
 
   const handleChange = (
