@@ -58,7 +58,7 @@ const Contact = () => {
 
       // ✅ PROXY CORS PUBLIC
       const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-      const N8N_WEBHOOK = 'https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact';
+      const N8N_WEBHOOK = 'https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8';
       const url = CORS_PROXY + encodeURIComponent(N8N_WEBHOOK);
 
       console.log('🌐 [Contact Form] URL utilisée:', url);
