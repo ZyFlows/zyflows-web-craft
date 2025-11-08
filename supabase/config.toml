@@ -1,4 +1,0 @@
-project_id = "wbmyffoysykkpnbnjpmm"
-
-[functions.contact]
-verify_jwt = false  # Fonction publique (pas besoin d'authentification)

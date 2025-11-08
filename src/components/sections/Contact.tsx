@@ -1,13 +1,14 @@
 // src/components/sections/Contact.tsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-// supabase import retiré - utilisation directe de fetch avec CORS proxy
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Contact = () => {
   const { t } = useLanguage();
   const { isRTL } = useRTL();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -26,23 +27,39 @@ const Contact = () => {
     message: ''
   });
 
+  // Test reCAPTCHA key - remplacer par votre clé réelle en production
+  const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validation reCAPTCHA
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: true,
+        message: t('contact.recaptcha_required') || 'Veuillez valider le reCAPTCHA'
+      });
+      return;
+    }
+
     setStatus({ loading: true, success: false, error: false, message: '' });
 
     try {
-      // Détection de la langue
+      // Détection de la langue basée sur le contexte
       const detectLanguage = () => {
         if (isRTL) return 'he';
         const homeText = t('nav.home');
         if (homeText === 'Accueil') return 'fr';
         if (homeText === 'Home') return 'en';
-        return 'fr';
+        return 'fr'; // Fallback
       };
 
       const language = detectLanguage();
 
-      // Préparation du payload
+      // ✅ Payload simplifié - exactement comme attendu par N8N
       const payload = {
         firstName: formData.firstName.trim(),
         lastName: formData.lastName.trim(),
@@ -55,31 +72,40 @@ const Contact = () => {
       };
 
       console.log('📤 [Contact Form] Envoi des données:', payload);
+      console.log('🌐 [Contact Form] Langue détectée:', language);
 
-      // ✅ PROXY CORS PUBLIC
-      const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-      const N8N_WEBHOOK = 'https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8';
-      const url = CORS_PROXY + encodeURIComponent(N8N_WEBHOOK);
-
-      console.log('🌐 [Contact Form] URL utilisée:', url);
-
-      const response = await fetch(url, {
+      // ✅ Requête sans 'no-cors' pour permettre l'envoi du body JSON
+      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/zyflows-contact', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(payload)
       });
 
-      console.log('📥 [Contact Form] Réponse HTTP:', response.status);
+      console.log('📥 [Contact Form] Réponse HTTP:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok
+      });
 
+      // Vérification du statut HTTP
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      // Tentative de lecture de la réponse JSON
+      let result;
+      try {
+        result = await response.json();
+        console.log('✅ [Contact Form] Réponse JSON:', result);
+      } catch (jsonError) {
+        console.warn('⚠️ [Contact Form] Pas de JSON dans la réponse (normal si workflow OK)');
+        result = { success: true };
       }
 
       // Succès
-      console.log('✅ [Contact Form] Message envoyé avec succès !');
-
       setStatus({ 
         loading: false, 
         success: true, 
@@ -98,20 +124,24 @@ const Contact = () => {
         message: ''
       });
 
+      // Réinitialiser reCAPTCHA
+      recaptchaRef.current?.reset();
+
+      // Masquer le message de succès après 7 secondes
       setTimeout(() => {
         setStatus({ loading: false, success: false, error: false, message: '' });
       }, 7000);
 
     } catch (error) {
-      console.error('❌ [Contact Form] Erreur:', error);
+      console.error('❌ [Contact Form] Erreur détaillée:', error);
       
-      let errorMessage = t('contact.error') || 'Erreur lors de l\'envoi. Veuillez réessayer.';
+      let errorMessage = t('contact.error') || 'Une erreur est survenue. Veuillez réessayer.';
       
       if (error instanceof Error) {
-        if (error.message.includes('Failed to fetch')) {
-          errorMessage = isRTL 
-            ? 'שגיאת חיבור לשרת'
-            : 'Erreur de connexion au serveur';
+        console.error('❌ [Contact Form] Message d\'erreur:', error.message);
+        // En production, ne pas exposer les détails techniques
+        if (process.env.NODE_ENV === 'development') {
+          errorMessage += ` (${error.message})`;
         }
       }
 
@@ -122,6 +152,7 @@ const Contact = () => {
         message: errorMessage
       });
 
+      // Masquer le message d'erreur après 7 secondes
       setTimeout(() => {
         setStatus({ loading: false, success: false, error: false, message: '' });
       }, 7000);
@@ -334,6 +365,16 @@ const Contact = () => {
                              bg-background text-foreground
                              transition-all duration-200 resize-none"
                     placeholder={t('contact.message_placeholder')}
+                  />
+                </div>
+
+                {/* reCAPTCHA */}
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    theme="light"
+                    hl={isRTL ? 'he' : t('nav.home') === 'Accueil' ? 'fr' : 'en'}
                   />
                 </div>
 
