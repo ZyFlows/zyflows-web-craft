@@ -31,39 +31,53 @@ const Contact = () => {
   // Test reCAPTCHA key - remplacer par votre clé réelle en production
   const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
-  // Schéma de validation Zod
+  // Schéma de validation Zod avec messages traduits
   const contactSchema = z.object({
     firstName: z.string()
       .trim()
-      .min(2, "Le prénom doit contenir au moins 2 caractères")
-      .max(50, "Le prénom ne peut pas dépasser 50 caractères"),
+      .min(2, t('contact.errors.firstNameMin') || "First name must be at least 2 characters")
+      .max(50, t('contact.errors.firstNameMax') || "First name must be less than 50 characters"),
     lastName: z.string()
       .trim()
-      .min(2, "Le nom doit contenir au moins 2 caractères")
-      .max(50, "Le nom ne peut pas dépasser 50 caractères"),
+      .min(2, t('contact.errors.lastNameMin') || "Last name must be at least 2 characters")
+      .max(50, t('contact.errors.lastNameMax') || "Last name must be less than 50 characters"),
     email: z.string()
       .trim()
-      .email("Adresse email invalide")
-      .max(255, "L'email ne peut pas dépasser 255 caractères"),
+      .email(t('contact.errors.emailInvalid') || "Invalid email address")
+      .max(255, t('contact.errors.emailMax') || "Email must be less than 255 characters"),
     phone: z.string()
-      .max(20, "Le téléphone ne peut pas dépasser 20 caractères")
-      .optional(),
+      .trim()
+      .regex(/^[+]?[\d\s()-]{0,20}$/, t('contact.errors.phoneInvalid') || "Invalid phone format")
+      .optional()
+      .or(z.literal('')),
     company: z.string()
-      .max(100, "Le nom de l'entreprise ne peut pas dépasser 100 caractères")
+      .trim()
+      .max(100, t('contact.errors.companyMax') || "Company name must be less than 100 characters")
       .optional(),
     service: z.string()
-      .min(1, "Veuillez sélectionner un service"),
+      .min(1, t('contact.errors.serviceRequired') || "Please select a service"),
     message: z.string()
       .trim()
-      .min(10, "Le message doit contenir au moins 10 caractères")
-      .max(2000, "Le message ne peut pas dépasser 2000 caractères")
+      .min(10, t('contact.errors.messageMin') || "Message must be at least 10 characters")
+      .max(2000, t('contact.errors.messageMax') || "Message must be less than 2000 characters")
   });
 
-  // Fonction de retry avec backoff exponentiel
+  // Fonction de retry avec backoff exponentiel et timeout
   const fetchWithRetry = async (url: string, options: RequestInit, maxRetries = 3) => {
+    const TIMEOUT = 10000; // 10 secondes
+    
     for (let i = 0; i < maxRetries; i++) {
       try {
-        const response = await fetch(url, options);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), TIMEOUT);
+        
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -82,6 +96,21 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Empêcher les double-soumissions
+    if (status.loading) return;
+
+    // Vérifier reCAPTCHA
+    const recaptchaValue = recaptchaRef.current?.getValue();
+    if (!recaptchaValue) {
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: true,
+        message: t('contact.errors.recaptchaRequired') || "Please complete the reCAPTCHA verification"
+      });
+      return;
+    }
 
     // Validation avec Zod
     try {
@@ -129,7 +158,7 @@ const Contact = () => {
         loading: false, 
         success: true, 
         error: false,
-        message: "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais."
+        message: t('contact.successMessage') || "Message sent successfully! We will respond as soon as possible."
       });
 
       // Réinitialiser le formulaire
@@ -148,11 +177,15 @@ const Contact = () => {
 
     } catch (error) {
       console.error('Form submission error:', error);
+      const errorMessage = error instanceof Error && error.name === 'AbortError'
+        ? t('contact.errors.timeout') || "Request timeout. Please check your connection and try again."
+        : t('contact.errors.serverError') || "Unable to contact server. Please check your connection and try again.";
+      
       setStatus({ 
         loading: false, 
         success: false, 
         error: true,
-        message: "Impossible de contacter le serveur. Vérifiez votre connexion et réessayez."
+        message: errorMessage
       });
     }
   };
