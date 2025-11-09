@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { z } from 'zod';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -30,40 +31,105 @@ const Contact = () => {
   // Test reCAPTCHA key - remplacer par votre clé réelle en production
   const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 
+  // Schéma de validation Zod
+  const contactSchema = z.object({
+    firstName: z.string()
+      .trim()
+      .min(2, "Le prénom doit contenir au moins 2 caractères")
+      .max(50, "Le prénom ne peut pas dépasser 50 caractères"),
+    lastName: z.string()
+      .trim()
+      .min(2, "Le nom doit contenir au moins 2 caractères")
+      .max(50, "Le nom ne peut pas dépasser 50 caractères"),
+    email: z.string()
+      .trim()
+      .email("Adresse email invalide")
+      .max(255, "L'email ne peut pas dépasser 255 caractères"),
+    phone: z.string()
+      .max(20, "Le téléphone ne peut pas dépasser 20 caractères")
+      .optional(),
+    company: z.string()
+      .max(100, "Le nom de l'entreprise ne peut pas dépasser 100 caractères")
+      .optional(),
+    service: z.string()
+      .min(1, "Veuillez sélectionner un service"),
+    message: z.string()
+      .trim()
+      .min(10, "Le message doit contenir au moins 10 caractères")
+      .max(2000, "Le message ne peut pas dépasser 2000 caractères")
+  });
+
+  // Fonction de retry avec backoff exponentiel
+  const fetchWithRetry = async (url: string, options: RequestInit, maxRetries = 3) => {
+    for (let i = 0; i < maxRetries; i++) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        return response;
+      } catch (error) {
+        const isLastAttempt = i === maxRetries - 1;
+        if (isLastAttempt) throw error;
+        
+        // Backoff exponentiel: 1s, 2s, 4s
+        const delay = Math.pow(2, i) * 1000;
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+    throw new Error('Max retries reached');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validation minimale
-    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus({ 
-        loading: false, 
-        success: false, 
-        error: true,
-        message: "Veuillez remplir tous les champs obligatoires"
-      });
-      return;
+    // Validation avec Zod
+    try {
+      contactSchema.parse(formData);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        setStatus({ 
+          loading: false, 
+          success: false, 
+          error: true,
+          message: firstError.message
+        });
+        return;
+      }
     }
 
     setStatus({ loading: true, success: false, error: false, message: '' });
 
     try {
-      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
+      // Sanitize data avant envoi
+      const sanitizedData = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim().toLowerCase(),
+        phone: formData.phone.trim(),
+        company: formData.company.trim(),
+        service: formData.service,
+        message: formData.message.trim()
+      };
 
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi');
-      }
+      await fetchWithRetry(
+        'https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(sanitizedData)
+        },
+        3
+      );
 
       setStatus({ 
         loading: false, 
         success: true, 
         error: false,
-        message: "Message envoyé avec succès !"
+        message: "Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais."
       });
 
       // Réinitialiser le formulaire
@@ -81,11 +147,12 @@ const Contact = () => {
       recaptchaRef.current?.reset();
 
     } catch (error) {
+      console.error('Form submission error:', error);
       setStatus({ 
         loading: false, 
         success: false, 
         error: true,
-        message: "Erreur lors de l'envoi du message. Veuillez réessayer."
+        message: "Impossible de contacter le serveur. Vérifiez votre connexion et réessayez."
       });
     }
   };

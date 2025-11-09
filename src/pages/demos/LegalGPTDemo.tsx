@@ -31,8 +31,8 @@ const LegalGPTDemo = () => {
     setMessages(newMessages);
 
     try {
-      // Supabase retiré: réponse simulée côté client
-      const reply = "La fonctionnalité LegalGPT est désactivée pour le moment (backend supprimé).";
+      // Réponse simulée (démo uniquement)
+      const reply = "Cette démo LegalGPT n'est pas connectée à un backend IA. Pour une version complète, contactez-nous !";
       setMessages([...newMessages, { role: 'assistant', content: reply }]);
     } finally {
       setIsLoading(false);
