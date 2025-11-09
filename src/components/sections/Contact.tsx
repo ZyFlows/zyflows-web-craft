@@ -44,46 +44,50 @@ const Contact = () => {
       return;
     }
 
-    // Formatage du message WhatsApp
-    const whatsappMessage = `
-🔷 *Nouveau message de contact*
+    setStatus({ loading: true, success: false, error: false, message: '' });
 
-👤 *Nom:* ${formData.firstName} ${formData.lastName}
-📧 *Email:* ${formData.email}
-${formData.phone ? `📱 *Téléphone:* ${formData.phone}\n` : ''}${formData.company ? `🏢 *Entreprise:* ${formData.company}\n` : ''}${formData.service ? `🎯 *Service:* ${formData.service}\n` : ''}
-💬 *Message:*
-${formData.message}
-    `.trim();
+    try {
+      const response = await fetch('https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
 
-    // Numéro WhatsApp
-    const phoneNumber = "+972584229255";
-    const formattedNumber = phoneNumber.replace(/\D/g, '');
-    const whatsappUrl = `https://wa.me/${formattedNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi');
+      }
 
-    // Ouvrir WhatsApp
-    window.open(whatsappUrl, '_blank');
+      setStatus({ 
+        loading: false, 
+        success: true, 
+        error: false,
+        message: "Message envoyé avec succès !"
+      });
 
-    // Message de succès
-    setStatus({ 
-      loading: false, 
-      success: true, 
-      error: false,
-      message: "Redirection vers WhatsApp..."
-    });
+      // Réinitialiser le formulaire
+      setFormData({ 
+        firstName: '', 
+        lastName: '', 
+        email: '', 
+        phone: '', 
+        company: '',
+        service: '',
+        message: ''
+      });
 
-    // Réinitialiser le formulaire
-    setFormData({ 
-      firstName: '', 
-      lastName: '', 
-      email: '', 
-      phone: '', 
-      company: '',
-      service: '',
-      message: ''
-    });
+      // Réinitialiser reCAPTCHA
+      recaptchaRef.current?.reset();
 
-    // Réinitialiser reCAPTCHA
-    recaptchaRef.current?.reset();
+    } catch (error) {
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: true,
+        message: "Erreur lors de l'envoi du message. Veuillez réessayer."
+      });
+    }
   };
 
   const handleChange = (
