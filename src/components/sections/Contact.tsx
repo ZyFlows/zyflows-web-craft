@@ -143,7 +143,7 @@ const Contact = () => {
       };
 
       await fetchWithRetry(
-        'https://n8n.srv945050.hstgr.cloud/webhook-test/927c2e25-07e0-4aad-8363-b2fcbe8f35d8',
+        'https://n8n.srv945050.hstgr.cloud/webhook/927c2e25-07e0-4aad-8363-b2fcbe8f35d8',
         {
           method: 'POST',
           headers: {
