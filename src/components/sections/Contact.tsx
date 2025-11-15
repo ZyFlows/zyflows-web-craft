@@ -452,87 +452,146 @@ const Contact = () => {
             </div>
 
             {/* Informations de contact */}
-            <div className="space-y-6" data-aos="fade-left">
+            <div className="space-y-6" data-aos="fade-left" dir={isRTL ? 'rtl' : 'ltr'}>
               {/* Email */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                <div className={`flex items-start gap-4 ${isRTL ? '' : ''}`}>
+                  {isRTL && (
+                    <div className="flex-1 text-right">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        Email
+                      </h3>
+                      <div className="space-y-1" style={{ direction: 'ltr', textAlign: 'right' }}>
+                        <a 
+                          href="mailto:contact@zyflows.com" 
+                          className="text-primary hover:underline block"
+                        >
+                          contact@zyflows.com
+                        </a>
+                        <a 
+                          href="mailto:contact.zyflows@gmail.com" 
+                          className="text-primary hover:underline block"
+                        >
+                          contact.zyflows@gmail.com
+                        </a>
+                      </div>
+                    </div>
+                  )}
                   <div className="bg-primary/10 p-3 rounded-lg flex-shrink-0">
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1">
-                      Email
-                    </h3>
-                    <div className="space-y-1" style={{ direction: 'ltr' }}>
-                      <a 
-                        href="mailto:contact@zyflows.com" 
-                        className="text-primary hover:underline block"
-                      >
-                        contact@zyflows.com
-                      </a>
-                      <a 
-                        href="mailto:contact.zyflows@gmail.com" 
-                        className="text-primary hover:underline block"
-                      >
-                        contact.zyflows@gmail.com
-                      </a>
+                  {!isRTL && (
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        Email
+                      </h3>
+                      <div className="space-y-1" style={{ direction: 'ltr' }}>
+                        <a 
+                          href="mailto:contact@zyflows.com" 
+                          className="text-primary hover:underline block"
+                        >
+                          contact@zyflows.com
+                        </a>
+                        <a 
+                          href="mailto:contact.zyflows@gmail.com" 
+                          className="text-primary hover:underline block"
+                        >
+                          contact.zyflows@gmail.com
+                        </a>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
               {/* Téléphone */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                <div className={`flex items-start gap-4 ${isRTL ? '' : ''}`}>
+                  {isRTL && (
+                    <div className="flex-1 text-right">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.phone')}
+                      </h3>
+                      <p className="text-muted-foreground" style={{ direction: 'ltr', textAlign: 'right' }}>
+                        {t('contact.phoneNumber')}
+                      </p>
+                    </div>
+                  )}
                   <div className="bg-secondary/10 p-3 rounded-lg flex-shrink-0">
                     <Phone className="w-6 h-6 text-secondary" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {t('contact.phone')}
-                    </h3>
-                    <p className="text-muted-foreground" style={{ direction: 'ltr' }}>
-                      {t('contact.phoneNumber')}
-                    </p>
-                  </div>
+                  {!isRTL && (
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.phone')}
+                      </h3>
+                      <p className="text-muted-foreground" style={{ direction: 'ltr' }}>
+                        {t('contact.phoneNumber')}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Localisation */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                <div className={`flex items-start gap-4 ${isRTL ? '' : ''}`}>
+                  {isRTL && (
+                    <div className="flex-1 text-right">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.location')}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {t('contact.locationDetail')}
+                      </p>
+                    </div>
+                  )}
                   <div className="bg-accent/10 p-3 rounded-lg flex-shrink-0">
                     <MapPin className="w-6 h-6 text-accent" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {t('contact.location')}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {t('contact.locationDetail')}
-                    </p>
-                  </div>
+                  {!isRTL && (
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.location')}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {t('contact.locationDetail')}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Horaires */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                <div className={`flex items-start gap-4 ${isRTL ? '' : ''}`}>
+                  {isRTL && (
+                    <div className="flex-1 text-right">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.hours')}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {t('contact.hoursDetail')}
+                      </p>
+                    </div>
+                  )}
                   <div className="bg-primary/10 p-3 rounded-lg flex-shrink-0">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {t('contact.hours')}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {t('contact.hoursDetail')}
-                    </p>
-                  </div>
+                  {!isRTL && (
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {t('contact.hours')}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {t('contact.hoursDetail')}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
