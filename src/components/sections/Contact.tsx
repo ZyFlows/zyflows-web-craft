@@ -464,7 +464,7 @@ const Contact = () => {
                     <h3 className="font-semibold text-foreground mb-1">
                       Email
                     </h3>
-                    <div className="space-y-1" style={{ direction: 'ltr', textAlign: isRTL ? 'right' : 'left' }}>
+                    <div className="space-y-1" style={{ direction: 'ltr' }}>
                       <a 
                         href="mailto:contact@zyflows.com" 
                         className="text-primary hover:underline block"
@@ -493,9 +493,17 @@ const Contact = () => {
                     <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.phone')}
                     </h3>
-                    <p className="text-muted-foreground" style={{ direction: 'ltr', textAlign: isRTL ? 'right' : 'left' }}>
-                      {t('contact.phoneNumber')}
-                    </p>
+                    {isRTL ? (
+                      <div className="text-muted-foreground flex flex-wrap items-center justify-end gap-x-2">
+                        <span dir="ltr">+972 58-422-9255</span>
+                        <span className="opacity-50">|</span>
+                        <span dir="ltr">+33 7 69 03 58 29</span>
+                      </div>
+                    ) : (
+                      <p className="text-muted-foreground" style={{ direction: 'ltr' }}>
+                        {t('contact.phoneNumber')}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
