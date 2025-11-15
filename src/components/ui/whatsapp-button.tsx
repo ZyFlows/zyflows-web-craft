@@ -10,7 +10,7 @@ interface WhatsAppButtonProps {
  * Bouton WhatsApp ultra-simplifié pour iOS Safari
  */
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ 
-  phoneNumber = "+972584229255"
+  phoneNumber = "+33769035829"
 }) => {
   const { t, language } = useLanguage();
   
