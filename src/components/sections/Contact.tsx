@@ -451,7 +451,7 @@ const Contact = () => {
               </form>
             </div>
 
-            {/* Informations de contact */}
+            {/* Informations de contact - RTL optimized */}
             <div className="space-y-6" data-aos="fade-left" dir={isRTL ? 'rtl' : 'ltr'}>
               {/* Email */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
