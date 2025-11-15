@@ -462,7 +462,7 @@ const Contact = () => {
                   </div>
                   <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
                     <h3 className="font-semibold text-foreground mb-1">
-                      Email
+                      {t('contact.email_label')}
                     </h3>
                     <div className="space-y-1" style={{ direction: 'ltr' }}>
                       <a 
