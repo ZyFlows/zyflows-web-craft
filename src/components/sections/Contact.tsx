@@ -456,15 +456,15 @@ const Contact = () => {
               {/* Email */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right justify-end' : ''}`}>
+                <div className="flex items-start gap-4 rtl:flex-row-reverse rtl:text-right rtl:justify-end">
                   <div className="bg-primary/10 p-3 rounded-lg flex-shrink-0">
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
-                  <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+                  <div className="flex-1 rtl:text-right">
                     <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.email_label')}
                     </h3>
-                    <div className="space-y-1" style={{ direction: 'ltr' }}>
+                    <div className="space-y-1 flex flex-col items-start rtl:items-end rtl:text-right" style={{ direction: 'ltr' }}>
                       <a 
                         href="mailto:contact@zyflows.com" 
                         className="text-primary hover:underline block"
@@ -485,25 +485,19 @@ const Contact = () => {
               {/* Téléphone */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right justify-end' : ''}`}>
+                <div className="flex items-start gap-4 rtl:flex-row-reverse rtl:text-right rtl:justify-end">
                   <div className="bg-secondary/10 p-3 rounded-lg flex-shrink-0">
                     <Phone className="w-6 h-6 text-secondary" />
                   </div>
-                  <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+                  <div className="flex-1 rtl:text-right">
                     <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.phone')}
                     </h3>
-                    {isRTL ? (
-                      <div className="text-muted-foreground flex flex-wrap items-center justify-end gap-x-2">
-                        <span dir="ltr">+972 58-422-9255</span>
-                        <span className="opacity-50">|</span>
-                        <span dir="ltr">+33 7 69 03 58 29</span>
-                      </div>
-                    ) : (
-                      <p className="text-muted-foreground" style={{ direction: 'ltr' }}>
-                        {t('contact.phoneNumber')}
-                      </p>
-                    )}
+                    <div className="text-muted-foreground flex flex-wrap items-center gap-x-2 rtl:justify-end justify-start">
+                      <span dir="ltr">+972 58-422-9255</span>
+                      <span className="opacity-50">|</span>
+                      <span dir="ltr">+33 7 69 03 58 29</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -511,11 +505,11 @@ const Contact = () => {
               {/* Localisation */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right justify-end' : ''}`}>
+                <div className="flex items-start gap-4 rtl:flex-row-reverse rtl:text-right rtl:justify-end">
                   <div className="bg-accent/10 p-3 rounded-lg flex-shrink-0">
                     <MapPin className="w-6 h-6 text-accent" />
                   </div>
-                  <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+                  <div className="flex-1 rtl:text-right">
                     <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.location')}
                     </h3>
@@ -529,11 +523,11 @@ const Contact = () => {
               {/* Horaires */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
-                <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right justify-end' : ''}`}>
+                <div className="flex items-start gap-4 rtl:flex-row-reverse rtl:text-right rtl:justify-end">
                   <div className="bg-primary/10 p-3 rounded-lg flex-shrink-0">
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
-                  <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+                  <div className="flex-1 rtl:text-right">
                     <h3 className="font-semibold text-foreground mb-1">
                       {t('contact.hours')}
                     </h3>
