@@ -901,7 +901,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       'contact.email_placeholder': 'הדואר.שלך@חברה.com',
       'contact.phone': 'טלפון',
       'contact.phone_placeholder': '050-123-4567',
-      'contact.phoneNumber': '9255-422-58-972+ | 29 58 03 69 7 33+',
+      'contact.phoneNumber': '+972 58-422-9255 | +33 7 69 03 58 29',
       'contact.company': 'חברה',
       'contact.company_placeholder': 'לדוגמה: zyFlows בע״מ',
       'contact.service_label': 'שירות מבוקש',
