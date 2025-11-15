@@ -464,12 +464,20 @@ const Contact = () => {
                     <h3 className="font-semibold text-foreground mb-1">
                       Email
                     </h3>
-                    <a 
-                      href="mailto:contact@zyflows.com" 
-                      className="text-primary hover:underline"
-                    >
-                      contact@zyflows.com
-                    </a>
+                    <div className="space-y-1">
+                      <a 
+                        href="mailto:contact@zyflows.com" 
+                        className="text-primary hover:underline block"
+                      >
+                        contact@zyflows.com
+                      </a>
+                      <a 
+                        href="mailto:contact.zyflows@gmail.com" 
+                        className="text-primary hover:underline block"
+                      >
+                        contact.zyflows@gmail.com
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

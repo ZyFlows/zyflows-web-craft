@@ -50,15 +50,17 @@ const Footer = () => {
               <div className="space-y-3 text-sm">
                 <div className="flex items-center justify-center gap-2">
                   <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                  <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
-                    +972 58 422 9255
-                  </a>
+                  <div className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
+                    <a href="tel:+972584229255" className="block">+972 58-422-9255</a>
+                    <a href="tel:+33769035829" className="block">+33 7 69 03 58 29</a>
+                  </div>
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                  <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    contact@zyflows.com
-                  </a>
+                  <div className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href="mailto:contact@zyflows.com" className="block">contact@zyflows.com</a>
+                    <a href="mailto:contact.zyflows@gmail.com" className="block">contact.zyflows@gmail.com</a>
+                  </div>
                 </div>
                 <div className="flex items-center justify-center gap-2">
                   <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
@@ -204,15 +206,25 @@ const Footer = () => {
               <ul className="space-y-3 text-sm">
                 <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors" style={{ direction: 'ltr' }}>
-                    +972 58 422 9255
-                  </a>
+                  <div style={{ direction: 'ltr' }}>
+                    <a href="tel:+972584229255" className="text-muted-foreground hover:text-primary transition-colors block">
+                      +972 58-422-9255
+                    </a>
+                    <a href="tel:+33769035829" className="text-muted-foreground hover:text-primary transition-colors block">
+                      +33 7 69 03 58 29
+                    </a>
+                  </div>
                 </li>
                 <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                  <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all">
-                    contact@zyflows.com
-                  </a>
+                  <div>
+                    <a href="mailto:contact@zyflows.com" className="text-muted-foreground hover:text-primary transition-colors break-all block">
+                      contact@zyflows.com
+                    </a>
+                    <a href="mailto:contact.zyflows@gmail.com" className="text-muted-foreground hover:text-primary transition-colors break-all block">
+                      contact.zyflows@gmail.com
+                    </a>
+                  </div>
                 </li>
                 <li className={`flex items-start gap-2 ${language === 'he' ? 'flex-row-reverse text-right' : ''}`}>
                   <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
@@ -302,13 +314,23 @@ const Footer = () => {
               </div>
             </div>
             
-            <a href="mailto:contact@zyflows.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
-              <Mail className="h-5 w-5 text-primary" />
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Email</p>
-                <p className="font-semibold">contact@zyflows.com</p>
-              </div>
-            </a>
+            <div className="space-y-2">
+              <a href="mailto:contact@zyflows.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
+                <Mail className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Email</p>
+                  <p className="font-semibold">contact@zyflows.com</p>
+                </div>
+              </a>
+              
+              <a href="mailto:contact.zyflows@gmail.com" className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
+                <Mail className="h-5 w-5 text-primary" />
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Email 2</p>
+                  <p className="font-semibold">contact.zyflows@gmail.com</p>
+                </div>
+              </a>
+            </div>
 
             <a href="https://www.linkedin.com/in/raphael-belhassen" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
               <Linkedin className="h-5 w-5 text-primary" />
@@ -318,15 +340,27 @@ const Footer = () => {
               </div>
             </a>
 
-            <a href="tel:+972584229255" className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-              <Phone className="h-5 w-5 text-primary" />
-              <div className={language === 'he' ? 'text-right' : ''}>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {language === 'fr' ? 'Téléphone' : language === 'he' ? 'טלפון' : 'Phone'}
-                </p>
-                <p className="font-semibold" style={{ direction: 'ltr' }}>+972 58 422 9255</p>
-              </div>
-            </a>
+            <div className="space-y-2">
+              <a href="tel:+972584229255" className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                <Phone className="h-5 w-5 text-primary" />
+                <div className={language === 'he' ? 'text-right' : ''}>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {language === 'fr' ? 'Téléphone (Israël)' : language === 'he' ? 'טלפון (ישראל)' : 'Phone (Israel)'}
+                  </p>
+                  <p className="font-semibold" style={{ direction: 'ltr' }}>+972 58-422-9255</p>
+                </div>
+              </a>
+              
+              <a href="tel:+33769035829" className={`flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                <Phone className="h-5 w-5 text-primary" />
+                <div className={language === 'he' ? 'text-right' : ''}>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {language === 'fr' ? 'Téléphone (France)' : language === 'he' ? 'טלפון (צרפת)' : 'Phone (France)'}
+                  </p>
+                  <p className="font-semibold" style={{ direction: 'ltr' }}>+33 7 69 03 58 29</p>
+                </div>
+              </a>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
