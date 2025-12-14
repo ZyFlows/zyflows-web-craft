@@ -1,18 +1,6 @@
 # robots.txt for zyflows.com
 # Allow all search engines to crawl the site
 
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
 
@@ -21,6 +9,3 @@ Disallow: /*?*demo=*
 
 # Sitemap location
 Sitemap: https://zyflows.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1

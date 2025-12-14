@@ -5,95 +5,96 @@
   <!-- Homepage -->
   <url>
     <loc>https://zyflows.com/</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zyflows.com/"/>
   </url>
 
   <!-- Demo Pages -->
   <url>
     <loc>https://zyflows.com/demo/fashion</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/ecommerce</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/saas</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/tech-saas</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/legal-firm</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/portfolio</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/lifestyle-blog</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/real-estate</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/legal-gpt</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/restaurant</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/agency</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/automation</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -101,9 +102,9 @@
   <!-- Accessibility Statement -->
   <url>
     <loc>https://zyflows.com/accessibility-statement</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/accessibility-statement?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/accessibility-statement?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/accessibility-statement?lang=he"/>
@@ -112,9 +113,9 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://zyflows.com/privacy-policy</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/privacy-policy?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/privacy-policy?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/privacy-policy?lang=he"/>
