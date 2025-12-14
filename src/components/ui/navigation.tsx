@@ -32,27 +32,23 @@ const Navigation = () => {
   const baseNavItems = [
     {
       label: t('nav.home'),
-      href: "#home"
+      href: "/"
     },
     {
       label: t('nav.services'),
-      href: "#services"
-    },
-    {
-      label: t('nav.projects'),
-      href: "#projects"
+      href: "/services"
     },
     {
       label: t('nav.about'),
-      href: "#about"
+      href: "/about"
     },
     {
       label: t('nav.testimonials'),
-      href: "#testimonials"
+      href: "/reviews"
     },
     {
       label: t('nav.contact'),
-      href: "#contact"
+      href: "/contact"
     }
   ];
 
@@ -71,8 +67,8 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo - toujours à droite en mode hébreu, à gauche en FR/EN */}
           <div className={`flex items-center ${language === 'he' ? 'order-3' : 'order-1'}`}>
-            <a href="#home" aria-label={t('nav.home')} className="flex items-center gap-3">
-              <img 
+            <a href="/" aria-label={t('nav.home')} className="flex items-center gap-3">
+              <img
                 src="/lovable-uploads/89832acc-ee39-4d30-bb24-cf59c98cf511.png" 
                 alt="Logo zyFlows" 
                 width="40"

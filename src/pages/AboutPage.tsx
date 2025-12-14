@@ -1,0 +1,299 @@
+import Navigation from "@/components/ui/navigation";
+import Footer from "@/components/sections/Footer";
+import WhatsAppButton from "@/components/ui/whatsapp-button";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Users, 
+  Target, 
+  Heart, 
+  Zap, 
+  Globe, 
+  Award,
+  ArrowRight,
+  CheckCircle,
+  Mail
+} from "lucide-react";
+
+const AboutPage = () => {
+  const { t, language } = useLanguage();
+
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "972584229255";
+    const message = language === 'fr' 
+      ? "👋 Bonjour ! Je souhaite discuter de mon projet avec vous. Pouvons-nous organiser un appel ?"
+      : language === 'he'
+      ? "👋 שלום! אני מעוניין לדבר על הפרויקט שלי. האם נוכל לתאם שיחה?"
+      : "👋 Hello! I'd like to discuss my project with you. Can we schedule a call?";
+    
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const values = [
+    {
+      icon: Target,
+      title: t('about.value1_title'),
+      description: t('about.value1_desc'),
+      color: "text-primary"
+    },
+    {
+      icon: Heart,
+      title: t('about.value2_title'),
+      description: t('about.value2_desc'),
+      color: "text-accent"
+    },
+    {
+      icon: Zap,
+      title: t('about.value3_title'),
+      description: t('about.value3_desc'),
+      color: "text-primary"
+    },
+    {
+      icon: Globe,
+      title: t('about.value4_title'),
+      description: t('about.value4_desc'),
+      color: "text-accent"
+    }
+  ];
+
+  const achievements = [
+    { number: "50+", label: t('about.achievements1'), icon: Award },
+    { number: "15+", label: t('about.achievements2'), icon: Globe },
+    { number: "99%", label: t('about.achievements3'), icon: Heart },
+    { number: "5", label: t('about.achievements4'), icon: Target }
+  ];
+
+  const features = [
+    t('about.features1'),
+    t('about.features2'),
+    t('about.features3'),
+    t('about.features4')
+  ];
+
+  const metaTags = {
+    fr: {
+      title: "À propos de Zyflows – Expertise en automatisation, IA et développement",
+      description: "Découvrez zyFlows : expertise en automatisation, IA et développement web. 50+ projets réalisés, support 24/7, équipe passionnée au service de votre réussite."
+    },
+    en: {
+      title: "About Zyflows – Expertise in Automation, AI and Web Development",
+      description: "Discover zyFlows: expertise in automation, AI and web development. 50+ projects completed, 24/7 support, passionate team dedicated to your success."
+    },
+    he: {
+      title: "אודות Zyflows – מומחיות באוטומציה, AI ופיתוח אתרים",
+      description: "גלו את zyFlows: מומחיות באוטומציה, בינה מלאכותית ופיתוח אתרים. 50+ פרויקטים, תמיכה 24/7, צוות מסור להצלחתכם."
+    }
+  };
+
+  const meta = metaTags[language];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": meta.title,
+    "description": meta.description,
+    "url": "https://zyflows.com/about",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "zyFlows",
+      "url": "https://zyflows.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Raphael Belhassen"
+      },
+      "foundingDate": "2020",
+      "numberOfEmployees": "2-10",
+      "areaServed": ["France", "Israel", "Worldwide"]
+    }
+  };
+
+  const skipLinkText = language === 'fr' 
+    ? 'Aller au contenu principal' 
+    : language === 'he' 
+    ? 'דלג לתוכן הראשי' 
+    : 'Skip to main content';
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Helmet>
+        <html lang={language} dir={language === 'he' ? 'rtl' : 'ltr'} />
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+        <link rel="canonical" href="https://zyflows.com/about" />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:url" content="https://zyflows.com/about" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
+      <a href="#main-content" className="skip-link" aria-label={skipLinkText}>
+        {skipLinkText}
+      </a>
+      
+      <header>
+        <Navigation />
+      </header>
+      
+      <main id="main-content" role="main" className={`pt-20 ${language === 'he' ? 'rtl' : ''}`}>
+        <section className="py-20 relative overflow-hidden">
+          {/* Background elements */}
+          <div className={`absolute top-10 ${language === 'he' ? 'left-20' : 'right-20'} animate-float opacity-10`}>
+            <Users className="h-32 w-32 text-primary" />
+          </div>
+
+          <div className="container mx-auto px-4">
+            {/* En-tête de section */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
+                <Users className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+                <span className="text-sm font-medium">{t('about.badge')}</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                {language === 'fr' ? "L'expertise tech au service de vos ambitions" :
+                 language === 'he' ? "המומחיות הטכנולוגית בשירות השאיפות שלכם" :
+                 "Tech Expertise at the Service of Your Ambitions"}
+              </h1>
+            </div>
+
+            {/* Histoire et mission */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+              <div className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
+                <h2 className="text-2xl font-semibold mb-6">{t('about.mission_title')}</h2>
+                <p className="text-lg text-muted-foreground mb-6">
+                  {t('about.mission_text1')}
+                </p>
+                <p className="text-lg text-muted-foreground mb-8">
+                  {t('about.mission_text2')}
+                </p>
+                
+                <div className="space-y-4 mb-8">
+                  {features.map((item, index) => (
+                    <div key={index} className={`flex items-center ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                      <CheckCircle className={`h-5 w-5 text-primary ${language === 'he' ? 'ml-3' : 'mr-3'}`} />
+                      <span className="text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
+                  <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                  {language === 'fr' ? 'Discuter de mon projet' : language === 'he' ? 'לדבר על הפרויקט שלי' : 'Discuss My Project'}
+                  <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+                </Button>
+              </div>
+
+              <div className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
+                <div className="relative">
+                  <div className="glass-effect rounded-2xl p-8">
+                    <div className="grid grid-cols-2 gap-6">
+                      {achievements.map((achievement, index) => {
+                        const IconComponent = achievement.icon;
+                        return (
+                          <div key={index} className="text-center">
+                            <IconComponent className="h-8 w-8 text-primary mx-auto mb-3" />
+                            <div className="text-3xl font-bold text-primary mb-2">
+                              {achievement.number}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {achievement.label}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  
+                  {/* Badges flottants */}
+                  <div className={`absolute -top-4 ${language === 'he' ? '-left-4' : '-right-4'}`}>
+                    <Badge className="bg-primary text-primary-foreground">
+                      Crafted with Excellence 🌍
+                    </Badge>
+                  </div>
+                  <div className={`absolute -bottom-4 ${language === 'he' ? '-right-4' : '-left-4'}`}>
+                    <Badge variant="secondary">
+                      Tech Innovators
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Valeurs */}
+            <div className="mb-16">
+              <h2 className="text-3xl font-semibold text-center mb-12">
+                {t('about.values_title')}
+              </h2>
+              
+              <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+                {values.map((value, index) => {
+                  const IconComponent = value.icon;
+                  return (
+                    <Card 
+                      key={value.title}
+                      className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 text-center animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <CardHeader className="pb-4">
+                        <div className={`w-12 h-12 rounded-full glass-effect flex items-center justify-center mx-auto mb-4 ${value.color}`}>
+                          <IconComponent className="h-6 w-6" />
+                        </div>
+                        <CardTitle className="text-lg font-semibold">
+                          {value.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <CardDescription className="text-center">
+                          {value.description}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* CTA de contact */}
+            <div className="text-center">
+              <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-semibold mb-4">
+                  {t('about.cta_title')}
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  {t('about.cta_desc')}
+                </p>
+                <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
+                  <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
+                    <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                    {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
+                    <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+                  </Button>
+                  <Button size="lg" variant="outline" className="glass-effect border-primary/30" asChild>
+                    <a href="/reviews">
+                      {t('about.cta_button2')}
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+};
+
+export default AboutPage;
