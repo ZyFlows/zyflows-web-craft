@@ -13,10 +13,6 @@ import "@/components/ui/rtl-support.css";
 // Lazy loading des pages pour code splitting et meilleures performances
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-const AboutPage = lazy(() => import("./pages/AboutPage"));
-const ServicesPage = lazy(() => import("./pages/ServicesPage"));
-const ReviewsPage = lazy(() => import("./pages/ReviewsPage"));
-const ContactPage = lazy(() => import("./pages/ContactPage"));
 const AccessibilityStatement = lazy(() => import("./pages/AccessibilityStatement"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const EcommerceDemo = lazy(() => import("./pages/demos/EcommerceDemo"));
@@ -47,10 +43,6 @@ const App = () => {
             <Suspense fallback={<div className="min-h-screen bg-background" />}>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/services" element={<ServicesPage />} />
-                <Route path="/reviews" element={<ReviewsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
                 <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/demo/fashion" element={<FashionDemo />} />
