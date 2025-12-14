@@ -1,120 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
-  <!-- Homepage -->
+  <!-- Homepage - Highest Priority -->
   <url>
     <loc>https://zyflows.com/</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/?lang=he"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zyflows.com/"/>
+    <image:image>
+      <image:loc>https://zyflows.com/lovable-uploads/95bff906-bd37-4d87-8782-3fcce7069157.png</image:loc>
+      <image:title>zyFlows - AI Automations and Digital Solutions</image:title>
+    </image:image>
   </url>
 
-  <!-- Demo Pages -->
+  <!-- Demo Pages - Portfolio Showcases -->
   <url>
     <loc>https://zyflows.com/demo/fashion</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/ecommerce</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/saas</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/tech-saas</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/legal-firm</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/portfolio</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/lifestyle-blog</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/real-estate</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/legal-gpt</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/restaurant</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/agency</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://zyflows.com/demo/automation</loc>
-    <lastmod>2025-10-21</lastmod>
+    <lastmod>2024-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Accessibility Statement -->
+  <!-- Legal Pages -->
   <url>
     <loc>https://zyflows.com/accessibility-statement</loc>
-    <lastmod>2025-10-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2024-12-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/accessibility-statement?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/accessibility-statement?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/accessibility-statement?lang=he"/>
   </url>
 
-  <!-- Privacy Policy -->
   <url>
     <loc>https://zyflows.com/privacy-policy</loc>
-    <lastmod>2025-10-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2024-12-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://zyflows.com/privacy-policy?lang=en"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://zyflows.com/privacy-policy?lang=fr"/>
     <xhtml:link rel="alternate" hreflang="he" href="https://zyflows.com/privacy-policy?lang=he"/>
