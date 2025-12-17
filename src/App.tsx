@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
@@ -39,29 +39,27 @@ const App = () => {
           <Sonner />
           <AccessibilityWidget />
           <CookieConsent />
-          <BrowserRouter>
-            <Suspense fallback={<div className="min-h-screen bg-background" />}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/demo/fashion" element={<FashionDemo />} />
-                <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
-                <Route path="/demo/saas" element={<SaasDemo />} />
-                <Route path="/demo/tech-saas" element={<TechSaasDemo />} />
-                <Route path="/demo/legal-firm" element={<LegalFirmDemo />} />
-                <Route path="/demo/portfolio" element={<PortfolioDemo />} />
-                <Route path="/demo/lifestyle-blog" element={<LifestyleBlogDemo />} />
-                <Route path="/demo/real-estate" element={<RealEstateDemo />} />
-                <Route path="/demo/legal-gpt" element={<LegalGPTDemo />} />
-                <Route path="/demo/restaurant" element={<RestaurantDemo />} />
-                <Route path="/demo/agency" element={<AgencyDemo />} />
-                <Route path="/demo/automation" element={<AutomationDemo />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
+          <Suspense fallback={<div className="min-h-screen bg-background" />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/accessibility-statement" element={<AccessibilityStatement />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/demo/fashion" element={<FashionDemo />} />
+              <Route path="/demo/ecommerce" element={<EcommerceDemo />} />
+              <Route path="/demo/saas" element={<SaasDemo />} />
+              <Route path="/demo/tech-saas" element={<TechSaasDemo />} />
+              <Route path="/demo/legal-firm" element={<LegalFirmDemo />} />
+              <Route path="/demo/portfolio" element={<PortfolioDemo />} />
+              <Route path="/demo/lifestyle-blog" element={<LifestyleBlogDemo />} />
+              <Route path="/demo/real-estate" element={<RealEstateDemo />} />
+              <Route path="/demo/legal-gpt" element={<LegalGPTDemo />} />
+              <Route path="/demo/restaurant" element={<RestaurantDemo />} />
+              <Route path="/demo/agency" element={<AgencyDemo />} />
+              <Route path="/demo/automation" element={<AutomationDemo />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
