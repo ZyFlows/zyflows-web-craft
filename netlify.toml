@@ -1,4 +1,4 @@
-# Netlify Configuration for SEO & Performance
+# Netlify Configuration for SEO & Performance - Optimized
 
 [build]
   command = "npm run build"
@@ -6,15 +6,31 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
 
-# Enable Netlify Prerendering for SEO
+# Netlify Functions (if needed)
+[functions]
+  directory = "netlify/functions"
+
+# Enable asset optimization
 [build.processing]
   skip_processing = false
 
 [build.processing.html]
   pretty_urls = true
 
-# Headers for all pages
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.images]
+  compress = true
+
+# Default headers for all pages
 [[headers]]
   for = "/*"
   [headers.values]
@@ -30,24 +46,24 @@
     # SEO headers
     X-Robots-Tag = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     
-    # Cache control par défaut (HTML)
+    # Cache control for HTML (no cache)
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Sitemap specific headers
+# Sitemap
 [[headers]]
   for = "/sitemap.xml"
   [headers.values]
     Content-Type = "application/xml; charset=utf-8"
     Cache-Control = "public, max-age=3600"
 
-# Robots.txt specific headers
+# Robots.txt
 [[headers]]
   for = "/robots.txt"
   [headers.values]
     Content-Type = "text/plain; charset=utf-8"
     Cache-Control = "public, max-age=3600"
 
-# Static assets - long cache
+# Static assets - immutable long cache (1 year)
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -57,37 +73,41 @@
   for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+
 [[headers]]
   for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Fonts - immutable long cache
 [[headers]]
   for = "/*.woff2"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+    Access-Control-Allow-Origin = "*"
+
 [[headers]]
   for = "/*.woff"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
 
+# Images - immutable long cache
 [[headers]]
   for = "/*.jpg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+
 [[headers]]
   for = "/*.jpeg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+
 [[headers]]
   for = "/*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+
 [[headers]]
   for = "/*.webp"
   [headers.values]
@@ -97,12 +117,31 @@
   for = "/*.avif"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    
+
 [[headers]]
   for = "/*.svg"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Lovable uploads
+[[headers]]
+  for = "/lovable-uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Manifest and service worker
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+    Content-Type = "application/manifest+json"
+
+# Precompressed files
 [[headers]]
   for = "/*.br"
   [headers.values]
@@ -122,8 +161,98 @@
   status = 301
   force = true
 
-# SPA routing - must be last
+# Prerendered pages - serve static HTML
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/accessibility-statement"
+  to = "/accessibility-statement.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy-policy.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/fashion"
+  to = "/demo/fashion.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/ecommerce"
+  to = "/demo/ecommerce.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/saas"
+  to = "/demo/saas.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/tech-saas"
+  to = "/demo/tech-saas.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/legal-firm"
+  to = "/demo/legal-firm.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/portfolio"
+  to = "/demo/portfolio.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/lifestyle-blog"
+  to = "/demo/lifestyle-blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/real-estate"
+  to = "/demo/real-estate.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/legal-gpt"
+  to = "/demo/legal-gpt.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/restaurant"
+  to = "/demo/restaurant.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/agency"
+  to = "/demo/agency.html"
+  status = 200
+
+[[redirects]]
+  from = "/demo/automation"
+  to = "/demo/automation.html"
+  status = 200
+
+# SPA fallback - must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Netlify plugins
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+# Context-specific settings
+[context.production]
+  environment = { NODE_ENV = "production" }
+
+[context.deploy-preview]
+  environment = { NODE_ENV = "production" }
+
+[context.branch-deploy]
+  environment = { NODE_ENV = "production" }
