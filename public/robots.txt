@@ -1,19 +1,23 @@
 # robots.txt for zyflows.com
 # Optimized for SEO and Google Bot crawling
+# Last updated: 2025-12-18
 
 # Allow all major search engine bots
 User-agent: Googlebot
 Allow: /
+Allow: /demo/*
 Crawl-delay: 1
 
 User-agent: Googlebot-Image
 Allow: /
+Allow: /lovable-uploads/*
 
 User-agent: Googlebot-News
 Allow: /
 
 User-agent: Bingbot
 Allow: /
+Allow: /demo/*
 Crawl-delay: 1
 
 User-agent: Slurp
@@ -45,16 +49,45 @@ Allow: /
 User-agent: *
 Allow: /
 
-# Disallow demo parameter variations to avoid duplicate content
-Disallow: /*?*demo=*
+# Explicitly allow all demo pages
+Allow: /demo/fashion
+Allow: /demo/ecommerce
+Allow: /demo/saas
+Allow: /demo/tech-saas
+Allow: /demo/legal-firm
+Allow: /demo/portfolio
+Allow: /demo/lifestyle-blog
+Allow: /demo/real-estate
+Allow: /demo/legal-gpt
+Allow: /demo/restaurant
+Allow: /demo/agency
+Allow: /demo/automation
 
-# Disallow internal search results if any
-Disallow: /*?*search=*
+# Allow important pages
+Allow: /accessibility-statement
+Allow: /privacy-policy
 
 # Allow language parameters for proper indexing
 Allow: /*?lang=en
 Allow: /*?lang=fr
 Allow: /*?lang=he
+
+# Block unwanted paths and query parameters
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*?*demo=*
+Disallow: /*?*search=*
+Disallow: /*?*ref=*
+Disallow: /*?*utm_*
+Disallow: /*?*fbclid=*
+Disallow: /*?*gclid=*
+Disallow: /*?*preview=*
+Disallow: /*?*debug=*
 
 # Sitemap location
 Sitemap: https://zyflows.com/sitemap.xml
