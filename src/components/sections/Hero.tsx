@@ -70,32 +70,30 @@ const Hero = () => {
       </div>
 
       <div className="container mx-auto px-4 z-20 relative">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-8 animate-fade-in-up">
-            <Sparkles className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-            <span className="text-sm font-medium">
+          <div className="inline-flex items-center px-6 py-3 rounded-full glass-gold mb-10 animate-fade-in-up border border-primary/20">
+            <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+            <span className="text-sm font-medium tracking-wider uppercase text-primary">
               {language === 'fr' ? 'Agence IA & Automatisation' : language === 'he' ? 'סוכנות AI ואוטומציה' : 'AI & Automation Agency'}
             </span>
           </div>
 
-          {/* Main title */}
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up leading-tight" style={{ animationDelay: '0.2s' }}>
-            <span className="gradient-text">
+          {/* Main title - LUXURY Typography */}
+          <h1 className="text-6xl md:text-8xl font-serif font-bold mb-8 animate-fade-in-up leading-[0.95] tracking-tight" style={{ animationDelay: '0.2s' }}>
+            <span className="gradient-text block">
               {language === 'fr' ? 'Automatisez.' : language === 'he' ? 'אוטומציה.' : 'Automate.'}
             </span>
-            <br />
-            <span className="gradient-text">
+            <span className="gradient-text-purple block mt-2">
               {language === 'fr' ? 'Innovez.' : language === 'he' ? 'חדשנות.' : 'Innovate.'}
             </span>
-            <br />
-            <span className="gradient-text">
+            <span className="gradient-text block mt-2">
               {language === 'fr' ? 'Évoluez.' : language === 'he' ? 'התפתחות.' : 'Elevate.'}
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed max-w-4xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto animate-fade-in-up font-light" style={{ animationDelay: '0.4s' }}>
             {language === 'fr'
               ? 'Nous créons des automatisations intelligentes, des chatbots IA et des solutions digitales qui vous font gagner du temps et développent votre entreprise.'
               : language === 'he'
@@ -105,10 +103,10 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
+          <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
             <Button 
               size="lg" 
-              className="bg-gradient-primary text-white text-lg px-8 py-6 group transition-smooth hover:scale-105 glow-primary"
+              className="bg-primary text-primary-foreground text-lg px-10 py-7 group transition-smooth hover:scale-105 glow-primary font-semibold tracking-wide"
               onClick={handleWhatsAppConsultation}
             >
               <Mail className={`h-5 w-5 ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
@@ -122,7 +120,7 @@ const Hero = () => {
             
             <Button 
               size="lg" 
-              className="glass-effect border-2 border-primary/50 hover:border-primary text-base sm:text-lg px-6 sm:px-10 py-6 transition-smooth hover:scale-105 whitespace-nowrap"
+              className="glass-gold border border-primary/30 hover:border-primary/60 text-foreground text-base sm:text-lg px-8 sm:px-12 py-7 transition-smooth hover:scale-105 whitespace-nowrap font-medium"
               onClick={() => scrollToSection('projects')}
             >
               {language === 'fr' ? 'Voir Nos Projets' : language === 'he' ? 'הפרויקטים שלנו' : 'View Our Work'}
@@ -130,18 +128,18 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
+          <div className={`grid grid-cols-3 gap-12 mt-20 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">50+</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>
+              <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-3">50+</div>
+              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat1')}</div>
+            </div>
+            <div className="text-center border-x border-primary/20 px-4">
+              <div className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-3">99%</div>
+              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat2')}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-2">99%</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat2')}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">24h</div>
-              <div className="text-sm text-muted-foreground">{t('hero.stat3')}</div>
+              <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-3">24h</div>
+              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat3')}</div>
             </div>
           </div>
         </div>

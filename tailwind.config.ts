@@ -66,6 +66,7 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Inter', 'system-ui', 'sans-serif'],
+				serif: ['Cormorant Garamond', 'Georgia', 'serif'],
 				mono: ['JetBrains Mono', 'Consolas', 'monospace'],
 			},
 			borderRadius: {
