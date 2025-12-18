@@ -7,6 +7,7 @@ import {
   ArrowLeft, ExternalLink, Github, Linkedin, Mail, Download,
   Palette, Code, Camera, Figma, Play, Star, Award, Users
 } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const PortfolioDemo = () => {
   const navigate = useNavigate();
@@ -114,7 +115,17 @@ const PortfolioDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
+    <>
+      <DemoSEO
+        title="Creative Portfolio Website Demo"
+        description="Interactive creative portfolio website demo by zyFlows. Professional portfolio for designers and developers with project showcase, skills section, testimonials, and contact form."
+        keywords="portfolio demo, creative portfolio, designer portfolio, developer portfolio, personal website, portfolio template, zyFlows"
+        path="/demo/portfolio"
+        demoType="WebSite"
+        category="Personal Portfolio"
+        features={["Project Showcase", "Skills Display", "Client Testimonials", "Contact Form", "Social Links", "Downloadable CV"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -420,6 +431,7 @@ const PortfolioDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

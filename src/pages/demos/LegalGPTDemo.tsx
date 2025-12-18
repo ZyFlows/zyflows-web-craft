@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Bot, Send, FileText, Scale, Zap, Shield, MessageSquare, User } from "lucide-react";
-
+import DemoSEO from '@/components/DemoSEO';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -54,7 +54,17 @@ const LegalGPTDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900">
+    <>
+      <DemoSEO
+        title="AI Legal Assistant Demo - LegalGPT"
+        description="Interactive AI-powered legal assistant demo by zyFlows. Chat with LegalGPT for document analysis, legal research, and contract review. Custom GPT solution for law firms and legal professionals."
+        keywords="legal AI demo, LegalGPT, AI legal assistant, document analysis, contract review, legal chatbot, custom GPT, AI law, zyFlows"
+        path="/demo/legal-gpt"
+        demoType="SoftwareApplication"
+        category="AI Legal Assistant"
+        features={["AI Chat Interface", "Document Analysis", "Legal Research", "Contract Review", "Multi-language Support", "Secure Processing"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900">
       <header className="bg-black/20 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -175,6 +185,7 @@ const LegalGPTDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

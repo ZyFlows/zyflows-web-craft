@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, MapPin, Bed, Bath, Square, Heart, Search, Phone, Filter, Star, Car, Waves, TreePine, Crown, Sparkles, ChevronRight } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const RealEstateDemo = () => {
   const navigate = useNavigate();
@@ -118,7 +119,17 @@ const RealEstateDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
+    <>
+      <DemoSEO
+        title="Luxury Real Estate Website Demo"
+        description="Interactive luxury real estate website demo by zyFlows. Premium property listings with advanced search, property details, virtual tours, and agent contact features. Built for real estate agencies."
+        keywords="real estate demo, luxury properties, property listings, real estate website, property search, agent contact, real estate template, zyFlows"
+        path="/demo/real-estate"
+        demoType="WebApplication"
+        category="Real Estate"
+        features={["Property Listings", "Advanced Search", "Property Filters", "Agent Profiles", "Wishlist", "Property Details"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-stone-50">
       {/* Header */}
       <header className="bg-white/95 backdrop-blur-md border-b border-stone-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -363,6 +374,7 @@ const RealEstateDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

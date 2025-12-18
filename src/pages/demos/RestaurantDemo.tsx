@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import DemoSEO from '@/components/DemoSEO';
 
 const RestaurantDemo = () => {
   const navigate = useNavigate();
@@ -90,7 +91,17 @@ const RestaurantDemo = () => {
     : menuItems.filter(item => item.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 relative overflow-hidden">
+    <>
+      <DemoSEO
+        title="Restaurant Website Demo"
+        description="Interactive restaurant website demo by zyFlows. Elegant dining experience with menu showcase, online ordering, reservations, and chef specials. Perfect for restaurants, cafes, and bistros."
+        keywords="restaurant demo, restaurant website, online menu, food ordering, table reservation, restaurant template, cafe website, zyFlows"
+        path="/demo/restaurant"
+        demoType="WebApplication"
+        category="Restaurant & Food"
+        features={["Digital Menu", "Online Ordering", "Table Reservations", "Chef Specials", "Customer Reviews", "Live Wait Times"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-amber-200/30 to-orange-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -381,6 +392,7 @@ const RestaurantDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 
