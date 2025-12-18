@@ -30,70 +30,59 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className={`min-h-screen flex items-center relative overflow-hidden pt-20 ${language === 'he' ? 'rtl' : ''}`}
+      className={`min-h-screen flex items-center relative overflow-hidden pt-20 bg-background ${language === 'he' ? 'rtl' : ''}`}
       aria-label={t('hero.section_label') || "Section d'accueil"}
     >
-      {/* Background image optimisée pour LCP - Élément critique pour PageSpeed */}
-      <OptimizedImage
-        src={heroTech}
-        alt="Technologie moderne et innovation digitale - Développement web et applications mobiles"
-        width={1920}
-        height={1080}
-        priority={true}
-        className="absolute inset-0 z-0 w-full h-full object-cover opacity-20"
-        sizes="100vw"
-      />
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent z-10" />
       
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
-      
-      {/* Floating elements - Decorative, hidden from screen readers */}
+      {/* Subtle floating elements */}
       <div 
-        className={`absolute top-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}
+        className={`absolute top-32 opacity-20 animate-float ${language === 'he' ? 'hero-floating-left' : 'left-10'}`}
         aria-hidden="true"
       >
-        <Code2 className="h-8 w-8 text-primary/30" />
+        <Code2 className="h-6 w-6 text-primary" />
       </div>
       <div 
-        className={`absolute top-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} 
+        className={`absolute top-48 opacity-20 animate-float ${language === 'he' ? 'hero-floating-right' : 'right-20'}`} 
         style={{ animationDelay: '1s' }}
         aria-hidden="true"
       >
-        <Zap className="h-6 w-6 text-accent/40" />
+        <Zap className="h-5 w-5 text-primary" />
       </div>
       <div 
-        className={`absolute bottom-40 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} 
+        className={`absolute bottom-48 opacity-20 animate-float ${language === 'he' ? 'hero-floating-right' : 'left-20'}`} 
         style={{ animationDelay: '2s' }}
         aria-hidden="true"
       >
-        <Sparkles className="h-10 w-10 text-primary/20" />
+        <Sparkles className="h-8 w-8 text-primary" />
       </div>
 
       <div className="container mx-auto px-4 z-20 relative">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center px-6 py-3 rounded-full glass-gold mb-10 animate-fade-in-up border border-primary/20">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-secondary border border-border mb-8 animate-fade-in-up">
             <Sparkles className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-            <span className="text-sm font-medium tracking-wider uppercase text-primary">
+            <span className="text-sm font-medium text-foreground">
               {language === 'fr' ? 'Agence IA & Automatisation' : language === 'he' ? 'סוכנות AI ואוטומציה' : 'AI & Automation Agency'}
             </span>
           </div>
 
-          {/* Main title - LUXURY Typography */}
-          <h1 className="text-6xl md:text-8xl font-serif font-bold mb-8 animate-fade-in-up leading-[0.95] tracking-tight" style={{ animationDelay: '0.2s' }}>
-            <span className="gradient-text block">
+          {/* Main title - Clean Typography */}
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up leading-tight tracking-tight" style={{ animationDelay: '0.1s' }}>
+            <span className="text-foreground block">
               {language === 'fr' ? 'Automatisez.' : language === 'he' ? 'אוטומציה.' : 'Automate.'}
             </span>
-            <span className="gradient-text-purple block mt-2">
+            <span className="text-primary block">
               {language === 'fr' ? 'Innovez.' : language === 'he' ? 'חדשנות.' : 'Innovate.'}
             </span>
-            <span className="gradient-text block mt-2">
+            <span className="text-foreground block">
               {language === 'fr' ? 'Évoluez.' : language === 'he' ? 'התפתחות.' : 'Elevate.'}
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto animate-fade-in-up font-light" style={{ animationDelay: '0.4s' }}>
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {language === 'fr'
               ? 'Nous créons des automatisations intelligentes, des chatbots IA et des solutions digitales qui vous font gagner du temps et développent votre entreprise.'
               : language === 'he'
@@ -103,10 +92,10 @@ const Hero = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in-up`} style={{ animationDelay: '0.6s' }}>
+          <div className={`flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up`} style={{ animationDelay: '0.3s' }}>
             <Button 
               size="lg" 
-              className="bg-primary text-primary-foreground text-lg px-10 py-7 group transition-smooth hover:scale-105 glow-primary font-semibold tracking-wide"
+              className="bg-primary text-primary-foreground text-base px-8 py-6 group transition-smooth hover:bg-primary/90"
               onClick={handleWhatsAppConsultation}
             >
               <Mail className={`h-5 w-5 ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
@@ -120,7 +109,8 @@ const Hero = () => {
             
             <Button 
               size="lg" 
-              className="glass-gold border border-primary/30 hover:border-primary/60 text-foreground text-base sm:text-lg px-8 sm:px-12 py-7 transition-smooth hover:scale-105 whitespace-nowrap font-medium"
+              variant="outline"
+              className="text-base px-8 py-6 transition-smooth"
               onClick={() => scrollToSection('projects')}
             >
               {language === 'fr' ? 'Voir Nos Projets' : language === 'he' ? 'הפרויקטים שלנו' : 'View Our Work'}
@@ -128,18 +118,18 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className={`grid grid-cols-3 gap-12 mt-20 animate-fade-in-up stats-container`} style={{ animationDelay: '0.8s' }}>
+          <div className={`grid grid-cols-3 gap-8 mt-16 animate-fade-in-up stats-container`} style={{ animationDelay: '0.4s' }}>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-3">50+</div>
-              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat1')}</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">50+</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat1')}</div>
             </div>
-            <div className="text-center border-x border-primary/20 px-4">
-              <div className="text-4xl md:text-5xl font-serif font-bold text-secondary mb-3">99%</div>
-              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat2')}</div>
+            <div className="text-center border-x border-border px-4">
+              <div className="text-3xl md:text-4xl font-bold text-foreground mb-2">99%</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat2')}</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-serif font-bold text-primary mb-3">24h</div>
-              <div className="text-sm text-muted-foreground tracking-wide uppercase">{t('hero.stat3')}</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">24h</div>
+              <div className="text-sm text-muted-foreground">{t('hero.stat3')}</div>
             </div>
           </div>
         </div>
