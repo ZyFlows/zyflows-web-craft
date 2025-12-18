@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import DemoSEO from '@/components/DemoSEO';
 
 const EcommerceDemo = () => {
   const navigate = useNavigate();
@@ -141,7 +142,17 @@ const EcommerceDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 relative overflow-hidden">
+    <>
+      <DemoSEO
+        title="E-commerce Fashion Store Demo"
+        description="Interactive e-commerce fashion store demo by zyFlows. Modern shopping experience with product catalog, cart, wishlist, and checkout functionality. Built with React and Tailwind CSS."
+        keywords="e-commerce demo, fashion store, online shopping, product catalog, shopping cart, wishlist, checkout, React e-commerce, zyFlows"
+        path="/demo/ecommerce"
+        demoType="WebApplication"
+        category="E-commerce"
+        features={["Product Catalog", "Shopping Cart", "Wishlist", "Flash Sales", "User Reviews", "Responsive Design"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-pink-200/30 to-purple-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -507,6 +518,7 @@ const EcommerceDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

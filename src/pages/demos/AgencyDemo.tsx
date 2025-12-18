@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import DemoSEO from '@/components/DemoSEO';
 
 const AgencyDemo = () => {
   const navigate = useNavigate();
@@ -107,7 +108,17 @@ const AgencyDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
+    <>
+      <DemoSEO
+        title="Creative Agency Website Demo"
+        description="Interactive creative agency website demo by zyFlows. Showcase digital services, portfolio, team members, and client testimonials. Modern agency website built with React."
+        keywords="creative agency demo, digital agency, marketing agency, portfolio website, agency template, web design agency, zyFlows"
+        path="/demo/agency"
+        demoType="WebSite"
+        category="Creative Agency"
+        features={["Portfolio Showcase", "Service Catalog", "Team Profiles", "Client Testimonials", "Project Metrics", "Contact Forms"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-indigo-200/30 to-purple-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -375,6 +386,7 @@ const AgencyDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

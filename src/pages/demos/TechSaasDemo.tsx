@@ -8,6 +8,7 @@ import {
   Rocket, CheckCircle, ArrowRight, Play, Star, TrendingUp,
   Database, Cpu, Globe, Lock
 } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const TechSaasDemo = () => {
   const navigate = useNavigate();
@@ -113,7 +114,17 @@ const TechSaasDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+    <>
+      <DemoSEO
+        title="Tech SaaS Platform Demo"
+        description="Interactive tech SaaS platform demo by zyFlows. Enterprise-grade cloud platform with API management, security features, analytics, and scalable infrastructure. Built for B2B tech companies."
+        keywords="tech SaaS demo, cloud platform, API management, enterprise software, B2B SaaS, developer platform, SaaS template, zyFlows"
+        path="/demo/tech-saas"
+        demoType="SoftwareApplication"
+        category="Enterprise SaaS"
+        features={["Cloud Infrastructure", "API Management", "Enterprise Security", "Advanced Analytics", "Team Collaboration", "Pricing Plans"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       {/* Header */}
       <header className="bg-black/20 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -381,6 +392,7 @@ const TechSaasDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

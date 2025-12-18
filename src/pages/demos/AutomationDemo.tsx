@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import DemoSEO from '@/components/DemoSEO';
 
 const AutomationDemo = () => {
   const navigate = useNavigate();
@@ -109,7 +110,17 @@ const AutomationDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+    <>
+      <DemoSEO
+        title="Workflow Automation Platform Demo"
+        description="Interactive workflow automation platform demo by zyFlows. Visual workflow builder, real-time monitoring, system metrics, and automation analytics. Built with React for enterprise automation needs."
+        keywords="workflow automation demo, automation platform, Make integration, n8n workflows, business automation, process automation, zyFlows"
+        path="/demo/automation"
+        demoType="SoftwareApplication"
+        category="Business Automation"
+        features={["Visual Workflow Builder", "Real-time Monitoring", "System Metrics", "Automation Analytics", "Integration Hub", "Error Handling"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -468,6 +479,7 @@ const AutomationDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

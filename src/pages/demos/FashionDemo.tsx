@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, ShoppingBag, Star, ArrowLeft, Search, User, Menu, Filter } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const FashionDemo = () => {
   const navigate = useNavigate();
@@ -99,7 +100,17 @@ const FashionDemo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50">
+    <>
+      <DemoSEO
+        title="Luxury Fashion Boutique Demo"
+        description="Interactive luxury fashion boutique demo by zyFlows. Premium fashion e-commerce with elegant product displays, category filtering, and wishlist features. Built with React and Tailwind CSS."
+        keywords="luxury fashion demo, boutique website, fashion e-commerce, premium clothing, online store, fashion template, zyFlows"
+        path="/demo/fashion"
+        demoType="WebApplication"
+        category="Fashion E-commerce"
+        features={["Category Filtering", "Wishlist", "Product Ratings", "Sale Items", "Responsive Gallery", "Shopping Cart"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50">
       {/* Header */}
       <header className="bg-white/90 backdrop-blur-md border-b border-rose-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -294,6 +305,7 @@ const FashionDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

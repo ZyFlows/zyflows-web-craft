@@ -7,6 +7,7 @@ import {
   ArrowLeft, Scale, Shield, Users, Clock, Award, Phone, Mail, 
   MapPin, CheckCircle, Quote, Calendar, FileText, Gavel
 } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const LegalFirmDemo = () => {
   const navigate = useNavigate();
@@ -110,7 +111,17 @@ const LegalFirmDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <>
+      <DemoSEO
+        title="Law Firm Website Demo"
+        description="Interactive law firm website demo by zyFlows. Professional legal services website with practice areas, attorney profiles, testimonials, and consultation booking. Built for legal professionals."
+        keywords="law firm demo, legal website, attorney website, law practice, legal services, lawyer template, consultation booking, zyFlows"
+        path="/demo/legal-firm"
+        demoType="WebSite"
+        category="Legal Services"
+        features={["Practice Areas", "Attorney Profiles", "Client Testimonials", "Case Statistics", "Consultation Booking", "Contact Forms"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <header className="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -365,6 +376,7 @@ const LegalFirmDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

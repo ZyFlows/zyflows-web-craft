@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import mockupSaas from "@/assets/mockup-saas.jpg";
 import mockupSaasPricing from "@/assets/mockup-saas-pricing.jpg";
 import mockupSaasDashboard from "@/assets/mockup-saas-dashboard.jpg";
+import DemoSEO from '@/components/DemoSEO';
 
 const SaasDemo = () => {
   const navigate = useNavigate();
@@ -74,7 +75,17 @@ const SaasDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
+    <>
+      <DemoSEO
+        title="SaaS Analytics Dashboard Demo"
+        description="Interactive SaaS analytics dashboard demo by zyFlows. Real-time data visualization, user metrics, revenue tracking, and business intelligence features. Modern dashboard built with React."
+        keywords="SaaS demo, analytics dashboard, data visualization, business intelligence, real-time metrics, revenue tracking, React dashboard, zyFlows"
+        path="/demo/saas"
+        demoType="SoftwareApplication"
+        category="Business Analytics"
+        features={["Real-time Analytics", "User Metrics", "Revenue Tracking", "Data Visualization", "Custom Reports", "Team Collaboration"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl animate-pulse"></div>
@@ -490,6 +501,7 @@ const SaasDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 

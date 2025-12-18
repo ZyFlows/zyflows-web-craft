@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Search, User, Heart, MessageCircle, Share2, Calendar } from "lucide-react";
+import DemoSEO from '@/components/DemoSEO';
 
 const LifestyleBlogDemo = () => {
   const navigate = useNavigate();
@@ -30,7 +31,17 @@ const LifestyleBlogDemo = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50">
+    <>
+      <DemoSEO
+        title="Lifestyle Blog Demo"
+        description="Interactive lifestyle blog demo by zyFlows. Beautiful blog template with featured posts, categories, social sharing, and newsletter signup. Perfect for bloggers and content creators."
+        keywords="lifestyle blog demo, blog template, content website, blogger website, wellness blog, blog design, zyFlows"
+        path="/demo/lifestyle-blog"
+        demoType="WebSite"
+        category="Blog & Content"
+        features={["Featured Posts", "Category Filtering", "Social Sharing", "Newsletter Signup", "Reading Time", "Author Profiles"]}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50">
       <header className="bg-white/90 backdrop-blur-md border-b border-rose-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -95,6 +106,7 @@ const LifestyleBlogDemo = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 
