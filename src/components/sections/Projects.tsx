@@ -40,6 +40,7 @@ import mockupAutomationAnalytics from "@/assets/mockup-automation-analytics.jpg"
 import mockupCustomGpt from "@/assets/mockup-custom-gpt.jpg";
 import mockupGptTraining from "@/assets/mockup-gpt-training.jpg";
 import mockupGptDeployment from "@/assets/mockup-gpt-deployment.jpg";
+import mockupGallery from "@/assets/mockup-gallery.jpg";
 
 // Import des nouveaux mockups WordPress
 import mockupWordpressSpa from "@/assets/mockup-wordpress-spa.jpg";
@@ -351,6 +352,30 @@ const Projects = () => {
       team: language === 'he' ? '2 מפתחי AI, יועץ משפטי' : language === 'en' ? '2 AI developers, legal consultant' : '2 développeurs IA, consultant juridique',
       objective: language === 'he' ? 'יצירת עוזר IA חכם שימשיך את יכולות המשרד ויספק שירות מקצועי ומדויק' : language === 'en' ? 'Create a smart AI assistant that extends the firm\'s capabilities and provides professional and accurate service' : 'Créer un assistant IA intelligent qui étend les capacités du cabinet et fournit un service professionnel et précis',
       delay: "1.8s"
+    },
+    {
+      title: language === 'he' ? 'גלריית אמנות Pure Space' : language === 'en' ? 'Pure Space Art Gallery' : 'Galerie d\'Art Pure Space',
+      description: language === 'he' ? 'אתר גלריה מינימליסטי ואלגנטי להצגת יצירות אמנות עכשווית' : language === 'en' ? 'Minimalist and elegant gallery website showcasing contemporary artwork' : 'Site galerie minimaliste et élégant pour exposer des œuvres d\'art contemporain',
+      detailedDescription: language === 'he' ? 'פיתחנו אתר גלריה מודרני ומינימליסטי המציג יצירות אמנות עכשווית בצורה אלגנטית. האתר כולל תצוגה אינטראקטיבית של יצירות, מערכת סינון לפי אמן או סגנון, ודפי אמנים מפורטים. העיצוב הנקי מאפשר לאמנות לדבר בעד עצמה.' : language === 'en' ? 'We developed a modern, minimalist gallery website showcasing contemporary artwork elegantly. The site features interactive artwork display, filtering by artist or style, and detailed artist pages. The clean design lets the art speak for itself.' : 'Nous avons développé un site galerie moderne et minimaliste présentant des œuvres d\'art contemporain de manière élégante. Le site comprend une présentation interactive des œuvres, un filtrage par artiste ou style, et des pages artistes détaillées. Le design épuré laisse l\'art parler de lui-même.',
+      image: mockupGallery,
+      gallery: [mockupGallery],
+      tags: ["React", "Art", language === 'he' ? 'מינימליסטי' : language === 'en' ? 'Minimalist' : 'Minimaliste', language === 'he' ? 'גלריה' : language === 'en' ? 'Gallery' : 'Galerie'],
+      metrics: [
+        language === 'he' ? 'עיצוב נקי ואלגנטי' : language === 'en' ? 'Clean elegant design' : 'Design épuré et élégant',
+        language === 'he' ? 'חוויית צפייה אופטימלית' : language === 'en' ? 'Optimal viewing experience' : 'Expérience de visionnage optimale',
+        language === 'he' ? 'ניווט אינטואיטיבי' : language === 'en' ? 'Intuitive navigation' : 'Navigation intuitive'
+      ],
+      features: [
+        language === 'he' ? 'תצוגת יצירות אינטראקטיבית' : language === 'en' ? 'Interactive artwork display' : 'Affichage interactif des œuvres',
+        language === 'he' ? 'סינון לפי אמן וסגנון' : language === 'en' ? 'Filter by artist and style' : 'Filtrage par artiste et style',
+        language === 'he' ? 'דפי אמנים מפורטים' : language === 'en' ? 'Detailed artist pages' : 'Pages artistes détaillées',
+        language === 'he' ? 'עיצוב רספונסיבי' : language === 'en' ? 'Responsive design' : 'Design responsive'
+      ],
+      duration: language === 'he' ? '4 שבועות' : language === 'en' ? '4 weeks' : '4 semaines',
+      team: language === 'he' ? '2 מפתחים, מעצב UI/UX' : language === 'en' ? '2 developers, UI/UX designer' : '2 développeurs, designer UI/UX',
+      objective: language === 'he' ? 'יצירת פלטפורמה דיגיטלית אלגנטית שתציג את יצירות האמנות בצורה הטובה ביותר' : language === 'en' ? 'Create an elegant digital platform that showcases artwork in the best possible way' : 'Créer une plateforme numérique élégante qui met en valeur les œuvres d\'art de la meilleure façon',
+      delay: "2.0s",
+      demoUrl: "https://preview--pure-space-gallery.lovable.app"
     }
   ];
 
