@@ -182,7 +182,51 @@
   </head>
 
   <body>
-    <div id="root"><!--app-html--></div>
+    <div id="root"></div>
+    
+    <!-- Fallback content for bots and no-JS environments -->
+    <noscript>
+      <div style="max-width: 1200px; margin: 0 auto; padding: 2rem; font-family: system-ui, sans-serif;">
+        <header style="text-align: center; margin-bottom: 3rem;">
+          <h1>zyFlows - AI Automations, WhatsApp Chatbots & Websites</h1>
+          <p>Innovative Digital Solutions for Businesses in Israel & France</p>
+        </header>
+        
+        <main>
+          <section style="margin-bottom: 2rem;">
+            <h2>Our Services</h2>
+            <ul>
+              <li><strong>AI Automations</strong> - Custom AI-powered automation solutions to streamline business processes and save 5-20 hours per week</li>
+              <li><strong>WhatsApp Chatbots</strong> - Intelligent WhatsApp chatbots for 24/7 customer support and lead generation</li>
+              <li><strong>Websites & Landing Pages</strong> - High-conversion optimized websites built for performance</li>
+              <li><strong>Make & n8n Integrations</strong> - Custom workflow automations using Make and n8n platforms</li>
+            </ul>
+          </section>
+          
+          <section style="margin-bottom: 2rem;">
+            <h2>Why Choose zyFlows?</h2>
+            <ul>
+              <li>Save 5-20 hours per week with intelligent automation</li>
+              <li>Multilingual support: English, French, Hebrew</li>
+              <li>Serving businesses in Israel and France</li>
+              <li>Free consultation available</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h2>Contact Us</h2>
+            <p>Email: <a href="mailto:contact@zyflows.com">contact@zyflows.com</a></p>
+            <p>Israel: +972-58-422-9255</p>
+            <p>France: +33-7-69-03-58-29</p>
+          </section>
+        </main>
+        
+        <footer style="margin-top: 3rem; text-align: center; color: #666;">
+          <p>&copy; 2024 zyFlows. All rights reserved.</p>
+        </footer>
+      </div>
+    </noscript>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
