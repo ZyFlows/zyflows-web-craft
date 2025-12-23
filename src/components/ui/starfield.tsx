@@ -90,8 +90,7 @@ const Starfield = () => {
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden pointer-events-auto"
-      style={{ zIndex: 1 }}
+      className="absolute inset-0 overflow-hidden pointer-events-auto z-[15]"
     >
       {stars.map((star) => (
         <div
