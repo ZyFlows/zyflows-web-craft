@@ -8,6 +8,7 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   isNearMouse: boolean;
+  depth: number; // 0.1 to 1 - controls parallax speed
 }
 
 interface ShootingStar {
@@ -25,22 +26,25 @@ const Starfield = () => {
   const [stars, setStars] = useState<Star[]>([]);
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [scrollY, setScrollY] = useState(0);
 
   // Generate stars on mount
   useEffect(() => {
     const generateStars = () => {
-      const starCount = 150; // Increased from 80
+      const starCount = 150;
       const newStars: Star[] = [];
       
       for (let i = 0; i < starCount; i++) {
+        const depth = Math.random() * 0.9 + 0.1; // 0.1 to 1
         newStars.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 3 + 1.5, // Bigger stars (1.5-4.5px instead of 1-3px)
-          opacity: Math.random() * 0.6 + 0.4, // More visible (0.4-1 instead of 0.3-0.8)
+          size: depth * 3 + 1, // Bigger stars = closer (more depth)
+          opacity: depth * 0.5 + 0.3,
           twinkleSpeed: Math.random() * 3 + 2,
           isNearMouse: false,
+          depth,
         });
       }
       
@@ -50,35 +54,42 @@ const Starfield = () => {
     generateStars();
   }, []);
 
+  // Handle scroll for parallax
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Generate shooting stars periodically
   const createShootingStar = useCallback(() => {
     const newShootingStar: ShootingStar = {
       id: Date.now() + Math.random(),
-      startX: Math.random() * 60 + 20, // Start from 20-80% of width
-      startY: Math.random() * 30, // Start from top 30%
-      angle: Math.random() * 30 + 30, // 30-60 degrees
-      length: Math.random() * 100 + 80, // 80-180px trail
-      duration: Math.random() * 1 + 0.8, // 0.8-1.8s
+      startX: Math.random() * 60 + 20,
+      startY: Math.random() * 30,
+      angle: Math.random() * 30 + 30,
+      length: Math.random() * 100 + 80,
+      duration: Math.random() * 1 + 0.8,
       delay: 0,
     };
     
     setShootingStars(prev => [...prev, newShootingStar]);
     
-    // Remove shooting star after animation
     setTimeout(() => {
       setShootingStars(prev => prev.filter(s => s.id !== newShootingStar.id));
     }, (newShootingStar.duration + 0.5) * 1000);
   }, []);
 
   useEffect(() => {
-    // Initial shooting stars
     const initialDelay = setTimeout(() => {
       createShootingStar();
     }, 2000);
 
-    // Random interval for shooting stars (every 3-8 seconds)
     const interval = setInterval(() => {
-      if (Math.random() > 0.3) { // 70% chance
+      if (Math.random() > 0.3) {
         createShootingStar();
       }
     }, 4000);
@@ -121,7 +132,7 @@ const Starfield = () => {
 
   // Update stars based on mouse proximity
   useEffect(() => {
-    const proximityRadius = 18; // Increased radius
+    const proximityRadius = 18;
 
     setStars(prevStars => 
       prevStars.map(star => {
@@ -141,34 +152,41 @@ const Starfield = () => {
       ref={containerRef}
       className="absolute inset-0 overflow-hidden pointer-events-auto z-[15]"
     >
-      {/* Static stars */}
-      {stars.map((star) => (
-        <div
-          key={star.id}
-          className={`absolute rounded-full transition-all duration-300 ${
-            star.isNearMouse 
-              ? 'animate-pulse scale-150' 
-              : ''
-          }`}
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            backgroundColor: star.isNearMouse 
-              ? 'hsl(var(--primary))' 
-              : 'hsl(var(--foreground))',
-            opacity: star.isNearMouse ? 1 : star.opacity,
-            boxShadow: star.isNearMouse 
-              ? `0 0 ${star.size * 6}px hsl(var(--primary)), 0 0 ${star.size * 12}px hsl(var(--primary) / 0.5)` 
-              : `0 0 ${star.size * 3}px hsl(var(--foreground) / 0.4)`,
-            animation: star.isNearMouse 
-              ? 'none' 
-              : `twinkle ${star.twinkleSpeed}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 2}s`,
-          }}
-        />
-      ))}
+      {/* Static stars with parallax */}
+      {stars.map((star) => {
+        // Parallax offset: deeper stars move slower
+        const parallaxOffset = scrollY * star.depth * 0.15;
+        
+        return (
+          <div
+            key={star.id}
+            className={`absolute rounded-full transition-all duration-300 ${
+              star.isNearMouse 
+                ? 'animate-pulse scale-150' 
+                : ''
+            }`}
+            style={{
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              transform: `translateY(${parallaxOffset}px)`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              backgroundColor: star.isNearMouse 
+                ? 'hsl(var(--primary))' 
+                : 'hsl(var(--foreground))',
+              opacity: star.isNearMouse ? 1 : star.opacity,
+              boxShadow: star.isNearMouse 
+                ? `0 0 ${star.size * 6}px hsl(var(--primary)), 0 0 ${star.size * 12}px hsl(var(--primary) / 0.5)` 
+                : `0 0 ${star.size * 3}px hsl(var(--foreground) / 0.4)`,
+              animation: star.isNearMouse 
+                ? 'none' 
+                : `twinkle ${star.twinkleSpeed}s ease-in-out infinite`,
+              animationDelay: `${star.id * 0.1}s`,
+              willChange: 'transform',
+            }}
+          />
+        );
+      })}
 
       {/* Shooting stars */}
       {shootingStars.map((shootingStar) => (
