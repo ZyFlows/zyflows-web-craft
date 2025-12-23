@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 
 interface Star {
   id: number;
@@ -10,16 +10,26 @@ interface Star {
   isNearMouse: boolean;
 }
 
+interface ShootingStar {
+  id: number;
+  startX: number;
+  startY: number;
+  angle: number;
+  length: number;
+  duration: number;
+  delay: number;
+}
+
 const Starfield = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [stars, setStars] = useState<Star[]>([]);
+  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const animationRef = useRef<number>();
 
   // Generate stars on mount
   useEffect(() => {
     const generateStars = () => {
-      const starCount = 80;
+      const starCount = 150; // Increased from 80
       const newStars: Star[] = [];
       
       for (let i = 0; i < starCount; i++) {
@@ -27,9 +37,9 @@ const Starfield = () => {
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.3,
-          twinkleSpeed: Math.random() * 2 + 1,
+          size: Math.random() * 3 + 1.5, // Bigger stars (1.5-4.5px instead of 1-3px)
+          opacity: Math.random() * 0.6 + 0.4, // More visible (0.4-1 instead of 0.3-0.8)
+          twinkleSpeed: Math.random() * 3 + 2,
           isNearMouse: false,
         });
       }
@@ -39,6 +49,45 @@ const Starfield = () => {
 
     generateStars();
   }, []);
+
+  // Generate shooting stars periodically
+  const createShootingStar = useCallback(() => {
+    const newShootingStar: ShootingStar = {
+      id: Date.now() + Math.random(),
+      startX: Math.random() * 60 + 20, // Start from 20-80% of width
+      startY: Math.random() * 30, // Start from top 30%
+      angle: Math.random() * 30 + 30, // 30-60 degrees
+      length: Math.random() * 100 + 80, // 80-180px trail
+      duration: Math.random() * 1 + 0.8, // 0.8-1.8s
+      delay: 0,
+    };
+    
+    setShootingStars(prev => [...prev, newShootingStar]);
+    
+    // Remove shooting star after animation
+    setTimeout(() => {
+      setShootingStars(prev => prev.filter(s => s.id !== newShootingStar.id));
+    }, (newShootingStar.duration + 0.5) * 1000);
+  }, []);
+
+  useEffect(() => {
+    // Initial shooting stars
+    const initialDelay = setTimeout(() => {
+      createShootingStar();
+    }, 2000);
+
+    // Random interval for shooting stars (every 3-8 seconds)
+    const interval = setInterval(() => {
+      if (Math.random() > 0.3) { // 70% chance
+        createShootingStar();
+      }
+    }, 4000);
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearInterval(interval);
+    };
+  }, [createShootingStar]);
 
   // Handle mouse movement
   useEffect(() => {
@@ -72,7 +121,7 @@ const Starfield = () => {
 
   // Update stars based on mouse proximity
   useEffect(() => {
-    const proximityRadius = 15; // percentage of container
+    const proximityRadius = 18; // Increased radius
 
     setStars(prevStars => 
       prevStars.map(star => {
@@ -92,6 +141,7 @@ const Starfield = () => {
       ref={containerRef}
       className="absolute inset-0 overflow-hidden pointer-events-auto z-[15]"
     >
+      {/* Static stars */}
       {stars.map((star) => (
         <div
           key={star.id}
@@ -110,8 +160,8 @@ const Starfield = () => {
               : 'hsl(var(--foreground))',
             opacity: star.isNearMouse ? 1 : star.opacity,
             boxShadow: star.isNearMouse 
-              ? `0 0 ${star.size * 4}px hsl(var(--primary)), 0 0 ${star.size * 8}px hsl(var(--primary) / 0.5)` 
-              : `0 0 ${star.size * 2}px hsl(var(--foreground) / 0.3)`,
+              ? `0 0 ${star.size * 6}px hsl(var(--primary)), 0 0 ${star.size * 12}px hsl(var(--primary) / 0.5)` 
+              : `0 0 ${star.size * 3}px hsl(var(--foreground) / 0.4)`,
             animation: star.isNearMouse 
               ? 'none' 
               : `twinkle ${star.twinkleSpeed}s ease-in-out infinite`,
@@ -119,11 +169,45 @@ const Starfield = () => {
           }}
         />
       ))}
+
+      {/* Shooting stars */}
+      {shootingStars.map((shootingStar) => (
+        <div
+          key={shootingStar.id}
+          className="absolute shooting-star"
+          style={{
+            left: `${shootingStar.startX}%`,
+            top: `${shootingStar.startY}%`,
+            width: `${shootingStar.length}px`,
+            height: '2px',
+            background: `linear-gradient(90deg, transparent, hsl(var(--primary) / 0.8), hsl(var(--foreground)))`,
+            transform: `rotate(${shootingStar.angle}deg)`,
+            animation: `shootingStarMove ${shootingStar.duration}s ease-out forwards`,
+            boxShadow: `0 0 6px hsl(var(--primary)), 0 0 12px hsl(var(--primary) / 0.5)`,
+            borderRadius: '50%',
+          }}
+        />
+      ))}
       
       <style>{`
         @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 0.8; transform: scale(1.2); }
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
+        }
+        
+        @keyframes shootingStarMove {
+          0% {
+            opacity: 1;
+            transform: translateX(0) translateY(0) rotate(45deg) scaleX(0.3);
+          }
+          20% {
+            opacity: 1;
+            transform: translateX(30px) translateY(30px) rotate(45deg) scaleX(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(200px) translateY(200px) rotate(45deg) scaleX(0.5);
+          }
         }
       `}</style>
     </div>
