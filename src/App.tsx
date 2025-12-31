@@ -8,6 +8,7 @@ import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import CookieConsent from "@/components/CookieConsent";
+import Starfield from "@/components/ui/starfield";
 import "@/components/ui/rtl-support.css";
 
 // Lazy loading des pages pour code splitting et meilleures performances
@@ -39,6 +40,9 @@ const App = () => {
           <Sonner />
           <AccessibilityWidget />
           <CookieConsent />
+          <div className="fixed inset-0 z-0 pointer-events-none">
+            <Starfield />
+          </div>
           <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
               <Route path="/" element={<Index />} />
