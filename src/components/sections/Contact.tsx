@@ -5,6 +5,7 @@ import { useRTL } from '@/hooks/useRTL';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { z } from 'zod';
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -208,21 +209,21 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* En-tête */}
-          <div className="text-center mb-12" data-aos="fade-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {t('contact.title')}
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t('contact.subtitle')}
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up" duration={600}>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                {t('contact.title')}
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                {t('contact.subtitle')}
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Formulaire */}
-            <div 
-              className="bg-card rounded-2xl shadow-xl p-8"
-              data-aos="fade-right"
-            >
+            <ScrollReveal animation="fade-right" duration={700}>
+              <div className="bg-card rounded-2xl shadow-xl p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Prénom + Nom */}
                 <div className="grid md:grid-cols-2 gap-4">
@@ -450,9 +451,11 @@ const Contact = () => {
                 )}
               </form>
             </div>
+            </ScrollReveal>
 
             {/* Informations de contact - RTL optimized */}
-            <div className="space-y-6" data-aos="fade-left">
+            <ScrollReveal animation="fade-left" delay={200} duration={700}>
+              <div className="space-y-6">
               {/* Email */}
               <div className="bg-card rounded-2xl shadow-lg p-6 
                             hover:shadow-xl transition-shadow duration-200">
@@ -538,7 +541,8 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

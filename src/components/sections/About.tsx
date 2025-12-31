@@ -17,6 +17,7 @@ import {
   Link2
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -154,32 +155,34 @@ const About = () => {
 
         <div className="container mx-auto px-4">
           {/* En-tête de section */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-              <Users className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-              <span className="text-sm font-medium">{t('about.badge')}</span>
+          <ScrollReveal animation="fade-up" duration={600}>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
+                <Users className={`h-4 w-4 text-primary ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+                <span className="text-sm font-medium">{t('about.badge')}</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                {language === 'fr' 
+                  ? "Raphaël – Consultant IA & Architecte d'Automatisations (Make / n8n)"
+                  : language === 'he'
+                  ? "רפאל – יועץ AI ואדריכל אוטומציות (Make / n8n)"
+                  : "Raphaël – AI Consultant & Automation Architect (Make / n8n)"}
+              </h1>
+              
+              <h2 className="text-xl md:text-2xl text-primary font-semibold mb-4">
+                {language === 'fr'
+                  ? "Fondateur de Zyflows – Transformez vos processus manuels en systèmes intelligents."
+                  : language === 'he'
+                  ? "מייסד Zyflows – הפכו את התהליכים הידניים שלכם למערכות חכמות."
+                  : "Founder of Zyflows – Transform your manual processes into intelligent systems."}
+              </h2>
             </div>
-            
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {language === 'fr' 
-                ? "Raphaël – Consultant IA & Architecte d'Automatisations (Make / n8n)"
-                : language === 'he'
-                ? "רפאל – יועץ AI ואדריכל אוטומציות (Make / n8n)"
-                : "Raphaël – AI Consultant & Automation Architect (Make / n8n)"}
-            </h1>
-            
-            <h2 className="text-xl md:text-2xl text-primary font-semibold mb-4">
-              {language === 'fr'
-                ? "Fondateur de Zyflows – Transformez vos processus manuels en systèmes intelligents."
-                : language === 'he'
-                ? "מייסד Zyflows – הפכו את התהליכים הידניים שלכם למערכות חכמות."
-                : "Founder of Zyflows – Transform your manual processes into intelligent systems."}
-            </h2>
-          </div>
+          </ScrollReveal>
 
           {/* Histoire et mission - Contenu principal */}
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
-            <div className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
+            <ScrollReveal animation={language === 'he' ? 'fade-left' : 'fade-right'} duration={700} className={language === 'he' ? 'order-2 lg:order-1' : 'order-1 lg:order-2'}>
               <p className="text-lg text-muted-foreground mb-6">
                 {language === 'fr'
                   ? "Je m'appelle Raphaël, fondateur de l'agence Zyflows. Nous vivons une époque où la technologie évolue vite. Trop d'entreprises finissent par se noyer sous les tâches administratives et la gestion de données éparses. Ma mission est de changer cette dynamique par la transformation digitale."
@@ -235,9 +238,9 @@ const About = () => {
                 {language === 'fr' ? 'Discuter de mon projet' : language === 'he' ? 'לדבר על הפרויקט שלי' : 'Discuss My Project'}
                 <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
               </Button>
-            </div>
+            </ScrollReveal>
 
-            <div className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
+            <ScrollReveal animation={language === 'he' ? 'fade-right' : 'fade-left'} delay={200} duration={700} className={language === 'he' ? 'order-1 lg:order-2' : 'order-2 lg:order-1'}>
               <div className="relative">
                 <div className="glass-effect rounded-2xl p-8">
                   <div className="grid grid-cols-2 gap-6">
@@ -270,64 +273,73 @@ const About = () => {
                   </Badge>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
           {/* Valeurs */}
           <div className="mb-16">
-            <h3 className="text-3xl font-semibold text-center mb-12">
-              {t('about.values_title')}
-            </h3>
+            <ScrollReveal animation="fade-up" duration={600}>
+              <h3 className="text-3xl font-semibold text-center mb-12">
+                {t('about.values_title')}
+              </h3>
+            </ScrollReveal>
             
             <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
               {values.map((value, index) => {
                 const IconComponent = value.icon;
                 return (
-                  <Card 
+                  <ScrollReveal
                     key={value.title}
-                    className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 text-center animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    animation="fade-up"
+                    delay={index * 100}
+                    duration={600}
                   >
-                    <CardHeader className="pb-4">
-                      <div className={`w-12 h-12 rounded-full glass-effect flex items-center justify-center mx-auto mb-4 ${value.color}`}>
-                        <IconComponent className="h-6 w-6" />
-                      </div>
-                      <CardTitle className="text-lg font-semibold">
-                        {value.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <CardDescription className="text-center">
-                        {value.description}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
+                    <Card 
+                      className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 text-center h-full"
+                    >
+                      <CardHeader className="pb-4">
+                        <div className={`w-12 h-12 rounded-full glass-effect flex items-center justify-center mx-auto mb-4 ${value.color}`}>
+                          <IconComponent className="h-6 w-6" />
+                        </div>
+                        <CardTitle className="text-lg font-semibold">
+                          {value.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <CardDescription className="text-center">
+                          {value.description}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
+                  </ScrollReveal>
                 );
               })}
             </div>
           </div>
 
           {/* CTA de contact */}
-          <div className="text-center">
-            <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-semibold mb-4">
-                {t('about.cta_title')}
-              </h3>
-              <p className="text-muted-foreground mb-6">
-                {t('about.cta_desc')}
-              </p>
-              <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
-                <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
-                  <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-                  {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
-                  <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
-                </Button>
-                <Button size="lg" variant="outline" className="glass-effect border-primary/30" onClick={() => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })}>
-                  {t('about.cta_button2')}
-                </Button>
+          <ScrollReveal animation="scale" duration={600}>
+            <div className="text-center">
+              <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-semibold mb-4">
+                  {t('about.cta_title')}
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  {t('about.cta_desc')}
+                </p>
+                <div className={`flex flex-col sm:flex-row gap-4 justify-center ${language === 'he' ? 'sm:flex-row-reverse' : ''}`}>
+                  <Button size="lg" className="glow-primary" onClick={handleWhatsAppContact}>
+                    <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                    {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
+                    <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+                  </Button>
+                  <Button size="lg" variant="outline" className="glass-effect border-primary/30" onClick={() => document.getElementById('testimonials')?.scrollIntoView({ behavior: 'smooth' })}>
+                    {t('about.cta_button2')}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </>
