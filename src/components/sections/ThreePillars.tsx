@@ -1,5 +1,6 @@
 import { Bot, Zap, Globe } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const ThreePillars = () => {
   const { t, language } = useLanguage();
@@ -45,30 +46,34 @@ const ThreePillars = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-3 gap-8">
           {pillars.map((pillar, index) => (
-            <div
+            <ScrollReveal
               key={index}
-              className="group relative"
+              animation="fade-up"
+              delay={index * 150}
+              duration={600}
             >
-              <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
-                style={{
-                  background: `linear-gradient(135deg, ${pillar.gradient.includes('blue') ? '#6366f1' : pillar.gradient.includes('purple') ? '#8b5cf6' : '#06b6d4'}, ${pillar.gradient.includes('pink') ? '#ec4899' : '#8b5cf6'})`
-                }}
-              />
-              
-              <div className="relative glass-effect rounded-2xl p-8 h-full hover:border-primary/50 transition-all duration-300 group-hover:scale-105">
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${pillar.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <pillar.icon className="w-8 h-8 text-white" />
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
+                  style={{
+                    background: `linear-gradient(135deg, ${pillar.gradient.includes('blue') ? '#6366f1' : pillar.gradient.includes('purple') ? '#8b5cf6' : '#06b6d4'}, ${pillar.gradient.includes('pink') ? '#ec4899' : '#8b5cf6'})`
+                  }}
+                />
+                
+                <div className="relative glass-effect rounded-2xl p-8 h-full hover:border-primary/50 transition-all duration-300 group-hover:scale-105">
+                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${pillar.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <pillar.icon className="w-8 h-8 text-white" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                    {pillar.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </div>
-                
-                <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                  {pillar.title}
-                </h3>
-                
-                <p className="text-muted-foreground leading-relaxed">
-                  {pillar.description}
-                </p>
               </div>
-            </div>
+            </ScrollReveal>
           ))}
         </div>
       </div>

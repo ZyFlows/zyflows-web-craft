@@ -1,10 +1,10 @@
-
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Quote, ArrowRight, MessageSquare, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const Testimonials = () => {
   const { t, language } = useLanguage();
@@ -103,112 +103,123 @@ const Testimonials = () => {
 
       <div className="container mx-auto px-4">
         {/* En-tête de section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
-            <MessageSquare className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
-            <span className="text-sm font-medium">{t('testimonials.badge')}</span>
+        <ScrollReveal animation="fade-up" duration={600}>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full glass-effect mb-6">
+              <MessageSquare className={`h-4 w-4 text-accent ${language === 'he' ? 'ml-2' : 'mr-2'}`} />
+              <span className="text-sm font-medium">{t('testimonials.badge')}</span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              {t('testimonials.title')}
+            </h2>
+            
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              {t('testimonials.subtitle')}
+            </p>
           </div>
-          
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            {t('testimonials.title')}
-          </h2>
-          
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {t('testimonials.subtitle')}
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* Grille de témoignages */}
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
-            <Card 
+            <ScrollReveal
               key={testimonial.name}
-              className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group animate-fade-in-up"
-              style={{ animationDelay: testimonial.delay }}
+              animation="fade-up"
+              delay={index * 100}
+              duration={600}
             >
-              <CardHeader className="pb-4">
-                {/* Quote icon */}
-                <div className={`flex ${language === 'he' ? 'justify-start' : 'justify-end'} mb-4`}>
-                  <Quote className="h-5 w-5 text-primary/50" />
-                </div>
+              <Card 
+                className="gradient-card border-border/50 hover:border-primary/50 transition-smooth hover:scale-105 group h-full"
+              >
+                <CardHeader className="pb-4">
+                  {/* Quote icon */}
+                  <div className={`flex ${language === 'he' ? 'justify-start' : 'justify-end'} mb-4`}>
+                    <Quote className="h-5 w-5 text-primary/50" />
+                  </div>
 
-                {/* Témoignage */}
-                <CardDescription className={`text-base italic mb-6 text-foreground ${language === 'he' ? 'text-right' : 'text-left'}`}>
-                  "{testimonial.content}"
-                </CardDescription>
+                  {/* Témoignage */}
+                  <CardDescription className={`text-base italic mb-6 text-foreground ${language === 'he' ? 'text-right' : 'text-left'}`}>
+                    "{testimonial.content}"
+                  </CardDescription>
 
-                {/* Tags projet */}
-                <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'justify-end' : 'justify-start'}`}>
-                  {testimonial.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardHeader>
-              
-              <CardContent className="pt-0 border-t border-border/50">
-                {/* Profil client */}
-                <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
-                  <Avatar className="h-12 w-12 border-2 border-primary/20">
-                    <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                    <AvatarFallback className="bg-primary/10">
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  
-                  <div className={`flex-1 ${language === 'he' ? 'text-right' : 'text-left'}`}>
-                    <div className="font-semibold text-foreground">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {testimonial.role}
-                    </div>
-                    <div className="text-sm text-primary">
-                      {testimonial.company}
+                  {/* Tags projet */}
+                  <div className={`flex flex-wrap gap-2 mb-4 ${language === 'he' ? 'justify-end' : 'justify-start'}`}>
+                    {testimonial.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="pt-0 border-t border-border/50">
+                  {/* Profil client */}
+                  <div className={`flex items-center gap-4 ${language === 'he' ? 'flex-row-reverse' : ''}`}>
+                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                      <AvatarFallback className="bg-primary/10">
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    
+                    <div className={`flex-1 ${language === 'he' ? 'text-right' : 'text-left'}`}>
+                      <div className="font-semibold text-foreground">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {testimonial.role}
+                      </div>
+                      <div className="text-sm text-primary">
+                        {testimonial.company}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
 
         {/* Stats globaux */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          {[
-            { number: "50+", label: t('testimonials.stat1') },
-            { number: "99%", label: t('testimonials.stat2') },
-            { number: "4.9/5", label: t('testimonials.stat3') },
-            { number: "100%", label: t('testimonials.stat4') }
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">
-                {stat.number}
+        <ScrollReveal animation="scale" duration={600}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            {[
+              { number: "50+", label: t('testimonials.stat1') },
+              { number: "99%", label: t('testimonials.stat2') },
+              { number: "4.9/5", label: t('testimonials.stat3') },
+              { number: "100%", label: t('testimonials.stat4') }
+            ].map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* CTA final */}
-        <div className="text-center">
-          <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold mb-4">
-              {t('testimonials.cta_title')}
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              {t('testimonials.cta_desc')}
-            </p>
-            <Button size="lg" className="glow-primary" onClick={handleWhatsAppProject}>
-              <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
-              {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
-              <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
-            </Button>
+        <ScrollReveal animation="fade-up" duration={600}>
+          <div className="text-center">
+            <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
+              <h3 className="text-2xl font-semibold mb-4">
+                {t('testimonials.cta_title')}
+              </h3>
+              <p className="text-muted-foreground mb-6">
+                {t('testimonials.cta_desc')}
+              </p>
+              <Button size="lg" className="glow-primary" onClick={handleWhatsAppProject}>
+                <Mail className={`${language === 'he' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+                {language === 'fr' ? 'Démarrer mon projet' : language === 'he' ? 'להתחיל את הפרויקט שלי' : 'Start My Project'}
+                <ArrowRight className={`${language === 'he' ? 'mr-2' : 'ml-2'} h-5 w-5`} />
+              </Button>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
