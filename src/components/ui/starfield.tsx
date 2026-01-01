@@ -233,7 +233,8 @@ const Starfield = () => {
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden pointer-events-auto z-[15] touch-none"
+      className="fixed inset-0 overflow-hidden z-[5] touch-none"
+      style={{ pointerEvents: 'auto' }}
     >
       {/* Static stars with parallax */}
       {stars.map((star) => {
