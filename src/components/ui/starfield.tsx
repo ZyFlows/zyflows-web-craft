@@ -8,7 +8,7 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   isNearMouse: boolean;
-  depth: number; // 0.1 to 1 - controls parallax speed
+  depth: number;
 }
 
 interface ShootingStar {
@@ -21,26 +21,49 @@ interface ShootingStar {
   delay: number;
 }
 
+interface MouseTrail {
+  x: number;
+  y: number;
+  prevX: number;
+  prevY: number;
+  velocity: number;
+  angle: number;
+  isActive: boolean;
+}
+
 const Starfield = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [stars, setStars] = useState<Star[]>([]);
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [mouseTrail, setMouseTrail] = useState<MouseTrail>({
+    x: -1000, y: -1000, prevX: -1000, prevY: -1000, velocity: 0, angle: 0, isActive: false
+  });
   const [scrollY, setScrollY] = useState(0);
+  const prevMousePosRef = useRef({ x: -1000, y: -1000 });
+
+  // Responsive star count
+  const getStarCount = useCallback(() => {
+    if (typeof window === 'undefined') return 100;
+    const width = window.innerWidth;
+    if (width < 640) return 60;
+    if (width < 1024) return 100;
+    return 150;
+  }, []);
 
   // Generate stars on mount
   useEffect(() => {
     const generateStars = () => {
-      const starCount = 150;
+      const starCount = getStarCount();
       const newStars: Star[] = [];
       
       for (let i = 0; i < starCount; i++) {
-        const depth = Math.random() * 0.9 + 0.1; // 0.1 to 1
+        const depth = Math.random() * 0.9 + 0.1;
         newStars.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: depth * 3 + 1, // Bigger stars = closer (more depth)
+          size: depth * 3 + 1,
           opacity: depth * 0.5 + 0.3,
           twinkleSpeed: Math.random() * 3 + 2,
           isNearMouse: false,
@@ -52,7 +75,11 @@ const Starfield = () => {
     };
 
     generateStars();
-  }, []);
+
+    const handleResize = () => generateStars();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getStarCount]);
 
   // Handle scroll for parallax
   useEffect(() => {
@@ -100,35 +127,91 @@ const Starfield = () => {
     };
   }, [createShootingStar]);
 
-  // Handle mouse movement
+  // Handle mouse and touch movement
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const updatePosition = (clientX: number, clientY: number) => {
       if (!containerRef.current) return;
       
       const rect = containerRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      const x = ((clientX - rect.left) / rect.width) * 100;
+      const y = ((clientY - rect.top) / rect.height) * 100;
       
       setMousePos({ x, y });
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      updatePosition(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        updatePosition(touch.clientX, touch.clientY);
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        updatePosition(touch.clientX, touch.clientY);
+      }
+    };
+
     const handleMouseLeave = () => {
       setMousePos({ x: -1000, y: -1000 });
+      setMouseTrail(prev => ({ ...prev, isActive: false, velocity: 0 }));
+    };
+
+    const handleTouchEnd = () => {
+      setTimeout(() => {
+        setMousePos({ x: -1000, y: -1000 });
+        setMouseTrail(prev => ({ ...prev, isActive: false, velocity: 0 }));
+      }, 300);
     };
 
     const container = containerRef.current;
     if (container) {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
+      container.addEventListener('touchmove', handleTouchMove, { passive: true });
+      container.addEventListener('touchstart', handleTouchStart, { passive: true });
+      container.addEventListener('touchend', handleTouchEnd);
     }
 
     return () => {
       if (container) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);
+        container.removeEventListener('touchmove', handleTouchMove);
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchend', handleTouchEnd);
       }
     };
   }, []);
+
+  // Calculate mouse trail velocity and angle
+  useEffect(() => {
+    const dx = mousePos.x - prevMousePosRef.current.x;
+    const dy = mousePos.y - prevMousePosRef.current.y;
+    const velocity = Math.sqrt(dx * dx + dy * dy);
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+    if (mousePos.x > 0 && velocity > 0.5) {
+      setMouseTrail({
+        x: mousePos.x,
+        y: mousePos.y,
+        prevX: prevMousePosRef.current.x,
+        prevY: prevMousePosRef.current.y,
+        velocity: Math.min(velocity, 30),
+        angle,
+        isActive: true,
+      });
+    } else if (mousePos.x < 0) {
+      setMouseTrail(prev => ({ ...prev, isActive: false, velocity: 0 }));
+    }
+
+    prevMousePosRef.current = { x: mousePos.x, y: mousePos.y };
+  }, [mousePos]);
 
   // Update stars based on mouse proximity
   useEffect(() => {
@@ -150,11 +233,10 @@ const Starfield = () => {
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 overflow-hidden pointer-events-auto z-[15]"
+      className="absolute inset-0 overflow-hidden pointer-events-auto z-[15] touch-none"
     >
       {/* Static stars with parallax */}
       {stars.map((star) => {
-        // Parallax offset: deeper stars move slower
         const parallaxOffset = scrollY * star.depth * 0.15;
         
         return (
@@ -188,7 +270,57 @@ const Starfield = () => {
         );
       })}
 
-      {/* Shooting stars */}
+      {/* Mouse-following shooting star */}
+      {mouseTrail.isActive && mouseTrail.velocity > 2 && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            left: `${mouseTrail.x}%`,
+            top: `${mouseTrail.y}%`,
+            width: `${Math.min(mouseTrail.velocity * 4, 100)}px`,
+            height: '3px',
+            background: `linear-gradient(90deg, 
+              hsl(var(--primary)), 
+              hsl(var(--primary) / 0.6), 
+              hsl(var(--primary) / 0.2),
+              transparent)`,
+            transform: `rotate(${mouseTrail.angle + 180}deg) translateY(-50%)`,
+            transformOrigin: 'left center',
+            boxShadow: `
+              0 0 8px hsl(var(--primary)), 
+              0 0 16px hsl(var(--primary) / 0.5),
+              0 0 24px hsl(var(--primary) / 0.3)
+            `,
+            borderRadius: '4px 0 0 4px',
+            transition: 'width 0.1s ease-out, opacity 0.15s',
+            opacity: Math.min(mouseTrail.velocity / 10, 1),
+          }}
+        />
+      )}
+
+      {/* Glow point at cursor */}
+      {mousePos.x > 0 && (
+        <div
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            left: `${mousePos.x}%`,
+            top: `${mousePos.y}%`,
+            width: '8px',
+            height: '8px',
+            transform: 'translate(-50%, -50%)',
+            background: 'hsl(var(--primary))',
+            boxShadow: `
+              0 0 10px hsl(var(--primary)),
+              0 0 20px hsl(var(--primary) / 0.7),
+              0 0 30px hsl(var(--primary) / 0.4)
+            `,
+            opacity: mouseTrail.isActive ? 1 : 0.6,
+            transition: 'opacity 0.2s',
+          }}
+        />
+      )}
+
+      {/* Random shooting stars */}
       {shootingStars.map((shootingStar) => (
         <div
           key={shootingStar.id}
