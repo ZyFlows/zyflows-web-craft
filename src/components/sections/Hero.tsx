@@ -3,7 +3,7 @@ import { ArrowRight, Sparkles, Zap, Code2, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import heroTech from "@/assets/hero-tech.jpg";
 import OptimizedImage from "@/components/ui/optimized-image";
-import Starfield from "@/components/ui/starfield";
+
 
 const Hero = () => {
   const { t, language } = useLanguage();
@@ -47,8 +47,6 @@ const Hero = () => {
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-primary/20 z-10" />
       
-      {/* Interactive starfield */}
-      <Starfield />
       
       {/* Floating elements - Decorative, hidden from screen readers */}
       <div 

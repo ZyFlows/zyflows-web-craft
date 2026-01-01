@@ -40,9 +40,7 @@ const App = () => {
           <Sonner />
           <AccessibilityWidget />
           <CookieConsent />
-          <div className="fixed inset-0 z-0 pointer-events-none">
-            <Starfield />
-          </div>
+          <Starfield />
           <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
               <Route path="/" element={<Index />} />
