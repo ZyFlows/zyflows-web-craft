@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import CookieConsent from "@/components/CookieConsent";
 import Starfield from "@/components/ui/starfield";
+import FloatingChatbot from "@/components/ui/floating-chatbot";
 import "@/components/ui/rtl-support.css";
 
 // Lazy loading des pages pour code splitting et meilleures performances
@@ -41,6 +41,7 @@ const App = () => {
           <AccessibilityWidget />
           <CookieConsent />
           <Starfield />
+          <FloatingChatbot />
           <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
               <Route path="/" element={<Index />} />
