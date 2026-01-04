@@ -285,8 +285,7 @@ const Starfield = () => {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 overflow-hidden z-[5] touch-none"
-      style={{ pointerEvents: 'auto' }}
+      className="fixed inset-0 overflow-hidden z-0 pointer-events-none"
     >
       {/* Constellation lines SVG */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
