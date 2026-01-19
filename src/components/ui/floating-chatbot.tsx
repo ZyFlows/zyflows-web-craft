@@ -1,59 +1,79 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { MessageCircle, X, Send, Bot, User, Loader2, Minimize2 } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, User, Loader2, Minimize2, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage, Language } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Message {
   role: 'user' | 'assistant';
   content: string;
 }
 
+interface LeadInfo {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  challenge: string;
+}
+
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
 const chatTranslations = {
   fr: {
-    title: 'Assistant zyFlows',
+    title: 'Assistant Zyflows',
     subtitle: 'Comment puis-je vous aider ?',
     placeholder: 'Tapez votre message...',
-    welcome: 'Bonjour ! 👋 Je suis l\'assistant zyFlows. Comment puis-je vous aider aujourd\'hui ?',
+    welcome: 'Bonjour ! 👋 Je suis l\'assistant Zyflows. Je suis là pour comprendre vos besoins et vous mettre en contact avec notre équipe. Comment vous appelez-vous ?',
     error: 'Désolé, une erreur s\'est produite. Veuillez réessayer.',
+    selectLanguage: 'Choisissez votre langue',
+    leadSaved: '✅ Vos informations ont été enregistrées. Notre équipe vous contactera sous 24h.',
+    leadError: '⚠️ Erreur lors de l\'enregistrement. Veuillez nous contacter directement.',
   },
   en: {
-    title: 'zyFlows Assistant',
+    title: 'Zyflows Assistant',
     subtitle: 'How can I help you?',
     placeholder: 'Type your message...',
-    welcome: 'Hello! 👋 I\'m the zyFlows assistant. How can I help you today?',
+    welcome: 'Hello! 👋 I\'m the Zyflows assistant. I\'m here to understand your needs and connect you with our team. What\'s your name?',
     error: 'Sorry, an error occurred. Please try again.',
+    selectLanguage: 'Choose your language',
+    leadSaved: '✅ Your information has been saved. Our team will contact you within 24h.',
+    leadError: '⚠️ Error saving your information. Please contact us directly.',
   },
   he: {
-    title: 'עוזר zyFlows',
+    title: 'עוזר Zyflows',
     subtitle: 'איך אוכל לעזור לך?',
     placeholder: 'הקלד את ההודעה שלך...',
-    welcome: 'שלום! 👋 אני העוזר של zyFlows. איך אוכל לעזור לך היום?',
+    welcome: 'שלום! 👋 אני העוזר של Zyflows. אני כאן כדי להבין את הצרכים שלך ולחבר אותך עם הצוות שלנו. מה שמך?',
     error: 'מצטער, אירעה שגיאה. אנא נסה שוב.',
+    selectLanguage: 'בחר את השפה שלך',
+    leadSaved: '✅ המידע שלך נשמר. הצוות שלנו יצור איתך קשר תוך 24 שעות.',
+    leadError: '⚠️ שגיאה בשמירת המידע. אנא צור איתנו קשר ישירות.',
   },
 };
 
+const languageOptions = [
+  { code: 'fr' as Language, label: 'Français', flag: '🇫🇷' },
+  { code: 'en' as Language, label: 'English', flag: '🇬🇧' },
+  { code: 'he' as Language, label: 'עברית', flag: '🇮🇱' },
+];
+
 const FloatingChatbot = () => {
-  const { language } = useLanguage();
+  const { language: siteLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [chatLanguage, setChatLanguage] = useState<Language | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [leadInfo, setLeadInfo] = useState<Partial<LeadInfo>>({});
+  const [isLeadSaved, setIsLeadSaved] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const t = chatTranslations[language] || chatTranslations.en;
-  const isRTL = language === 'he';
-
-  // Initialize with welcome message
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      setMessages([{ role: 'assistant', content: t.welcome }]);
-    }
-  }, [isOpen, t.welcome, messages.length]);
+  const t = chatLanguage ? chatTranslations[chatLanguage] : chatTranslations.en;
+  const isRTL = chatLanguage === 'he';
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -62,10 +82,72 @@ const FloatingChatbot = () => {
 
   // Focus input when opening
   useEffect(() => {
-    if (isOpen && !isMinimized) {
+    if (isOpen && !isMinimized && chatLanguage) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [isOpen, isMinimized]);
+  }, [isOpen, isMinimized, chatLanguage]);
+
+  const selectLanguage = (lang: Language) => {
+    setChatLanguage(lang);
+    const welcomeMsg = chatTranslations[lang].welcome;
+    setMessages([{ role: 'assistant', content: welcomeMsg }]);
+  };
+
+  const extractLeadInfo = (allMessages: Message[]): Partial<LeadInfo> => {
+    const info: Partial<LeadInfo> = { ...leadInfo };
+    const userMessages = allMessages.filter(m => m.role === 'user').map(m => m.content).join(' ');
+    
+    // Extract email
+    const emailMatch = userMessages.match(/[\w.-]+@[\w.-]+\.\w+/);
+    if (emailMatch) info.email = emailMatch[0];
+    
+    // Extract phone (various formats including international)
+    const phoneMatch = userMessages.match(/(?:\+?\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{2,4}[-.\s]?\d{2,4}[-.\s]?\d{0,4}/);
+    if (phoneMatch && phoneMatch[0].replace(/\D/g, '').length >= 9) {
+      info.phone = phoneMatch[0].trim();
+    }
+    
+    return info;
+  };
+
+  const saveLead = async (conversationMessages: Message[]) => {
+    try {
+      // Extract all user messages as the challenge/request
+      const userContent = conversationMessages
+        .filter(m => m.role === 'user')
+        .map(m => m.content)
+        .join('\n');
+      
+      const extractedInfo = extractLeadInfo(conversationMessages);
+      
+      // Try to extract name from first user message
+      const firstUserMsg = conversationMessages.find(m => m.role === 'user')?.content || '';
+      const nameParts = firstUserMsg.split(' ').filter(p => p.length > 1 && !/[@\d]/.test(p));
+      
+      const leadData = {
+        firstName: nameParts[0] || 'Non fourni',
+        lastName: nameParts.slice(1).join(' ') || '',
+        email: extractedInfo.email || 'non-fourni@temp.com',
+        phone: extractedInfo.phone || '',
+        challenge: userContent,
+        language: chatLanguage || 'fr'
+      };
+
+      const { error } = await supabase.functions.invoke('save-lead', {
+        body: leadData
+      });
+
+      if (error) {
+        console.error('Error saving lead:', error);
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('Error saving lead:', error);
+      return false;
+    }
+  };
 
   const streamChat = useCallback(async (userMessages: Message[]) => {
     const resp = await fetch(CHAT_URL, {
@@ -74,7 +156,7 @@ const FloatingChatbot = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
       },
-      body: JSON.stringify({ messages: userMessages, language }),
+      body: JSON.stringify({ messages: userMessages, language: chatLanguage }),
     });
 
     if (!resp.ok) {
@@ -129,11 +211,32 @@ const FloatingChatbot = () => {
       }
     }
 
+    // Update lead info based on conversation
+    const updatedInfo = extractLeadInfo([...userMessages, { role: 'assistant', content: assistantContent }]);
+    setLeadInfo(updatedInfo);
+
+    // Check if we should save the lead (after confirmation phrases)
+    const confirmationPhrases = [
+      'est-ce correct', 'is this correct', 'האם זה נכון',
+      'c\'est correct', 'oui', 'yes', 'כן', 'exactement', 'exactly',
+      'parfait', 'perfect', 'מושלם', 'confirme', 'confirm'
+    ];
+    
+    const lastUserMessage = userMessages[userMessages.length - 1]?.content.toLowerCase() || '';
+    const hasConfirmation = confirmationPhrases.some(phrase => lastUserMessage.includes(phrase));
+    
+    if (hasConfirmation && !isLeadSaved && updatedInfo.email) {
+      const saved = await saveLead(userMessages);
+      if (saved) {
+        setIsLeadSaved(true);
+      }
+    }
+
     return assistantContent;
-  }, [language]);
+  }, [chatLanguage, leadInfo, isLeadSaved]);
 
   const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !chatLanguage) return;
 
     const userMessage: Message = { role: 'user', content: input.trim() };
     const newMessages = [...messages, userMessage];
@@ -167,6 +270,13 @@ const FloatingChatbot = () => {
     }
   };
 
+  const resetChat = () => {
+    setChatLanguage(null);
+    setMessages([]);
+    setLeadInfo({});
+    setIsLeadSaved(false);
+  };
+
   return (
     <>
       {/* Chat Window */}
@@ -174,12 +284,12 @@ const FloatingChatbot = () => {
         className={cn(
           "fixed z-50 transition-all duration-300 ease-out",
           isRTL ? "left-4 sm:left-6" : "right-4 sm:right-6",
-          "bottom-20 sm:bottom-24",
+          "bottom-24 sm:bottom-28",
           isOpen ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
         )}
         style={{ 
           width: 'min(380px, calc(100vw - 32px))',
-          height: isMinimized ? '60px' : 'min(520px, calc(100vh - 140px))'
+          height: isMinimized ? '60px' : 'min(520px, calc(100vh - 160px))'
         }}
       >
         <div 
@@ -192,26 +302,39 @@ const FloatingChatbot = () => {
           {/* Header */}
           <div 
             className="flex items-center justify-between p-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground cursor-pointer"
-            onClick={() => setIsMinimized(!isMinimized)}
+            onClick={() => chatLanguage && setIsMinimized(!isMinimized)}
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-sm">{t.title}</h3>
-                <p className="text-xs opacity-80">{t.subtitle}</p>
+                <h3 className="font-semibold text-sm">{chatLanguage ? t.title : 'Zyflows'}</h3>
+                <p className="text-xs opacity-80">{chatLanguage ? t.subtitle : 'Assistant'}</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-primary-foreground hover:bg-white/20"
-                onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
-              >
-                <Minimize2 className="w-4 h-4" />
-              </Button>
+              {chatLanguage && !isMinimized && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-primary-foreground hover:bg-white/20"
+                  onClick={(e) => { e.stopPropagation(); resetChat(); }}
+                  title="Change language"
+                >
+                  <Globe className="w-4 h-4" />
+                </Button>
+              )}
+              {chatLanguage && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 text-primary-foreground hover:bg-white/20"
+                  onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}
+                >
+                  <Minimize2 className="w-4 h-4" />
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="icon"
@@ -223,8 +346,31 @@ const FloatingChatbot = () => {
             </div>
           </div>
 
+          {/* Language Selection */}
+          {!isMinimized && !chatLanguage && (
+            <div className="flex-1 flex flex-col items-center justify-center p-6">
+              <Globe className="w-12 h-12 text-primary mb-4" />
+              <h4 className="text-lg font-medium mb-6 text-center text-foreground">
+                {chatTranslations.en.selectLanguage}
+              </h4>
+              <div className="flex flex-col gap-3 w-full max-w-xs">
+                {languageOptions.map((option) => (
+                  <Button
+                    key={option.code}
+                    variant="outline"
+                    className="w-full py-6 text-lg justify-start gap-4 hover:bg-primary/10 hover:border-primary transition-all"
+                    onClick={() => selectLanguage(option.code)}
+                  >
+                    <span className="text-2xl">{option.flag}</span>
+                    <span>{option.label}</span>
+                  </Button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Messages */}
-          {!isMinimized && (
+          {!isMinimized && chatLanguage && (
             <>
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((msg, idx) => (
@@ -232,7 +378,7 @@ const FloatingChatbot = () => {
                     key={idx}
                     className={cn(
                       "flex gap-2",
-                      msg.role === 'user' ? (isRTL ? 'flex-row-reverse' : 'flex-row-reverse') : ''
+                      msg.role === 'user' ? 'flex-row-reverse' : ''
                     )}
                   >
                     {msg.role === 'assistant' && (
@@ -286,6 +432,7 @@ const FloatingChatbot = () => {
                       "placeholder:text-muted-foreground"
                     )}
                     disabled={isLoading}
+                    dir={isRTL ? 'rtl' : 'ltr'}
                   />
                   <Button
                     size="icon"
@@ -302,12 +449,13 @@ const FloatingChatbot = () => {
         </div>
       </div>
 
-      {/* Floating Button */}
+      {/* Floating Button - Positioned above accessibility widget */}
       <button
         onClick={toggleChat}
         className={cn(
-          "fixed z-50 bottom-4 sm:bottom-6",
+          "fixed z-50",
           isRTL ? "left-4 sm:left-6" : "right-4 sm:right-6",
+          "bottom-20 sm:bottom-24",
           "w-14 h-14 sm:w-16 sm:h-16 rounded-full",
           "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground",
           "shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40",
